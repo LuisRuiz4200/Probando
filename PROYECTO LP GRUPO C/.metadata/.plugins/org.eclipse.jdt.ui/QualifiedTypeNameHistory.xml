@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
+    <fullyQualifiedTypeName name="java.util.EventListener"/>
+    <fullyQualifiedTypeName name="javax.swing.UIManager"/>
+    <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
+    <fullyQualifiedTypeName name="java.awt.FileDialog"/>
+    <fullyQualifiedTypeName name="java.io.FileInputStream"/>
+    <fullyQualifiedTypeName name="java.util.stream.Stream"/>
+    <fullyQualifiedTypeName name="javax.xml.transform.stream.StreamResult"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
+    <fullyQualifiedTypeName name="java.awt.Dialog"/>
+    <fullyQualifiedTypeName name="javax.swing.JInternalFrame"/>
+    <fullyQualifiedTypeName name="com.toedter.calendar.JDateChooser"/>
+    <fullyQualifiedTypeName name="interfaces.Utils"/>
+    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="javax.swing.JTextArea"/>
+    <fullyQualifiedTypeName name="java.awt.Component"/>
+    <fullyQualifiedTypeName name="vistas.FrmAyuda"/>
+    <fullyQualifiedTypeName name="java.awt.Frame"/>
+</qualifiedTypeNameHistroy>

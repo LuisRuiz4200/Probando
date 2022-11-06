@@ -1,0 +1,7 @@
+package store;
+
+import interfaces.Utils;
+
+public class hh implements Tools {
+
+}

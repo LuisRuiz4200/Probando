@@ -1,0 +1,11 @@
+package interfaces;
+
+public interface utils {
+	
+	public void mensajeError();
+	
+	public void mensajeExito();
+	
+	
+
+}

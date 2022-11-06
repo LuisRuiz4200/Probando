@@ -1,0 +1,33 @@
+package store;
+
+import java.awt.Component;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
+import interfaces.Utils;
+
+public class Tools implements Utils {
+
+	@Override
+	public void mensajeError(Component pos,String msj) {
+		
+		JOptionPane.showMessageDialog(pos, msj, "ERROR!",0);
+		
+	}
+
+	@Override
+	public void mensajeExito(String msj) {
+		
+		JOptionPane.showMessageDialog(null, msj, "EXITO!",1);
+
+	}
+
+	@Override
+	public void imprimir(JTextArea txtS, String cad) {
+		
+		txtS.append( cad + "\n");
+		
+	}
+
+}
