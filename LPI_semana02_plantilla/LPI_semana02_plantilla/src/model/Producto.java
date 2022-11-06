@@ -1,11 +1,16 @@
 package model;
-//machaca gay
+
 public class Producto {
 	// atributos privados -> Tablas / GUI
 	private String cod, prod;
 	private int cant;
 	private double pre;
 	private int tipo;
+
+
+
+
+	private String nombreGIT;
 	
 	public Producto(String cod, String prod, int cant, double pre, int tipo) {
 		this.cod = cod;
