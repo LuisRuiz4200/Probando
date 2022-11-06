@@ -1,5 +1,5 @@
 package model;
-
+//machaca gay
 public class Producto {
 	// atributos privados -> Tablas / GUI
 	private String cod, prod;
