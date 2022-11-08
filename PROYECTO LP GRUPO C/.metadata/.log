@@ -9607,3 +9607,19 @@ java.lang.Error: SWT Resource was not properly disposed
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:596)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1467)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-11-07 21:35:18.103
+!MESSAGE Background Indexer Crash Recovery
+!STACK 0
+java.lang.OutOfMemoryError: Requested array size exceeds VM limit
+	at org.eclipse.jdt.internal.compiler.util.HashtableOfObject.<init>(HashtableOfObject.java:41)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.readCategoryTable(DiskIndex.java:684)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.mergeCategory(DiskIndex.java:487)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.mergeCategories(DiskIndex.java:479)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.mergeWith(DiskIndex.java:581)
+	at org.eclipse.jdt.internal.core.index.Index.save(Index.java:216)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.saveIndex(IndexManager.java:988)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.saveIndexes(IndexManager.java:1030)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.notifyIdle(IndexManager.java:709)
+	at org.eclipse.jdt.internal.core.search.processing.JobManager.run(JobManager.java:397)
+	at java.base/java.lang.Thread.run(Thread.java:833)
