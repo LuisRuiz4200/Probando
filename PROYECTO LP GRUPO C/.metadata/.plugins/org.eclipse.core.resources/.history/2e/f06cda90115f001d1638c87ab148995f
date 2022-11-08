@@ -44,11 +44,11 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	
 	
 	public static void main (String [] args) {
+		FrmPrincipal prin = new FrmPrincipal();
+		prin.setVisible(true);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmPrincipal prin = new FrmPrincipal();
-					prin.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
