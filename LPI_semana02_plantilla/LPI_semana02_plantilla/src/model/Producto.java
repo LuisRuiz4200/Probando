@@ -8,6 +8,9 @@ public class Producto {
 	private int tipo;
 //klisman gay 
 	//CONFIRMO
+    // Probando 
+
+	//A MI SI ME FUNCIONA
 
 	
 	public Producto(String cod, String prod, int cant, double pre, int tipo) {
