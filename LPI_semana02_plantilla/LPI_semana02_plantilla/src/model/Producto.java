@@ -9,8 +9,6 @@ public class Producto {
 //klisman gay 
 	//CONFIRMO
 
-	//Secundario
-
 	
 	public Producto(String cod, String prod, int cant, double pre, int tipo) {
 		this.cod = cod;
