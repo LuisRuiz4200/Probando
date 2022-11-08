@@ -13,6 +13,7 @@ public class Producto {
 	// la ultimaaa 2 
 	// la venganza 
 	// johny pacheco
+	// otra vez 
 
 	public Producto(String cod, String prod, int cant, double pre, int tipo) {
 		this.cod = cod;
