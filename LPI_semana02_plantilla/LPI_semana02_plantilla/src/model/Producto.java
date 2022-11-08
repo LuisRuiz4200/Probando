@@ -11,6 +11,7 @@ public class Producto {
 	//A MI SI ME FUNCIONA
 	//otro mas
 	//y otro 
+	//uno mas 
 	public Producto(String cod, String prod, int cant, double pre, int tipo) {
 		this.cod = cod;
 		this.prod = prod;
