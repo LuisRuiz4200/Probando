@@ -52,7 +52,7 @@ public class FrmPedido extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public FrmPedido() {
-		setTitle("Pedido");
+		setTitle("Propuesta");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 763, 402);
 		contentPane = new JPanel();
@@ -123,11 +123,11 @@ public class FrmPedido extends JInternalFrame {
 		scrollPane.setViewportView(tbContratacion);
 		
 		btnGuardar = new JButton("GUARDAR");
-		btnGuardar.setBounds(480, 120, 117, 23);
+		btnGuardar.setBounds(318, 120, 117, 23);
 		contentPane.add(btnGuardar);
 		
 		btnModificar = new JButton("MODIFICAR");
-		btnModificar.setBounds(610, 120, 108, 23);
+		btnModificar.setBounds(459, 120, 108, 23);
 		contentPane.add(btnModificar);
 		
 		dcFecha = new JDateChooser();
