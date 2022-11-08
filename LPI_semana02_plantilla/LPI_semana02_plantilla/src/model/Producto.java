@@ -8,7 +8,10 @@ public class Producto {
 	private int tipo;
 //klisman gay 
 	//CONFIRMO
+
     // Probando 
+
+	//A MI SI ME FUNCIONA
 
 	//A MI SI ME FUNCIONA
 
