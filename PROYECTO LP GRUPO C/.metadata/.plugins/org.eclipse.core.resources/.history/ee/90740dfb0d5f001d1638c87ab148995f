@@ -130,6 +130,7 @@ public class FrmPedido extends JInternalFrame {
 		contentPane.add(dcFecha);
 		
 		model = new DefaultTableModel();
+		//Agregar Columnas a las tablas
 		model.addColumn("Orden");
 		model.addColumn("Entidad");
 		model.addColumn("Distrito");
@@ -145,7 +146,7 @@ public class FrmPedido extends JInternalFrame {
 		contentPane.add(cboEstado);
 		
 		cboObjeto = new JComboBox<Object>();
-		cboObjeto.setModel(new DefaultComboBoxModel<Object>(new String[] {"Seleccione...", "Bien", "Servicio", "Obra "}));
+		cboObjeto.setModel(new DefaultComboBoxModel(new String[] {"Seleccione...", "Bien", "Servicio", "Obra "}));
 		cboObjeto.setBounds(167, 107, 117, 22);
 		contentPane.add(cboObjeto);
 	}

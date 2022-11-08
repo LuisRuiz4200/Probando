@@ -51,6 +51,7 @@ public class FrmPedido extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	public FrmPedido() {
 		setTitle("Pedido");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -130,6 +131,7 @@ public class FrmPedido extends JInternalFrame {
 		contentPane.add(dcFecha);
 		
 		model = new DefaultTableModel();
+		//Agregar Columnas a las tablas
 		model.addColumn("Orden");
 		model.addColumn("Entidad");
 		model.addColumn("Distrito");
