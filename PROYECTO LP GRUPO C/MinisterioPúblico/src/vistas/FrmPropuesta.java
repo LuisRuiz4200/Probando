@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import com.toedter.calendar.JDateChooser;
 
 @SuppressWarnings("serial")
 public class FrmPropuesta extends JInternalFrame {
@@ -13,7 +14,7 @@ public class FrmPropuesta extends JInternalFrame {
 	private JLabel lblParticipante;
 	private JComboBox <Object> cboParticipante;
 	private JButton btnGuardar;
-	private JButton btnBuscar;
+	private JButton btnBuscarPedido;
 	private JLabel lblPropuestaTecnica;
 	private JLabel lblPropuestaEcono;
 	private JLabel lblPedido;
@@ -29,6 +30,9 @@ public class FrmPropuesta extends JInternalFrame {
 	private DefaultTableModel model;
 	private JEditorPane txtPropTecnica;
 	private JEditorPane txtPropEconomica;
+	private JButton btnBuscarParticipante;
+	private JDateChooser dateChooser;
+	private JLabel lblNewLabel;
 	
 	/**
 	 * Launch the application.
@@ -68,16 +72,16 @@ public class FrmPropuesta extends JInternalFrame {
 		contentPane.add(lblParticipante);
 		
 		cboParticipante = new JComboBox <Object>();
-		cboParticipante.setBounds(155, 36, 105, 22);
+		cboParticipante.setBounds(145, 35, 115, 22);
 		contentPane.add(cboParticipante);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(358, 61, 89, 31);
+		btnGuardar.setBounds(575, 70, 89, 22);
 		contentPane.add(btnGuardar);
 		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(478, 61, 89, 31);
-		contentPane.add(btnBuscar);
+		btnBuscarPedido = new JButton("Buscar");
+		btnBuscarPedido.setBounds(280, 7, 80, 22);
+		contentPane.add(btnBuscarPedido);
 		
 		lblPropuestaTecnica = new JLabel("Propuesta Tecnica:");
 		lblPropuestaTecnica.setBounds(10, 105, 125, 14);
@@ -103,7 +107,7 @@ public class FrmPropuesta extends JInternalFrame {
 		contentPane.add(lblPedido);
 		
 		cboPedido = new JComboBox<Object>();
-		cboPedido.setBounds(155, 7, 105, 22);
+		cboPedido.setBounds(145, 7, 115, 22);
 		contentPane.add(cboPedido);
 		
 		rdbtnNewRadioButton = new JRadioButton("SI");
@@ -127,7 +131,7 @@ public class FrmPropuesta extends JInternalFrame {
 		contentPane.add(lblNumeroPostulacion);
 		
 		textField = new JTextField();
-		textField.setBounds(155, 64, 105, 20);
+		textField.setBounds(145, 64, 105, 20);
 		contentPane.add(textField);
 		
 		lblEstado = new JLabel("ESTADO:");
@@ -145,5 +149,17 @@ public class FrmPropuesta extends JInternalFrame {
 		txtPropEconomica = new JEditorPane();
 		txtPropEconomica.setBounds(358, 128, 306, 221);
 		contentPane.add(txtPropEconomica);
+		
+		btnBuscarParticipante = new JButton("Buscar ");
+		btnBuscarParticipante.setBounds(280, 37, 80, 22);
+		contentPane.add(btnBuscarParticipante);
+		
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(482, 37, 105, 20);
+		contentPane.add(dateChooser);
+		
+		lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(388, 39, 46, 14);
+		contentPane.add(lblNewLabel);
 	}
 }
