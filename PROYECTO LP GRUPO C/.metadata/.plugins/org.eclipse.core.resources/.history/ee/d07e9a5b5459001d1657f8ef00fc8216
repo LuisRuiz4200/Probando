@@ -1,7 +1,0 @@
-package store;
-
-import interfaces.Utils;
-
-public class Tools implements Utils {
-
-}
