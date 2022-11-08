@@ -8,15 +8,7 @@ public class Producto {
 	private int tipo;
 //klisman gay 
 	//CONFIRMO
-	//A MI SI ME FUNCIONA
-<<<<<<< HEAD
-	//otro mas
-	//y otro 
-	//uno mas 
-=======
-	// Otra prueba
-	
->>>>>>> 3adfca8857c54d29ad938ac19b3f3c7c1d71f31f
+
 	public Producto(String cod, String prod, int cant, double pre, int tipo) {
 		this.cod = cod;
 		this.prod = prod;
