@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 @SuppressWarnings("serial")
-public class FrmPropuesta extends JInternalFrame {
+public class FrmPropuestaM extends JInternalFrame {
 
 	private JPanel contentPane;
 	private JLabel lblParticipante;
@@ -49,7 +49,7 @@ public class FrmPropuesta extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmPropuesta() {
+	public FrmPropuestaM() {
 		setTitle("Propuesta");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 690, 409);

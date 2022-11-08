@@ -194,7 +194,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	//MANTENIMIENTO
 	
 	protected void actionPerformedMniPostulacion(ActionEvent e) {
-		FrmPropuesta post= new FrmPropuesta ();
+		FrmPropuestaM post= new FrmPropuestaM ();
 		post.setVisible(true);
 		escritorio.add(post).setLocation(0,0);
 		post.toFront();
