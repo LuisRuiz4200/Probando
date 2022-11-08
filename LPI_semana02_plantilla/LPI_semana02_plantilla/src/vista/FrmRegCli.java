@@ -130,9 +130,7 @@ public class FrmRegCli extends JFrame {
 
 	
 	void ingresar(){
-		
-		// -- validacion
-		
+		//ESTO ES UN CAMBIO DE PRUEBA PAR GIT
 	}
 	
 	
