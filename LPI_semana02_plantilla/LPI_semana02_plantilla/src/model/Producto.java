@@ -8,7 +8,10 @@ public class Producto {
 	private int tipo;
 //klisman gay 
 	//CONFIRMO
+<<<<<<< HEAD
 	//Secundario
+=======
+>>>>>>> ec1915c63a7cd63c2baf75cd67cc1c5f9dfd5640
 	
 	public Producto(String cod, String prod, int cant, double pre, int tipo) {
 		this.cod = cod;
