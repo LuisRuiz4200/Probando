@@ -2,7 +2,6 @@ package vistas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.FileDialog;
 import java.awt.Frame;
 import java.awt.Toolkit;
@@ -44,16 +43,8 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	
 	
 	public static void main (String [] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrmPrincipal prin = new FrmPrincipal();
-					prin.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		FrmPrincipal prin = new FrmPrincipal();
+		prin.setVisible(true);
 	}
 	
 	public FrmPrincipal() {
