@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class FrmPrincipal extends JFrame implements ActionListener  {
-	
+
 	private JDesktopPane escritorio;
 	private JMenuBar menuBar;
 	private JMenu mnArchivo;
