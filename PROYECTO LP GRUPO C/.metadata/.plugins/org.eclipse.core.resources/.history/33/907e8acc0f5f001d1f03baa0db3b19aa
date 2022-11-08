@@ -93,7 +93,6 @@ public class FrmConsultaParticipante extends JInternalFrame {
 		
 		tbParticipantes = new JTable();
 		tbParticipantes.setFillsViewportHeight(true);
-		tbParticipantes.setModel(model);
 		scrollPane.setViewportView(tbParticipantes);
 	}
 }

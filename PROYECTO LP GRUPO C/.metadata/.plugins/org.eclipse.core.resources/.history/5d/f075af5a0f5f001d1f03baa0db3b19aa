@@ -72,10 +72,12 @@ public class FrmConsultaParticipante extends JInternalFrame {
 		
 		// crear columnas de la tabla
 		model = new DefaultTableModel();
-		model.addColumn("Empresa");
-		model.addColumn("Telefono");
+		model.addColumn("Nombre Postor");
+		model.addColumn("Compañia");
 		model.addColumn("Distrito");
 		model.addColumn("RUC");
+		model.addColumn("Prop. Tecnica");
+		model.addColumn("Prop. Economica");
 		model.addColumn("Estado");
 		
 		lblNumeroPedido = new JLabel("Numero de Pedido:");
@@ -93,7 +95,6 @@ public class FrmConsultaParticipante extends JInternalFrame {
 		
 		tbParticipantes = new JTable();
 		tbParticipantes.setFillsViewportHeight(true);
-		tbParticipantes.setModel(model);
 		scrollPane.setViewportView(tbParticipantes);
 	}
 }

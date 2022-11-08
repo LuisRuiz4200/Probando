@@ -32,7 +32,7 @@ public class FrmPropuesta extends JInternalFrame {
 	private JEditorPane txtPropEconomica;
 	private JButton btnBuscarParticipante;
 	private JDateChooser dateChooser;
-	private JLabel lblFechaProp;
+	private JLabel lblNewLabel;
 	
 	/**
 	 * Launch the application.
@@ -155,11 +155,11 @@ public class FrmPropuesta extends JInternalFrame {
 		contentPane.add(btnBuscarParticipante);
 		
 		dateChooser = new JDateChooser();
-		dateChooser.setBounds(482, 37, 126, 20);
+		dateChooser.setBounds(482, 37, 105, 20);
 		contentPane.add(dateChooser);
 		
-		lblFechaProp = new JLabel("FECHA:");
-		lblFechaProp.setBounds(388, 39, 53, 14);
-		contentPane.add(lblFechaProp);
+		lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(388, 39, 46, 14);
+		contentPane.add(lblNewLabel);
 	}
 }
