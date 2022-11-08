@@ -10,6 +10,7 @@ public class Producto {
 	//CONFIRMO
 	//A MI SI ME FUNCIONA
 	//otro mas
+	//y otro 
 	public Producto(String cod, String prod, int cant, double pre, int tipo) {
 		this.cod = cod;
 		this.prod = prod;
