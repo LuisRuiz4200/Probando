@@ -10,6 +10,8 @@ public class Producto {
 	//CONFIRMO
 	//definitivo
 	// ultimoooooooo
+	// la ultimaaa 2 
+	// la venganza 
 
 	public Producto(String cod, String prod, int cant, double pre, int tipo) {
 		this.cod = cod;
