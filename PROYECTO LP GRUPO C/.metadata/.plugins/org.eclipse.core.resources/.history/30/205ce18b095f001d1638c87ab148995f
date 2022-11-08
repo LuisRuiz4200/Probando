@@ -52,7 +52,7 @@ public class FrmPedido extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public FrmPedido() {
-		setTitle("Propuesta");
+		setTitle("Contrataciones");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 763, 402);
 		contentPane = new JPanel();
