@@ -132,7 +132,7 @@ public class FrmRegCli extends JFrame {
 	void ingresar(){
 		//ESTO ES UN CAMBIO DE PRUEBA PAR GIT
 		//ESTO ES UN SEGUNDO CAMBIO EN GIT
-		//UN CAMBIO MAS
+		// UN CAMBIO DESDE EL GIT HUB .COM
 	}
 	
 	
