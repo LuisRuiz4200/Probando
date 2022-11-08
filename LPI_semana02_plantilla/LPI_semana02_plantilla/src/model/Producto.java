@@ -6,11 +6,8 @@ public class Producto {
 	private int cant;
 	private double pre;
 	private int tipo;
-
-
-
-
-	private String nombreGIT;
+//klisman gay 
+	//CONFIRMO
 	
 	public Producto(String cod, String prod, int cant, double pre, int tipo) {
 		this.cod = cod;
