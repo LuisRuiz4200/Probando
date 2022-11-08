@@ -540,6 +540,7 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 !ENTRY org.eclipse.oomph.setup.ui 1 0 2022-11-07 20:11:54.414
 !MESSAGE Setup tasks were performed during startup updating 372 preferences.See 'C:\Users\Jean Pierre\eclipse\java-2020-12\eclipse\configuration\org.eclipse.oomph.setup\setup.log' for details
 >>>>>>> 620ba26d61c91d25d12f827e6b44e0245bdad1d0
+<<<<<<< HEAD
 !SESSION 2022-11-07 20:29:02.586 -----------------------------------------------
 eclipse.buildId=4.18.0.I20201202-1800
 java.version=17.0.1
@@ -575,3 +576,5 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+=======
+>>>>>>> e2d23d93b5fcf7e777acb19084813c01dcebc3c8
