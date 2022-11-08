@@ -7,8 +7,7 @@ public class Producto {
 	private double pre;
 	private int tipo;
 //klisman gay 
-	
-	private String nombreGIT;
+	//CONFIRMO
 	
 	public Producto(String cod, String prod, int cant, double pre, int tipo) {
 		this.cod = cod;
