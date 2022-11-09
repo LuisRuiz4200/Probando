@@ -4,7 +4,7 @@ import java.awt.Component;
 
 import javax.swing.*;
 
-//SALVADO
+
 
 public class Tool {
 	public static void mensajeError(Component pos,String msj) {
