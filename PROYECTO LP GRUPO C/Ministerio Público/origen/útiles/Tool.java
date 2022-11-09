@@ -5,10 +5,6 @@ import java.awt.Component;
 
 import javax.swing.*;
 
-//REUTILIZABLES
-//CAMBIO
-///CAMBIO 2
-//OTRO CAMBIO MAS
 public class Tool {
 	public static void mensajeError(Component pos,String msj) {
 		JOptionPane.showMessageDialog(pos, msj, "ERROR!",0);
