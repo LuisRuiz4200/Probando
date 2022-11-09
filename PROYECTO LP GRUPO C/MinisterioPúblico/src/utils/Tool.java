@@ -4,6 +4,8 @@ import java.awt.Component;
 
 import javax.swing.*;
 
+
+
 public class Tool {
 	public static void mensajeError(Component pos,String msj) {
 		JOptionPane.showMessageDialog(pos, msj, "ERROR!",0);
