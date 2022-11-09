@@ -3,7 +3,6 @@ package utils;
 import java.awt.Component;
 
 import javax.swing.*;
-//REUTILIZABLES
 
 public class Tool {
 	public static void mensajeError(Component pos,String msj) {
