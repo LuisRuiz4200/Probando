@@ -70,6 +70,7 @@ public class FrmConsultaParticipante extends JInternalFrame {
 		btnBuscar.setBounds(381, 24, 89, 31);
 		contentPane.add(btnBuscar);
 		
+		// crear columnas de la tabla
 		model = new DefaultTableModel();
 		model.addColumn("Empresa");
 		model.addColumn("Telefono");
