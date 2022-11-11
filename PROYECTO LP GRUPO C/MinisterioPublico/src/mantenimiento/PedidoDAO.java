@@ -88,7 +88,7 @@ public class PedidoDAO {
 		
 		return res;
 	}
-	
+
 	public int eliminarPedido() {
 		int res = 0;
 		
@@ -115,6 +115,5 @@ public class PedidoDAO {
 	}
 	
 	
-
 
 }
