@@ -1,5 +1,6 @@
 package mantenimiento;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -90,7 +91,6 @@ public class PedidoDAO {
 		
 		return res;
 	}
-	
 
 	public int eliminarPedido() {
 		int res = 0;
@@ -118,5 +118,6 @@ public class PedidoDAO {
 	}
 	
 	
+
 
 }
