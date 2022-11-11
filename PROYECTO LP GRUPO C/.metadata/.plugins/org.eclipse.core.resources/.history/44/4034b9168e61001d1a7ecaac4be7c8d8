@@ -1,0 +1,10 @@
+package clases;
+
+public class ActaPropuesta {
+	
+	private int idActaPropuesta;
+	private int idPropuesta;
+	private int fecha;
+	private int 
+
+}

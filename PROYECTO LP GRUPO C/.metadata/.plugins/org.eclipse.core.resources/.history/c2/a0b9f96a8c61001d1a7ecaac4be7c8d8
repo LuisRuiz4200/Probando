@@ -1,0 +1,37 @@
+package clases;
+
+public class Pronunciamiento {
+    private int idApel; 
+	private int idPronun;
+	private String nomGerente;
+	private String dni;
+	private String fecha;
+	private String desApelacion;
+	private String pronApelacion;
+	
+	
+	//Constructor
+	public Pronunciamiento() {
+	
+	}
+	public Pronunciamiento(int idApel, int idPronun, String nomGerente, String dni, String fecha, String desApelacion,
+			String pronApelacion) {
+		super();
+		this.idApel = idApel;
+		this.idPronun = idPronun;
+		this.nomGerente = nomGerente;
+		this.dni = dni;
+		this.fecha = fecha;
+		this.desApelacion = desApelacion;
+		this.pronApelacion = pronApelacion;
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+}

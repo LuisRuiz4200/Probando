@@ -1,0 +1,22 @@
+package clases;
+
+public class Pronunciamiento {
+    private int idApel; 
+	private int idPronun;
+	private String nomGerente;
+	private String dni;
+	private String fecha;
+	private String desApelacion;
+	private String pronApelacion;
+	
+	
+	//Constructor
+	public Pronunciamiento() {
+	
+	}
+	
+	
+	
+	
+	
+}

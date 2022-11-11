@@ -1,0 +1,69 @@
+package clases;
+
+public class ActaPropuesta {
+	
+	private int idActaPropuesta;
+	private int idPropuesta;
+	private String fecha;
+	private String desActaPropuesta;
+	private String tipoActa;
+	private String estadoActa;
+	
+	// Constructor vacio 
+	public ActaPropuesta() {
+	}
+	
+	// Constructor
+	public ActaPropuesta(int idActaPropuesta, int idPropuesta, String fecha, String desActaPropuesta, String tipoActa,
+			String estadoActa) {
+		super();
+		this.idActaPropuesta = idActaPropuesta;
+		this.idPropuesta = idPropuesta;
+		this.fecha = fecha;
+		this.desActaPropuesta = desActaPropuesta;
+		this.tipoActa = tipoActa;
+		this.estadoActa = estadoActa;
+	}
+	
+	// Set/Get
+	public int getIdActaPropuesta() {
+		return idActaPropuesta;
+	}
+	public void setIdActaPropuesta(int idActaPropuesta) {
+		this.idActaPropuesta = idActaPropuesta;
+	}
+	public int getIdPropuesta() {
+		return idPropuesta;
+	}
+	public void setIdPropuesta(int idPropuesta) {
+		this.idPropuesta = idPropuesta;
+	}
+	public String getFecha() {
+		return fecha;
+	}
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+	public String getDesActaPropuesta() {
+		return desActaPropuesta;
+	}
+	public void setDesActaPropuesta(String desActaPropuesta) {
+		this.desActaPropuesta = desActaPropuesta;
+	}
+	public String getTipoActa() {
+		return tipoActa;
+	}
+	public void setTipoActa(String tipoActa) {
+		this.tipoActa = tipoActa;
+	}
+	public String getEstadoActa() {
+		return estadoActa;
+	}
+	public void setEstadoActa(String estadoActa) {
+		this.estadoActa = estadoActa;
+	}
+	
+	
+	
+
+}
