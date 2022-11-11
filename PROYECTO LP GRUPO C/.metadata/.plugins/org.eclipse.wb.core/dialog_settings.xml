@@ -12,4 +12,10 @@
 		<item key="width" value="530"/>
 		<item key="height" value="346"/>
 	</section>
+	<section name="org.eclipse.wb.internal.core.editor.palette.dialogs.PalettePreferencesDialog">
+		<item key="x" value="937"/>
+		<item key="y" value="241"/>
+		<item key="width" value="525"/>
+		<item key="height" value="377"/>
+	</section>
 </section>

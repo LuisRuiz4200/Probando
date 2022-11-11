@@ -15,7 +15,6 @@ public class FrmPedido extends JInternalFrame {
 	private JPanel contentPane;
 	private JTextField txtNroPedido;
 	private JTextField txtEntidad;
-	private JTextField txtObjeto;
 	private JLabel lblNroPedido;
 	private JLabel lblEntidad;
 	private JLabel lblTipo;
@@ -31,6 +30,7 @@ public class FrmPedido extends JInternalFrame {
 	private JDateChooser dcFecha; 
 	private DefaultTableModel model;
 	private JComboBox <Object>cboEstado;
+	private JComboBox <Object>cboObjeto;
 
 	/**
 	 * Launch the application.
@@ -52,7 +52,7 @@ public class FrmPedido extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public FrmPedido() {
-		setTitle("Contrataciones");
+		setTitle("Pedido");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 763, 402);
 		contentPane = new JPanel();
@@ -76,11 +76,6 @@ public class FrmPedido extends JInternalFrame {
 		txtEntidad.setBounds(167, 42, 117, 20);
 		contentPane.add(txtEntidad);
 		txtEntidad.setColumns(10);
-		
-		txtObjeto = new JTextField();
-		txtObjeto.setBounds(167, 108, 117, 20);
-		contentPane.add(txtObjeto);
-		txtObjeto.setColumns(10);
 		
 		lblNroPedido = new JLabel("Pedido Nro:");
 		lblNroPedido.setBounds(10, 14, 147, 14);
@@ -123,11 +118,11 @@ public class FrmPedido extends JInternalFrame {
 		scrollPane.setViewportView(tbContratacion);
 		
 		btnGuardar = new JButton("GUARDAR");
-		btnGuardar.setBounds(318, 120, 117, 23);
+		btnGuardar.setBounds(480, 120, 117, 23);
 		contentPane.add(btnGuardar);
 		
 		btnModificar = new JButton("MODIFICAR");
-		btnModificar.setBounds(459, 120, 108, 23);
+		btnModificar.setBounds(610, 120, 108, 23);
 		contentPane.add(btnModificar);
 		
 		dcFecha = new JDateChooser();
@@ -135,7 +130,6 @@ public class FrmPedido extends JInternalFrame {
 		contentPane.add(dcFecha);
 		
 		model = new DefaultTableModel();
-		//Agregar Columnas a las tablas
 		model.addColumn("Orden");
 		model.addColumn("Entidad");
 		model.addColumn("Distrito");
@@ -147,7 +141,12 @@ public class FrmPedido extends JInternalFrame {
 		tbContratacion.setModel(model);
 		
 		cboEstado = new JComboBox<Object>();
-		cboEstado.setBounds(578, 7, 127, 28);
+		cboEstado.setBounds(601, 11, 102, 20);
 		contentPane.add(cboEstado);
+		
+		cboObjeto = new JComboBox<Object>();
+		cboObjeto.setModel(new DefaultComboBoxModel<Object>(new String[] {"Seleccione...", "Bien", "Servicio", "Obra "}));
+		cboObjeto.setBounds(167, 107, 117, 22);
+		contentPane.add(cboObjeto);
 	}
 }

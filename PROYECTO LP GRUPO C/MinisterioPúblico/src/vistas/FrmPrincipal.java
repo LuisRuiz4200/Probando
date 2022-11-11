@@ -2,6 +2,7 @@ package vistas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.FileDialog;
 import java.awt.Frame;
 import java.awt.Toolkit;
@@ -19,7 +20,7 @@ import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class FrmPrincipal extends JFrame implements ActionListener  {
-	
+
 	private JDesktopPane escritorio;
 	private JMenuBar menuBar;
 	private JMenu mnArchivo;
@@ -43,8 +44,16 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	
 	
 	public static void main (String [] args) {
-		FrmPrincipal prin = new FrmPrincipal();
-		prin.setVisible(true);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrmPrincipal prin = new FrmPrincipal();
+					prin.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	public FrmPrincipal() {
@@ -194,7 +203,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	//MANTENIMIENTO
 	
 	protected void actionPerformedMniPostulacion(ActionEvent e) {
-		FrmPropuestaM post= new FrmPropuestaM ();
+		FrmPropuesta post= new FrmPropuesta ();
 		post.setVisible(true);
 		escritorio.add(post).setLocation(0,0);
 		post.toFront();

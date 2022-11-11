@@ -2,33 +2,37 @@ package vistas;
 
 import java.awt.EventQueue;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import com.toedter.calendar.JDateChooser;
 
 @SuppressWarnings("serial")
 public class FrmPropuesta extends JInternalFrame {
 
 	private JPanel contentPane;
-	private JLabel lblPostor;
-	private JLabel lblCompañia;
-	private JLabel lblRuc;
-	private JLabel lblDistrito;
-	private JTextField txtPostor;
-	private JTextField txtCompañia;
-	private JTextField txtRuc;
-	private JComboBox <Object>cboDistrito;
+	private JLabel lblParticipante;
+	private JComboBox <Object> cboParticipante;
 	private JButton btnGuardar;
-	private JButton btnBuscar;
 	private JLabel lblPropuestaTecnica;
-	private JLabel lblPropuestaEconomica;
-	private JTextArea txtPropuestaTecnica;
-	private JScrollPane scrollPane;
-	private JTextArea txtPropuestaEconomica;
-	private JScrollPane scrollPane_1;
+	private JLabel lblPropuestaEcono;
+	private JLabel lblPedido;
+	private JComboBox<Object> cboPedido;
+	private JRadioButton rdbtnNewRadioButton;
+	private JRadioButton rdbtnNewRadioButton_1;
+	private JRadioButton rdbtnNewRadioButton_2;
+	private JRadioButton rdbtnNewRadioButton_3;
+	private JLabel lblNumeroPostulacion;
+	private JTextField textField;
+	private JLabel lblEstado;
+	private JComboBox<Object> cboEstado;
 	private DefaultTableModel model;
-
+	private JEditorPane txtPropTecnica;
+	private JEditorPane txtPropEconomica;
+	private JButton btnBuscarParticipante;
+	private JDateChooser dateChooser;
+	private JLabel lblFechaProp;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -50,92 +54,107 @@ public class FrmPropuesta extends JInternalFrame {
 	 */
 	public FrmPropuesta() {
 		setTitle("Propuesta");
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 690, 409);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
-		setClosable(true);
-		setMaximizable(true);
-		setIconifiable(true);
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		lblPostor = new JLabel("Nombre del Postor:");
-		lblPostor.setBounds(10, 11, 140, 14);
-		contentPane.add(lblPostor);
+		setClosable(true);
+		setMaximizable(true);
+		setIconifiable(true);
 		
-		lblCompañia = new JLabel("Compañía:");
-		lblCompañia.setBounds(10, 39, 87, 14);
-		contentPane.add(lblCompañia);
+		lblParticipante = new JLabel("ID participante:");
+		lblParticipante.setBounds(10, 39, 125, 14);
+		contentPane.add(lblParticipante);
 		
-		lblRuc = new JLabel("RUC:");
-		lblRuc.setBounds(312, 39, 66, 14);
-		contentPane.add(lblRuc);
-		
-		lblDistrito = new JLabel("Distrito:");
-		lblDistrito.setBounds(312, 11, 87, 14);
-		contentPane.add(lblDistrito);
-		
-		txtPostor = new JTextField();
-		txtPostor.setBounds(135, 8, 123, 20);
-		contentPane.add(txtPostor);
-		txtPostor.setColumns(10);
-		
-		txtCompañia = new JTextField();
-		txtCompañia.setColumns(10);
-		txtCompañia.setBounds(135, 36, 123, 20);
-		contentPane.add(txtCompañia);
-		
-		txtRuc = new JTextField();
-		txtRuc.setBounds(432, 36, 123, 20);
-		contentPane.add(txtRuc);
-		
-		cboDistrito = new JComboBox<Object>();
-		cboDistrito.setModel(new DefaultComboBoxModel<Object>(new String[] {"Seleccionar", "AncÃ³n", "Ate Vitarte", "Barranco", "BreÃ±a", "Carabayllo", "Chaclacayo", "Chorrillos", "Cieneguilla", "Comas", "El Agustino", "Independencia", "JesÃºs MarÃ­a", "La Molina", "La Victoria", "Lima", "Lince", "Los Olivos", "Lurigancho", "LurÃ­n", "Magdalena del Mar", "Miraflores", "Pachacamac", "Pucusana", "Pueblo Libre", "Puente Piedra", "Punta Hermosa", "Punta Negra", "RÃ­mac", "San Bartolo", "San Borja", "San Isidro", "San Juan de Lurigancho", "San Juan de Miraflores", "San Luis", "San MartÃ­n de Porres", "San Miguel", "Santa Anita", "Santa MarÃ­a del Mar", "Santa Rosa", "Santiago de Surco", "Surquillo", "Villa El Salvador", "Villa MarÃ­a del Triunfo"}));
-		cboDistrito.setBounds(432, 7, 123, 22);
-		contentPane.add(cboDistrito);
+		cboParticipante = new JComboBox <Object>();
+		cboParticipante.setBounds(145, 35, 115, 22);
+		contentPane.add(cboParticipante);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(575, 22, 89, 49);
+		btnGuardar.setBounds(575, 70, 89, 22);
 		contentPane.add(btnGuardar);
 		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(575, 82, 89, 49);
-		contentPane.add(btnBuscar);
-		
-		lblPropuestaTecnica = new JLabel("Propuesta Técnica:");
-		lblPropuestaTecnica.setBounds(10, 72, 128, 14);
+		lblPropuestaTecnica = new JLabel("Propuesta Tecnica:");
+		lblPropuestaTecnica.setBounds(10, 105, 125, 14);
 		contentPane.add(lblPropuestaTecnica);
 		
-		lblPropuestaEconomica = new JLabel("Propuesta Económica:");
-		lblPropuestaEconomica.setBounds(312, 72, 128, 14);
-		contentPane.add(lblPropuestaEconomica);
+		lblPropuestaEcono = new JLabel("Propuesta Economica:");
+		lblPropuestaEcono.setBounds(358, 103, 128, 14);
+		contentPane.add(lblPropuestaEcono);
 		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 97, 245, 49);
-		contentPane.add(scrollPane);
-		
-		txtPropuestaTecnica = new JTextArea();
-		scrollPane.setViewportView(txtPropuestaTecnica);
-		txtPropuestaTecnica.setLineWrap(true);
-		
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(312, 98, 243, 47);
-		contentPane.add(scrollPane_1);
-		
-		txtPropuestaEconomica = new JTextArea();
-		scrollPane_1.setViewportView(txtPropuestaEconomica);
-		txtPropuestaEconomica.setLineWrap(true);
-		
-		model = new DefaultTableModel();
 		// crear columnas de la tabla
+		// Instanciar un objeto para la estructura de la tabla
+		model = new DefaultTableModel();
 		model.addColumn("Nombre Postor");
-		model.addColumn("Compañia");
+		model.addColumn("CompaÃ±ia");
 		model.addColumn("Distrito");
 		model.addColumn("RUC");
-		model.addColumn("Prop. Técnica");
-		model.addColumn("Prop. Económica");
+		model.addColumn("Prop. TÃ©cnica");
+		model.addColumn("Prop. EconÃ³mica");
 		model.addColumn("Estado");
+		
+		lblPedido = new JLabel("Nro de Pedido");
+		lblPedido.setBounds(10, 11, 119, 14);
+		contentPane.add(lblPedido);
+		
+		cboPedido = new JComboBox<Object>();
+		cboPedido.setBounds(145, 7, 115, 22);
+		contentPane.add(cboPedido);
+		
+		rdbtnNewRadioButton = new JRadioButton("SI");
+		rdbtnNewRadioButton.setBounds(155, 99, 46, 23);
+		contentPane.add(rdbtnNewRadioButton);
+		
+		rdbtnNewRadioButton_1 = new JRadioButton("NO");
+		rdbtnNewRadioButton_1.setBounds(214, 99, 46, 23);
+		contentPane.add(rdbtnNewRadioButton_1);
+		
+		rdbtnNewRadioButton_2 = new JRadioButton("SI");
+		rdbtnNewRadioButton_2.setBounds(503, 99, 46, 23);
+		contentPane.add(rdbtnNewRadioButton_2);
+		
+		rdbtnNewRadioButton_3 = new JRadioButton("NO");
+		rdbtnNewRadioButton_3.setBounds(562, 99, 46, 23);
+		contentPane.add(rdbtnNewRadioButton_3);
+		
+		lblNumeroPostulacion = new JLabel("Numero de postulacion:");
+		lblNumeroPostulacion.setBounds(10, 67, 135, 14);
+		contentPane.add(lblNumeroPostulacion);
+		
+		textField = new JTextField();
+		textField.setBounds(145, 64, 105, 20);
+		contentPane.add(textField);
+		
+		lblEstado = new JLabel("ESTADO:");
+		lblEstado.setBounds(388, 11, 80, 14);
+		contentPane.add(lblEstado);
+		
+		cboEstado = new JComboBox<Object>();
+		cboEstado.setBounds(482, 7, 105, 22);
+		contentPane.add(cboEstado);
+		
+		txtPropTecnica = new JEditorPane();
+		txtPropTecnica.setBounds(10, 130, 306, 221);
+		contentPane.add(txtPropTecnica);
+		
+		txtPropEconomica = new JEditorPane();
+		txtPropEconomica.setBounds(358, 128, 306, 221);
+		contentPane.add(txtPropEconomica);
+		
+		btnBuscarParticipante = new JButton("Buscar ");
+		btnBuscarParticipante.setBounds(280, 37, 80, 22);
+		contentPane.add(btnBuscarParticipante);
+		
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(482, 37, 126, 20);
+		contentPane.add(dateChooser);
+		
+		lblFechaProp = new JLabel("FECHA:");
+		lblFechaProp.setBounds(388, 39, 53, 14);
+		contentPane.add(lblFechaProp);
 	}
 }

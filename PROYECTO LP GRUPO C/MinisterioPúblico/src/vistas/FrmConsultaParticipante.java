@@ -26,7 +26,8 @@ public class FrmConsultaParticipante extends JInternalFrame {
 	private DefaultTableModel model; 
 	private JLabel lblNumeroPedido;
 	private JComboBox<Object> cboPedido;
-	private JTextArea txtS;
+	private JTable tbParticipantes;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -69,14 +70,11 @@ public class FrmConsultaParticipante extends JInternalFrame {
 		btnBuscar.setBounds(381, 24, 89, 31);
 		contentPane.add(btnBuscar);
 		
-		// crear columnas de la tabla
 		model = new DefaultTableModel();
-		model.addColumn("Nombre Postor");
-		model.addColumn("Compañia");
+		model.addColumn("Empresa");
+		model.addColumn("Telefono");
 		model.addColumn("Distrito");
 		model.addColumn("RUC");
-		model.addColumn("Prop. Técnica");
-		model.addColumn("Prop. Económica");
 		model.addColumn("Estado");
 		
 		lblNumeroPedido = new JLabel("Numero de Pedido:");
@@ -88,9 +86,13 @@ public class FrmConsultaParticipante extends JInternalFrame {
 		cboPedido.setBounds(141, 28, 138, 22);
 		contentPane.add(cboPedido);
 		
-		txtS = new JTextArea();
-		txtS.setEditable(false);
-		txtS.setBounds(10, 103, 654, 256);
-		contentPane.add(txtS);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 81, 654, 287);
+		contentPane.add(scrollPane);
+		
+		tbParticipantes = new JTable();
+		tbParticipantes.setFillsViewportHeight(true);
+		tbParticipantes.setModel(model);
+		scrollPane.setViewportView(tbParticipantes);
 	}
 }

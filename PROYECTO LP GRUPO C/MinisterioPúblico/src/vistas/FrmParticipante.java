@@ -26,6 +26,7 @@ public class FrmParticipante extends JInternalFrame{
 	private JLabel lblCodigo;
 	private JComboBox<Object> cboEstado;
 	private JLabel lblEstado;
+	private JButton btnBuscar;
 	
 	
 	
@@ -103,10 +104,8 @@ public class FrmParticipante extends JInternalFrame{
 		scrollPane.setViewportView(table);
 		
 		modelo = new DefaultTableModel();
-		modelo.addColumn("CONTRATACION");
-		modelo.addColumn("NOMBRES Y APELLIDOS");
-		modelo.addColumn("DNI");
 		modelo.addColumn("EMPRESA");
+		modelo.addColumn("DNI");
 		modelo.addColumn("RUC");
 		modelo.addColumn("TELEFONO");
 		modelo.addColumn("CORREO");
@@ -137,5 +136,9 @@ public class FrmParticipante extends JInternalFrame{
 		lblEstado = new JLabel("ESTADO");
 		lblEstado.setBounds(423, 11, 67, 14);
 		getContentPane().add(lblEstado);
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(278, 26, 86, 23);
+		getContentPane().add(btnBuscar);
 	}
 }

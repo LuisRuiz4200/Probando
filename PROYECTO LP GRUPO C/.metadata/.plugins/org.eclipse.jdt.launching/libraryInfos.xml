@@ -2,5 +2,10 @@
 <libraryInfos>
     <libraryInfo home="C:\Users\lr270\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.2.v20220201-1208\jre" version="17.0.2"/>
     <libraryInfo home="C:\Users\lr270\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.2.v20220201-1208" version="17.0.2"/>
+<<<<<<< HEAD
     <libraryInfo home="C:\Program Files\Java\jdk-17.0.2" version="17.0.2"/>
+=======
+    <libraryInfo home="C:\Users\Jean Pierre\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.1.v20211116-1657\jre" version="17.0.1"/>
+    <libraryInfo home="C:\Users\Jean Pierre\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.1.v20211116-1657" version="17.0.1"/>
+>>>>>>> f41b380ac6bd501415da99b54e5d3bb1216627a3
 </libraryInfos>
