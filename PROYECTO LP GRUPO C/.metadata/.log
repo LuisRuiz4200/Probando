@@ -886,6 +886,7 @@ BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_PE
 Framework arguments:  -product org.eclipse.epp.package.java.product
 Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
 
+<<<<<<< Updated upstream
 !ENTRY org.eclipse.jface 2 0 2022-11-11 02:26:40.556
 !MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
 !SUBENTRY 1 org.eclipse.jface 2 0 2022-11-11 02:26:40.556
@@ -932,6 +933,11 @@ not correct please set the HOME environment variable and restart Eclipse. Otherw
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
 !SESSION 2022-11-11 02:32:15.495 -----------------------------------------------
+=======
+!ENTRY org.eclipse.oomph.setup.ui 1 0 2022-11-11 02:34:47.589
+!MESSAGE Setup tasks were performed during startup updating 246 preferences.See 'C:\Users\lr270\eclipse\java-2021-12\eclipse\configuration\org.eclipse.oomph.setup\setup.log' for details
+!SESSION 2022-11-11 02:41:12.785 -----------------------------------------------
+>>>>>>> Stashed changes
 eclipse.buildId=4.22.0.I20211124-1800
 java.version=17.0.2
 java.vendor=Eclipse Adoptium
@@ -939,15 +945,25 @@ BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_PE
 Framework arguments:  -product org.eclipse.epp.package.java.product
 Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
 
+<<<<<<< Updated upstream
 !ENTRY org.eclipse.jface 2 0 2022-11-11 02:32:23.550
 !MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
 !SUBENTRY 1 org.eclipse.jface 2 0 2022-11-11 02:32:23.550
+=======
+!ENTRY org.eclipse.jface 2 0 2022-11-11 02:41:18.706
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-11-11 02:41:18.706
+>>>>>>> Stashed changes
 !MESSAGE A conflict occurred for CTRL+SHIFT+T:
 Binding(CTRL+SHIFT+T,
 	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
 		Open a type in a Java editor,
 		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+<<<<<<< Updated upstream
 		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1eb7ec59,
+=======
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@2bd7f686,
+>>>>>>> Stashed changes
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
@@ -955,17 +971,29 @@ Binding(CTRL+SHIFT+T,
 	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
 		,
 		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+<<<<<<< Updated upstream
 		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@46748b04,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
 !SUBENTRY 1 org.eclipse.jface 2 0 2022-11-11 02:32:23.550
+=======
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@3601549f,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-11-11 02:41:18.706
+>>>>>>> Stashed changes
 !MESSAGE A conflict occurred for ALT+SHIFT+R:
 Binding(ALT+SHIFT+R,
 	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.rename.element,Rename - Refactoring ,
 		Rename the selected element,
 		Category(org.eclipse.jdt.ui.category.refactoring,Refactor - Java,Java Refactoring Actions,true),
+<<<<<<< Updated upstream
 		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@3e71a1f8,
+=======
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5b2c7186,
+>>>>>>> Stashed changes
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
@@ -973,6 +1001,7 @@ Binding(ALT+SHIFT+R,
 	ParameterizedCommand(Command(org.eclipse.ui.edit.rename,Rename,
 		Rename the selected item,
 		Category(org.eclipse.ui.category.file,File,null,true),
+<<<<<<< Updated upstream
 		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5d4a34ff,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
@@ -1000,10 +1029,13 @@ Binding(CTRL+SHIFT+T,
 	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
 		Open a type in a Java editor,
 		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+=======
+>>>>>>> Stashed changes
 		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1b9c716f,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
+<<<<<<< Updated upstream
 Binding(CTRL+SHIFT+T,
 	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
 		,
@@ -1032,6 +1064,10 @@ Binding(ALT+SHIFT+R,
 	org.eclipse.ui.contexts.window,,,system)
 
 !ENTRY org.eclipse.egit.ui 2 0 2022-11-11 02:39:55.597
+=======
+
+!ENTRY org.eclipse.egit.ui 2 0 2022-11-11 02:41:21.512
+>>>>>>> Stashed changes
 !MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
 user global configuration and to define the default location to store repositories: 'C:\Users\lr270'. If this is
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
