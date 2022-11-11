@@ -1,0 +1,8 @@
+package clases;
+
+public class Pronunciamiento {
+    private int id_apel; 
+	private int id_pronun;
+	private String nomGerente;
+	
+}

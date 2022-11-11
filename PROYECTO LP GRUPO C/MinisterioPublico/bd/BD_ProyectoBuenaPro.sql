@@ -1,11 +1,7 @@
-
 Drop database if exists ProyectoBuenaPro;
-
 Create database ProyectoBuenaPro;
-
 use ProyectoBuenaPro;
 
-<<<<<<< HEAD
 create table tb_objetoPedido (
 
 id_objetoPedido int not null,
@@ -23,19 +19,15 @@ primary key (id_tipoPedido)
 
 );
 
-=======
->>>>>>> parent of 279f52c (LP)
 create table tb_pedido(
 
 id_ped char (10) not null,
 entidad_ped varchar (25) ,
-<<<<<<< HEAD
+
 id_tipoPedido int not null,
 id_objetoPedido int not null,
-=======
 tipo_ped varchar (25),
 objeto_ped varchar (25),
->>>>>>> parent of 279f52c (LP)
 descripcion_ped varchar(300),
 fecha_ped date,
 estado_ped varchar(25),
@@ -137,7 +129,7 @@ create table tb_proyectoPronunciamientoApelacion (
 id_pronApel char (10) not null,
 id_apel char (10) not null,
 nomGerenteAJ_pronApel varchar (25),
-dniGerenteAJ_pronApel int,
+dniGerenteAJ_pronApel varchar (25),
 fecha_pronApel date,
 descripcion_pronApel varchar(500),
 estado_pronApel varchar(25),
