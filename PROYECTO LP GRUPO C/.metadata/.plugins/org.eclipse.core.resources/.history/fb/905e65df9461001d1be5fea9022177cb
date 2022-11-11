@@ -6,8 +6,6 @@ import java.sql.SQLException;
 
 public class PedidoDAO {
 	
-	//COPIA
-	
 	public int registrarPedido() {
 		
 		int res = 0;
