@@ -222,4 +222,7 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+<<<<<<< HEAD
+>>>>>>> 4e4d3be3d008928e1134f46790a797454435f2eb
+=======
 >>>>>>> 4e4d3be3d008928e1134f46790a797454435f2eb
