@@ -9,12 +9,13 @@ import utils.MySQLConexion8;
 
 public class PedidoDAO {
 	
-	public int registrarPedido(Pedido ped) {
+	public int registrarPedido() {
 		
 		int res = 0;
 		
 		Connection con =null;
 		PreparedStatement pstm = null;
+		Pedido ped= null;
 		
 		try {
 			
@@ -30,9 +31,10 @@ public class PedidoDAO {
 			pstm.setInt(4,ped.getObjeto());
 			pstm.setString(5,ped.getDescripcion());
 			pstm.setString(6,ped.getFecha());
-			pstm.setString(7,ped.getEstado());
+			pstm.setString(7,ped.getEntidad());
+			pstm.setString(8,ped.getEntidad());
 			
-			res = pstm.executeUpdate();
+			
 			
 		}catch(Exception e) {
 			System.out.println("Error en la instruccion" + e.getMessage());

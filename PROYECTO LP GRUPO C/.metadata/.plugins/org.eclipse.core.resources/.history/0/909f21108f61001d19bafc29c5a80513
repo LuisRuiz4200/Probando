@@ -1,0 +1,32 @@
+package clases;
+
+public class Pedido {
+	
+	private String codigo;
+	private String entidad;
+	private int tipo;
+	private int objeto;
+	private String descripcion;
+	private String  fecha;
+	private String estado;
+	
+	
+	public Pedido(String codigo, String entidad, int tipo, int objeto, String descripcion, String fecha,
+			String estado) {
+		
+		this.codigo = codigo;
+		this.entidad = entidad;
+		this.tipo = tipo;
+		this.objeto = objeto;
+		this.descripcion = descripcion;
+		this.fecha = fecha;
+		this.estado = estado;
+	}
+	
+	
+
+	
+	
+	
+	
+}
