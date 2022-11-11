@@ -11669,6 +11669,7 @@ org.xml.sax.SAXParseException; lineNumber: 6; columnNumber: 2; El contenido de l
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:596)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1467)
+<<<<<<< HEAD
 !SESSION 2022-11-10 23:59:31.608 -----------------------------------------------
 eclipse.buildId=4.22.0.I20211124-1800
 java.version=17.0.2
@@ -12027,3 +12028,5 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+=======
+>>>>>>> parent of 279f52c (LP)
