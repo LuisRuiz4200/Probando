@@ -1,0 +1,12 @@
+package clases;
+
+public class EvaluacionPropuesta {
+ 
+	
+	private String idPropuesta;
+	private String idEvapropuesta;
+	private double puntTecnica;
+	private double puntEconomica;
+	private String fecha;
+	private String estadoPropuesta;
+}
