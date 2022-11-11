@@ -5,11 +5,20 @@ Create database ProyectoBuenaPro;
 
 use ProyectoBuenaPro;
 
+create table tb_tipoPedido (
+
+id_tipoPedido int not null,
+des_tipoPedido varchar(25),
+
+primary key (id_tipoPedido)
+
+);
+
 create table tb_pedido(
 
 id_ped char (10) not null,
 entidad_ped varchar (25) ,
-tipo_ped varchar (25),
+tipo_ped int not null,
 objeto_ped varchar (25),
 descripcion_ped varchar(300),
 fecha_ped date,
