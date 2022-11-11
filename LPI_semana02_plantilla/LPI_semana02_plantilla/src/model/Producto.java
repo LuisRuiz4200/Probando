@@ -9,13 +9,8 @@ public class Producto {
 //klisman gay 
 	//CONFIRMO
 
-    // Probando 
-
-	//A MI SI ME FUNCIONA
-
-	//A MI SI ME FUNCIONA
-
 	
+	//y otro >>>>>>> d571badf70340d35c30195c86b7ed8ea801c5c3e
 	public Producto(String cod, String prod, int cant, double pre, int tipo) {
 		this.cod = cod;
 		this.prod = prod;
