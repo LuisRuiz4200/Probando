@@ -18,4 +18,8 @@
     <fullyQualifiedTypeName name="java.awt.Component"/>
     <fullyQualifiedTypeName name="vistas.FrmAyuda"/>
     <fullyQualifiedTypeName name="java.awt.Frame"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="utils.MySQLConexion8"/>
 </qualifiedTypeNameHistroy>
