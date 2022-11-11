@@ -39,3 +39,5 @@ searchResultTextStyle=BOX
 secondaryIPColor=90,90,90
 spellingIndicationColor=253,170,211
 writeOccurrenceIndicationColor=27,98,145
+TM4EMatchingPairColor=27,98,145
+eclipse.preferences.version=1
