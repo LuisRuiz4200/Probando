@@ -1,3 +1,8 @@
 INDEX VERSION 1.131+C:\Users\Jean Pierre\Documents\JAVA\Proyecto\Probando\PROYECTO LP GRUPO C\.metadata\.plugins\org.eclipse.jdt.core
 3584472735.index
+<<<<<<< HEAD
 760091825.index
+=======
+4251787224.index
+2589105401.index
+>>>>>>> 4e4d3be3d008928e1134f46790a797454435f2eb
