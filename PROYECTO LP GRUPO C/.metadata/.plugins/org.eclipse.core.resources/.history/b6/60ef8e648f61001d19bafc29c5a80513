@@ -32,7 +32,7 @@ public class PedidoDAO {
 			pstm.setString(6,ped.getFecha());
 			pstm.setString(7,ped.getEstado());
 			
-			res = pstm.executeUpdate();
+			res = pstm.executeUpdate()
 			
 		}catch(Exception e) {
 			System.out.println("Error en la instruccion" + e.getMessage());

@@ -2,23 +2,20 @@ package clases;
 
 public class Pedido {
 	
-	private String codigo;
+	private int codigo;
 	private String entidad;
 	private int tipo;
 	private int objeto;
-	private String descripcion;
 	private String  fecha;
 	private String estado;
 	
 	
-	public Pedido(String codigo, String entidad, int tipo, int objeto, String descripcion, String fecha,
-			String estado) {
+	public Pedido(String codigo, String entidad, int tipo, int objeto, String fecha, String estado) {
 		
 		this.codigo = codigo;
 		this.entidad = entidad;
 		this.tipo = tipo;
 		this.objeto = objeto;
-		this.descripcion = descripcion;
 		this.fecha = fecha;
 		this.estado = estado;
 	}
@@ -64,16 +61,6 @@ public class Pedido {
 	}
 
 
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-
 	public String getFecha() {
 		return fecha;
 	}
@@ -92,9 +79,6 @@ public class Pedido {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
-	
-
 	
 	
 	

@@ -1,0 +1,39 @@
+package mantenimiento;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class PedidoDAO {
+	
+	public int registrarPedido() {
+		
+		int res = 0;
+		
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		try {
+			
+			
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		return res;
+		
+		
+	}
+	
+	
+	
+}
