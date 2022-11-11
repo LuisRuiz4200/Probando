@@ -15,8 +15,6 @@ public class PedidoDAO {
 		
 		try {
 			
-			
-			
 		}catch(Exception e) {
 			
 		}finally {
