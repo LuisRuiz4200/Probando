@@ -1,6 +1,5 @@
 package mantenimiento;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,9 +9,9 @@ import utils.MySQLConexion8;
 
 public class PedidoDAO {
 	
-	//metch
+	//COPIA
 	
-	public int registrarPedido(Pedido ped) {
+	public int registrarPedido() {
 		
 		int res = 0;
 		
@@ -104,6 +103,4 @@ public class PedidoDAO {
 		return res;
 	}
 	
-	
-
 }
