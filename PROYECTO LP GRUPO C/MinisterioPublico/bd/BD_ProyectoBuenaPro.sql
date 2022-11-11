@@ -5,6 +5,14 @@ Create database ProyectoBuenaPro;
 
 use ProyectoBuenaPro;
 
+create table tb_objetoPedido (
+
+id_objetoPedido int not null,
+des_objetoPedido varchar(25),
+
+primary key (id_objetoPedido)
+);
+
 create table tb_tipoPedido (
 
 id_tipoPedido int not null,
@@ -18,13 +26,16 @@ create table tb_pedido(
 
 id_ped char (10) not null,
 entidad_ped varchar (25) ,
-tipo_ped int not null,
-objeto_ped varchar (25),
+id_tipoPedido int not null,
+id_objetoPedido int not null,
 descripcion_ped varchar(300),
 fecha_ped date,
 estado_ped varchar(25),
 
-primary key (id_ped)
+primary key (id_ped),
+foreign key (id_tipoPedido) references tb_tipoPedido (id_tipoPedido),
+foreign key (id_objetoPedido) references tb_objetoPedido(id_objetoPedido) 
+
 );
 
 create table tb_CEP_pedido (
@@ -33,7 +44,7 @@ id_ped char (10) not null,
 id_miembroCEP char(10) not null,
 nombre_miembroCEP varchar (25),
 apellido_miemborCEP varchar (25),
-dni_miembroCEP int,
+dni_miembroCEP varchar(25),
 funcion_miembroCEP varchar(25),
 dependencia_miembroCEP varchar(25),
 

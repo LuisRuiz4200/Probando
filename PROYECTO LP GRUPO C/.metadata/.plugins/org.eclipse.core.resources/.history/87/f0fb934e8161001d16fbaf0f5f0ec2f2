@@ -1,0 +1,17 @@
+package clases;
+
+public class TipoPedido {
+
+	private int idTipoPedido;
+	private String desTipoPedido;
+	
+	
+	public TipoPedido(int idTipoPedido, String desTipoPedido) {
+		super();
+		this.idTipoPedido = idTipoPedido;
+		this.desTipoPedido = desTipoPedido;
+	}
+	
+	
+	
+}

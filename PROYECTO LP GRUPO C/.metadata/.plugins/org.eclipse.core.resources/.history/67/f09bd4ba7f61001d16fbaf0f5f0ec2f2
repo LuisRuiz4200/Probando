@@ -1,0 +1,15 @@
+package clases;
+
+public class Pedido {
+	
+	private String codigo;
+	private String entidad;
+	private String tipo;
+	private String objeto;
+	private String  fecha;
+	private String estado;
+	
+	
+
+	
+}

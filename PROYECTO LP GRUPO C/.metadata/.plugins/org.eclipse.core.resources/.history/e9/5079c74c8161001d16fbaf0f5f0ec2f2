@@ -1,0 +1,10 @@
+package clases;
+
+public class TipoPedido {
+
+	private int idTipoPedido;
+	private String desTipoPedido;
+	
+	
+	
+}
