@@ -51,7 +51,7 @@ public class PedidoDAO {
 		
 	}
 	
-	public int actualizarPedido() {
+	public int actualizarPedido(Pedido ped) {
 		int res = 0;
 		
 		Connection con =null;
