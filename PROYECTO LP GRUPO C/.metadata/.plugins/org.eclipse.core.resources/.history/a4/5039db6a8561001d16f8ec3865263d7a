@@ -10,6 +10,7 @@ public class Propuesta {
 	private String propEconomica;
 	private String estado;
 	
+	//
 	public Propuesta(String codPedido, String codParticipante, String codPropuesta, String fecha, String propTecnica,
 			String propEconomica, String estado) {
 		
