@@ -1,6 +1,10 @@
 package mantenimiento;
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> eb989c7 (LP)
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -78,6 +82,7 @@ public class PedidoDAO {
 		
 		return res;
 	}
+<<<<<<< HEAD
 	
 
 	public int eliminarPedido() {
@@ -107,5 +112,7 @@ public class PedidoDAO {
 	
 	
 
+=======
+>>>>>>> eb989c7 (LP)
 
 }
