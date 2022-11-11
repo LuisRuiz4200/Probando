@@ -9,6 +9,8 @@ import utils.MySQLConexion8;
 
 public class PedidoDAO {
 	
+	//metch
+	
 	public int registrarPedido(Pedido ped) {
 		
 		int res = 0;
