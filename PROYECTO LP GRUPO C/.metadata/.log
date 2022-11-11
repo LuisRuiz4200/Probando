@@ -229,6 +229,7 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 >>>>>>> 4e4d3be3d008928e1134f46790a797454435f2eb
 =======
 >>>>>>> 6b3e7f38faffec0049c299d91307d5fbe485128a
+<<<<<<< HEAD
 !SESSION 2022-11-11 02:13:02.746 -----------------------------------------------
 eclipse.buildId=4.22.0.I20211124-1800
 java.version=17.0.2
@@ -484,3 +485,5 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+=======
+>>>>>>> Borrador
