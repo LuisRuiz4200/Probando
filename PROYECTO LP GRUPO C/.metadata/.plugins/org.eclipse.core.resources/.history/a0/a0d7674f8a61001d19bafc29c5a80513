@@ -1,9 +1,5 @@
 package mantenimiento;
 
-<<<<<<< HEAD
-public class PedidoDAO {
-
-=======
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,8 +14,6 @@ public class PedidoDAO {
 		PreparedStatement pstm = null;
 		
 		try {
-			
-			
 			
 		}catch(Exception e) {
 			
@@ -40,5 +34,4 @@ public class PedidoDAO {
 		
 	}
 	
->>>>>>> 6b3e7f38faffec0049c299d91307d5fbe485128a
 }

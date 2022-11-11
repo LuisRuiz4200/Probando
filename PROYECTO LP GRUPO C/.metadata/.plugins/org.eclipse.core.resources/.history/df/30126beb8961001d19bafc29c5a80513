@@ -1,0 +1,17 @@
+package mantenimiento;
+
+public class PedidoDAO {
+	
+	public int registrarPedido() {
+		
+		int res = 0;
+		
+		Connection con =null;
+		
+		
+		return res;
+		
+		
+	}
+	
+}

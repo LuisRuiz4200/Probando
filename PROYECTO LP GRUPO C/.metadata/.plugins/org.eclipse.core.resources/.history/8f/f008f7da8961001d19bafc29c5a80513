@@ -1,0 +1,9 @@
+package mantenimiento;
+
+public class PedidoDAO {
+	
+	public int registrarPedido() {
+		
+	}
+	
+}

@@ -1,0 +1,19 @@
+package mantenimiento;
+
+import java.sql.Connection;
+
+public class PedidoDAO {
+	
+	public int registrarPedido() {
+		
+		int res = 0;
+		
+		Connection con =null;
+		
+		
+		return res;
+		
+		
+	}
+	
+}

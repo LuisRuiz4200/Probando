@@ -1,0 +1,24 @@
+package mantenimiento;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class PedidoDAO {
+	
+	public int registrarPedido() {
+		
+		int res = 0;
+		
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		try {
+			
+		}
+		
+		return res;
+		
+		
+	}
+	
+}
