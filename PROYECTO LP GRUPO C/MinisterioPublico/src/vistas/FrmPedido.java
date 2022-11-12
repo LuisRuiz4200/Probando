@@ -107,15 +107,15 @@ public class FrmPedido extends JInternalFrame implements ActionListener {
 		contentPane.add(lblObjeto);
 		
 		cboTipo = new JComboBox<Object>();
-		cboTipo.setBounds(167, 72, 117, 22);
+		cboTipo.setBounds(167, 72, 220, 22);
 		contentPane.add(cboTipo);
 		
 		txtDescripcion = new JEditorPane();
-		txtDescripcion.setBounds(318, 64, 279, 49);
+		txtDescripcion.setBounds(413, 64, 279, 49);
 		contentPane.add(txtDescripcion);
 		
 		lblDescripcion = new JLabel("Descripcion de \r\nRequrimiento:");
-		lblDescripcion.setBounds(318, 42, 254, 20);
+		lblDescripcion.setBounds(413, 42, 254, 20);
 		contentPane.add(lblDescripcion);
 		
 		lblFecha = new JLabel("Fecha Inicio: ");
@@ -215,6 +215,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener {
 				Tool.mensajeError(this, "Error de registro");
 			}else {
 				Tool.mensajeExito(this, "Pedido registrado!");
+				cargarTabla();
 			}
 		}
 		
@@ -320,18 +321,18 @@ public class FrmPedido extends JInternalFrame implements ActionListener {
 	
 	private void correlativo () {
 		
-		/*ArrayList<Pedido> list = pedDao.listarPedido();
+		ArrayList<Pedido> list = pedDao.listarPedido();
 		
 		if (list.size() == 0) {
 			txtIdPedido.setText("PD001");
 		}else {
 			String idPedido=list.get(list.size()-1).getCodigo();
 			
-			int correlativo = Integer.parseInt(idPedido.substring(ABORT))+1;
+			int correlativo = Integer.parseInt(idPedido.substring(2))+1;
 			
-			txtIdPedido.setText("" + correlativo);
+			txtIdPedido.setText("PD" + Tool.ft.format("%03d",correlativo));
 			
-		}*/
+		}
 		
 	}
 	

@@ -124,7 +124,6 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 		table.setModel(modelo);
 		
 		cboPedido = new JComboBox<Object>();
-		cboPedido.setModel(new DefaultComboBoxModel<Object>(new String[] {}));
 		cboPedido.setBounds(21, 26, 106, 22);
 		getContentPane().add(cboPedido);
 		

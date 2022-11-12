@@ -2,6 +2,7 @@ package utils;
 
 import java.awt.Component;
 import java.text.SimpleDateFormat;
+import java.util.Formatter;
 
 import javax.swing.*;
 
@@ -21,6 +22,8 @@ public class Tool {
 	}
 	
 	public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
+	public static Formatter ft = new Formatter();
 	
 	
 }
