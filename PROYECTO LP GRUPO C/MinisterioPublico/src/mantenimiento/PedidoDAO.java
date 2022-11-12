@@ -92,7 +92,7 @@ public class PedidoDAO {
 		return res;
 	}
 
-	public int eliminarPedido() {
+	public int eliminarPedido(int idPedido) {
 		int res = 0;
 		
 		Connection con =null;
@@ -100,7 +100,15 @@ public class PedidoDAO {
 		
 		try {
 			
+			con = MySQLConexion8.getConexion();
 			
+			String sql = "delete from tb_objetoPedido where id_objetoPedido = ?"; 
+						
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setInt(1, idPedido);
+			
+			res = pstm.executeUpdate();
 			
 		}catch(Exception e) {
 			System.out.println("Error en la instruccion" + e.getMessage());
