@@ -9,9 +9,7 @@ import utils.MySQLConexion8;
 
 public class PedidoDAO {
 	
-	//COPIA
-	
-	public int registrarPedido() {
+	public int registrarPedido(Pedido ped) {
 		
 		int res = 0;
 		
@@ -62,6 +60,19 @@ public class PedidoDAO {
 		try {
 			
 			
+			String sql = "insert into tb_pedido values (id_ped = ?, entidad_ped = ?, tipo_ped = ?, objeto_ped = ?, descripcion_ped = ?, descripcion_ped = ?, fecha_ped=?,estado_ped=?)";
+			
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString(1,ped.getCodigo());
+			pstm.setString(2,ped.getEntidad());
+			pstm.setInt(3,ped.getTipo());
+			pstm.setInt(4,ped.getObjeto());
+			pstm.setString(5,ped.getDescripcion());
+			pstm.setString(6,ped.getFecha());
+			pstm.setString(7,ped.getEstado());
+			
+			res = pstm.executeUpdate();
 			
 		}catch(Exception e) {
 			System.out.println("Error en la instruccion" + e.getMessage());
@@ -77,7 +88,7 @@ public class PedidoDAO {
 		
 		return res;
 	}
-
+	
 	public int eliminarPedido() {
 		int res = 0;
 		
@@ -102,5 +113,7 @@ public class PedidoDAO {
 		
 		return res;
 	}
+	
+	
 	
 }
