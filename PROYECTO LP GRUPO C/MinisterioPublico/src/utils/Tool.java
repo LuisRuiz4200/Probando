@@ -1,6 +1,7 @@
 package utils;
 
 import java.awt.Component;
+import java.text.SimpleDateFormat;
 
 import javax.swing.*;
 
@@ -18,4 +19,8 @@ public class Tool {
 	public static void imprimir(JTextArea txtS, String cad) {
 		txtS.append( cad + "\n");	
 	}
+	
+	public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
+	
 }

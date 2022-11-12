@@ -3,14 +3,15 @@ package mantenimiento;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import clases.*;
 
 import utils.MySQLConexion8;
 
 public class PedidoDAO {
-	
-	//metch
 	
 	public int registrarPedido(Pedido ped) {
 		
@@ -23,7 +24,7 @@ public class PedidoDAO {
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "insert into tb_pedido values (id_ped = ?, entidad_ped = ?, tipo_ped = ?, objeto_ped = ?, descripcion_ped = ?, descripcion_ped = ?, fecha_ped=?,estado_ped=?)";
+			String sql = "insert into tb_pedido values (?,?,?,?,?,?,?)";
 			
 			pstm = con.prepareStatement(sql);
 			
@@ -62,6 +63,7 @@ public class PedidoDAO {
 		
 		try {
 			
+			con = MySQLConexion8.getConexion();
 			
 			String sql = "insert into tb_pedido values (id_ped = ?, entidad_ped = ?, tipo_ped = ?, objeto_ped = ?, descripcion_ped = ?, descripcion_ped = ?, fecha_ped=?,estado_ped=?)";
 			
@@ -123,6 +125,56 @@ public class PedidoDAO {
 		
 		
 		return res;
+	}
+	
+	public ArrayList<Pedido> listarPedido(){
+		ArrayList <Pedido> list = new ArrayList<Pedido>();;
+		
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		ResultSet res = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql = "select * from tb_pedido"; 
+						
+			pstm = con.prepareStatement(sql);
+			
+			res = pstm.executeQuery();
+			
+			while (res.next()) {
+				Pedido ped = new Pedido(
+						res.getString(1),
+						res.getString(2),
+						res.getInt(3),
+						res.getInt(4),
+						res.getString(5),
+						res.getString(6),
+						res.getString(7)
+						
+						);
+				
+				list.add(ped);
+			}
+			
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+				if (res !=null)res.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		return list;	
 	}
 
 }
