@@ -26,8 +26,6 @@ entidad_ped varchar (25) ,
 
 id_tipoPedido int not null,
 id_objetoPedido int not null,
-tipo_ped varchar (25),
-objeto_ped varchar (25),
 descripcion_ped varchar(300),
 fecha_ped date,
 estado_ped varchar(25),
@@ -138,7 +136,28 @@ primary key (id_pronApel),
 foreign key (id_apel) references tb_apelacion (id_apel)
 );
 
-/*CONSTRAINT*/
+/*INSERTS*/
 
+
+insert into tb_objetoPedido values ('1','Periodico');
+insert into tb_objetoPedido values ('2','Sucursal');
+insert into tb_objetoPedido values ('3','Obra maestra');
+insert into tb_objetoPedido values ('4','Abracadabra');
+insert into tb_objetoPedido values ('5','Chupa moco');
+
+insert into tb_tipoPedido values ('1','publica');
+insert into tb_tipoPedido values ('2','privada');
+insert into tb_tipoPedido values ('3','mixta');
+insert into tb_tipoPedido values ('4','otra');
+
+select * from tb_tipoPedido;
+
+delete from tb_objetoPedido where id_objetoPedido = 3;
+
+select * from tb_pedido;
+
+select * from tb_objetoPedido;
+
+insert into tb_pedido values ('1','Gloria','1','2','VACA LOLA','2022-11-10','REGISTRADO');
 
 
