@@ -320,18 +320,18 @@ public class FrmPedido extends JInternalFrame implements ActionListener {
 	
 	private void correlativo () {
 		
-		ArrayList<Pedido> list = pedDao.listarPedido();
+		/*ArrayList<Pedido> list = pedDao.listarPedido();
 		
 		if (list.size() == 0) {
 			txtIdPedido.setText("PD001");
 		}else {
 			String idPedido=list.get(list.size()-1).getCodigo();
 			
-			int correlativo = Integer.parseInt(idPedido)+1;
+			int correlativo = Integer.parseInt(idPedido.substring(ABORT))+1;
 			
 			txtIdPedido.setText("" + correlativo);
 			
-		}
+		}*/
 		
 	}
 	
