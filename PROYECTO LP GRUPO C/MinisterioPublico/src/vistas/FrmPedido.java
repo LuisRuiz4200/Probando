@@ -323,7 +323,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener {
 		ArrayList<Pedido> list = pedDao.listarPedido();
 		
 		if (list.size() == 0) {
-			txtIdPedido.setText("1");
+			txtIdPedido.setText("PD001");
 		}else {
 			String idPedido=list.get(list.size()-1).getCodigo();
 			
