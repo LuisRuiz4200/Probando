@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 import mantenimiento.*;
+import utils.Tool;
 import clases.*;
 
 @SuppressWarnings("serial")
 public class FrmParticipante extends JInternalFrame implements ActionListener{
-	private JTextField txtEmpresa;
-	private JLabel lblEmpresa;
+	private JTextField txtEntidad;
+	private JLabel lblEntidad;
 	private JTextField txtRuc;
 	private JLabel lblRuc;
 	private JTextField txtTelefono;
@@ -28,7 +29,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 	private DefaultTableModel modelo;
 	private JComboBox <Object> cboPedido;
 	private JLabel lblPedido;
-	private JTextField txtIdPedido;
+	private JTextField txtIdParticipante;
 	private JLabel lblIdPedido;
 	private JComboBox<Object> cboEstado;
 	private JLabel lblEstado;
@@ -56,14 +57,14 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 		setMaximizable(true);
 		setIconifiable(true);
 		
-		txtEmpresa = new JTextField();
-		txtEmpresa.setColumns(10);
-		txtEmpresa.setBounds(21, 69, 177, 20);
-		getContentPane().add(txtEmpresa);
+		txtEntidad = new JTextField();
+		txtEntidad.setColumns(10);
+		txtEntidad.setBounds(21, 69, 177, 20);
+		getContentPane().add(txtEntidad);
 		
-		lblEmpresa = new JLabel("Empresa");
-		lblEmpresa.setBounds(22, 54, 67, 14);
-		getContentPane().add(lblEmpresa);
+		lblEntidad = new JLabel("Entidad");
+		lblEntidad.setBounds(22, 54, 67, 14);
+		getContentPane().add(lblEntidad);
 		
 		txtRuc = new JTextField();
 		txtRuc.setColumns(10);
@@ -116,11 +117,13 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 		scrollPane.setViewportView(table);
 		
 		modelo = new DefaultTableModel();
-		modelo.addColumn("EMPRESA");
-		modelo.addColumn("DNI");
+		modelo.addColumn("ID PEDIDO");
+		modelo.addColumn("ID PARTICIPANTE");
+		modelo.addColumn("ENTIDAD");
 		modelo.addColumn("RUC");
-		modelo.addColumn("TELEFONO");
 		modelo.addColumn("CORREO");
+		modelo.addColumn("TELEFONO");
+		modelo.addColumn("ESTADO");
 		table.setModel(modelo);
 		
 		cboPedido = new JComboBox<Object>();
@@ -131,16 +134,17 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 		lblPedido.setBounds(22, 11, 139, 14);
 		getContentPane().add(lblPedido);
 		
-		txtIdPedido = new JTextField();
-		txtIdPedido.setColumns(10);
-		txtIdPedido.setBounds(158, 26, 114, 20);
-		getContentPane().add(txtIdPedido);
+		txtIdParticipante = new JTextField();
+		txtIdParticipante.setColumns(10);
+		txtIdParticipante.setBounds(158, 26, 114, 20);
+		getContentPane().add(txtIdParticipante);
 		
-		lblIdPedido = new JLabel("Cod. Participante");
+		lblIdPedido = new JLabel("ID. Participante");
 		lblIdPedido.setBounds(158, 11, 116, 14);
 		getContentPane().add(lblIdPedido);
 		
 		cboEstado = new JComboBox<Object>(new Object[]{});
+		cboEstado.setModel(new DefaultComboBoxModel<Object>(new String[] {"REGISTRADO", "PROCESO", "DISCONFORME", "CONCLUIDO"}));
 		cboEstado.setBounds(422, 26, 106, 20);
 		getContentPane().add(cboEstado);
 		
@@ -161,8 +165,8 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 		
 	}
 	private void arranque() {
-
 		cargarCboPedido();
+		cargarTabla();
 	}
 
 	
@@ -182,7 +186,42 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 		}
 	}
 	protected void actionPerformedBtnAgregar(ActionEvent e) {
+		
+		String idPedido = leerIdPedido();
+		String idParticipante = leerIdParticipante();
+		String entidad = leerEntidad ();
+		int ruc = leerRuc();
+		String correo = leerCorreo();
+		int telefono = leerTelefono ();
+		String estado = leerEstado();
+		
+		
+		if (idPedido==null||idParticipante==null||entidad==null||
+				ruc==-1||correo==null||
+				telefono==-1||estado==null) {
+			
+			return;
+			
+		}else {
+			
+			Participante part = new Participante (
+					
+					idPedido, idParticipante, entidad, ruc, correo,telefono,estado
+					);
+			
+			int ok =partDao.registrarParticipante(part);
+			
+			if (ok == 0) {
+				Tool.mensajeError(this, "Error de registro");
+			}else {
+				Tool.mensajeExito(this, "Registro exitoso");
+			}
+			
+		}
+		
 	}
+	
+
 	protected void actionPerformedBtnModificar(ActionEvent e) {
 	}
 	protected void actionPerformedBtnEliminar(ActionEvent e) {
@@ -192,6 +231,61 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 	
 	//METODOS DE ENTRADA 
 	
+	private String leerIdPedido() {
+		String res = null;
+		
+		res = cboPedido.getSelectedItem().toString();
+		
+		return res ;
+	}
+
+	private String leerIdParticipante() {
+		String res = null;
+		
+		res = txtIdParticipante.getText().trim();
+		
+		return res ;
+	}
+
+	private String leerEntidad() {
+		String res = null;
+		
+		res = txtEntidad.getText().trim();
+		
+		return res ;
+	}
+
+	private int leerRuc() {
+		int res = -1;
+		
+		res = Integer.parseInt(txtRuc.getText().trim());
+		
+		return res ;
+	}
+
+	private String leerCorreo() {
+		String res = null;
+		
+		res = txtCorreo.getText().trim();
+		
+		return res ;
+	}
+
+	private int leerTelefono() {
+		int res = -1;
+		
+		res = Integer.parseInt(txtTelefono.getText().trim());
+		
+		return res ;
+	}
+
+	private String leerEstado() {
+		String res = null;
+		
+		res = cboEstado.getSelectedItem().toString();
+		
+		return res ;
+	}
 	
 	
 	//METODOS ADICIONALES
@@ -206,6 +300,29 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 			
 			cboPedido.addItem(ped.getCodigo());
 			
+		}
+		
+	}
+	
+	private void cargarTabla () {
+		
+		ArrayList<Participante> list = partDao.listarParticipante();
+		
+		modelo.setRowCount(0);
+		
+		for (Participante part: list) {
+			
+			Object [] x = {
+					part.getCodPedido(),
+					part.getCodParticipante(),
+					part.getEntidad(),
+					part.getRuc(),
+					part.getCorreo(),
+					part.getTelefono(),
+					part.getEstado()
+			};
+			
+			modelo.addRow(x);
 		}
 		
 	}

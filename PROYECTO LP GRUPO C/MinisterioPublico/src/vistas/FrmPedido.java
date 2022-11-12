@@ -1,22 +1,32 @@
 package vistas;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
-import mantenimiento.*;
+import clases.ObjetoPedido;
+import clases.Pedido;
+import clases.TipoPedido;
+import mantenimiento.ObjetoPedidoDAO;
+import mantenimiento.PedidoDAO;
+import mantenimiento.TipoPedidoDAO;
 import utils.Tool;
-import clases.*;
-
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Date;
-import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class FrmPedido extends JInternalFrame implements ActionListener {
