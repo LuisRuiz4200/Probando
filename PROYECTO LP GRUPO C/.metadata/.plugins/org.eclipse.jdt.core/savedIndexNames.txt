@@ -1,5 +1,8 @@
 INDEX VERSION 1.131+C:\Users\lr270\OneDrive\Documentos\GitHub\Probando\PROYECTO LP GRUPO C\.metadata\.plugins\org.eclipse.jdt.core
+<<<<<<< HEAD
+=======
 1865797976.index
 4251787224.index
 3584472735.index
+>>>>>>> 0fde26951f87c2b467c5c5e0d0cb7cfa125a1767
 2589105401.index
