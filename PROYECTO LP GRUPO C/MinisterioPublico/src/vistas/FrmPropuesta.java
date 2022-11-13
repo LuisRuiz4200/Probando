@@ -157,7 +157,8 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		contentPane.add(lblEstado);
 
 		cboEstado = new JComboBox<Object>();
-		cboEstado.setModel(new DefaultComboBoxModel<Object>(new String[] { "Seleccionar", "Admitido", "No admitido" }));
+		cboEstado.setToolTipText("");
+		cboEstado.setModel(new DefaultComboBoxModel(new String[] {"REGISTRADO", "ADMITIDO", "NO ADMITIDO"}));
 		cboEstado.setBounds(482, 7, 126, 22);
 		contentPane.add(cboEstado);
 

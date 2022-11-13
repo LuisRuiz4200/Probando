@@ -40,6 +40,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	
 	private PedidoDAO pedDao;
 	private ParticipanteDAO partDao;
+	private JButton btnNuevo;
 	
 	
 	
@@ -131,6 +132,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		table.setModel(modelo);
 		
 		cboPedido = new JComboBox<Object>();
+		cboPedido.addActionListener(this);
 		cboPedido.setBounds(21, 26, 106, 22);
 		getContentPane().add(cboPedido);
 		
@@ -149,17 +151,22 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		
 		cboEstado = new JComboBox<Object>(new Object[]{});
 		cboEstado.setModel(new DefaultComboBoxModel<Object>(new String[] {"REGISTRADO", "PROCESO", "DISCONFORME", "CONCLUIDO"}));
-		cboEstado.setBounds(422, 26, 106, 20);
+		cboEstado.setBounds(578, 28, 106, 20);
 		getContentPane().add(cboEstado);
 		
 		lblEstado = new JLabel("ESTADO");
-		lblEstado.setBounds(423, 11, 67, 14);
+		lblEstado.setBounds(579, 13, 67, 14);
 		getContentPane().add(lblEstado);
 		
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(this);
 		btnBuscar.setBounds(278, 26, 86, 23);
 		getContentPane().add(btnBuscar);
+		
+		btnNuevo = new JButton("Nuevo");
+		btnNuevo.addActionListener(this);
+		btnNuevo.setBounds(422, 68, 89, 23);
+		getContentPane().add(btnNuevo);
 		
 		pedDao = new PedidoDAO();
 		partDao = new ParticipanteDAO();
@@ -172,11 +179,18 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		cargarCboPedido();
 		cargarTabla();
 		correlativo();
+		limpiar();
 	}
 
 	
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNuevo) {
+			actionPerformedBtnNuevo(e);
+		}
+		if (e.getSource() == cboPedido) {
+			actionPerformedCboPedido(e);
+		}
 		if (e.getSource() == btnBuscar) {
 			actionPerformedBtnBuscar(e);
 		}
@@ -190,19 +204,26 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 			actionPerformedBtnAgregar(e);
 		}
 	}
+	
+	protected void actionPerformedCboPedido(ActionEvent e) {
+		if (cboPedido.getSelectedIndex() != 0) {
+			cboPedido.setEnabled(false);
+		}
+	}
+	
 	protected void actionPerformedBtnAgregar(ActionEvent e) {
 		
 		String idPedido = leerIdPedido();
 		String idParticipante = leerIdParticipante();
 		String entidad = leerEntidad ();
-		int ruc = leerRuc();
+		String ruc = leerRuc();
 		String correo = leerCorreo();
 		int telefono = leerTelefono ();
 		String estado = leerEstado();
 		
 		
 		if (idPedido==null||idParticipante==null||entidad==null||
-				ruc==-1||correo==null||
+				ruc==null||correo==null||
 				telefono==-1||estado==null) {
 			
 			return;
@@ -234,14 +255,14 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		String idPedido = leerIdPedido();
 		String idParticipante = leerIdParticipante();
 		String entidad = leerEntidad ();
-		int ruc = leerRuc();
+		String ruc = leerRuc();
 		String correo = leerCorreo();
 		int telefono = leerTelefono ();
 		String estado = leerEstado();
 		
 		
 		if (idPedido==null||idParticipante==null||entidad==null||
-				ruc==-1||correo==null||
+				ruc==null||correo==null||
 				telefono==-1||estado==null) {
 			
 			return;
@@ -328,10 +349,10 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		return res ;
 	}
 
-	private int leerRuc() {
-		int res = -1;
+	private String leerRuc() {
+		String res = null;
 		
-		res = Integer.parseInt(txtRuc.getText().trim());
+		res = txtRuc.getText().trim();
 		
 		return res ;
 	}
@@ -424,6 +445,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	}
 	private void correlativo () {
 		
+		@SuppressWarnings("resource")
 		Formatter ft = new Formatter();
 		
 		ArrayList <Participante> list = partDao.listarParticipante();
@@ -441,5 +463,20 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		
 	}
 	
+	private void limpiar() {
+		
+		cboPedido.setEnabled(true);
+		txtEntidad.setText("");
+		txtRuc.setText("");
+		txtTelefono.setText("");
+		txtCorreo.setText("");
+		cboEstado.setSelectedIndex(0);
+	}
 	
+	
+	
+	
+	protected void actionPerformedBtnNuevo(ActionEvent e) {
+		arranque();
+	}
 }

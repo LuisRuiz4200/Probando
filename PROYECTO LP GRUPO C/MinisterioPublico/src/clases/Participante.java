@@ -4,14 +4,14 @@ public class Participante {
 	private String codPedido;
 	private String codParticipante;
 	private String entidad;
-	private int ruc;
+	private String ruc;
 	private String correo;
 	private int telefono;
 	private String estado;
 	
 	
 	
-	public Participante(String codPedido, String codParticipante, String entidad, int ruc, String correo, int telefono,
+	public Participante(String codPedido, String codParticipante, String entidad, String ruc, String correo, int telefono,
 			String estado) {
 		
 		this.codPedido = codPedido;
@@ -64,13 +64,13 @@ public class Participante {
 
 
 
-	public int getRuc() {
+	public String getRuc() {
 		return ruc;
 	}
 
 
 
-	public void setRuc(int ruc) {
+	public void setRuc(String ruc) {
 		this.ruc = ruc;
 	}
 

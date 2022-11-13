@@ -30,7 +30,7 @@ public class ParticipanteDAO {
 			pstm.setString(1,part.getCodPedido());
 			pstm.setString(2,part.getCodParticipante());
 			pstm.setString(3,part.getEntidad());
-			pstm.setInt(4,part.getRuc());
+			pstm.setString(4,part.getRuc());
 			pstm.setString(5,part.getCorreo());
 			pstm.setInt(6,part.getTelefono());
 			pstm.setString(7,part.getEstado());
@@ -74,7 +74,7 @@ public class ParticipanteDAO {
 			
 			
 			pstm.setString(1,part.getEntidad());
-			pstm.setInt(2,part.getRuc());
+			pstm.setString(2,part.getRuc());
 			pstm.setString(3,part.getCorreo());
 			pstm.setInt(4,part.getTelefono());
 			pstm.setString(5,part.getEstado());
@@ -156,7 +156,7 @@ public class ParticipanteDAO {
 						res.getString(1),
 						res.getString(2),
 						res.getString(3),
-						res.getInt(4),
+						res.getString(4),
 						res.getString(5),
 						res.getInt(6),
 						res.getString(7)
@@ -211,7 +211,7 @@ public class ParticipanteDAO {
 						res.getString(1),
 						res.getString(2),
 						res.getString(3),
-						res.getInt(4),
+						res.getString(4),
 						res.getString(5),
 						res.getInt(6),
 						res.getString(7)
