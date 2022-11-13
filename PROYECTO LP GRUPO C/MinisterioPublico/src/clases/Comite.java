@@ -2,8 +2,8 @@ package clases;
 
 public class Comite {
    // incializamos entradas 
-   private int codPedido;
-   private int codMiembro;
+   private String codPedido;
+   private String codMiembro;
    private String nombMiembro;
    private String apeMiembro;
    private String dni;
@@ -16,7 +16,7 @@ public class Comite {
 	}
    
    //Constructor
-   public Comite(int codPedido, int codMiembro, String nombMiembro, String apeMiembro, String dni, String funcion,
+   public Comite(String codPedido, String codMiembro, String nombMiembro, String apeMiembro, String dni, String funcion,
 			String dependencia) {
 		super();
 		this.codPedido = codPedido;
@@ -25,24 +25,24 @@ public class Comite {
 		this.apeMiembro = apeMiembro;
 		this.dni = dni;
 		this.funcion = funcion;
-		Dependencia = dependencia;
+		this.Dependencia = dependencia;
 	}
    
    // Set/Get
    
-   public int getCodPedido() {
+   public String getCodPedido() {
 		return codPedido;
 	}
 
-	public void setCodPedido(int codPedido) {
+	public void setCodPedido(String codPedido) {
 		this.codPedido = codPedido;
 	}
 
-	public int getCodMiembro() {
+	public String getCodMiembro() {
 		return codMiembro;
 	}
 
-	public void setCodMiembro(int codMiembro) {
+	public void setCodMiembro (String codMiembro) {
 		this.codMiembro = codMiembro;
 	}
 

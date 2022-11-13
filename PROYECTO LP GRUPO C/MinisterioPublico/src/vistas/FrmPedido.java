@@ -327,7 +327,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		String res=null;
 		
 		res = txtDescripcion.getText().trim();
-		
+	
 		return res;
 	}
 
@@ -423,7 +423,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	
 	private void cargarCajas() {
 		
-		//ArrayList <Pedido> list = pedDao.listarPedido();
+		ArrayList <Pedido> list = pedDao.listarPedido();
 		
 		int indice = tbPedidos.getSelectedRow();
 		
