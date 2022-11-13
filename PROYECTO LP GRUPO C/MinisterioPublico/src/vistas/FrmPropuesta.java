@@ -213,7 +213,8 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 			String idProp = list.get(list.size() - 1).getCodPropuesta();
 
 			int correlativo = Integer.parseInt(idProp.substring(2)) + 1;
-
+			
+			txtPropuesta.setText("");
 			txtPropuesta.setText("PD" + Tool.ft.format("%03d", correlativo));
 
 		}
