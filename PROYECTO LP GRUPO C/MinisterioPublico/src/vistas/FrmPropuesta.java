@@ -54,8 +54,8 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	PedidoDAO gPed = new PedidoDAO();
 	ParticipanteDAO gPart = new ParticipanteDAO();
 
-	private JComboBox cboPedido;
-	private JComboBox cboParticipante;
+	private JComboBox <Object>cboPedido;
+	private JComboBox <Object>cboParticipante;
 	private JButton btnRegistrar;
 
 	/**
@@ -156,7 +156,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		contentPane.add(lblEstado);
 
 		cboEstado = new JComboBox<Object>();
-		cboEstado.setModel(new DefaultComboBoxModel(new String[] { "Seleccionar", "Admitido", "No admitido" }));
+		cboEstado.setModel(new DefaultComboBoxModel<Object>(new String[] { "Seleccionar", "Admitido", "No admitido" }));
 		cboEstado.setBounds(482, 7, 126, 22);
 		contentPane.add(cboEstado);
 
@@ -182,12 +182,12 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		lblFechaProp.setBounds(388, 39, 53, 14);
 		contentPane.add(lblFechaProp);
 
-		cboPedido = new JComboBox();
+		cboPedido = new JComboBox<Object>();
 		cboPedido.addItemListener(this);
 		cboPedido.setBounds(145, 7, 115, 22);
 		contentPane.add(cboPedido);
 
-		cboParticipante = new JComboBox();
+		cboParticipante = new JComboBox<Object>();
 		cboParticipante.setBounds(145, 35, 115, 22);
 		contentPane.add(cboParticipante);
 
@@ -204,6 +204,9 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 		ArrayList<Propuesta> list = gProp.listarPropuestas();
 
+
+		txtPropuesta.setText("");
+		
 		if (list.size() == 0) {
 			txtPropuesta.setText("PR001");
 		} else {
@@ -398,6 +401,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 				Tool.mensajeError(null, "Error en el registro");
 			} else {
 				Tool.mensajeExito(null, "Propuesta registrada");
+				correlativo();
 			}
 		}
 	}

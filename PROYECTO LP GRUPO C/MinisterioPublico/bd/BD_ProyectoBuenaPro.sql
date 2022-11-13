@@ -157,6 +157,10 @@ select * from tb_pedido;
 
 select * from tb_objetoPedido;
 
+select * from tb_participante;
 
+select * from tb_propuesta;
 
+delete from tb_participante where id_ped = 'PD001' and id_participante = '456';
 
+delete from tb_propuesta where id_ped = 'PD002';
