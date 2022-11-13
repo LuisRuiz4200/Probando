@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.awt.event.ActionEvent;
 
 import mantenimiento.*;
@@ -258,6 +259,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 				Tool.mensajeError(this, "Error de update");
 			}else {
 				Tool.mensajeExito(this, "Actualizacion exitosa");
+				correlativo();
 				cargarTabla();
 			}
 			
@@ -422,17 +424,19 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	}
 	private void correlativo () {
 		
+		Formatter ft = new Formatter();
+		
 		ArrayList <Participante> list = partDao.listarParticipante();
 		
 		if (list.size()==0) {
-			txtIdParticipante.setText("PTC001");
+			txtIdParticipante.setText("PA001");
 		}else {
 			String idParticipante = list.get(list.size()-1).getCodParticipante();
 			
 			int n =Integer.parseInt(idParticipante.substring(3))+1;
 			
 			txtIdParticipante.setText("");
-			txtIdParticipante.setText("PTC"+Tool.ft.format("%03d", n));
+			txtIdParticipante.setText("PA"+ft.format("%03d", n));
 		}
 		
 	}

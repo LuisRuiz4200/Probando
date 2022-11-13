@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Formatter;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -230,6 +231,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 				Tool.mensajeError(this, "Error de registro");
 			}else {
 				Tool.mensajeExito(this, "Pedido registrado!");
+				correlativo();
 				cargarTabla();
 			}
 		}
@@ -382,6 +384,8 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	
 	private void correlativo () {
 		
+		Formatter ft = new Formatter ();
+		
 		ArrayList<Pedido> list = pedDao.listarPedido();
 		
 		if (list.size() == 0) {
@@ -391,7 +395,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 			
 			int correlativo = Integer.parseInt(idPedido.substring(2))+1;
 			
-			txtIdPedido.setText("PD" + Tool.ft.format("%03d",correlativo));
+			txtIdPedido.setText("PD" + ft.format("%03d",correlativo));
 			
 		}
 		
@@ -422,8 +426,6 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	}
 	
 	private void cargarCajas() {
-		
-		ArrayList <Pedido> list = pedDao.listarPedido();
 		
 		int indice = tbPedidos.getSelectedRow();
 		
