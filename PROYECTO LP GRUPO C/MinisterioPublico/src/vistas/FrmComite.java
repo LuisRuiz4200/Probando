@@ -249,7 +249,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 				idPedido, idMiembro, nombre, apellido, dni, funcion, depen
 				);
 		
-		int ok  = comiDao.registrarComite(com);
+		int ok  = comiDao.actualizarComite(com);
 		
 		if (ok == 0) {
 			Tool.mensajeError(this, "Error de Update");

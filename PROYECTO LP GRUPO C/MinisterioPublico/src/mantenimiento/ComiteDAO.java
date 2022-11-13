@@ -60,20 +60,17 @@ public class ComiteDAO {
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "update tb_cep_pedido set "
-					+ "id_ped = ?, nombre_miembroCEP = ?, apellido_miemborCEP = ?, dni_miembroCEP = ?, "
-					+ "funcion_miembroCEP = ?, dependencia_miembroCEP = ? "
-					+ " where id_miembroCEP = ?";
+			String sql = "update tb_cep_pedido set nombre_miembroCEP = ?, apellido_miemborCEP = ?, dni_miembroCEP = ?, funcion_miembroCEP = ?, dependencia_miembroCEP = ?"
+					+ "where id_ped = ? and id_miembroCEP = ? ";
 			
 			pstm = con.prepareStatement(sql);
 			
-			pstm.setString(1,com.getCodPedido());
-			pstm.setString(2,com.getNombMiembro());
-			pstm.setString(3,com.getApeMiembro());
-			pstm.setString(4,com.getDni());
-			pstm.setString(5,com.getFuncion());
-			pstm.setString(6,com.getDependencia());
-			
+			pstm.setString(1,com.getNombMiembro());
+			pstm.setString(2,com.getApeMiembro());
+			pstm.setString(3,com.getDni());
+			pstm.setString(4,com.getFuncion());
+			pstm.setString(5,com.getDependencia());
+			pstm.setString(6,com.getCodPedido());
 			pstm.setString(7,com.getCodMiembro());
 			
 			res = pstm.executeUpdate();
@@ -84,8 +81,8 @@ public class ComiteDAO {
 			try {
 				if (con!=null)con.close();
 				if (pstm!=null)pstm.close();
-			}catch (SQLException e) {
-				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}catch (SQLException e2) {
+				System.out.println("Error al cerrar la base de datos" + e2.getMessage());
 			}
 		}
 		
