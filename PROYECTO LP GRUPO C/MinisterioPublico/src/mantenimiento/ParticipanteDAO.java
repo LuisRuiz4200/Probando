@@ -64,7 +64,10 @@ public class ParticipanteDAO {
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "update tb_participante ser --- where id_participante = ?";
+			String sql = "update tb_participante"
+					+ " set id_ped = ?, codigo_parti = ?, empresa_parti = ?,"
+					+ "ruc_parti=?, correo_parti = ?, telefono_parti=?, estado_parti=?"
+					+ "where id_participante = ?";
 			
 			pstm = con.prepareStatement(sql);
 			
