@@ -27,9 +27,12 @@ import mantenimiento.ObjetoPedidoDAO;
 import mantenimiento.PedidoDAO;
 import mantenimiento.TipoPedidoDAO;
 import utils.Tool;
+import java.awt.event.MouseListener;
+import java.text.ParseException;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
-public class FrmPedido extends JInternalFrame implements ActionListener {
+public class FrmPedido extends JInternalFrame implements ActionListener, MouseListener {
 
 	private JPanel contentPane;
 	private JTextField txtIdPedido;
@@ -42,7 +45,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener {
 	private JEditorPane txtDescripcion;
 	private JLabel lblDescripcion;
 	private JLabel lblFecha;
-	private JTable tbContratacion;
+	private JTable tbPedidos;
 	private JScrollPane scrollPane;
 	private JButton btnGuardar;
 	private JButton btnModificar;
@@ -136,8 +139,9 @@ public class FrmPedido extends JInternalFrame implements ActionListener {
 		scrollPane.setBounds(10, 154, 727, 198);
 		contentPane.add(scrollPane);
 		
-		tbContratacion = new JTable();
-		scrollPane.setViewportView(tbContratacion);
+		tbPedidos = new JTable();
+		tbPedidos.addMouseListener(this);
+		scrollPane.setViewportView(tbPedidos);
 		
 		btnGuardar = new JButton("GUARDAR");
 		btnGuardar.addActionListener(this);
@@ -160,8 +164,9 @@ public class FrmPedido extends JInternalFrame implements ActionListener {
 		model.addColumn("OBJETO");
 		model.addColumn("DESCRIPCION");
 		model.addColumn("FECHA");
+		model.addColumn("ESTADO");
 	
-		tbContratacion.setModel(model);
+		tbPedidos.setModel(model);
 		
 		cboEstado = new JComboBox<Object>();
 		cboEstado.setModel(new DefaultComboBoxModel<Object>(new String[] {"REGISTRADO", "EN PROCESO ", "DESIERTO", "CONCLUIDO"}));
@@ -235,8 +240,54 @@ public class FrmPedido extends JInternalFrame implements ActionListener {
 
 	protected void actionPerformedBtnModificar(ActionEvent e) {
 		
+		String idPedido = leerIdPedido();
+		String entidad = leerEntidad();
+		int idTipoPedido = leerTipo();
+		int idObjetoPedido = leerObjeto();
+		String descripcion  = leerDescripcion();
+		String fecha = leerFecha();
+		String estado = leerEstado();
+		
+		if (idPedido==null ||entidad==null ||idTipoPedido==-1 ||
+				idObjetoPedido==-1 ||descripcion==null 
+				||fecha==null || estado ==null) {
+			return;
+		}else {
+			
+			Pedido ped = new Pedido(idPedido,entidad,
+					idTipoPedido,idObjetoPedido,descripcion,
+					fecha,estado);
+			
+			int ok = pedDao.actualizarPedido(ped);
+		
+			if(ok == 0){
+				Tool.mensajeError(this, "Error de update");
+			}else {
+				Tool.mensajeExito(this, "Pedido actualizado!");
+				cargarTabla();
+			}
+		}
+		
+		
 	}
 	
+	
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == tbPedidos) {
+			mouseClickedTbContratacion(e);
+		}
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	protected void mouseClickedTbContratacion(MouseEvent e) {
+		cargarCajas();
+	}
 	
 	//METODOS DE ENTRADA 
 	
@@ -360,15 +411,44 @@ public class FrmPedido extends JInternalFrame implements ActionListener {
 				p.getTipo(),
 				p.getObjeto(),
 				p.getDescripcion(),
-				p.getFecha()
+				p.getFecha(),
+				p.getEstado()
 			};
 			
 			model.addRow(ped);
 			
 		}
 		
+	}
+	
+	private void cargarCajas() {
 		
+		//ArrayList <Pedido> list = pedDao.listarPedido();
+		
+		int indice = tbPedidos.getSelectedRow();
+		
+		String idPedido = tbPedidos.getValueAt(indice, 0).toString();
+		String entidad = tbPedidos.getValueAt(indice, 1).toString();
+		String idTipoPedido = tbPedidos.getValueAt(indice, 2).toString();
+		String idObjetoPedido = tbPedidos.getValueAt(indice, 3).toString();
+		String descripcion  = tbPedidos.getValueAt(indice, 4).toString();
+		String fecha = tbPedidos.getValueAt(indice, 5).toString();
+		String estado = tbPedidos.getValueAt(indice, 6).toString();
+		
+		txtIdPedido.setText(idPedido);
+		txtEntidad.setText(entidad);
+		cboTipo.setSelectedIndex(Integer.parseInt(idTipoPedido));
+		cboObjeto.setSelectedIndex(Integer.parseInt(idObjetoPedido));
+		txtDescripcion.setText(descripcion);
+		try {
+			dcFecha.setDate(Tool.sdf.parse(fecha));
+		} catch (ParseException e) {
+			Tool.mensajeError(this,"Error de formato en fecha");
+		}
+		cboEstado.setSelectedItem(estado);
+
 		
 	}
+	
 	
 }
