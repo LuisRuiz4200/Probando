@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Formatter;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -20,12 +22,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
-import clases.ObjetoPedido;
-import clases.Pedido;
-import clases.TipoPedido;
-import mantenimiento.ObjetoPedidoDAO;
-import mantenimiento.PedidoDAO;
-import mantenimiento.TipoPedidoDAO;
+import clases.*;
+import mantenimiento.*;
 import utils.Tool;
 import java.awt.event.MouseListener;
 import java.text.ParseException;
@@ -57,6 +55,8 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private TipoPedidoDAO tipPedDao;
 	private ObjetoPedidoDAO objPedDao;
 	private PedidoDAO pedDao;
+	private ParticipanteDAO partDao;
+	private JButton btnNuevo;
 
 	/**
 	 * Launch the application.
@@ -169,7 +169,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		tbPedidos.setModel(model);
 		
 		cboEstado = new JComboBox<Object>();
-		cboEstado.setModel(new DefaultComboBoxModel<Object>(new String[] {"REGISTRADO", "EN PROCESO ", "DESIERTO", "CONCLUIDO"}));
+		cboEstado.setModel(new DefaultComboBoxModel<Object>(new String[] {"REGISTRADO", "EN PROCESO", "DESIERTO", "CONCLUIDO"}));
 		cboEstado.setBounds(601, 11, 102, 20);
 		contentPane.add(cboEstado);
 		
@@ -177,9 +177,15 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		cboObjeto.setBounds(167, 107, 117, 22);
 		contentPane.add(cboObjeto);
 		
+		btnNuevo = new JButton("Nuevo");
+		btnNuevo.addActionListener(this);
+		btnNuevo.setBounds(361, 120, 89, 23);
+		contentPane.add(btnNuevo);
+		
 		tipPedDao = new TipoPedidoDAO();
 		objPedDao = new ObjetoPedidoDAO();
 		pedDao = new PedidoDAO();
+		partDao = new ParticipanteDAO();
 		
 		arranque();
 		
@@ -188,15 +194,19 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	
 	
 	private void arranque() {
-		
+		estado();
 		cargarTipoPedido();
 		cargarObjetoPedido();
 		correlativo();
 		cargarTabla();
+		limpiar();
 		
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNuevo) {
+			actionPerformedBtnNuevo(e);
+		}
 		if (e.getSource() == btnModificar) {
 			actionPerformedBtnModificar(e);
 		}
@@ -204,6 +214,10 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 			actionPerformedBtnGuardar(e);
 		}
 	}
+	protected void actionPerformedBtnNuevo(ActionEvent e) {
+		arranque();
+	}
+	
 	protected void actionPerformedBtnGuardar(ActionEvent e) {
 		
 		String idPedido = leerIdPedido();
@@ -230,6 +244,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 				Tool.mensajeError(this, "Error de registro");
 			}else {
 				Tool.mensajeExito(this, "Pedido registrado!");
+				correlativo();
 				cargarTabla();
 			}
 		}
@@ -382,6 +397,9 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	
 	private void correlativo () {
 		
+		@SuppressWarnings("resource")
+		Formatter ft = new Formatter ();
+		
 		ArrayList<Pedido> list = pedDao.listarPedido();
 		
 		if (list.size() == 0) {
@@ -391,7 +409,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 			
 			int correlativo = Integer.parseInt(idPedido.substring(2))+1;
 			
-			txtIdPedido.setText("PD" + Tool.ft.format("%03d",correlativo));
+			txtIdPedido.setText("PD" + ft.format("%03d",correlativo));
 			
 		}
 		
@@ -423,8 +441,6 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	
 	private void cargarCajas() {
 		
-		ArrayList <Pedido> list = pedDao.listarPedido();
-		
 		int indice = tbPedidos.getSelectedRow();
 		
 		String idPedido = tbPedidos.getValueAt(indice, 0).toString();
@@ -450,5 +466,27 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		
 	}
 	
+	private void estado () {
+		ArrayList<Participante> listPart = partDao.listarParticipante();
+		ArrayList<Pedido> listPed = pedDao.listarPedido();
+		
+		for (Participante part : listPart) {
+			
+			for (Pedido ped : listPed) {
+				if (part.getCodPedido().equals(ped.getCodigo())) {
+					ped.setEstado("EN PROCESO");
+					pedDao.actualizarPedido(ped);
+				}
+			}
+		}
+		
+	}
+	
+	private void limpiar () {
+		txtEntidad.setText("");
+		dcFecha.setDate(new Date());
+		txtDescripcion.setText("");
+		cboEstado.setSelectedIndex(0);
+	}
 	
 }

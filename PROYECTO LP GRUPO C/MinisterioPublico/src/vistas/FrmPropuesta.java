@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
@@ -50,9 +51,9 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private final ButtonGroup buttonGroupPT = new ButtonGroup();
 	private final ButtonGroup buttonGroupPE = new ButtonGroup();
 
-	PropuestaDAO gProp = new PropuestaDAO();
-	PedidoDAO gPed = new PedidoDAO();
-	ParticipanteDAO gPart = new ParticipanteDAO();
+	private PropuestaDAO gProp = new PropuestaDAO();
+	private PedidoDAO gPed = new PedidoDAO();
+	private ParticipanteDAO gPart = new ParticipanteDAO();
 
 	private JComboBox <Object>cboPedido;
 	private JComboBox <Object>cboParticipante;
@@ -156,7 +157,8 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		contentPane.add(lblEstado);
 
 		cboEstado = new JComboBox<Object>();
-		cboEstado.setModel(new DefaultComboBoxModel<Object>(new String[] { "Seleccionar", "Admitido", "No admitido" }));
+		cboEstado.setToolTipText("");
+		cboEstado.setModel(new DefaultComboBoxModel(new String[] {"REGISTRADO", "ADMITIDO", "NO ADMITIDO"}));
 		cboEstado.setBounds(482, 7, 126, 22);
 		contentPane.add(cboEstado);
 
@@ -205,17 +207,17 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		ArrayList<Propuesta> list = gProp.listarPropuestas();
 
 
-		txtPropuesta.setText("");
+		Formatter ft = new Formatter();
 		
 		if (list.size() == 0) {
-			txtPropuesta.setText("PD001");
+			txtPropuesta.setText("PR001");
 		} else {
 			String idProp = list.get(list.size() - 1).getCodPropuesta();
 
 			int correlativo = Integer.parseInt(idProp.substring(2)) + 1;
 			
 			txtPropuesta.setText("");
-			txtPropuesta.setText("PD" + Tool.ft.format("%03d", correlativo));
+			txtPropuesta.setText("PD" + ft.format("%03d", correlativo));
 
 		}
 

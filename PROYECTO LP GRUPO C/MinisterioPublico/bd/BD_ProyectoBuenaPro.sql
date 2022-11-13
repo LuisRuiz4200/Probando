@@ -55,7 +55,7 @@ create table tb_participante (
 id_ped char (10) not null,
 codigo_parti char (10) not null,
 empresa_parti varchar (25),
-ruc_parti int,
+ruc_parti varchar(25),
 correo_parti varchar(50),
 telefono_parti int,
 estado_parti varchar(25),
@@ -161,6 +161,6 @@ select * from tb_participante;
 
 select * from tb_propuesta;
 
-delete from tb_participante where id_ped = 'PD001' and id_participante = '456';
+/*delete from tb_participante where id_ped = 'PD001' and id_participante = '456';
 
-delete from tb_propuesta where id_ped = 'PD002';
+delete from tb_propuesta where id_ped = 'PD002';*/
