@@ -153,7 +153,7 @@ public class FrmComite extends JInternalFrame implements ActionListener {
 		contentPane.add(txtApellido);
 		
 		cboIdPedido = new JComboBox();
-		cboIdPedido.setBounds(144, 9, 102, 22);
+		cboIdPedido.setBounds(144, 10, 102, 22);
 		contentPane.add(cboIdPedido);
 		
 		txtDni = new JTextField();
