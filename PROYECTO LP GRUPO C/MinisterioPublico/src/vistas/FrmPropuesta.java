@@ -50,9 +50,9 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private final ButtonGroup buttonGroupPT = new ButtonGroup();
 	private final ButtonGroup buttonGroupPE = new ButtonGroup();
 
-	private PropuestaDAO gProp = new PropuestaDAO();
-	private PedidoDAO gPed = new PedidoDAO();
-	private ParticipanteDAO gPart = new ParticipanteDAO();
+	PropuestaDAO gProp = new PropuestaDAO();
+	PedidoDAO gPed = new PedidoDAO();
+	ParticipanteDAO gPart = new ParticipanteDAO();
 
 	private JComboBox <Object>cboPedido;
 	private JComboBox <Object>cboParticipante;
