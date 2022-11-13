@@ -52,7 +52,7 @@ public class FrmAyuda extends JDialog{
 		lblJeanPierreMaguia.setBounds(100, 111, 282, 26);
 		getContentPane().add(lblJeanPierreMaguia);
 		
-		lblRicardo = new JLabel("RICARDO");
+		lblRicardo = new JLabel("RICARDO RAMIREZ MALLQUI");
 		lblRicardo.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblRicardo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRicardo.setBounds(100, 148, 282, 26);

@@ -32,6 +32,8 @@ public class FrmPropuesta extends JInternalFrame {
 	private JButton btnBuscarParticipante;
 	private JDateChooser dateChooser;
 	private JLabel lblFechaProp;
+	private final ButtonGroup buttonGroupPT = new ButtonGroup();
+	private final ButtonGroup buttonGroupPE = new ButtonGroup();
 	
 	/**
 	 * Launch the application.
@@ -106,27 +108,31 @@ public class FrmPropuesta extends JInternalFrame {
 		contentPane.add(cboPedido);
 		
 		rdbtnNewRadioButton = new JRadioButton("SI");
+		buttonGroupPT.add(rdbtnNewRadioButton);
 		rdbtnNewRadioButton.setBounds(155, 99, 46, 23);
 		contentPane.add(rdbtnNewRadioButton);
 		
 		rdbtnNewRadioButton_1 = new JRadioButton("NO");
+		buttonGroupPT.add(rdbtnNewRadioButton_1);
 		rdbtnNewRadioButton_1.setBounds(214, 99, 46, 23);
 		contentPane.add(rdbtnNewRadioButton_1);
 		
 		rdbtnNewRadioButton_2 = new JRadioButton("SI");
+		buttonGroupPE.add(rdbtnNewRadioButton_2);
 		rdbtnNewRadioButton_2.setBounds(503, 99, 46, 23);
 		contentPane.add(rdbtnNewRadioButton_2);
 		
 		rdbtnNewRadioButton_3 = new JRadioButton("NO");
+		buttonGroupPE.add(rdbtnNewRadioButton_3);
 		rdbtnNewRadioButton_3.setBounds(562, 99, 46, 23);
 		contentPane.add(rdbtnNewRadioButton_3);
 		
-		lblNumeroPostulacion = new JLabel("Numero de postulacion:");
+		lblNumeroPostulacion = new JLabel("ID Propuesta:");
 		lblNumeroPostulacion.setBounds(10, 67, 135, 14);
 		contentPane.add(lblNumeroPostulacion);
 		
 		textField = new JTextField();
-		textField.setBounds(145, 64, 105, 20);
+		textField.setBounds(145, 64, 115, 20);
 		contentPane.add(textField);
 		
 		lblEstado = new JLabel("ESTADO:");
@@ -134,7 +140,8 @@ public class FrmPropuesta extends JInternalFrame {
 		contentPane.add(lblEstado);
 		
 		cboEstado = new JComboBox<Object>();
-		cboEstado.setBounds(482, 7, 105, 22);
+		cboEstado.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar", "Admitido", "No admitido"}));
+		cboEstado.setBounds(482, 7, 126, 22);
 		contentPane.add(cboEstado);
 		
 		txtPropTecnica = new JEditorPane();
@@ -151,6 +158,7 @@ public class FrmPropuesta extends JInternalFrame {
 		
 		dateChooser = new JDateChooser();
 		dateChooser.setBounds(482, 37, 126, 20);
+		dateChooser.setEnabled(false);
 		contentPane.add(dateChooser);
 		
 		lblFechaProp = new JLabel("FECHA:");
