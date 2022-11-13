@@ -7,6 +7,6 @@ public interface PropuestaInterfacesDAO {
 	public int actualizarPropuesta(Propuesta prop);
 
 	// Buscar Propuesta
-	public int buscarPropuesta(int cod);
+	public Propuesta buscarPropuesta(String idProp);
 
 }

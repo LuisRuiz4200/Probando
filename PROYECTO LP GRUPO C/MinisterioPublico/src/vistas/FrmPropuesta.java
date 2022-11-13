@@ -5,35 +5,47 @@ import java.awt.EventQueue;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
 import com.toedter.calendar.JDateChooser;
 
+import clases.Propuesta;
+import mantenimiento.PropuestaDAO;
+import utils.Tool;
+
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.awt.event.ActionEvent;
+
 @SuppressWarnings("serial")
-public class FrmPropuesta extends JInternalFrame {
+public class FrmPropuesta extends JInternalFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JLabel lblParticipante;
-	private JComboBox <Object> cboParticipante;
-	private JButton btnGuardar;
+	private JButton btnActualizar;
 	private JLabel lblPropuestaTecnica;
 	private JLabel lblPropuestaEcono;
 	private JLabel lblPedido;
-	private JComboBox<Object> cboPedido;
 	private JRadioButton rdbtnNewRadioButton;
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JRadioButton rdbtnNewRadioButton_2;
 	private JRadioButton rdbtnNewRadioButton_3;
 	private JLabel lblNumeroPostulacion;
-	private JTextField textField;
+	private JTextField txtPropuesta;
 	private JLabel lblEstado;
 	private JComboBox<Object> cboEstado;
 	private DefaultTableModel model;
 	private JEditorPane txtPropTecnica;
 	private JEditorPane txtPropEconomica;
-	private JButton btnBuscarParticipante;
-	private JDateChooser dateChooser;
+	private JButton btnBuscar;
+	private JDateChooser fechaProp;
 	private JLabel lblFechaProp;
 	private final ButtonGroup buttonGroupPT = new ButtonGroup();
 	private final ButtonGroup buttonGroupPE = new ButtonGroup();
+	private JTextField txtParticipante;
+	private JTextField txtPedido;
+	
+	PropuestaDAO gProp = new PropuestaDAO();
 	
 	/**
 	 * Launch the application.
@@ -72,13 +84,10 @@ public class FrmPropuesta extends JInternalFrame {
 		lblParticipante.setBounds(10, 39, 125, 14);
 		contentPane.add(lblParticipante);
 		
-		cboParticipante = new JComboBox <Object>();
-		cboParticipante.setBounds(145, 35, 115, 22);
-		contentPane.add(cboParticipante);
-		
-		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(575, 70, 89, 22);
-		contentPane.add(btnGuardar);
+		btnActualizar = new JButton("Actualizar");
+		btnActualizar.addActionListener(this);
+		btnActualizar.setBounds(562, 70, 102, 22);
+		contentPane.add(btnActualizar);
 		
 		lblPropuestaTecnica = new JLabel("Propuesta Tecnica:");
 		lblPropuestaTecnica.setBounds(10, 105, 125, 14);
@@ -102,10 +111,6 @@ public class FrmPropuesta extends JInternalFrame {
 		lblPedido = new JLabel("Nro de Pedido");
 		lblPedido.setBounds(10, 11, 119, 14);
 		contentPane.add(lblPedido);
-		
-		cboPedido = new JComboBox<Object>();
-		cboPedido.setBounds(145, 7, 115, 22);
-		contentPane.add(cboPedido);
 		
 		rdbtnNewRadioButton = new JRadioButton("SI");
 		buttonGroupPT.add(rdbtnNewRadioButton);
@@ -131,9 +136,9 @@ public class FrmPropuesta extends JInternalFrame {
 		lblNumeroPostulacion.setBounds(10, 67, 135, 14);
 		contentPane.add(lblNumeroPostulacion);
 		
-		textField = new JTextField();
-		textField.setBounds(145, 64, 115, 20);
-		contentPane.add(textField);
+		txtPropuesta = new JTextField();
+		txtPropuesta.setBounds(145, 64, 115, 20);
+		contentPane.add(txtPropuesta);
 		
 		lblEstado = new JLabel("ESTADO:");
 		lblEstado.setBounds(388, 11, 80, 14);
@@ -152,17 +157,112 @@ public class FrmPropuesta extends JInternalFrame {
 		txtPropEconomica.setBounds(358, 128, 306, 221);
 		contentPane.add(txtPropEconomica);
 		
-		btnBuscarParticipante = new JButton("Buscar ");
-		btnBuscarParticipante.setBounds(280, 37, 80, 22);
-		contentPane.add(btnBuscarParticipante);
+		btnBuscar = new JButton("Buscar ");
+		btnBuscar.addActionListener(this);
+		btnBuscar.setBounds(446, 70, 102, 22);
+		contentPane.add(btnBuscar);
 		
-		dateChooser = new JDateChooser();
-		dateChooser.setBounds(482, 37, 126, 20);
-		dateChooser.setEnabled(false);
-		contentPane.add(dateChooser);
+		fechaProp = new JDateChooser();
+		fechaProp.setBounds(482, 37, 126, 20);
+		fechaProp.setEnabled(false);
+		contentPane.add(fechaProp);
 		
 		lblFechaProp = new JLabel("FECHA:");
 		lblFechaProp.setBounds(388, 39, 53, 14);
 		contentPane.add(lblFechaProp);
+		
+		txtParticipante = new JTextField();
+		txtParticipante.setEnabled(false);
+		txtParticipante.setBounds(145, 36, 115, 20);
+		contentPane.add(txtParticipante);
+		
+		txtPedido = new JTextField();
+		txtPedido.setEnabled(false);
+		txtPedido.setBounds(145, 8, 115, 20);
+		contentPane.add(txtPedido);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnActualizar) {
+			actionPerformedBtnActualizar(e);
+		}
+		if (e.getSource() == btnBuscar) {
+			actionPerformedBtnBuscar(e);
+		}
+	}
+	protected void actionPerformedBtnBuscar(ActionEvent e) {
+		buscarPropuesta();
+	}
+	
+	private String getCodigo() {
+		return txtPropuesta.getText();
+	}
+	
+	private String getEstado() {
+		return cboEstado.getSelectedItem().toString();
+	}
+	
+	// Busca propuesta por su código
+	private void buscarPropuesta() {
+		String codigo;
+		// 1 obtener el codigo ingresado
+		codigo = getCodigo();
+		// Validar
+		if (codigo == null) {
+			return;
+		} else {
+			// llamar al proceso
+			Propuesta prop = gProp.buscarPropuesta(codigo);
+			// Validar el resultado del proceso
+			if (prop == null) {
+				Tool.mensajeError(null, "código no existe");
+			} else {
+				txtPedido.setText(prop.getCodPedido());
+				txtParticipante.setText(prop.getCodParticipante());
+				txtPropTecnica.setText(prop.getPropTecnica());
+				txtPropEconomica.setText(prop.getPropEconomica());
+				cboEstado.setSelectedItem(prop.getEstado());
+				
+				try {
+					fechaProp.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(prop.getFecha()));
+				} catch (ParseException e) {
+					System.out.println("Error en el formato de la fecha");
+				}
+			}
+		}
+
+	}
+	
+	protected void actionPerformedBtnActualizar(ActionEvent e) {
+		actualizarPropuesta();
+	}
+	
+	// Actualiza la propuesta
+	private void actualizarPropuesta() {
+		// variables
+		String estado, codigo;
+		// entradas
+		codigo = getCodigo();
+		estado = getEstado();
+		
+		// validar
+		if (estado == null || codigo == null) {
+			return;
+		} else {
+			// Crear un objeto de la clse Usuario
+			Propuesta prop = new Propuesta();
+			// setear --> asignar los valores obtenidos de la GUI a los atributos privados
+			prop.setCodPropuesta(codigo);
+			prop.setEstado(estado);
+			
+			// LLamar al proceso de actualizar
+			int res = gProp.actualizarPropuesta(prop);
+			// validar el resultado del proceso de actualizar
+			if (res == 0) {
+				Tool.mensajeError(null, "Error en la actualización");
+			} else {
+				Tool.mensajeExito(null, "Usuario actualizado");
+			}
+		}
+
 	}
 }
