@@ -53,8 +53,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	PropuestaDAO gProp = new PropuestaDAO();
 	PedidoDAO gPed = new PedidoDAO();
 	ParticipanteDAO gPart = new ParticipanteDAO();
-	
-	
+
 	private JComboBox cboPedido;
 	private JComboBox cboParticipante;
 	private JButton btnRegistrar;
@@ -176,7 +175,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 		fechaProp = new JDateChooser();
 		fechaProp.setBounds(482, 37, 126, 20);
-		//fechaProp.setEnabled(false);
+		// fechaProp.setEnabled(false);
 		contentPane.add(fechaProp);
 
 		lblFechaProp = new JLabel("FECHA:");
@@ -197,9 +196,25 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		btnRegistrar.setBounds(337, 70, 102, 22);
 		contentPane.add(btnRegistrar);
 
-		// Carga cboPedido
 		cargarcboPedidos();
-		//cargarcboParticipantes();
+		correlativo();
+	}
+
+	private void correlativo() {
+
+		ArrayList<Propuesta> list = gProp.listarPropuestas();
+
+		if (list.size() == 0) {
+			txtPropuesta.setText("PR001");
+		} else {
+			String idProp = list.get(list.size() - 1).getCodPropuesta();
+
+			int correlativo = Integer.parseInt(idProp.substring(2)) + 1;
+
+			txtPropuesta.setText("PD" + Tool.ft.format("%03d", correlativo));
+
+		}
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -235,7 +250,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		// 2. Validar el resultado del proceso
 		cboParticipante.removeAllItems();
 		if (list.size() == 0) {
-			//Tool.mensajeError(null, "Lista vacía");
+			// Tool.mensajeError(null, "Lista vacía");
 		} else {
 			cboParticipante.addItem("Seleccione ... ");
 			for (Participante par : list) {
@@ -271,11 +286,11 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		fecha = sdf.format(fechaProp.getDate());
 		return fecha;
 	}
-	
+
 	private String getDescTec() {
 		return txtPropTecnica.getText();
 	}
-	
+
 	private String getDescEco() {
 		return txtPropEconomica.getText();
 	}
@@ -352,16 +367,17 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private void registrarPropuesta() {
 		// variables
 		String codPed, codProp, codParti, fechaProp, descTec, descEco, estado;
-		
-		codPed= getCodigoPedido();
+
+		codPed = getCodigoPedido();
 		codProp = getCodigo();
-		codParti= getCodigoParticipante();
+		codParti = getCodigoParticipante();
 		fechaProp = getFechaProp();
 		descTec = getDescTec();
 		descEco = getDescEco();
 		estado = getEstado();
-		
-		if (codPed == null || codProp == null || codParti == null || fechaProp == null || descTec == null || descEco == null || estado==null) {
+
+		if (codPed == null || codProp == null || codParti == null || fechaProp == null || descTec == null
+				|| descEco == null || estado == null) {
 			return;
 		} else {
 			// Crear un objeto de la clse Usuario
@@ -374,7 +390,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 			prop.setPropTecnica(descTec);
 			prop.setPropEconomica(descEco);
 			prop.setEstado(estado);
-			
+
 			// LLamar al proceso de registro
 			int res = gProp.registrarPropuesta(prop);
 			// validar el resultado del proceso de registro
@@ -385,11 +401,13 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 			}
 		}
 	}
+
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getSource() == cboPedido) {
 			itemStateChangedCboPedido(e);
 		}
 	}
+
 	protected void itemStateChangedCboPedido(ItemEvent e) {
 		cargarcboParticipantes();
 	}

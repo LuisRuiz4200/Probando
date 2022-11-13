@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import clases.Propuesta;
 import interfaces.PropuestaInterfacesDAO;
@@ -105,7 +106,7 @@ public class PropuestaDAO implements PropuestaInterfacesDAO {
 		int res = 0;
 		Connection con = null;
 		PreparedStatement pstm = null;
-		
+
 		try {
 			// paso 1 : Establecer la conexión con la BD
 			con = MySQLConexion8.getConexion();
@@ -144,5 +145,59 @@ public class PropuestaDAO implements PropuestaInterfacesDAO {
 		}
 
 		return res;
+	}
+
+	@Override
+	public ArrayList<Propuesta> listarPropuestas() {
+		ArrayList<Propuesta> listaProp = new ArrayList<Propuesta>();
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+		Propuesta prop = null;
+
+		try {
+			// paso 1: conectarse a la base de datos
+			con = MySQLConexion8.getConexion();
+			// paso 2: Establecer la instrucción SQL -- consulta
+			String sql = "SELECT * FROM tb_propuesta";
+			// paso 3 : Enviar la instruccion al objeto "pstm" -->
+			pstm = con.prepareStatement(sql);
+			// paso 4 : parametros -- NO HAY
+			// paso 5: ejecutar la instrucción SQL
+			res = pstm.executeQuery();
+			// bucle --> para realizar el recorrido al objeto res
+			while (res.next()) {
+				// crear objeto de tipo "Usuario"
+				prop = new Propuesta();
+				// setear --> asignar los valores obtenidos del objeto "res" a los atributos
+				// privados
+				prop.setCodPedido(res.getString(1));
+				prop.setCodPropuesta(res.getString(2));
+				prop.setCodParticipante(res.getString(3));
+				prop.setFecha(res.getString(4));
+				prop.setPropTecnica(res.getString(5));
+				prop.setPropEconomica(res.getString(6));
+				prop.setEstado(res.getString(7));
+
+				// añadir el objeto a la lista
+				listaProp.add(prop);
+			}
+
+		} catch (Exception e) {
+			System.out.println("Error en la instrucción SQL - Listar Propuestas" + e.getMessage());
+		} finally {
+			try {
+				if (pstm != null)
+					pstm.close();
+				if (res != null)
+					res.close();
+				if (con != null)
+					con.close();
+
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar la BD" + e2.getMessage());
+			}
+		}
+		return listaProp;
 	}
 }

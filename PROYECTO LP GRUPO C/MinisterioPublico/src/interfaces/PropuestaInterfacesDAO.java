@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.util.ArrayList;
+
 import clases.Propuesta;
 
 public interface PropuestaInterfacesDAO {
@@ -11,5 +13,8 @@ public interface PropuestaInterfacesDAO {
 	
 	// Registrar Propuesta
 	public int registrarPropuesta(Propuesta prop);
+	
+	// Listar Propuesta
+	public ArrayList<Propuesta> listarPropuestas();
 
 }
