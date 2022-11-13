@@ -1,26 +1,28 @@
 package vistas;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.toedter.calendar.JDateChooser;
-
-import mantenimiento.*;
+import clases.Comite;
+import clases.Pedido;
+import mantenimiento.ComiteDAO;
+import mantenimiento.PedidoDAO;
 import utils.Tool;
-import clases.*;
-
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Date;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseListener;
-import java.text.ParseException;
-import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class FrmComite extends JInternalFrame implements ActionListener, MouseListener {
@@ -39,19 +41,17 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	private JButton btnModificar;
 	private DefaultTableModel model;
 	
-	private TipoPedidoDAO tipPedDao;
-	private ObjetoPedidoDAO objPedDao;
 	private PedidoDAO pedDao;
 	private JTextField txtNombre;
 	private JTextField txtApellido;
-	private JComboBox cboPedido;
+	private JComboBox<Object> cboPedido;
 	private JTextField txtDni;
 	private JTextField txtFuncion;
 	private JLabel lblDependencia;
 	private JTextField txtDependencia;
 
 	private ComiteDAO comiDao;
-	private PedidoDAO pediDao;
+	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -67,7 +67,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	}
 
 	public FrmComite() {
-		setTitle("Pedido");
+		setTitle("Miembro del CEP");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 763, 402);
 		contentPane = new JPanel();
@@ -148,7 +148,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		txtApellido.setBounds(144, 108, 147, 20);
 		contentPane.add(txtApellido);
 		
-		cboPedido = new JComboBox();
+		cboPedido = new JComboBox<Object>();
 		cboPedido.setBounds(144, 10, 102, 22);
 		contentPane.add(cboPedido);
 		
@@ -359,7 +359,6 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	
 	private void cargarDatos() {
 		
-		ArrayList <Comite> list = comiDao.listarComite();
         int indice = tbComite.getSelectedRow();
 		
 		String idPedido = tbComite.getValueAt(indice, 0).toString();
