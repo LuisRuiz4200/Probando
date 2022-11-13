@@ -40,6 +40,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	
 	private PedidoDAO pedDao;
 	private ParticipanteDAO partDao;
+	private PropuestaDAO propDao;
 	private JButton btnNuevo;
 	
 	
@@ -170,16 +171,20 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		
 		pedDao = new PedidoDAO();
 		partDao = new ParticipanteDAO();
+		propDao = new PropuestaDAO();
 		
 		
 		arranque();
 		
 	}
 	private void arranque() {
+		
+		estado();
 		cargarCboPedido();
 		cargarTabla();
 		correlativo();
 		limpiar();
+		
 	}
 
 	
@@ -209,6 +214,10 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		if (cboPedido.getSelectedIndex() != 0) {
 			cboPedido.setEnabled(false);
 		}
+	}
+	
+	protected void actionPerformedBtnNuevo(ActionEvent e) {
+		arranque();
 	}
 	
 	protected void actionPerformedBtnAgregar(ActionEvent e) {
@@ -473,10 +482,29 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		cboEstado.setSelectedIndex(0);
 	}
 	
-	
-	
-	
-	protected void actionPerformedBtnNuevo(ActionEvent e) {
-		arranque();
+	private void estado() {
+		
+		ArrayList <Participante> listPart = partDao.listarParticipante();
+		ArrayList <Propuesta> listProp = propDao.listarPropuestas();
+		
+		for (Propuesta prop : listProp) {
+			
+			for (Participante part : listPart) {
+				
+				if (prop.getCodParticipante().equals(part.getCodParticipante())) {
+					
+					part.setEstado("PROCESO");
+					
+					partDao.actualizarPartcipante(part);
+					
+				}
+				
+			}
+			
+		}
+		
 	}
+	
+	
+
 }
