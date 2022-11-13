@@ -13,7 +13,7 @@ primary key (id_objetoPedido)
 create table tb_tipoPedido (
 
 id_tipoPedido int not null,
-des_tipoPedido varchar(25),
+des_tipoPedido varchar(40),
 
 primary key (id_tipoPedido)
 
@@ -139,25 +139,24 @@ foreign key (id_apel) references tb_apelacion (id_apel)
 /*INSERTS*/
 
 
-insert into tb_objetoPedido values ('1','Periodico');
-insert into tb_objetoPedido values ('2','Sucursal');
-insert into tb_objetoPedido values ('3','Obra maestra');
-insert into tb_objetoPedido values ('4','Abracadabra');
-insert into tb_objetoPedido values ('5','Chupa moco');
+insert into tb_objetoPedido values ('1','Bien');
+insert into tb_objetoPedido values ('2','Servicio');
+insert into tb_objetoPedido values ('3','Obra');
 
-insert into tb_tipoPedido values ('1','publica');
-insert into tb_tipoPedido values ('2','privada');
-insert into tb_tipoPedido values ('3','mixta');
-insert into tb_tipoPedido values ('4','otra');
+
+insert into tb_tipoPedido values ('1','Licitacion Publica');
+insert into tb_tipoPedido values ('2','Concurso Publica');
+insert into tb_tipoPedido values ('3','Adjudicacion Directa');
+insert into tb_tipoPedido values ('4','Adjudicacion Directa Selectiva');
+insert into tb_tipoPedido values ('5','Adjudicacion de Menor Cuantia');
+
 
 select * from tb_tipoPedido;
-
-delete from tb_objetoPedido where id_objetoPedido = 3;
 
 select * from tb_pedido;
 
 select * from tb_objetoPedido;
 
-insert into tb_pedido values ('1','Gloria','1','2','VACA LOLA','2022-11-10','REGISTRADO');
+
 
 

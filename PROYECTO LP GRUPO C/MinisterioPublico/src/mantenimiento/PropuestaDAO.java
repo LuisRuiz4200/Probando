@@ -41,7 +41,7 @@ public class PropuestaDAO implements PropuestaInterfacesDAO{
 			}
 				
 		} catch (Exception e) {
-			System.out.println("Error en la instrución SQL - Consultar Propuesta "+e.getMessage());
+			System.out.println("Error en la instruciï¿½n SQL - Consultar Propuesta "+e.getMessage());
 		}finally {
 			try {
 				if(pstm != null) pstm.close();
@@ -62,7 +62,7 @@ public class PropuestaDAO implements PropuestaInterfacesDAO{
 		PreparedStatement pstm = null;
 		
 		try {
-			// paso 1 : Establecer la conexión con la BD
+			// paso 1 : Establecer la conexiï¿½n con la BD
 			con = MySQLConexion8.getConexion();
 
 			// paso 2: Definir la instruccion SQL-- ACTUALIZAR
@@ -79,7 +79,7 @@ public class PropuestaDAO implements PropuestaInterfacesDAO{
 			res = pstm.executeUpdate();
 
 		} catch (Exception e) {
-			System.out.println(">>>> Error en la instrucción de actualizar " + e.getMessage());
+			System.out.println(">>>> Error en la instrucciï¿½n de actualizar " + e.getMessage());
 		} finally {
 			try {
 
@@ -95,5 +95,4 @@ public class PropuestaDAO implements PropuestaInterfacesDAO{
 
 		return res;
 	}
-
 }

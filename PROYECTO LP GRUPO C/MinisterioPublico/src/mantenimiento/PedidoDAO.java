@@ -65,17 +65,22 @@ public class PedidoDAO {
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "insert into tb_pedido values (id_ped = ?, entidad_ped = ?, tipo_ped = ?, objeto_ped = ?, descripcion_ped = ?, descripcion_ped = ?, fecha_ped=?,estado_ped=?)";
+			String sql;
+			sql = "update tb_pedido set "
+					+ "entidad_ped = ?, id_tipoPedido = ?, id_objetoPedido = ?, descripcion_ped = ?, fecha_ped=?,estado_ped=?"
+					+ "where id_ped = ?";
 			
 			pstm = con.prepareStatement(sql);
 			
-			pstm.setString(1,ped.getCodigo());
-			pstm.setString(2,ped.getEntidad());
-			pstm.setInt(3,ped.getTipo());
-			pstm.setInt(4,ped.getObjeto());
-			pstm.setString(5,ped.getDescripcion());
-			pstm.setString(6,ped.getFecha());
-			pstm.setString(7,ped.getEstado());
+			
+			pstm.setString(1,ped.getEntidad());
+			pstm.setInt(2,ped.getTipo());
+			pstm.setInt(3,ped.getObjeto());
+			pstm.setString(4,ped.getDescripcion());
+			pstm.setString(5,ped.getFecha());
+			pstm.setString(6,ped.getEstado());
+			
+			pstm.setString(7,ped.getCodigo());
 			
 			res = pstm.executeUpdate();
 			
@@ -176,5 +181,7 @@ public class PedidoDAO {
 		
 		return list;	
 	}
+
+	
 
 }
