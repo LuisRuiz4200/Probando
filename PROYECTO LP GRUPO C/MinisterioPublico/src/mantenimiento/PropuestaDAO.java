@@ -200,4 +200,50 @@ public class PropuestaDAO implements PropuestaInterfacesDAO {
 		}
 		return listaProp;
 	}
+
+	@Override
+	public ArrayList<Propuesta> buscarXPedido(String id_ped) {
+		ArrayList<Propuesta> list = new ArrayList<Propuesta>();
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+
+		try {
+
+			con = MySQLConexion8.getConexion();
+			String sql = "select * from tb_propuesta where id_ped = ?";
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, id_ped);
+			res = pstm.executeQuery();
+
+			while (res.next()) {
+				Propuesta prop = new Propuesta();
+				prop.setCodPedido(res.getString(1));
+				prop.setCodPropuesta(res.getString(2));
+				prop.setCodParticipante(res.getString(3));
+				prop.setFecha(res.getString(4));
+				prop.setPropTecnica(res.getString(5));
+				prop.setPropEconomica(res.getString(6));
+				prop.setEstado(res.getString(7));
+
+				list.add(prop);
+			}
+
+		} catch (Exception e) {
+			System.out.println("Error en la instruccion " + e.getMessage());
+		} finally {
+			try {
+				if (con != null)
+					con.close();
+				if (pstm != null)
+					pstm.close();
+				if (res != null)
+					res.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos " + e.getMessage());
+			}
+		}
+		return list;
+	}
+
 }
