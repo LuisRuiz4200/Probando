@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
@@ -205,7 +206,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		ArrayList<Propuesta> list = gProp.listarPropuestas();
 
 
-		txtPropuesta.setText("");
+		Formatter ft = new Formatter();
 		
 		if (list.size() == 0) {
 			txtPropuesta.setText("PR001");
@@ -215,7 +216,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 			int correlativo = Integer.parseInt(idProp.substring(2)) + 1;
 			
 			txtPropuesta.setText("");
-			txtPropuesta.setText("PD" + Tool.ft.format("%03d", correlativo));
+			txtPropuesta.setText("PD" + ft.format("%03d", correlativo));
 
 		}
 
