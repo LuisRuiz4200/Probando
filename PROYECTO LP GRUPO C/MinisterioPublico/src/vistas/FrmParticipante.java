@@ -200,7 +200,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 		ArrayList<Pedido> list = pedDao.listarPedido();
 		
 		cboPedido.removeAllItems();
-		cboPedido.addItem("SELECCIONE..");
+		cboPedido.addItem("SELECCIONE...");
 		
 		for (Pedido ped : list) {
 			
