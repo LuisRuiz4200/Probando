@@ -21,9 +21,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 @SuppressWarnings("serial")
-public class FrmPropuesta extends JInternalFrame implements ActionListener {
+public class FrmPropuesta extends JInternalFrame implements ActionListener, ItemListener {
 
 	private JPanel contentPane;
 	private JLabel lblParticipante;
@@ -51,6 +53,8 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener {
 	PropuestaDAO gProp = new PropuestaDAO();
 	PedidoDAO gPed = new PedidoDAO();
 	ParticipanteDAO gPart = new ParticipanteDAO();
+	
+	
 	private JComboBox cboPedido;
 	private JComboBox cboParticipante;
 	private JButton btnRegistrar;
@@ -180,6 +184,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener {
 		contentPane.add(lblFechaProp);
 
 		cboPedido = new JComboBox();
+		cboPedido.addItemListener(this);
 		cboPedido.setBounds(145, 7, 115, 22);
 		contentPane.add(cboPedido);
 
@@ -194,7 +199,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener {
 
 		// Carga cboPedido
 		cargarcboPedidos();
-		cargarcboParticipantes();
+		//cargarcboParticipantes();
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -226,10 +231,11 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener {
 
 	private void cargarcboParticipantes() {
 		// 1. Obtener el resultado del proceso -- listar
-		ArrayList<Participante> list = gPart.listarParticipante();
+		ArrayList<Participante> list = gPart.buscarXPedido(getCodigoPedido());
 		// 2. Validar el resultado del proceso
+		cboParticipante.removeAllItems();
 		if (list.size() == 0) {
-			Tool.mensajeError(null, "Lista vacía");
+			//Tool.mensajeError(null, "Lista vacía");
 		} else {
 			cboParticipante.addItem("Seleccione ... ");
 			for (Participante par : list) {
@@ -378,5 +384,13 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener {
 				Tool.mensajeExito(null, "Propuesta registrada");
 			}
 		}
+	}
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == cboPedido) {
+			itemStateChangedCboPedido(e);
+		}
+	}
+	protected void itemStateChangedCboPedido(ItemEvent e) {
+		cargarcboParticipantes();
 	}
 }
