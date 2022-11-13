@@ -42,6 +42,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	private JMenuItem mniQuienesSomos;
 	private JMenuItem mniActasPropuestas;
 	private JMenuItem mntmComite;
+	private JMenuItem mniConsultaPropusta;
 	
 	
 	public static void main (String [] args) {
@@ -142,6 +143,10 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mniConsultaParticipante.addActionListener(this);
 		mnConsulta.add(mniConsultaParticipante);
 		
+		mniConsultaPropusta = new JMenuItem("Consulta de propuestas");
+		mniConsultaPropusta.addActionListener(this);
+		mnConsulta.add(mniConsultaPropusta);
+		
 		mniReportePedido = new JMenuItem("Reporte de Pedidoes");
 		mniReportePedido.addActionListener(this);
 		mnReporte.add(mniReportePedido);
@@ -152,6 +157,9 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mniConsultaPropusta) {
+			actionPerformedMniConsultaPropusta(e);
+		}
 		if (e.getSource() == mntmComite) {
 			actionPerformedMntmComite(e);
 		}
@@ -249,6 +257,15 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		conParti.toFront();
 	}	
 	
+	protected void actionPerformedMniConsultaPropusta(ActionEvent e) {
+		
+		FrmConsultaPropuesta conProp = new FrmConsultaPropuesta();
+		conProp.setVisible(true);
+		escritorio.add(conProp).setLocation(0,0);
+		conProp.toFront();
+		
+	}
+	
 	//TRANSACCION
 	
 	
@@ -277,6 +294,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		form.toFront();
 	}
 	
+	
 	//REPORTE
 	
 	protected void actionPerformedMniReportePedido(ActionEvent e) {
@@ -302,4 +320,5 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		escritorio.add(reporContra).setLocation(0,0);
 		reporContra.toFront();
 	}
+	
 }
