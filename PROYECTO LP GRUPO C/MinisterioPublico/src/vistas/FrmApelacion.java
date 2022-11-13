@@ -152,7 +152,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		int idEstadoApe = leerIdEstado();
 		String fecha = leerFecha();
 		
-		if ( idPropuesta == null || idApelacion == null || id )
+		//if ( idPropuesta == null || idApelacion == null || id )
 	}
 	
 
@@ -182,7 +182,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 	//METODOS ADICIONALES
 	
 	private void cargarCboPropuesta() {
-		ArrayList<Pedido> list = propDao.listarPropuesta();
+		/*ArrayList<Pedido> list = propDao.listarPropuesta();
 		
 		cboPropuesta.removeAllItems();
 		cboPropuesta.addItem("SELECCIONE...");
@@ -192,6 +192,6 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 			cboPropuesta.addItem(ped.getCodigo());
 			
 		}
-	
+	*/
      }
 }
