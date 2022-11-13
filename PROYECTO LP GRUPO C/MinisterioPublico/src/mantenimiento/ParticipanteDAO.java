@@ -10,6 +10,8 @@ import clases.Participante;
 import utils.MySQLConexion8;
 
 public class ParticipanteDAO {
+	
+	
 	public int registrarParticipante(Participante part) {
 		
 		int res = 0;
@@ -124,7 +126,7 @@ public class ParticipanteDAO {
 		return res;
 	}
 	
-	public ArrayList<Participante> listarPedido(){
+	public ArrayList<Participante> listarParticipante(){
 		ArrayList <Participante> list = new ArrayList<Participante>();;
 		
 		Connection con =null;
@@ -136,7 +138,7 @@ public class ParticipanteDAO {
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "select * from tb_pedido"; 
+			String sql = "select * from tb_participante"; 
 						
 			pstm = con.prepareStatement(sql);
 			
