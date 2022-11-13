@@ -2,6 +2,7 @@ package vistas;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,10 +18,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
-
+import java.awt.event.MouseListener;
+import java.text.ParseException;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
-public class FrmComite extends JInternalFrame implements ActionListener {
+public class FrmComite extends JInternalFrame implements ActionListener, MouseListener {
 
 	private JPanel contentPane;
 	private JTextField txtIdMiembro;
@@ -30,27 +33,26 @@ public class FrmComite extends JInternalFrame implements ActionListener {
 	private JLabel lblApellido;
 	private JLabel lblFuncion;
 	private JLabel lblDni;
-	private JTable tbContratacion;
+	private JTable tbComite;
 	private JScrollPane scrollPane;
 	private JButton btnGuardar;
 	private JButton btnModificar;
 	private DefaultTableModel model;
-	private JComboBox <Object>cboEstado;
 	
 	private TipoPedidoDAO tipPedDao;
 	private ObjetoPedidoDAO objPedDao;
 	private PedidoDAO pedDao;
 	private JTextField txtNombre;
 	private JTextField txtApellido;
-	private JComboBox cboIdPedido;
+	private JComboBox cboPedido;
 	private JTextField txtDni;
 	private JTextField txtFuncion;
 	private JLabel lblDependencia;
 	private JTextField txtDependencia;
 
-	/**
-	 * Launch the application.
-	 */
+	private ComiteDAO comiDao;
+	private PedidoDAO pediDao;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -64,9 +66,6 @@ public class FrmComite extends JInternalFrame implements ActionListener {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public FrmComite() {
 		setTitle("Pedido");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,11 +110,13 @@ public class FrmComite extends JInternalFrame implements ActionListener {
 		contentPane.add(lblDni);
 		
 		scrollPane = new JScrollPane();
+		scrollPane.addMouseListener(this);
 		scrollPane.setBounds(10, 154, 727, 198);
 		contentPane.add(scrollPane);
 		
-		tbContratacion = new JTable();
-		scrollPane.setViewportView(tbContratacion);
+		tbComite = new JTable();
+		tbComite.addMouseListener(this);
+		scrollPane.setViewportView(tbComite);
 		
 		btnGuardar = new JButton("GUARDAR");
 		btnGuardar.addActionListener(this);
@@ -129,18 +130,13 @@ public class FrmComite extends JInternalFrame implements ActionListener {
 		
 		model = new DefaultTableModel();
 		model.addColumn("ID PEDIDO");
-		model.addColumn("ENTIDAD");
-		model.addColumn("TIPO");
-		model.addColumn("OBJETO");
-		model.addColumn("DESCRIPCION");
-		model.addColumn("FECHA");
-	
-		tbContratacion.setModel(model);
-		
-		cboEstado = new JComboBox<Object>();
-		cboEstado.setModel(new DefaultComboBoxModel(new String[] {"ESTADO...", "REGISTRADO", "EN PROCESO ", "DESIERTO", "CONCLUIDO"}));
-		cboEstado.setBounds(610, 11, 127, 20);
-		contentPane.add(cboEstado);
+		model.addColumn("ID MIEMBRO");
+		model.addColumn("NOMBRE");
+		model.addColumn("APELLIDO");
+		model.addColumn("DNI");
+		model.addColumn("FUNCION");
+		model.addColumn("DEPENDENCIA");
+		tbComite.setModel(model);
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
@@ -152,9 +148,9 @@ public class FrmComite extends JInternalFrame implements ActionListener {
 		txtApellido.setBounds(144, 108, 147, 20);
 		contentPane.add(txtApellido);
 		
-		cboIdPedido = new JComboBox();
-		cboIdPedido.setBounds(144, 10, 102, 22);
-		contentPane.add(cboIdPedido);
+		cboPedido = new JComboBox();
+		cboPedido.setBounds(144, 10, 102, 22);
+		contentPane.add(cboPedido);
 		
 		txtDni = new JTextField();
 		txtDni.setBounds(415, 11, 117, 20);
@@ -175,34 +171,232 @@ public class FrmComite extends JInternalFrame implements ActionListener {
 		txtDependencia.setBounds(415, 73, 117, 20);
 		contentPane.add(txtDependencia);
 		
-		tipPedDao = new TipoPedidoDAO();
-		objPedDao = new ObjetoPedidoDAO();
 		pedDao = new PedidoDAO();
+		comiDao = new ComiteDAO();
 		
 		arranque();
-	
-		
 	}
 
 	private void arranque() {
-		// TODO Auto-generated method stub
+		cargarCboPedido();
+		cargarTabla();
+		
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnModificar) {
+			actionPerformedBtnModificar(e);
+		}
+		if (e.getSource() == btnGuardar) {
+			actionPerformedBtnGuardar(e);
+		}
+	}
+	
+	protected void actionPerformedBtnGuardar(ActionEvent e) {
+		String idPedido = leerIdPedido();
+		String idMiembro = leerIdMiembro();
+		String nombre = leerNombre();
+		String apellido = leerApellido();
+		String dni = leerDni();
+		String funcion = leerFuncion();
+		String depen = leerDependencia();
+		
+		if (idPedido == null || idMiembro == null || nombre == null || 
+			apellido == null || dni == null || funcion == null ||
+			depen == null ) {
+			
+			return;
+			
+		} else {
+			
+			Comite com = new Comite (
+					
+					idPedido, idMiembro, nombre, apellido, dni, funcion, depen
+					);
+			
+			int ok  = comiDao.registrarComite(com);
+			
+			if (ok == 0) {
+				Tool.mensajeError(this, "Error de registro");
+			}else {
+				Tool.mensajeExito(this, "Registro exitoso");
+				cargarTabla();
+			}
+		}
+		
+	}
+
+	protected void actionPerformedBtnModificar(ActionEvent e) {
+	
+	String idPedido = leerIdPedido();
+	String idMiembro = leerIdMiembro();
+	String nombre = leerNombre();
+	String apellido = leerApellido();
+	String dni = leerDni();
+	String funcion = leerFuncion();
+	String depen = leerDependencia();
+	
+	if (idPedido == null || idMiembro == null || nombre == null || 
+		apellido == null || dni == null || funcion == null ||
+		depen == null ) {
+		
+		return;
+		
+	} else {
+		
+		Comite com = new Comite (
+				
+				idPedido, idMiembro, nombre, apellido, dni, funcion, depen
+				);
+		
+		int ok  = comiDao.registrarComite(com);
+		
+		if (ok == 0) {
+			Tool.mensajeError(this, "Error de Update");
+		}else {
+			Tool.mensajeExito(this, "Registro actualizado");
+			cargarTabla();
+		}
+	  }
+	}
+	
+
+
+
+	//METODOS DE ENTRADA
+	private String leerDependencia() {
+	    String res = null;
+		
+		res = txtDependencia.getText().trim();
+		
+		return res ;
+	}
+
+	private String leerFuncion() {
+	    String res = null;
+		
+		res = txtFuncion.getText().trim();
+		
+		return res ;
+	}
+
+	private String leerDni() {
+        String res = null;
+		
+		res = txtDni.getText().trim();
+		
+		return res ;
+	}
+
+	private String leerApellido() {
+        String res = null;
+		
+		res = txtApellido.getText().trim();
+		
+		return res ;
+	}
+
+	private String leerNombre() {
+        String res = null;
+		
+		res = txtNombre.getText().trim();
+		
+		return res ;
+	}
+
+	private String leerIdMiembro() {
+        String res = null;
+		
+		res = txtIdMiembro.getText().trim();
+		
+		return res ;
+	}
+
+	private String leerIdPedido() {
+        String res = null;
+		
+		res = cboPedido.getSelectedItem().toString();
+		
+		return res ;
+	}
+	
+	//METODOS ADICIONALES 
+	
+	private void cargarTabla() {
+        ArrayList<Comite> list = comiDao.listarComite();
+		
+		model.setRowCount(0);
+		
+		for (Comite com: list) {
+			
+			Object [] x = {
+					com.getCodPedido(),
+					com.getCodMiembro(),
+					com.getNombMiembro(),
+					com.getApeMiembro(),
+					com.getDni(),
+					com.getFuncion(),
+					com.getDependencia()
+			};
+			
+			model.addRow(x);
+		}
+	}
+
+	private void cargarCboPedido() {
+        ArrayList<Pedido> list = pedDao.listarPedido();
+		
+		cboPedido.removeAllItems();
+		cboPedido.addItem("SELECCIONE...");
+		
+		for (Pedido ped : list) {
+			
+			cboPedido.addItem(ped.getCodigo());
+			
+		}
+		
+	}
+	
+	private void cargarDatos() {
+		
+		ArrayList <Comite> list = comiDao.listarComite();
+        int indice = tbComite.getSelectedRow();
+		
+		String idPedido = tbComite.getValueAt(indice, 0).toString();
+		String idMiembro = tbComite.getValueAt(indice, 1).toString();
+		String nombMiembro = tbComite.getValueAt(indice, 2).toString();
+		String apeMiembro = tbComite.getValueAt(indice, 3).toString();
+		String dni  = tbComite.getValueAt(indice, 4).toString();
+		String funcion = tbComite.getValueAt(indice, 5).toString();
+		String dependencia = tbComite.getValueAt(indice, 6).toString();
+		
+		cboPedido.setSelectedItem(idPedido);
+		txtIdMiembro.setText(idMiembro);
+		txtNombre.setText(nombMiembro);
+		txtApellido.setText(apeMiembro);
+		txtDni.setText(dni);
+		txtFuncion.setText(funcion);
+		txtDependencia.setText(dependencia);
+		
+		;
 		
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnModificar) {
-			actionPerformed(e);
-		}
-		if (e.getSource() == btnGuardar) {
-			actionPerformed(e);
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == tbComite) {
+			mouseClickedTbComite(e);
 		}
 	}
-
-
-	
-	
-	
-
-
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	private void mouseClickedTbComite(MouseEvent e) {
+		cargarDatos();
+	}
 }

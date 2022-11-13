@@ -133,7 +133,7 @@ public class PedidoDAO {
 	}
 	
 	public ArrayList<Pedido> listarPedido(){
-		ArrayList <Pedido> list = new ArrayList<Pedido>();;
+		ArrayList <Pedido> list = new ArrayList<Pedido>();
 		
 		Connection con =null;
 		PreparedStatement pstm = null;
