@@ -208,7 +208,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtPropuesta.setText("");
 		
 		if (list.size() == 0) {
-			txtPropuesta.setText("PR001");
+			txtPropuesta.setText("PD001");
 		} else {
 			String idProp = list.get(list.size() - 1).getCodPropuesta();
 
