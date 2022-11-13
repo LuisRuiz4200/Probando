@@ -41,6 +41,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	private JMenuItem mniReportePedido;
 	private JMenuItem mniQuienesSomos;
 	private JMenuItem mniActasPropuestas;
+	private JMenuItem mntmComite;
 	
 	
 	public static void main (String [] args) {
@@ -132,6 +133,10 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mniApelacion.addActionListener(this);
 		mnMantenimiento.add(mniApelacion);
 		
+		mntmComite = new JMenuItem("Comite de Seleccion");
+		mntmComite.addActionListener(this);
+		mnMantenimiento.add(mntmComite);
+		
 		
 		mniConsultaParticipante = new JMenuItem("Consulta de participantes");
 		mniConsultaParticipante.addActionListener(this);
@@ -147,6 +152,9 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmComite) {
+			actionPerformedMntmComite(e);
+		}
 		if (e.getSource() == mniActasPropuestas) {
 			actionPerformedMniActasPropuestas(e);
 		}
@@ -286,4 +294,12 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		ayuda.setLocationRelativeTo(this);
 	}
 	
+	//COMITE
+	
+	protected void actionPerformedMntmComite(ActionEvent e) {
+		FrmComite reporContra = new FrmComite ();
+		reporContra.setVisible(true);
+		escritorio.add(reporContra).setLocation(0,0);
+		reporContra.toFront();
+	}
 }
