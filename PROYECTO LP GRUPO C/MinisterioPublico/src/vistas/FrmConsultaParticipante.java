@@ -16,9 +16,16 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+
+import clases.*;
+
+import mantenimiento.*;
 
 @SuppressWarnings({ "serial", "unused" })
-public class FrmConsultaParticipante extends JInternalFrame {
+public class FrmConsultaParticipante extends JInternalFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JButton btnExportar;
@@ -28,6 +35,9 @@ public class FrmConsultaParticipante extends JInternalFrame {
 	private JComboBox<Object> cboPedido;
 	private JTable tbParticipantes;
 	private JScrollPane scrollPane;
+	
+	private PedidoDAO pedDao;
+	private ParticipanteDAO partDao;
 
 	/**
 	 * Launch the application.
@@ -63,26 +73,29 @@ public class FrmConsultaParticipante extends JInternalFrame {
 		contentPane.setLayout(null);
 		
 		btnExportar = new JButton("Exportar");
+		btnExportar.addActionListener(this);
 		btnExportar.setBounds(518, 24, 89, 31);
 		contentPane.add(btnExportar);
 		
 		btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(this);
 		btnBuscar.setBounds(381, 24, 89, 31);
 		contentPane.add(btnBuscar);
 		
 		model = new DefaultTableModel();
-		model.addColumn("Empresa");
-		model.addColumn("Telefono");
-		model.addColumn("Distrito");
+		model.addColumn("ID PEDIDO");
+		model.addColumn("ID PARTICIPANTE");
+		model.addColumn("ENTIDAD");
 		model.addColumn("RUC");
-		model.addColumn("Estado");
+		model.addColumn("CORREO");
+		model.addColumn("TELEFONO");
+		model.addColumn("ESTADO");
 		
 		lblNumeroPedido = new JLabel("Numero de Pedido:");
 		lblNumeroPedido.setBounds(10, 32, 138, 14);
 		contentPane.add(lblNumeroPedido);
 		
 		cboPedido = new JComboBox<Object>();
-		cboPedido.setModel(new DefaultComboBoxModel<Object>(new String[] {"Selecciona ..."}));
 		cboPedido.setBounds(141, 28, 138, 22);
 		contentPane.add(cboPedido);
 		
@@ -94,5 +107,77 @@ public class FrmConsultaParticipante extends JInternalFrame {
 		tbParticipantes.setFillsViewportHeight(true);
 		tbParticipantes.setModel(model);
 		scrollPane.setViewportView(tbParticipantes);
+		
+		
+		partDao= new ParticipanteDAO();
+		pedDao = new PedidoDAO();
+		
+		
+		arranque();
+		
 	}
+	private void arranque() {
+		
+		cargarCboPedido();
+		
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnExportar) {
+			actionPerformedBtnExportar(e);
+		}
+		if (e.getSource() == btnBuscar) {
+			actionPerformedBtnBuscar(e);
+		}
+	}
+	protected void actionPerformedBtnBuscar(ActionEvent e) {
+		cargarTablaXPedido();
+	}
+	protected void actionPerformedBtnExportar(ActionEvent e) {
+	}
+	
+	
+	
+	private void cargarTablaXPedido() {
+		
+		String idPedido= cboPedido.getSelectedItem().toString();
+	
+		ArrayList <Participante> list = partDao.buscarXPedido(idPedido);
+			
+		model.setRowCount(0);
+		
+		for (Participante part : list) {
+			if (part.getCodPedido().equals(idPedido)) {
+				Object [] x = {
+					part.getCodPedido(),
+					part.getCodParticipante(),
+					part.getEntidad(),
+					part.getRuc(),
+					part.getCorreo(),
+					part.getTelefono(),
+					part.getEstado()
+				};
+				
+				model.addRow(x);
+				
+			}
+		}
+		
+	}
+	
+	private void cargarCboPedido() {
+		
+		ArrayList<Pedido> list = pedDao.listarPedido();
+		
+		cboPedido.removeAllItems();
+		cboPedido.addItem("SELECCIONE..");
+		
+		for (Pedido ped: list) {
+			
+			cboPedido.addItem(ped.getCodigo());
+			
+		}
+	}
+	
+	
 }

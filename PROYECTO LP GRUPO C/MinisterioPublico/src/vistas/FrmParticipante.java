@@ -10,9 +10,11 @@ import java.awt.event.ActionEvent;
 import mantenimiento.*;
 import utils.Tool;
 import clases.*;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
-public class FrmParticipante extends JInternalFrame implements ActionListener{
+public class FrmParticipante extends JInternalFrame implements ActionListener, MouseListener{
 	private JTextField txtEntidad;
 	private JLabel lblEntidad;
 	private JTextField txtRuc;
@@ -113,6 +115,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
+		table.addMouseListener(this);
 		table.setFillsViewportHeight(true);
 		scrollPane.setViewportView(table);
 		
@@ -167,6 +170,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 	private void arranque() {
 		cargarCboPedido();
 		cargarTabla();
+		correlativo();
 	}
 
 	
@@ -215,6 +219,8 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 				Tool.mensajeError(this, "Error de registro");
 			}else {
 				Tool.mensajeExito(this, "Registro exitoso");
+				cargarTabla();
+				correlativo();
 			}
 			
 		}
@@ -223,10 +229,75 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 	
 
 	protected void actionPerformedBtnModificar(ActionEvent e) {
+		
+		String idPedido = leerIdPedido();
+		String idParticipante = leerIdParticipante();
+		String entidad = leerEntidad ();
+		int ruc = leerRuc();
+		String correo = leerCorreo();
+		int telefono = leerTelefono ();
+		String estado = leerEstado();
+		
+		
+		if (idPedido==null||idParticipante==null||entidad==null||
+				ruc==-1||correo==null||
+				telefono==-1||estado==null) {
+			
+			return;
+			
+		}else {
+			
+			Participante part = new Participante (
+					
+					idPedido, idParticipante, entidad, ruc, correo,telefono,estado
+					);
+			
+			int ok =partDao.actualizarPartcipante(part);
+			
+			if (ok == 0) {
+				Tool.mensajeError(this, "Error de update");
+			}else {
+				Tool.mensajeExito(this, "Actualizacion exitosa");
+				cargarTabla();
+			}
+			
+		}
+		
 	}
+		
 	protected void actionPerformedBtnEliminar(ActionEvent e) {
+		
+		String idPedido =  leerIdPedido();
+		String idParticipante = leerIdParticipante();
+		
+		int ok = partDao.eliminarParticipante(idPedido, idParticipante);
+		
+		if(ok == 0) {
+			Tool.mensajeError(this, "Error en eliminar!");
+		}else {
+			Tool.mensajeExito(this, "Se eliminó un participante");
+			cargarTabla();
+		}
+		
 	}
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
+	}
+	
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == table) {
+			mouseClickedTable(e);
+		}
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	protected void mouseClickedTable(MouseEvent e) {
+		cargarCajas();
 	}
 	
 	//METODOS DE ENTRADA 
@@ -326,5 +397,45 @@ public class FrmParticipante extends JInternalFrame implements ActionListener{
 		}
 		
 	}
+	
+	private void cargarCajas() {
+		
+		int indice = table.getSelectedRow();
+		
+		String idPedido = table.getValueAt(indice, 0).toString();
+		String idParticipante = table.getValueAt(indice, 1).toString();
+		String entidad = table.getValueAt(indice, 2).toString();
+		String ruc = table.getValueAt(indice, 3).toString();
+		String correo = table.getValueAt(indice, 4).toString();
+		String telefono = table.getValueAt(indice, 5).toString();
+		String estado = table.getValueAt(indice, 6).toString();
+		
+		
+		cboPedido.setSelectedItem(idPedido);
+		txtIdParticipante.setText(idParticipante);
+		txtEntidad.setText(entidad);
+		txtRuc.setText(ruc);
+		txtCorreo.setText(correo);
+		txtTelefono.setText(telefono);
+		cboEstado.setSelectedItem(estado);
+		
+	}
+	private void correlativo () {
+		
+		ArrayList <Participante> list = partDao.listarParticipante();
+		
+		if (list.size()==0) {
+			txtIdParticipante.setText("PTC001");
+		}else {
+			String idParticipante = list.get(list.size()-1).getCodParticipante();
+			
+			int n =Integer.parseInt(idParticipante.substring(3))+1;
+			
+			txtIdParticipante.setText("");
+			txtIdParticipante.setText("PTC"+Tool.ft.format("%03d", n));
+		}
+		
+	}
+	
 	
 }
