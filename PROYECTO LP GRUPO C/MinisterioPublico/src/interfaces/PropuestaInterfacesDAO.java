@@ -8,5 +8,8 @@ public interface PropuestaInterfacesDAO {
 
 	// Buscar Propuesta
 	public Propuesta buscarPropuesta(String idProp);
+	
+	// Registrar Propuesta
+	public int registrarPropuesta(Propuesta prop);
 
 }
