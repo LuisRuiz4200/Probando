@@ -316,7 +316,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		
 		ArrayList <Participante> list = partDao.buscarXIdParticipante(txtIdParticipante.getText().trim());
 		
-		if (list.equals("[]")) {
+		if (list.size()==0) {
 			Tool.mensajeError(this, "El ID ingresado no se encuentra registrado");
 		}else {
 			
@@ -331,8 +331,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 			}
 			
 		}
-		
-		System.out.println("" + list);		
+				
 	}
 	
 	public void mouseClicked(MouseEvent e) {
