@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Formatter;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -131,6 +132,8 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		btnModificar.setBounds(611, 107, 108, 23);
 		contentPane.add(btnModificar);
 		
+		// crear columnas de la tabla
+	    // Instanciar un objeto para la estructura de la tabla
 		model = new DefaultTableModel();
 		model.addColumn("ID PEDIDO");
 		model.addColumn("ID MIEMBRO");
@@ -192,12 +195,10 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 
 	private void arranque() {
 		cargarCboPedido();
-		cargarTabla();
 		correlativo();
-		
+		cargarTabla();
+		nuevoComite();
 	}
-
-
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnNuevo) {
@@ -298,7 +299,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	}
 	
 	protected void actionPerformedBtnNuevo(ActionEvent e) {
-		nuevoComite();
+	     arranque();
 	}
 	
 	@Override
@@ -438,17 +439,20 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	}
 	
 	private void correlativo() {
+	    
+		@SuppressWarnings("resource")
+	    Formatter ft = new Formatter();
+	    
 	    ArrayList <Comite> list = comiDao.listarComite();
-		
 		if (list.size()==0) {
-			txtIdMiembro.setText("MCS001");
+			txtIdMiembro.setText("MC001");
 		}else {
 			String idComite = list.get(list.size()-1).getCodMiembro();
 			
-			int n =Integer.parseInt(idComite.substring(0))+1;
+			int n =Integer.parseInt(idComite.substring(2))+1;
 			
 			txtIdMiembro.setText("");
-			txtIdMiembro.setText("MCS"+Tool.ft.format("%03d", n));
+			txtIdMiembro.setText("MC"+ft.format("%03d", n));
 		}
 		
 	}
@@ -460,8 +464,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		txtFuncion.setText("");
 		txtDependencia.setText("");
 		cboPedido.setSelectedIndex(0);
-		// cursor activo
-		txtIdMiembro.requestFocus();
+	
 		
 	}
 	
