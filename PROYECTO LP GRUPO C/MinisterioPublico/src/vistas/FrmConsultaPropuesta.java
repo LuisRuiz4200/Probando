@@ -24,9 +24,12 @@ import clases.*;
 
 import mantenimiento.*;
 import utils.Tool;
+import javax.swing.JEditorPane;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings({ "serial", "unused" })
-public class FrmConsultaPropuesta extends JInternalFrame implements ActionListener {
+public class FrmConsultaPropuesta extends JInternalFrame implements ActionListener, MouseListener {
 
 	private JPanel contentPane;
 	private JButton btnExportar;
@@ -41,6 +44,10 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 
 	// estructura de la tabla
 	private DefaultTableModel model = new DefaultTableModel();
+	private JEditorPane txtPropTecnica;
+	private JEditorPane txtPropEconomica;
+	private JLabel lblPropEconomica;
+	private JLabel lblPropTecnica;
 
 	/**
 	 * Launch the application.
@@ -64,7 +71,7 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 	public FrmConsultaPropuesta() {
 		setTitle("Consulta de propuestas");
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 690, 409);
+		setBounds(100, 100, 744, 409);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -93,10 +100,11 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		contentPane.add(cboPedido);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 81, 654, 287);
+		scrollPane.setBounds(10, 81, 446, 287);
 		contentPane.add(scrollPane);
 
 		tblPropuestas = new JTable();
+		tblPropuestas.addMouseListener(this);
 		tblPropuestas.setFillsViewportHeight(true);
 		tblPropuestas.setModel(model);
 		scrollPane.setViewportView(tblPropuestas);
@@ -105,12 +113,26 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		model.addColumn("ID Pedido");
 		model.addColumn("ID Propuesta");
 		model.addColumn("ID Participante");
-		model.addColumn("Fecha Propuesta");
-		model.addColumn("Desc. Técnica");
-		model.addColumn("Desc. Económica");
+		model.addColumn("Fecha");
 		model.addColumn("Estado");
 		// Asociar table con objeto model
 		tblPropuestas.setModel(model);
+		
+		txtPropTecnica = new JEditorPane();
+		txtPropTecnica.setBounds(466, 88, 252, 128);
+		contentPane.add(txtPropTecnica);
+		
+		txtPropEconomica = new JEditorPane();
+		txtPropEconomica.setBounds(466, 240, 252, 128);
+		contentPane.add(txtPropEconomica);
+		
+		lblPropEconomica = new JLabel("Propuesta economica");
+		lblPropEconomica.setBounds(466, 227, 172, 14);
+		contentPane.add(lblPropEconomica);
+		
+		lblPropTecnica = new JLabel("Propuesta tecnica");
+		lblPropTecnica.setBounds(466, 73, 172, 14);
+		contentPane.add(lblPropTecnica);
 
 		arranque();
 
@@ -139,7 +161,14 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 	private void cargarTabla(ArrayList<Propuesta> list) {
 		model.setRowCount(0);
 		for (Propuesta prop : list) {
-			Object fila[] = { prop.getCodPedido(), prop.getCodPropuesta(), prop.getCodParticipante(), prop.getFecha(), prop.getPropTecnica(), prop.getPropEconomica(), prop.getEstado() };
+			Object fila[] = { prop.getCodPedido(),
+					prop.getCodPropuesta(),
+					prop.getCodParticipante(),
+					prop.getFecha(),
+					prop.getEstado() };
+			
+			
+			
 			// añadir fila a la tabla
 			model.addRow(fila);
 		}
@@ -170,5 +199,31 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		ArrayList<Propuesta> list = gProp.buscarXPedido(codPedido);
 		cargarTabla(list);
 	}
-	
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == tblPropuestas) {
+			mouseClickedTblPropuestas(e);
+		}
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	protected void mouseClickedTblPropuestas(MouseEvent e) {
+		int indice = tblPropuestas.getSelectedRow();
+		
+		String idProp = tblPropuestas.getValueAt(indice,1).toString();
+		
+		ArrayList<Propuesta> list = gProp.listarPropuestas();
+		
+		for(Propuesta prop : list) {
+			if(prop.getCodPropuesta().equals(idProp)) {
+				txtPropTecnica.setText(prop.getPropTecnica());
+				txtPropEconomica.setText(prop.getPropEconomica());
+			}
+		}
+	}
 }
