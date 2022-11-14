@@ -139,16 +139,16 @@ foreign key (id_apel) references tb_apelacion (id_apel)
 /*INSERTS*/
 
 
-insert into tb_objetoPedido values ('1','Bien');
+/*insert into tb_objetoPedido values ('1','Bien');
 insert into tb_objetoPedido values ('2','Servicio');
-insert into tb_objetoPedido values ('3','Obra');
+insert into tb_objetoPedido values ('3','Obra');*/
 
 
-insert into tb_tipoPedido values ('1','Licitacion Publica');
+/*insert into tb_tipoPedido values ('1','Licitacion Publica');
 insert into tb_tipoPedido values ('2','Concurso Publica');
 insert into tb_tipoPedido values ('3','Adjudicacion Directa');
 insert into tb_tipoPedido values ('4','Adjudicacion Directa Selectiva');
-insert into tb_tipoPedido values ('5','Adjudicacion de Menor Cuantia');
+insert into tb_tipoPedido values ('5','Adjudicacion de Menor Cuantia');*/
 
 
 select * from tb_tipoPedido;
@@ -159,8 +159,4 @@ select * from tb_objetoPedido;
 
 select * from tb_participante;
 
-select * from tb_propuesta;
 
-/*delete from tb_participante where id_ped = 'PD001' and id_participante = '456';
-
-delete from tb_propuesta where id_ped = 'PD002';*/

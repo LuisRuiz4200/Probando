@@ -119,6 +119,7 @@ public class FrmConsultaParticipante extends JInternalFrame implements ActionLis
 	private void arranque() {
 		
 		cargarCboPedido();
+		cargarTabla();
 		
 	}
 
@@ -147,8 +148,7 @@ public class FrmConsultaParticipante extends JInternalFrame implements ActionLis
 		model.setRowCount(0);
 		
 		for (Participante part : list) {
-			if (part.getCodPedido().equals(idPedido)) {
-				Object [] x = {
+			Object [] x = {
 					part.getCodPedido(),
 					part.getCodParticipante(),
 					part.getEntidad(),
@@ -159,8 +159,6 @@ public class FrmConsultaParticipante extends JInternalFrame implements ActionLis
 				};
 				
 				model.addRow(x);
-				
-			}
 		}
 		
 	}
@@ -176,6 +174,29 @@ public class FrmConsultaParticipante extends JInternalFrame implements ActionLis
 			
 			cboPedido.addItem(ped.getCodigo());
 			
+		}
+	}
+	
+	private void cargarTabla() {
+		String idPedido= cboPedido.getSelectedItem().toString();
+		
+		ArrayList <Participante> list = partDao.listarParticipante();
+			
+		model.setRowCount(0);
+		
+		for (Participante part : list) {
+			
+			Object [] x = {
+					part.getCodPedido(),
+					part.getCodParticipante(),
+					part.getEntidad(),
+					part.getRuc(),
+					part.getCorreo(),
+					part.getTelefono(),
+					part.getEstado()
+				};
+				
+				model.addRow(x);
 		}
 	}
 	

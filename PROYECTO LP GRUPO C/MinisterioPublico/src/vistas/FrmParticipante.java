@@ -313,6 +313,26 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		
 	}
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
+		
+		ArrayList <Participante> list = partDao.buscarXIdParticipante(txtIdParticipante.getText().trim());
+		
+		if (list.equals("[]")) {
+			Tool.mensajeError(this, "El ID ingresado no se encuentra registrado");
+		}else {
+			
+			for (Participante part : list ) {
+				cboPedido.setSelectedItem(part.getCodPedido());
+				txtIdParticipante.setText(part.getCodParticipante());
+				txtEntidad.setText(part.getEntidad());
+				txtRuc.setText(part.getRuc());
+				txtCorreo.setText(part.getCorreo());
+				txtTelefono.setText(part.getTelefono() + "");
+				cboEstado.setSelectedItem(part.getEstado());
+			}
+			
+		}
+		
+		System.out.println("" + list);		
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -434,22 +454,27 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		
 		int indice = table.getSelectedRow();
 		
-		String idPedido = table.getValueAt(indice, 0).toString();
-		String idParticipante = table.getValueAt(indice, 1).toString();
-		String entidad = table.getValueAt(indice, 2).toString();
-		String ruc = table.getValueAt(indice, 3).toString();
-		String correo = table.getValueAt(indice, 4).toString();
-		String telefono = table.getValueAt(indice, 5).toString();
-		String estado = table.getValueAt(indice, 6).toString();
+		if (indice == -1) {
+			Tool.mensajeError(this, "Posicionese dentro de la tabla");
+		}else {
+			
+			String idPedido = table.getValueAt(indice, 0).toString();
+			String idParticipante = table.getValueAt(indice, 1).toString();
+			String entidad = table.getValueAt(indice, 2).toString();
+			String ruc = table.getValueAt(indice, 3).toString();
+			String correo = table.getValueAt(indice, 4).toString();
+			String telefono = table.getValueAt(indice, 5).toString();
+			String estado = table.getValueAt(indice, 6).toString();
+			
+			cboPedido.setSelectedItem(idPedido);
+			txtIdParticipante.setText(idParticipante);
+			txtEntidad.setText(entidad);
+			txtRuc.setText(ruc);
+			txtCorreo.setText(correo);
+			txtTelefono.setText(telefono);
+			cboEstado.setSelectedItem(estado);
+		}
 		
-		
-		cboPedido.setSelectedItem(idPedido);
-		txtIdParticipante.setText(idParticipante);
-		txtEntidad.setText(entidad);
-		txtRuc.setText(ruc);
-		txtCorreo.setText(correo);
-		txtTelefono.setText(telefono);
-		cboEstado.setSelectedItem(estado);
 		
 	}
 	private void correlativo () {
