@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Comite;
+import clases.Participante;
 import clases.Pedido;
 import mantenimiento.ComiteDAO;
 import mantenimiento.PedidoDAO;
@@ -51,6 +52,8 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	private JTextField txtDependencia;
 
 	private ComiteDAO comiDao;
+	private JButton btnEliminar;
+	private JButton btnNuevo;
 	
 	
 	public static void main(String[] args) {
@@ -171,6 +174,16 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		txtDependencia.setBounds(415, 73, 117, 20);
 		contentPane.add(txtDependencia);
 		
+		btnEliminar = new JButton("ELIMINAR");
+		btnEliminar.addActionListener(this);
+		btnEliminar.setBounds(648, 10, 89, 23);
+		contentPane.add(btnEliminar);
+		
+		btnNuevo = new JButton("NUEVO");
+		btnNuevo.addActionListener(this);
+		btnNuevo.setBounds(648, 41, 89, 23);
+		contentPane.add(btnNuevo);
+		
 		pedDao = new PedidoDAO();
 		comiDao = new ComiteDAO();
 		
@@ -180,10 +193,19 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	private void arranque() {
 		cargarCboPedido();
 		cargarTabla();
+		correlativo();
 		
 	}
 
+
+
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNuevo) {
+			actionPerformedBtnNuevo(e);
+		}
+		if (e.getSource() == btnEliminar) {
+			actionPerformedBtnEliminar(e);
+		}
 		if (e.getSource() == btnModificar) {
 			actionPerformedBtnModificar(e);
 		}
@@ -221,6 +243,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 			}else {
 				Tool.mensajeExito(this, "Registro exitoso");
 				cargarTabla();
+				correlativo();
 			}
 		}
 		
@@ -260,8 +283,41 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	  }
 	}
 	
-
-
+	protected void actionPerformedBtnEliminar(ActionEvent e) {
+		String idPedido =  leerIdPedido();
+		String idMiembro = leerIdMiembro();
+		
+		int ok = comiDao.eliminarMiembro(idPedido, idMiembro);
+		
+		if(ok == 0) {
+			Tool.mensajeError(this, "Error en eliminar!");
+		}else {
+			Tool.mensajeExito(this, "Se eliminó un participante");
+			cargarTabla();
+		}
+	}
+	
+	protected void actionPerformedBtnNuevo(ActionEvent e) {
+		nuevoComite();
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == tbComite) {
+			mouseClickedTbComite(e);
+		}
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	private void mouseClickedTbComite(MouseEvent e) {
+		cargarDatos();
+	}
 
 	//METODOS DE ENTRADA
 	private String leerDependencia() {
@@ -380,22 +436,33 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		;
 		
 	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == tbComite) {
-			mouseClickedTbComite(e);
+	
+	private void correlativo() {
+	    ArrayList <Comite> list = comiDao.listarComite();
+		
+		if (list.size()==0) {
+			txtIdMiembro.setText("MCS001");
+		}else {
+			String idComite = list.get(list.size()-1).getCodMiembro();
+			
+			int n =Integer.parseInt(idComite.substring(0))+1;
+			
+			txtIdMiembro.setText("");
+			txtIdMiembro.setText("MCS"+Tool.ft.format("%03d", n));
 		}
+		
 	}
-	public void mousePressed(MouseEvent e) {
+	
+	private void nuevoComite() {
+		txtNombre.setText("");
+		txtApellido.setText("");
+		txtDni.setText("");
+		txtFuncion.setText("");
+		txtDependencia.setText("");
+		cboPedido.setSelectedIndex(0);
+		// cursor activo
+		txtIdMiembro.requestFocus();
+		
 	}
-	public void mouseReleased(MouseEvent e) {
-	}
-	public void mouseEntered(MouseEvent e) {
-	}
-	public void mouseExited(MouseEvent e) {
-	}
-	private void mouseClickedTbComite(MouseEvent e) {
-		cargarDatos();
-	}
+	
 }

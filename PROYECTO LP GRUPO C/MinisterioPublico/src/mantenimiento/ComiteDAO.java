@@ -90,6 +90,41 @@ public class ComiteDAO {
 		return res;
 	}
 	
+	public int eliminarMiembro( String idPedido, String idMiembro) {
+		int res = 0;
+		
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql = "delete from tb_cep_pedido where id_ped = ? and id_miembroCEP = ?"; 
+						
+			pstm = con.prepareStatement(sql);
+			
+			
+			pstm.setString(1, idPedido);
+			pstm.setString(2, idMiembro);
+			
+			res = pstm.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		return res;
+	}
+	
 	public ArrayList<Comite> listarComite(){
 		ArrayList <Comite> list = new ArrayList<Comite>();
 		
