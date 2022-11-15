@@ -1,6 +1,9 @@
 package vistas;
 
 import javax.swing.*;
+
+import utils.Tool;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -73,18 +76,21 @@ public class FrmLogin extends JFrame implements ActionListener{
 		
 		String usuario = txtUsuario.getText();
 		
-		String password = txtPassword.getSelectedText();
+		@SuppressWarnings("deprecation")
+		String password = txtPassword.getText();
 		
-		StringBuilder [] users = {"luis","francisco"};
+	
 		
-		
-		
-		if (usuario.equals(users)) {
+		if (usuario.equals("luis") && password.equals("123")) {
 			FrmPrincipal form = new FrmPrincipal();
 			form.setVisible(true);
 			form.setLocationRelativeTo(this);
 			this.dispose();
+		}else {
+			Tool.mensajeError(this, "error de instancia");
 		}
+		
+		System.out.println(password);
 		
 	}
 	protected void actionPerformedBtnCancelar(ActionEvent e) {
