@@ -146,14 +146,15 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		contentPane.add(btnLimpiar);
 		
 		propDao = new PropuestaDAO();
+		apeDao = new ApelacionDAO();
 		
 		cargarCboPropuesta();
-		//correlativo();
-		//limpiar();
+		correlativo();
+		limpiar();
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-	/*	if (e.getSource() == btnLimpiar) {
+		if (e.getSource() == btnLimpiar) {
 			actionPerformedBtnLimpiar(e);
 		}
 		if (e.getSource() == btnEliminar) {
@@ -161,7 +162,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		}
 		if (e.getSource() == btnModificar) {
 			actionPerformedBtnModificar(e);
-		} */
+		} 
 		if (e.getSource() == btnRegistrar) {
 			actionPerformedBtnRegistrar(e);
 		}

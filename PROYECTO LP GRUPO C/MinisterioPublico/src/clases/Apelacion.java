@@ -24,6 +24,8 @@ public class Apelacion {
 
 
 
+	
+
 	public String getCodPropuesta() {
 		return codPropuesta;
 	}
