@@ -55,6 +55,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	private ComiteDAO comiDao;
 	private JButton btnEliminar;
 	private JButton btnNuevo;
+	private JButton btnBuscar;
 	
 	
 	public static void main(String[] args) {
@@ -85,7 +86,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		setIconifiable(true);
 		
 		txtIdMiembro = new JTextField();
-		txtIdMiembro.setBounds(144, 42, 102, 20);
+		txtIdMiembro.setBounds(144, 42, 75, 20);
 		contentPane.add(txtIdMiembro);
 		txtIdMiembro.setColumns(10);
 		
@@ -98,19 +99,19 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		contentPane.add(lblIdMiembro);
 		
 		lblNomMiembro = new JLabel("Nombre:");
-		lblNomMiembro.setBounds(10, 76, 147, 14);
+		lblNomMiembro.setBounds(10, 76, 124, 14);
 		contentPane.add(lblNomMiembro);
 		
 		lblApellido = new JLabel("Apellido:");
-		lblApellido.setBounds(10, 111, 147, 14);
+		lblApellido.setBounds(10, 111, 124, 14);
 		contentPane.add(lblApellido);
 		
 		lblFuncion = new JLabel("Funcion/Cargo:");
-		lblFuncion.setBounds(319, 42, 90, 20);
+		lblFuncion.setBounds(319, 42, 86, 20);
 		contentPane.add(lblFuncion);
 		
 		lblDni = new JLabel("Dni: ");
-		lblDni.setBounds(319, 14, 75, 14);
+		lblDni.setBounds(319, 14, 86, 14);
 		contentPane.add(lblDni);
 		
 		scrollPane = new JScrollPane();
@@ -155,7 +156,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		contentPane.add(txtApellido);
 		
 		cboPedido = new JComboBox<Object>();
-		cboPedido.setBounds(144, 10, 102, 22);
+		cboPedido.setBounds(144, 9, 102, 22);
 		contentPane.add(cboPedido);
 		
 		txtDni = new JTextField();
@@ -169,7 +170,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		txtFuncion.setColumns(10);
 		
 		lblDependencia = new JLabel("Dependencia:");
-		lblDependencia.setBounds(319, 76, 90, 20);
+		lblDependencia.setBounds(319, 76, 86, 20);
 		contentPane.add(lblDependencia);
 		
 		txtDependencia = new JTextField();
@@ -187,6 +188,11 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		btnNuevo.setBounds(648, 41, 89, 23);
 		contentPane.add(btnNuevo);
 		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(this);
+		btnBuscar.setBounds(229, 41, 68, 23);
+		contentPane.add(btnBuscar);
+		
 		pedDao = new PedidoDAO();
 		comiDao = new ComiteDAO();
 		
@@ -197,10 +203,13 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		cargarCboPedido();
 		correlativo();
 		cargarTabla();
-		nuevoComite();
+		limpiar();
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnBuscar) {
+			actionPerformedBtnBuscar(e);
+		}
 		if (e.getSource() == btnNuevo) {
 			actionPerformedBtnNuevo(e);
 		}
@@ -280,6 +289,8 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		}else {
 			Tool.mensajeExito(this, "Registro actualizado");
 			cargarTabla();
+			limpiar();
+			correlativo();
 		}
 	  }
 	}
@@ -288,7 +299,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		String idPedido =  leerIdPedido();
 		String idMiembro = leerIdMiembro();
 		
-		int ok = comiDao.eliminarMiembro(idPedido, idMiembro);
+		int ok = comiDao.eliminarMiembro (idPedido, idMiembro);
 		
 		if(ok == 0) {
 			Tool.mensajeError(this, "Error en eliminar!");
@@ -296,6 +307,28 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 			Tool.mensajeExito(this, "Se eliminó un participante");
 			cargarTabla();
 		}
+	}
+	
+	protected void actionPerformedBtnBuscar(ActionEvent e) {
+ArrayList <Comite> list = comiDao.buscarXIdMiembro(txtIdMiembro.getText().trim());
+		
+		if (list.equals("[]")) {
+			Tool.mensajeError(this, "El ID ingresado no se encuentra registrado");
+		}else {
+			
+			for (Comite com : list ) {
+				cboPedido.setSelectedItem(com.getCodPedido());
+				txtIdMiembro.setText(com.getCodMiembro());
+				txtNombre.setText(com.getNombMiembro());
+				txtApellido.setText(com.getApeMiembro());
+				txtDni.setText(com.getDni());
+				txtFuncion.setText(com.getFuncion() + "");
+				txtDependencia.setText(com.getDependencia());
+			}
+			
+		}
+		
+		System.out.println("" + list);		
 	}
 	
 	protected void actionPerformedBtnNuevo(ActionEvent e) {
@@ -457,7 +490,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		
 	}
 	
-	private void nuevoComite() {
+	private void limpiar() {
 		txtNombre.setText("");
 		txtApellido.setText("");
 		txtDni.setText("");
@@ -467,5 +500,5 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	
 		
 	}
-	
+
 }

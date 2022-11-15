@@ -3,6 +3,9 @@ package vistas;
 import java.awt.EventQueue;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Formatter;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import mantenimiento.*;
@@ -30,11 +33,14 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 	private JButton btnRegistrar;
 	private JButton btnModificar;
 	private JScrollPane spDescripcion;
-	private JTextField txtCodigo;
+	private JTextField txtIdApelacion;
 	private JLabel lblCodigo;
 	
 	private PropuestaDAO propDao;
-	private ApelacionDAO apelDao;
+	private ApelacionDAO apeDao;
+	private JButton btnBuscar;
+	private JButton btnEliminar;
+	private JButton btnLimpiar;
 
 	/**
 	 * Launch the application.
@@ -74,7 +80,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		contentPane.add(lblPropuesta);
 		
 		lblFechaApelacion = new JLabel("Fecha de la Apelación:");
-		lblFechaApelacion.setBounds(160, 63, 140, 14);
+		lblFechaApelacion.setBounds(10, 119, 140, 14);
 		contentPane.add(lblFechaApelacion);
 		
 		lblDescripcion = new JLabel("Descripción:");
@@ -90,7 +96,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		contentPane.add(cboPropuesta);
 		
 		dcFechaApelacion = new JDateChooser();
-		dcFechaApelacion.setBounds(160, 83, 123, 20);
+		dcFechaApelacion.setBounds(10, 144, 123, 20);
 		contentPane.add(dcFechaApelacion);
 		
 		spDescripcion = new JScrollPane();
@@ -109,89 +115,198 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(10, 234, 109, 23);
+		btnRegistrar.setBounds(10, 234, 77, 23);
 		getContentPane().add(btnRegistrar);
 		
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(142, 234, 109, 23);
+		btnModificar.setBounds(107, 234, 77, 23);
 		getContentPane().add(btnModificar);
 		
-		txtCodigo = new JTextField();
-		txtCodigo.setBounds(10, 83, 123, 20);
-		contentPane.add(txtCodigo);
+		txtIdApelacion = new JTextField();
+		txtIdApelacion.setBounds(10, 83, 123, 20);
+		contentPane.add(txtIdApelacion);
 		
 		lblCodigo = new JLabel("ID Apelacion:");
 		lblCodigo.setBounds(10, 63, 140, 14);
 		contentPane.add(lblCodigo);
 		
-		propDao = new PropuestaDAO();
-		arranque();
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(178, 82, 89, 23);
+		contentPane.add(btnBuscar);
 		
-	}
-
-	private void arranque() {
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(this);
+		btnEliminar.setBounds(206, 234, 89, 23);
+		contentPane.add(btnEliminar);
+		
+		btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.addActionListener(this);
+		btnLimpiar.setBounds(178, 141, 89, 23);
+		contentPane.add(btnLimpiar);
+		
+		propDao = new PropuestaDAO();
 		
 		cargarCboPropuesta();
-		
+		//correlativo();
+		//limpiar();
 	}
-
-		
 	
 	public void actionPerformed(ActionEvent e) {
+	/*	if (e.getSource() == btnLimpiar) {
+			actionPerformedBtnLimpiar(e);
+		}
+		if (e.getSource() == btnEliminar) {
+			actionPerformedBtnEliminar(e);
+		}
 		if (e.getSource() == btnModificar) {
 			actionPerformedBtnModificar(e);
-		}
+		} */
 		if (e.getSource() == btnRegistrar) {
 			actionPerformedBtnRegistrar(e);
 		}
 	}
 	protected void actionPerformedBtnRegistrar(ActionEvent e) {
-		String idPropuesta = leerPropuesta();
-		String idApelacion = leerApelacion();
-		int idEstadoApe = leerIdEstado();
-		String fecha = leerFecha();
+		String idPropuesta = leerIdPropuesta();
+		String idApelacion = leerIdApelacion();
+		String fechPropuesta = leerFecha();
+		String descripcion = leerDescripcion();
+		String estado = leerEstado();
 		
-		//if ( idPropuesta == null || idApelacion == null || id )
+		if ( idPropuesta == null || idApelacion == null || fechPropuesta == null ||
+				descripcion == null || estado ==  null ) {
+			return; 
+		} else {
+			Apelacion ape = new Apelacion (idPropuesta, idApelacion, 
+					fechPropuesta, descripcion, estado   
+					);
+			int ok = apeDao.resgistrarApelacion(ape);
+			if (ok == 0) {
+				Tool.mensajeError(this, "Error de registro");
+			}else {
+				Tool.mensajeExito(this, "Registro exitoso");
+				correlativo();
+			}
+		}
 	}
-	
-
+    
 	protected void actionPerformedBtnModificar(ActionEvent e) {
+		String idApelacion = leerIdApelacion();
+		String idPropuesta = leerIdPropuesta();
+		String fechPropuesta = leerFecha();
+		String descripcion = leerDescripcion();
+		String estado = leerEstado();
+		
+		if ( idApelacion == null || idPropuesta == null || fechPropuesta == null ||
+				descripcion == null || estado == null ) {
+			return; 
+		} else {
+			Apelacion ape = new Apelacion (
+					idApelacion, idPropuesta, fechPropuesta, descripcion, descripcion   
+					);
+			int ok = apeDao.modificarApelacion(ape);
+			if (ok == 0) {
+				Tool.mensajeError(this, "Error de registro");
+			}else {
+				Tool.mensajeExito(this, "Registro exitoso");
+				correlativo();
+			}
+		}
 	}
 	
-	//METODOS INTERNOS 
+	protected void actionPerformedBtnEliminar(ActionEvent e) {
+		String codApelacion =  leerIdApelacion();
+		String codPropuesta = leerIdPropuesta();
+		
+		int ok = apeDao.eliminarApelacion (codApelacion, codPropuesta);
+		
+		if(ok == 0) {
+			Tool.mensajeError(this, "Error en eliminar!");
+		}else {
+			Tool.mensajeExito(this, "Se eliminó un participante");
+			
+		}
+	}
+	
+	protected void actionPerformedBtnLimpiar(ActionEvent e) {
+		limpiar();
+	}
+	
+    //METODOS DE ENTRADA 
+	private String leerDescripcion() {
+		String res = null;
+		res = txtDescripcion.getText().trim();
+		
+		return res;
+	}
+	
 	private String leerFecha() {
-		// TODO Auto-generated method stub
-		return null;
+		String res=null;
+		res = Tool.sdf.format(dcFechaApelacion.getDate()).toString();
+		
+		return res;
 	}
 
-	private int leerIdEstado() {
-		// TODO Auto-generated method stub
-		return 0;
+	private String leerEstado() {
+	    String res=null;
+		res = cboEstado.getSelectedItem().toString();
+		
+		return res;
 	}
 
-	private String leerApelacion() {
-		// TODO Auto-generated method stub
-		return null;
+	private String leerIdApelacion() {
+		String res = null;
+		res = txtIdApelacion.getText().trim();
+		
+		return res;
 	}
-
-	private String leerPropuesta() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private String leerIdPropuesta() {
+		String res = null;
+		res = cboEstado.getSelectedItem().toString();
+		
+		return res;
 	}
+	
 	//METODOS ADICIONALES
 	
 	private void cargarCboPropuesta() {
-		/*ArrayList<Pedido> list = propDao.listarPropuesta();
+		ArrayList<Propuesta> list = propDao.listarPropuestas();
 		
 		cboPropuesta.removeAllItems();
 		cboPropuesta.addItem("SELECCIONE...");
 		
-		for (Pedido ped : list) {
+		for (Propuesta ped : list) {
 			
-			cboPropuesta.addItem(ped.getCodigo());
+			cboPropuesta.addItem(ped.getCodPropuesta());
 			
 		}
-	*/
+
      }
+
+
+	private void limpiar() {
+		txtDescripcion.setText("");
+		dcFechaApelacion.setDate(new Date());
+		cboPropuesta.setSelectedIndex(0);
+		cboEstado.setSelectedIndex(0);
+	
+    }
+    private void correlativo() {
+    	@SuppressWarnings("resource")
+	    Formatter ft = new Formatter();
+	    
+	    ArrayList <Apelacion> list = apeDao.listarApelacion();
+		if (list.size()==0) {
+			txtIdApelacion.setText("AP001");
+		}else {
+			String idApelacion = list.get(list.size()-1).getCodApelacion();
+			
+			int n =Integer.parseInt(idApelacion.substring(2))+1;
+			
+			txtIdApelacion.setText("");
+			txtIdApelacion.setText("AP"+ft.format("%03d", n));
+          }
+    }
+
 }

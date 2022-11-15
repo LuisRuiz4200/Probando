@@ -1,32 +1,28 @@
 package clases;
 
 public class Apelacion {
-	
-	private String codPedido;
 	private String codPropuesta;
 	private String codApelacion;
 	private String fecha;
 	private String descripcion;
-	private String Motivo;
+	private String estado;
 	
-	public Apelacion(String codPedido, String codPropuesta, String codApelacion, String fecha, String descripcion,
-			String motivo) {
-		
-		this.codPedido = codPedido;
+	
+	public Apelacion() {
+	}
+
+	public Apelacion(String codPropuesta, String codApelacion, String fecha, String descripcion,
+			String estado) {
+		super();
 		this.codPropuesta = codPropuesta;
 		this.codApelacion = codApelacion;
 		this.fecha = fecha;
 		this.descripcion = descripcion;
-		Motivo = motivo;
+		this.estado = estado;
 	}
 
-	public String getCodPedido() {
-		return codPedido;
-	}
 
-	public void setCodPedido(String codPedido) {
-		this.codPedido = codPedido;
-	}
+
 
 	public String getCodPropuesta() {
 		return codPropuesta;
@@ -60,13 +56,14 @@ public class Apelacion {
 		this.descripcion = descripcion;
 	}
 
-	public String getMotivo() {
-		return Motivo;
+	public String getEstado() {
+		return estado;
 	}
 
-	public void setMotivo(String motivo) {
-		Motivo = motivo;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
-	
+
+
 	
 }
