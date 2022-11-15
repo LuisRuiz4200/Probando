@@ -23,9 +23,11 @@ import java.awt.event.ActionEvent;
 import clases.*;
 
 import mantenimiento.*;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings({ "serial", "unused" })
-public class FrmConsultaParticipante extends JInternalFrame implements ActionListener {
+public class FrmConsultaParticipante extends JInternalFrame implements ActionListener, KeyListener {
 
 	private JPanel contentPane;
 	private JButton btnExportar;
@@ -38,6 +40,8 @@ public class FrmConsultaParticipante extends JInternalFrame implements ActionLis
 	
 	private PedidoDAO pedDao;
 	private ParticipanteDAO partDao;
+	private JLabel lblIdParticipante;
+	private JTextField txtIdParticipante;
 
 	/**
 	 * Launch the application.
@@ -100,13 +104,23 @@ public class FrmConsultaParticipante extends JInternalFrame implements ActionLis
 		contentPane.add(cboPedido);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 81, 654, 287);
+		scrollPane.setBounds(10, 119, 654, 249);
 		contentPane.add(scrollPane);
 		
 		tbParticipantes = new JTable();
 		tbParticipantes.setFillsViewportHeight(true);
 		tbParticipantes.setModel(model);
 		scrollPane.setViewportView(tbParticipantes);
+		
+		lblIdParticipante = new JLabel("ID Participante");
+		lblIdParticipante.setBounds(10, 67, 101, 14);
+		contentPane.add(lblIdParticipante);
+		
+		txtIdParticipante = new JTextField();
+		txtIdParticipante.addKeyListener(this);
+		txtIdParticipante.setBounds(141, 64, 138, 20);
+		contentPane.add(txtIdParticipante);
+		txtIdParticipante.setColumns(10);
 		
 		
 		partDao= new ParticipanteDAO();
@@ -134,10 +148,45 @@ public class FrmConsultaParticipante extends JInternalFrame implements ActionLis
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
 		cargarTablaXPedido();
 	}
+	
+	
 	protected void actionPerformedBtnExportar(ActionEvent e) {
+	}
+	public void keyPressed(KeyEvent e) {
+	}
+	public void keyReleased(KeyEvent e) {
+		if (e.getSource() == txtIdParticipante) {
+			keyReleasedTxtIdParticipante(e);
+		}
+	}
+	public void keyTyped(KeyEvent e) {
+	}
+	protected void keyReleasedTxtIdParticipante(KeyEvent e) {
 	}
 	
 	
+	private void cargarTablaXParticipante() {
+		String idParticipante = txtIdParticipante.getText().trim();
+		
+		
+		ArrayList <Participante> list = partDao.buscarXIdParticipante(String.valueOf(idParticipante.charAt(0)));
+			
+		model.setRowCount(0);
+		
+		for (Participante part : list) {
+			Object [] x = {
+					part.getCodPedido(),
+					part.getCodParticipante(),
+					part.getEntidad(),
+					part.getRuc(),
+					part.getCorreo(),
+					part.getTelefono(),
+					part.getEstado()
+				};
+				
+				model.addRow(x);
+		}
+	}
 	
 	private void cargarTablaXPedido() {
 		
@@ -199,6 +248,5 @@ public class FrmConsultaParticipante extends JInternalFrame implements ActionLis
 				model.addRow(x);
 		}
 	}
-	
 	
 }
