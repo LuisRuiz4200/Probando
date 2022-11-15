@@ -24,10 +24,6 @@ public class Participante {
 	}
 
 
-
-
-
-
 	public String getCodPedido() {
 		return codPedido;
 	}
