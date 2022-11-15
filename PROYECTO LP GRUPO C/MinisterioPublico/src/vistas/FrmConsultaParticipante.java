@@ -40,8 +40,8 @@ public class FrmConsultaParticipante extends JInternalFrame implements ActionLis
 	
 	private PedidoDAO pedDao;
 	private ParticipanteDAO partDao;
-	private JLabel lblIdParticipante;
-	private JTextField txtIdParticipante;
+	private JLabel lblEntidad;
+	private JTextField txtEntidad;
 
 	/**
 	 * Launch the application.
@@ -112,15 +112,15 @@ public class FrmConsultaParticipante extends JInternalFrame implements ActionLis
 		tbParticipantes.setModel(model);
 		scrollPane.setViewportView(tbParticipantes);
 		
-		lblIdParticipante = new JLabel("ID Participante");
-		lblIdParticipante.setBounds(10, 67, 101, 14);
-		contentPane.add(lblIdParticipante);
+		lblEntidad = new JLabel("ENTIDAD");
+		lblEntidad.setBounds(10, 67, 101, 14);
+		contentPane.add(lblEntidad);
 		
-		txtIdParticipante = new JTextField();
-		txtIdParticipante.addKeyListener(this);
-		txtIdParticipante.setBounds(141, 64, 138, 20);
-		contentPane.add(txtIdParticipante);
-		txtIdParticipante.setColumns(10);
+		txtEntidad = new JTextField();
+		txtEntidad.addKeyListener(this);
+		txtEntidad.setBounds(141, 64, 138, 20);
+		contentPane.add(txtEntidad);
+		txtEntidad.setColumns(10);
 		
 		
 		partDao= new ParticipanteDAO();
@@ -155,21 +155,22 @@ public class FrmConsultaParticipante extends JInternalFrame implements ActionLis
 	public void keyPressed(KeyEvent e) {
 	}
 	public void keyReleased(KeyEvent e) {
-		if (e.getSource() == txtIdParticipante) {
+		if (e.getSource() == txtEntidad) {
 			keyReleasedTxtIdParticipante(e);
 		}
 	}
 	public void keyTyped(KeyEvent e) {
 	}
 	protected void keyReleasedTxtIdParticipante(KeyEvent e) {
+		cargarTablaXParticipante();
 	}
 	
 	
 	private void cargarTablaXParticipante() {
-		String idParticipante = txtIdParticipante.getText().trim();
+		String idParticipante = txtEntidad.getText().trim();
 		
 		
-		ArrayList <Participante> list = partDao.buscarXIdParticipante(String.valueOf(idParticipante.charAt(0)));
+		ArrayList <Participante> list = partDao.buscarXIdParticipante(idParticipante);
 			
 		model.setRowCount(0);
 		

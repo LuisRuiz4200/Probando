@@ -27,8 +27,8 @@ public class ApelacionDAO {
 			
 			pstm = con.prepareStatement(sql);
 			
-			pstm.setString(1,ape.getCodPropuesta());
-			pstm.setString(2,ape.getCodApelacion());
+			pstm.setString(2,ape.getCodPropuesta());
+			pstm.setString(1,ape.getCodApelacion());
 			pstm.setString(3,ape.getFecha());
 			pstm.setString(4,ape.getDescripcion());
 			pstm.setString(5,ape.getEstado());

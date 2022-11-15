@@ -264,7 +264,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 	
 	private String leerIdPropuesta() {
 		String res = null;
-		res = cboEstado.getSelectedItem().toString();
+		res = cboPropuesta.getSelectedItem().toString();
 		
 		return res;
 	}

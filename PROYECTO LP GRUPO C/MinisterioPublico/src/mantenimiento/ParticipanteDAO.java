@@ -256,7 +256,7 @@ public class ParticipanteDAO {
 			//String sql = "select * from tb_participante"
 				//	+ " where codigo_parti = ?"; 
 			String sql2 = "select * from tb_participante "
-					+ "where codigo_parti like concat(?,'%')";
+					+ "where empresa_parti like concat(?,'%')";
 						
 			pstm = con.prepareStatement(sql2);
 			
