@@ -27,9 +27,11 @@ import utils.Tool;
 import javax.swing.JEditorPane;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings({ "serial", "unused" })
-public class FrmConsultaPropuesta extends JInternalFrame implements ActionListener, MouseListener {
+public class FrmConsultaPropuesta extends JInternalFrame implements ActionListener, KeyListener, MouseListener {
 
 	private JPanel contentPane;
 	private JButton btnExportar;
@@ -105,6 +107,7 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 
 		tblPropuestas = new JTable();
 		tblPropuestas.addMouseListener(this);
+		tblPropuestas.addKeyListener(this);
 		tblPropuestas.setFillsViewportHeight(true);
 		tblPropuestas.setModel(model);
 		scrollPane.setViewportView(tblPropuestas);
@@ -199,6 +202,36 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		ArrayList<Propuesta> list = gProp.buscarXPedido(codPedido);
 		cargarTabla(list);
 	}
+	
+	private void consultarPropuesta() {
+		int indice = tblPropuestas.getSelectedRow();
+		
+		String idProp = tblPropuestas.getValueAt(indice,1).toString();
+		
+		ArrayList<Propuesta> list = gProp.listarPropuestas();
+		
+		for(Propuesta prop : list) {
+			if(prop.getCodPropuesta().equals(idProp)) {
+				txtPropTecnica.setText(prop.getPropTecnica());
+				txtPropEconomica.setText(prop.getPropEconomica());
+			}
+		}
+	}
+	
+	public void keyPressed(KeyEvent e) {
+	}
+	public void keyReleased(KeyEvent e) {
+		if (e.getSource() == tblPropuestas) {
+			keyReleasedTblPropuestas(e);
+		}
+	}
+	public void keyTyped(KeyEvent e) {
+	}
+	protected void keyReleasedTblPropuestas(KeyEvent e) {
+		consultarPropuesta();
+	}
+	
+
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == tblPropuestas) {
 			mouseClickedTblPropuestas(e);
@@ -213,17 +246,6 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 	public void mouseReleased(MouseEvent e) {
 	}
 	protected void mouseClickedTblPropuestas(MouseEvent e) {
-		int indice = tblPropuestas.getSelectedRow();
-		
-		String idProp = tblPropuestas.getValueAt(indice,1).toString();
-		
-		ArrayList<Propuesta> list = gProp.listarPropuestas();
-		
-		for(Propuesta prop : list) {
-			if(prop.getCodPropuesta().equals(idProp)) {
-				txtPropTecnica.setText(prop.getPropTecnica());
-				txtPropEconomica.setText(prop.getPropEconomica());
-			}
-		}
+		consultarPropuesta();
 	}
 }
