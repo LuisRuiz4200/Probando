@@ -172,7 +172,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 		btnBuscar = new JButton("Buscar ");
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(450, 70, 102, 22);
+		btnBuscar.setBounds(270, 35, 80, 22);
 		contentPane.add(btnBuscar);
 
 		fechaProp = new JDateChooser();
@@ -216,8 +216,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 			int correlativo = Integer.parseInt(idProp.substring(2)) + 1;
 			
-			txtPropuesta.setText("");
-			txtPropuesta.setText("PD" + ft.format("%03d", correlativo));
+			txtPropuesta.setText("PR" + ft.format("%03d", correlativo));
 
 		}
 
@@ -240,7 +239,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		ArrayList<Pedido> list = gPed.listarPedido();
 		// 2. Validar el resultado del proceso
 		if (list.size() == 0) {
-			Tool.mensajeError(null, "Lista vacía");
+			Tool.mensajeError(this, "Lista vacía");
 		} else {
 			cboPedido.addItem("Seleccione ... ");
 			for (Pedido ped : list) {
@@ -314,7 +313,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 			Propuesta prop = gProp.buscarPropuesta(codigo);
 			// Validar el resultado del proceso
 			if (prop == null) {
-				Tool.mensajeError(null, "código no existe");
+				Tool.mensajeError(this, "Propuesta no existe");
 			} else {
 				cboPedido.setSelectedItem(prop.getCodPedido());
 				cboParticipante.setSelectedItem(prop.getCodParticipante());
@@ -358,9 +357,9 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 			int res = gProp.actualizarPropuesta(prop);
 			// validar el resultado del proceso de actualizar
 			if (res == 0) {
-				Tool.mensajeError(null, "Error en la actualización");
+				Tool.mensajeError(this, "Error en la actualización");
 			} else {
-				Tool.mensajeExito(null, "Usuario actualizado");
+				Tool.mensajeExito(this, "Usuario actualizado");
 			}
 		}
 
@@ -401,9 +400,9 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 			int res = gProp.registrarPropuesta(prop);
 			// validar el resultado del proceso de registro
 			if (res == 0) {
-				Tool.mensajeError(null, "Error en el registro");
+				Tool.mensajeError(this, "Error en el registro");
 			} else {
-				Tool.mensajeExito(null, "Propuesta registrada");
+				Tool.mensajeExito(this, "Propuesta registrada");
 				correlativo();
 			}
 		}

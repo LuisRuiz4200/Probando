@@ -159,9 +159,9 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		lblEstado.setBounds(579, 13, 67, 14);
 		getContentPane().add(lblEstado);
 		
-		btnBuscar = new JButton("Buscar ");
+		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(282, 16, 103, 42);
+		btnBuscar.setBounds(278, 11, 86, 38);
 		getContentPane().add(btnBuscar);
 		
 		btnNuevo = new JButton("Nuevo");
