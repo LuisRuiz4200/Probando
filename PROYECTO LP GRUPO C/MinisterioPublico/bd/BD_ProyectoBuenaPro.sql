@@ -190,4 +190,6 @@ select * from tb_objetoPedido;
 
 select * from tb_participante;
 
+select * from tb_propuesta;
+
 
