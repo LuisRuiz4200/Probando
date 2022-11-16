@@ -253,12 +253,12 @@ public class ParticipanteDAO {
 			
 			con = MySQLConexion8.getConexion();
 			
-			//String sql = "select * from tb_participante"
-				//	+ " where codigo_parti = ?"; 
-			String sql2 = "select * from tb_participante "
-					+ "where empresa_parti like concat(?,'%')";
+			String sql = "select * from tb_participante"
+					+ " where codigo_parti = ?"; 
+			//String sql2 = "select * from tb_participante "
+				//	+ "where empresa_parti like concat(?,'%')";
 						
-			pstm = con.prepareStatement(sql2);
+			pstm = con.prepareStatement(sql);
 			
 			pstm.setString (1,idParticipante);
 			

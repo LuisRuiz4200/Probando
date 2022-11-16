@@ -2,6 +2,32 @@ Drop database if exists ProyectoBuenaPro;
 Create database ProyectoBuenaPro;
 use ProyectoBuenaPro;
 
+
+create table tb_tipoUser(
+id_tipoUser int not null,
+des_tipoUser varchar(25) not null,
+
+primary key (id_tipoUser)
+
+);
+
+create table tb_usuario (
+
+codigo_user int not null,
+nombre_user varchar(25),
+apellido_user varchar (25),
+usuario_user char (10) not null,
+clave_user  char  (10) ,
+fechaNac_user date,
+tipo_user int,
+estado_user varchar(25),
+
+primary key (codigo_user),
+foreign key (tipo_user) references tb_tipoUser(id_tipoUser)
+
+);
+
+
 create table tb_objetoPedido (
 
 id_objetoPedido int not null,
@@ -23,7 +49,7 @@ create table tb_pedido(
 
 id_ped char (10) not null,
 entidad_ped varchar (25) ,
-
+ruc_ped varchar(25),
 id_tipoPedido int not null,
 id_objetoPedido int not null,
 descripcion_ped varchar(300),
@@ -139,12 +165,17 @@ foreign key (id_apel) references tb_apelacion (id_apel)
 /*INSERTS*/
 
 
-/*insert into tb_objetoPedido values ('1','Bien');
+/*insert into tb_tipoUser values ('1','Administrador');
+insert into tb_tipoUser values ('2','Miembro del CEP');
+insert into tb_tipoUser values ('3','Asistente de logistica');
+insert into tb_tipoUser values ('4','Asesor juricio');
+
+insert into tb_objetoPedido values ('1','Bien');
 insert into tb_objetoPedido values ('2','Servicio');
-insert into tb_objetoPedido values ('3','Obra');*/
+insert into tb_objetoPedido values ('3','Obra');
 
 
-/*insert into tb_tipoPedido values ('1','Licitacion Publica');
+insert into tb_tipoPedido values ('1','Licitacion Publica');
 insert into tb_tipoPedido values ('2','Concurso Publica');
 insert into tb_tipoPedido values ('3','Adjudicacion Directa');
 insert into tb_tipoPedido values ('4','Adjudicacion Directa Selectiva');

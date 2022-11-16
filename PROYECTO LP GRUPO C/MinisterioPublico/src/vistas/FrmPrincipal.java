@@ -241,10 +241,10 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	}
 	
 	protected void actionPerformedMniPedido(ActionEvent e) {
-		FrmPedido contra=new FrmPedido ();
-		contra.setVisible(true);
-		escritorio.add(contra).setLocation(0,0);
-		contra.toFront();
+		FrmPedido pedido=new FrmPedido ();
+		pedido.setVisible(true);
+		escritorio.add(pedido).setLocation(0,0);
+		pedido.toFront();
 	}
 
 	

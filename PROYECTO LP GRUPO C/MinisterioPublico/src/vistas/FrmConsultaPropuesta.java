@@ -34,7 +34,6 @@ import java.awt.event.KeyEvent;
 public class FrmConsultaPropuesta extends JInternalFrame implements ActionListener, KeyListener, MouseListener {
 
 	private JPanel contentPane;
-	private JButton btnExportar;
 	private JButton btnBuscar;
 	private JLabel lblNumeroPedido;
 	private JComboBox<Object> cboPedido;
@@ -84,13 +83,9 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		btnExportar = new JButton("Exportar");
-		btnExportar.setBounds(518, 24, 89, 31);
-		contentPane.add(btnExportar);
-
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(381, 24, 89, 31);
+		btnBuscar.setBounds(299, 24, 89, 31);
 		contentPane.add(btnBuscar);
 
 		lblNumeroPedido = new JLabel("Numero de Pedido:");

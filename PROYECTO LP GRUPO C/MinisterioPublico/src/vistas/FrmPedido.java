@@ -49,7 +49,6 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private JButton btnModificar;
 	private JDateChooser dcFecha; 
 	private DefaultTableModel model;
-	private JComboBox <Object>cboEstado;
 	private JComboBox <Object>cboObjeto;
 	
 	private TipoPedidoDAO tipPedDao;
@@ -57,6 +56,10 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private PedidoDAO pedDao;
 	private ParticipanteDAO partDao;
 	private JButton btnNuevo;
+	private JTextField txtEstado;
+	private JLabel lblEstado;
+	private JLabel lblRuc;
+	private JTextField txtRuc;
 
 	/**
 	 * Launch the application.
@@ -80,7 +83,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	public FrmPedido() {
 		setTitle("Pedido");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 763, 402);
+		setBounds(100, 100, 763, 444);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -112,19 +115,19 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		contentPane.add(lblEntidad);
 		
 		lblTipo = new JLabel("Tipo de Contratacion:");
-		lblTipo.setBounds(10, 76, 147, 14);
+		lblTipo.setBounds(10, 103, 147, 14);
 		contentPane.add(lblTipo);
 		
 		lblObjeto = new JLabel("Objeto de Contratacion:");
-		lblObjeto.setBounds(10, 111, 147, 14);
+		lblObjeto.setBounds(10, 138, 147, 14);
 		contentPane.add(lblObjeto);
 		
 		cboTipo = new JComboBox<Object>();
-		cboTipo.setBounds(167, 72, 220, 22);
+		cboTipo.setBounds(167, 99, 220, 22);
 		contentPane.add(cboTipo);
 		
 		txtDescripcion = new JEditorPane();
-		txtDescripcion.setBounds(413, 64, 279, 49);
+		txtDescripcion.setBounds(413, 64, 279, 88);
 		contentPane.add(txtDescripcion);
 		
 		lblDescripcion = new JLabel("Descripcion de \r\nRequrimiento:");
@@ -136,7 +139,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		contentPane.add(lblFecha);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 154, 727, 198);
+		scrollPane.setBounds(10, 205, 727, 198);
 		contentPane.add(scrollPane);
 		
 		tbPedidos = new JTable();
@@ -145,12 +148,12 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		
 		btnGuardar = new JButton("GUARDAR");
 		btnGuardar.addActionListener(this);
-		btnGuardar.setBounds(480, 120, 117, 23);
+		btnGuardar.setBounds(480, 171, 117, 23);
 		contentPane.add(btnGuardar);
 		
 		btnModificar = new JButton("MODIFICAR");
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(610, 120, 108, 23);
+		btnModificar.setBounds(610, 171, 108, 23);
 		contentPane.add(btnModificar);
 		
 		dcFecha = new JDateChooser();
@@ -168,19 +171,34 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	
 		tbPedidos.setModel(model);
 		
-		cboEstado = new JComboBox<Object>();
-		cboEstado.setModel(new DefaultComboBoxModel<Object>(new String[] {"REGISTRADO", "EN PROCESO", "DESIERTO", "CONCLUIDO"}));
-		cboEstado.setBounds(601, 11, 102, 20);
-		contentPane.add(cboEstado);
-		
 		cboObjeto = new JComboBox<Object>();
-		cboObjeto.setBounds(167, 107, 117, 22);
+		cboObjeto.setBounds(167, 134, 117, 22);
 		contentPane.add(cboObjeto);
 		
 		btnNuevo = new JButton("Nuevo");
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(361, 120, 89, 23);
+		btnNuevo.setBounds(361, 171, 89, 23);
 		contentPane.add(btnNuevo);
+		
+		txtEstado = new JTextField();
+		txtEstado.setEditable(false);
+		txtEstado.setColumns(10);
+		txtEstado.setBounds(612, 25, 106, 29);
+		contentPane.add(txtEstado);
+		
+		lblEstado = new JLabel("ESTADO");
+		lblEstado.setBounds(612, 11, 67, 14);
+		contentPane.add(lblEstado);
+		
+		lblRuc = new JLabel("RUC:");
+		lblRuc.setBounds(10, 74, 147, 14);
+		contentPane.add(lblRuc);
+		
+		txtRuc = new JTextField();
+		txtRuc.setText("");
+		txtRuc.setColumns(10);
+		txtRuc.setBounds(167, 72, 117, 20);
+		contentPane.add(txtRuc);
 		
 		tipPedDao = new TipoPedidoDAO();
 		objPedDao = new ObjetoPedidoDAO();
@@ -222,19 +240,20 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		
 		String idPedido = leerIdPedido();
 		String entidad = leerEntidad();
+		String ruc = leerRuc();
 		int idTipoPedido = leerTipo();
 		int idObjetoPedido = leerObjeto();
 		String descripcion  = leerDescripcion();
 		String fecha = leerFecha();
 		String estado = leerEstado();
 		
-		if (idPedido==null ||entidad==null ||idTipoPedido==-1 ||
+		if (idPedido==null ||entidad==null||ruc==null  ||idTipoPedido==-1 ||
 				idObjetoPedido==-1 ||descripcion==null 
 				||fecha==null || estado ==null) {
 			return;
 		}else {
 			
-			Pedido ped = new Pedido(idPedido,entidad,
+			Pedido ped = new Pedido(idPedido,entidad,ruc,
 					idTipoPedido,idObjetoPedido,descripcion,
 					fecha,estado);
 			
@@ -250,26 +269,25 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		}
 		
 	}
-	
-	
 
 	protected void actionPerformedBtnModificar(ActionEvent e) {
 		
 		String idPedido = leerIdPedido();
 		String entidad = leerEntidad();
+		String ruc = leerRuc();
 		int idTipoPedido = leerTipo();
 		int idObjetoPedido = leerObjeto();
 		String descripcion  = leerDescripcion();
 		String fecha = leerFecha();
 		String estado = leerEstado();
 		
-		if (idPedido==null ||entidad==null ||idTipoPedido==-1 ||
+		if (idPedido==null ||entidad==null ||ruc==null ||idTipoPedido==-1 ||
 				idObjetoPedido==-1 ||descripcion==null 
 				||fecha==null || estado ==null) {
 			return;
 		}else {
 			
-			Pedido ped = new Pedido(idPedido,entidad,
+			Pedido ped = new Pedido(idPedido,entidad,ruc,
 					idTipoPedido,idObjetoPedido,descripcion,
 					fecha,estado);
 			
@@ -322,6 +340,15 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		return res;
 	}
 
+
+	private String leerRuc() {
+		String res=null;
+		
+		res= txtRuc.getText();
+		
+		return res;
+	}
+	
 	private int leerTipo() {
 		int res=-1;
 		
@@ -359,7 +386,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private String leerEstado() {
 		String res=null;
 		
-		res = cboEstado.getSelectedItem().toString();
+		res = txtEstado.getText().toString();
 		
 		return res;
 	}
@@ -461,7 +488,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		} catch (ParseException e) {
 			Tool.mensajeError(this,"Error de formato en fecha");
 		}
-		cboEstado.setSelectedItem(estado);
+		txtEstado.setText(estado);
 
 		
 	}
@@ -486,7 +513,6 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		txtEntidad.setText("");
 		dcFecha.setDate(new Date());
 		txtDescripcion.setText("");
-		cboEstado.setSelectedIndex(0);
+		txtEstado.setText("REGISTRADO");
 	}
-	
 }

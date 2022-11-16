@@ -13,6 +13,8 @@ import utils.Tool;
 import clases.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
 
 @SuppressWarnings("serial")
 public class FrmParticipante extends JInternalFrame implements ActionListener, MouseListener{
@@ -34,7 +36,6 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private JLabel lblPedido;
 	private JTextField txtIdParticipante;
 	private JLabel lblIdPedido;
-	private JComboBox<Object> cboEstado;
 	private JLabel lblEstado;
 	private JButton btnBuscar;
 	
@@ -42,6 +43,8 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private ParticipanteDAO partDao;
 	private PropuestaDAO propDao;
 	private JButton btnNuevo;
+	private JTextField txtEstado;
+	private JPanel panleParticipante;
 	
 	
 	
@@ -53,7 +56,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	public FrmParticipante() {
 		
 		setTitle("Participantes");
-		setBounds(100,100,773,422);
+		setBounds(100,100,773,478);
 		
 		this.getContentPane().setLayout(null);
 		this.getContentPane().setBackground(Color.lightGray);
@@ -62,59 +65,90 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		setMaximizable(true);
 		setIconifiable(true);
 		
+		panleParticipante = new JPanel();
+		panleParticipante.setOpaque(false);
+		panleParticipante.setBackground(new Color(240, 240, 240));
+		panleParticipante.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PARTICIPANTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panleParticipante.setBounds(314, 11, 402, 158);
+		getContentPane().add(panleParticipante);
+		panleParticipante.setLayout(null);
+		
 		txtEntidad = new JTextField();
+		txtEntidad.setBounds(10, 81, 177, 20);
+		panleParticipante.add(txtEntidad);
 		txtEntidad.setColumns(10);
-		txtEntidad.setBounds(21, 69, 177, 20);
-		getContentPane().add(txtEntidad);
 		
 		lblEntidad = new JLabel("Entidad");
-		lblEntidad.setBounds(22, 54, 67, 14);
-		getContentPane().add(lblEntidad);
-		
-		txtRuc = new JTextField();
-		txtRuc.setColumns(10);
-		txtRuc.setBounds(223, 69, 114, 20);
-		getContentPane().add(txtRuc);
+		lblEntidad.setBounds(11, 66, 67, 14);
+		panleParticipante.add(lblEntidad);
 		
 		lblRuc = new JLabel("RUC");
-		lblRuc.setBounds(224, 54, 92, 14);
-		getContentPane().add(lblRuc);
+		lblRuc.setBounds(213, 66, 92, 14);
+		panleParticipante.add(lblRuc);
 		
 		txtTelefono = new JTextField();
+		txtTelefono.setBounds(10, 127, 114, 20);
+		panleParticipante.add(txtTelefono);
 		txtTelefono.setColumns(10);
-		txtTelefono.setBounds(21, 115, 114, 20);
-		getContentPane().add(txtTelefono);
 		
 		lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(21, 100, 92, 14);
-		getContentPane().add(lblTelefono);
+		lblTelefono.setBounds(10, 112, 92, 14);
+		panleParticipante.add(lblTelefono);
 		
 		txtCorreo = new JTextField();
+		txtCorreo.setBounds(170, 127, 204, 20);
+		panleParticipante.add(txtCorreo);
 		txtCorreo.setColumns(10);
-		txtCorreo.setBounds(181, 115, 204, 20);
-		getContentPane().add(txtCorreo);
 		
 		lblCorreo = new JLabel("Correo");
-		lblCorreo.setBounds(182, 100, 92, 14);
-		getContentPane().add(lblCorreo);
+		lblCorreo.setBounds(171, 112, 92, 14);
+		panleParticipante.add(lblCorreo);
+		
+		txtRuc = new JTextField();
+		txtRuc.setBounds(213, 81, 154, 20);
+		panleParticipante.add(txtRuc);
+		txtRuc.setColumns(10);
+		
+		txtIdParticipante = new JTextField();
+		txtIdParticipante.setBounds(10, 36, 114, 20);
+		panleParticipante.add(txtIdParticipante);
+		txtIdParticipante.setColumns(10);
+		
+		lblIdPedido = new JLabel("ID. Participante");
+		lblIdPedido.setBounds(10, 21, 116, 14);
+		panleParticipante.add(lblIdPedido);
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(130, 21, 86, 38);
+		panleParticipante.add(btnBuscar);
+		
+		txtEstado = new JTextField();
+		txtEstado.setBounds(269, 26, 106, 29);
+		panleParticipante.add(txtEstado);
+		txtEstado.setColumns(10);
+		
+		lblEstado = new JLabel("ESTADO");
+		lblEstado.setBounds(269, 12, 67, 14);
+		panleParticipante.add(lblEstado);
+		btnBuscar.addActionListener(this);
 		
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(this);
-		btnAgregar.setBounds(422, 114, 89, 23);
+		btnAgregar.setBounds(10, 135, 89, 23);
 		getContentPane().add(btnAgregar);
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(this);
-		btnEliminar.setBounds(626, 114, 89, 23);
+		btnEliminar.setBounds(208, 135, 89, 23);
 		getContentPane().add(btnEliminar);
 		
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(527, 114, 89, 23);
+		btnModificar.setBounds(109, 135, 89, 23);
 		getContentPane().add(btnModificar);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 153, 726, 219);
+		scrollPane.setBounds(10, 180, 726, 257);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -141,32 +175,9 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		lblPedido.setBounds(22, 11, 139, 14);
 		getContentPane().add(lblPedido);
 		
-		txtIdParticipante = new JTextField();
-		txtIdParticipante.setColumns(10);
-		txtIdParticipante.setBounds(158, 26, 114, 20);
-		getContentPane().add(txtIdParticipante);
-		
-		lblIdPedido = new JLabel("ID. Participante");
-		lblIdPedido.setBounds(158, 11, 116, 14);
-		getContentPane().add(lblIdPedido);
-		
-		cboEstado = new JComboBox<Object>(new Object[]{});
-		cboEstado.setModel(new DefaultComboBoxModel<Object>(new String[] {"REGISTRADO", "PROCESO", "DISCONFORME", "CONCLUIDO"}));
-		cboEstado.setBounds(578, 28, 106, 20);
-		getContentPane().add(cboEstado);
-		
-		lblEstado = new JLabel("ESTADO");
-		lblEstado.setBounds(579, 13, 67, 14);
-		getContentPane().add(lblEstado);
-		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(278, 11, 86, 38);
-		getContentPane().add(btnBuscar);
-		
 		btnNuevo = new JButton("Nuevo");
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(422, 68, 89, 23);
+		btnNuevo.setBounds(203, 26, 89, 23);
 		getContentPane().add(btnNuevo);
 		
 		pedDao = new PedidoDAO();
@@ -302,14 +313,20 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		String idPedido =  leerIdPedido();
 		String idParticipante = leerIdParticipante();
 		
-		int ok = partDao.eliminarParticipante(idPedido, idParticipante);
-		
-		if(ok == 0) {
-			Tool.mensajeError(this, "Error en eliminar!");
+		if (Tool.mensajeConfirmacion(this, "Seguro que quiere eliminar?")==0) {
+			int ok = partDao.eliminarParticipante(idPedido, idParticipante);
+			
+			if(ok == 0) {
+				Tool.mensajeError(this, "Error en eliminar!");
+			}else {
+				Tool.mensajeExito(this, "Se eliminó un participante");
+				cargarTabla();
+			}
+			
 		}else {
-			Tool.mensajeExito(this, "Se eliminó un participante");
-			cargarTabla();
+			Tool.mensajeError(this, "Operacion Cancelada");
 		}
+		
 		
 	}
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
@@ -327,7 +344,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 				txtRuc.setText(part.getRuc());
 				txtCorreo.setText(part.getCorreo());
 				txtTelefono.setText(part.getTelefono() + "");
-				cboEstado.setSelectedItem(part.getEstado());
+				txtEstado.setText((part.getEstado()));
 			}
 			
 		}
@@ -404,7 +421,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private String leerEstado() {
 		String res = null;
 		
-		res = cboEstado.getSelectedItem().toString();
+		res = txtEstado.getText().toString();
 		
 		return res ;
 	}
@@ -471,7 +488,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 			txtRuc.setText(ruc);
 			txtCorreo.setText(correo);
 			txtTelefono.setText(telefono);
-			cboEstado.setSelectedItem(estado);
+			txtEstado.setText((estado));
 		}
 		
 		
@@ -497,13 +514,13 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	}
 	
 	private void limpiar() {
-		
+		txtEstado.setEditable(false);
+		txtEstado.setText("REGISTRADO");
 		cboPedido.setEnabled(true);
 		txtEntidad.setText("");
 		txtRuc.setText("");
 		txtTelefono.setText("");
 		txtCorreo.setText("");
-		cboEstado.setSelectedIndex(0);
 	}
 	
 	private void estado() {
@@ -519,16 +536,9 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 					
 					part.setEstado("PROCESO");
 					
-					partDao.actualizarPartcipante(part);
-					
-				}
-				
-			}
-			
+					partDao.actualizarPartcipante(part);	
+				}	
+			}	
 		}
-		
 	}
-	
-	
-
 }

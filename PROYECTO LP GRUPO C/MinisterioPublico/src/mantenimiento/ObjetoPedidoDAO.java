@@ -14,7 +14,7 @@ public class ObjetoPedidoDAO {
 	
 	// LISTAR OBJETO DE PEDIDO EN UN OBJETO CLASE
 	
-public ArrayList<ObjetoPedido> listarObjetoPedido(){
+	public ArrayList<ObjetoPedido> listarObjetoPedido(){
 		
 		ArrayList <ObjetoPedido> list = new ArrayList<ObjetoPedido>();;
 		

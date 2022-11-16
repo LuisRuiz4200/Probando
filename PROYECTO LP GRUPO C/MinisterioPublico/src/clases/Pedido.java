@@ -4,6 +4,7 @@ public class Pedido {
 	
 	private String codigo;
 	private String entidad;
+	private String ruc;
 	private int tipo;
 	private int objeto;
 	private String descripcion;
@@ -11,11 +12,12 @@ public class Pedido {
 	private String estado;
 	
 	
-	public Pedido(String codigo, String entidad, int tipo, int objeto, String descripcion, String fecha,
+	public Pedido(String codigo, String entidad, String ruc, int tipo, int objeto, String descripcion, String fecha,
 			String estado) {
 		
 		this.codigo = codigo;
 		this.entidad = entidad;
+		this.ruc = ruc;
 		this.tipo = tipo;
 		this.objeto = objeto;
 		this.descripcion = descripcion;
@@ -41,6 +43,16 @@ public class Pedido {
 
 	public void setEntidad(String entidad) {
 		this.entidad = entidad;
+	}
+
+
+	public String getRuc() {
+		return ruc;
+	}
+
+
+	public void setRuc(String ruc) {
+		this.ruc = ruc;
 	}
 
 
@@ -92,7 +104,11 @@ public class Pedido {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-
+	
+	
+	
+	
+	
 	
 
 	

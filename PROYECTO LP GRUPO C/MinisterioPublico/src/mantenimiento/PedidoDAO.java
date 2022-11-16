@@ -24,17 +24,18 @@ public class PedidoDAO {
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "insert into tb_pedido values (?,?,?,?,?,?,?)";
+			String sql = "insert into tb_pedido values (?,?,?,?,?,?,?,?)";
 			
 			pstm = con.prepareStatement(sql);
 			
 			pstm.setString(1,ped.getCodigo());
 			pstm.setString(2,ped.getEntidad());
-			pstm.setInt(3,ped.getTipo());
-			pstm.setInt(4,ped.getObjeto());
-			pstm.setString(5,ped.getDescripcion());
-			pstm.setString(6,ped.getFecha());
-			pstm.setString(7,ped.getEstado());
+			pstm.setString(3,ped.getRuc());
+			pstm.setInt(4,ped.getTipo());
+			pstm.setInt(5,ped.getObjeto());
+			pstm.setString(6,ped.getDescripcion());
+			pstm.setString(7,ped.getFecha());
+			pstm.setString(8,ped.getEstado());
 			
 			res = pstm.executeUpdate();
 			
@@ -67,20 +68,21 @@ public class PedidoDAO {
 			
 			String sql;
 			sql = "update tb_pedido set "
-					+ "entidad_ped = ?, id_tipoPedido = ?, id_objetoPedido = ?, descripcion_ped = ?, fecha_ped=?,estado_ped=?"
+					+ "entidad_ped = ?, ruc_ped= ?, id_tipoPedido = ?, id_objetoPedido = ?, descripcion_ped = ?, fecha_ped=?,estado_ped=?"
 					+ "where id_ped = ?";
 			
 			pstm = con.prepareStatement(sql);
 			
 			
 			pstm.setString(1,ped.getEntidad());
-			pstm.setInt(2,ped.getTipo());
-			pstm.setInt(3,ped.getObjeto());
-			pstm.setString(4,ped.getDescripcion());
-			pstm.setString(5,ped.getFecha());
-			pstm.setString(6,ped.getEstado());
+			pstm.setString (2,ped.getRuc());
+			pstm.setInt(3,ped.getTipo());
+			pstm.setInt(4,ped.getObjeto());
+			pstm.setString(5,ped.getDescripcion());
+			pstm.setString(6,ped.getFecha());
+			pstm.setString(7,ped.getEstado());
 			
-			pstm.setString(7,ped.getCodigo());
+			pstm.setString(8,ped.getCodigo());
 			
 			res = pstm.executeUpdate();
 			
@@ -109,7 +111,7 @@ public class PedidoDAO {
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "delete from tb_objetoPedido where id_objetoPedido = ?"; 
+			String sql = "delete from tb_pedido where id_ped = ?"; 
 						
 			pstm = con.prepareStatement(sql);
 			
@@ -154,11 +156,12 @@ public class PedidoDAO {
 				Pedido ped = new Pedido(
 						res.getString(1),
 						res.getString(2),
-						res.getInt(3),
+						res.getString(3),
 						res.getInt(4),
-						res.getString(5),
+						res.getInt(5),
 						res.getString(6),
-						res.getString(7)
+						res.getString(7),
+						res.getString(8)
 						
 						);
 				
