@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Formatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
@@ -47,7 +48,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private JEditorPane txtPropTecnica;
 	private JEditorPane txtPropEconomica;
 	private JButton btnBuscar;
-	private JDateChooser fechaProp;
+	private JDateChooser dcFechaProp;
 	private JLabel lblFechaProp;
 	private final ButtonGroup buttonGroupPT = new ButtonGroup();
 	private final ButtonGroup buttonGroupPE = new ButtonGroup();
@@ -67,7 +68,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private JLabel lblIdPedido;
 	private JTextField txtEstado;
 	private JLabel lblEstado_1;
-	private JPanel panel;
+	private JPanel panelPedido;
 	private JTextField txtRucPedido;
 	private JLabel lblRucPedido;
 	private JPanel panelPropuesta;
@@ -203,29 +204,29 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		btnBuscar.setBounds(133, 29, 80, 29);
 		panelParticipante.add(btnBuscar);
 						
-		panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "PEDIDO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setOpaque(false);
-		panel.setBounds(10, 11, 306, 99);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		panelPedido = new JPanel();
+		panelPedido.setBorder(new TitledBorder(null, "PEDIDO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelPedido.setOpaque(false);
+		panelPedido.setBounds(10, 11, 306, 99);
+		contentPane.add(panelPedido);
+		panelPedido.setLayout(null);
 								
 		lblPedido = new JLabel("Nro de Pedido");
 		lblPedido.setBounds(10, 21, 119, 14);
-		panel.add(lblPedido);
+		panelPedido.add(lblPedido);
 								
 		cboPedido = new JComboBox<Object>();
-		cboPedido.setBounds(85, 17, 115, 22);
-		panel.add(cboPedido);
+		cboPedido.setBounds(124, 17, 115, 22);
+		panelPedido.add(cboPedido);
 										
 		txtRucPedido = new JTextField();
 		txtRucPedido.setColumns(10);
 		txtRucPedido.setBounds(10, 64, 146, 20);
-		panel.add(txtRucPedido);
+		panelPedido.add(txtRucPedido);
 										
 		lblRucPedido = new JLabel("RUC pedido");
 		lblRucPedido.setBounds(10, 46, 119, 14);
-		panel.add(lblRucPedido);
+		panelPedido.add(lblRucPedido);
 																		
 		panelPropuesta = new JPanel();
 		panelPropuesta.setBounds(329, 11, 389, 78);
@@ -234,7 +235,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panelPropuesta.setLayout(null);
 																		
 		lblNumeroPostulacion = new JLabel("ID Propuesta:");
-		lblNumeroPostulacion.setBounds(10, 22, 67, 14);
+		lblNumeroPostulacion.setBounds(10, 22, 106, 14);
 		panelPropuesta.add(lblNumeroPostulacion);
 																				
 		txtPropuesta = new JTextField();
@@ -245,15 +246,13 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		lblFechaProp.setBounds(138, 22, 53, 14);
 		panelPropuesta.add(lblFechaProp);
 																								
-		fechaProp = new JDateChooser();
-		fechaProp.setBounds(138, 36, 124, 20);
-		panelPropuesta.add(fechaProp);
+		dcFechaProp = new JDateChooser();
+		dcFechaProp.setBounds(138, 36, 124, 20);
+		panelPropuesta.add(dcFechaProp);
 		
 		txtEstado = new JTextField();
 		txtEstado.setBounds(272, 27, 106, 29);
 		panelPropuesta.add(txtEstado);
-		txtEstado.setText("REGISTRADO");
-		txtEstado.setEditable(false);
 		txtEstado.setColumns(10);
 		
 		lblEstado_1 = new JLabel("ESTADO");
@@ -261,13 +260,13 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panelPropuesta.add(lblEstado_1);
 																										
 		btnNuevo = new JButton("Nuevo");
+		btnNuevo.addActionListener(this);
 		btnNuevo.setBounds(20, 137, 89, 23);
 		contentPane.add(btnNuevo);
 		cboPedido.addItemListener(this);
 		btnBuscar.addActionListener(this);
 
-		cargarcboPedidos();
-		correlativo();
+		limpiar();
 	}
 
 	private void correlativo() {
@@ -292,6 +291,9 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNuevo) {
+			actionPerformedBtnNuevo(e);
+		}
 		if (e.getSource() == btnRegistrar) {
 			actionPerformedBtnRegistrar(e);
 		}
@@ -307,6 +309,10 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		// 1. Obtener el resultado del proceso -- listar
 		ArrayList<Pedido> list = gPed.listarPedido();
 		// 2. Validar el resultado del proceso
+		
+		// 2.1. Limpiar el cbo 
+		cboPedido.removeAllItems();;
+		
 		if (list.size() == 0) {
 			Tool.mensajeError(this, "Lista vacía");
 		} else {
@@ -347,7 +353,12 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	}
 
 	private String getCodigoPedido() {
-		return cboPedido.getSelectedItem().toString();
+		
+		/*Valor del tipo string en ves de
+		 * ToString para evitar conflicto al
+		 * momento de pasar datos al cboParticipante,*/
+		
+		return (String)cboPedido.getSelectedItem();
 	}
 
 	private String getEstado() {
@@ -357,7 +368,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private String getFechaProp() {
 		String fecha = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		fecha = sdf.format(fechaProp.getDate());
+		fecha = sdf.format(dcFechaProp.getDate());
 		return fecha;
 	}
 
@@ -391,7 +402,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 				txtEstado.setText(prop.getEstado());
 
 				try {
-					fechaProp.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(prop.getFecha()));
+					dcFechaProp.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(prop.getFecha()));
 				} catch (ParseException e) {
 					System.out.println("Error en el formato de la fecha");
 				}
@@ -486,4 +497,26 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	protected void itemStateChangedCboPedido(ItemEvent e) {
 		cargarcboParticipantes();
 	}
+	
+	/*REVISA RICARDO */
+	protected void actionPerformedBtnNuevo(ActionEvent e) {
+		limpiar();
+		
+	}
+	private void limpiar() {
+
+		txtEstado.setText("REGISTRADO");
+		txtEstado.setEditable(false);
+		dcFechaProp.setDate(new Date());
+		txtRucPedido.setEditable(false);
+		txtEntidadParti.setEditable(false);
+		txtRucParti.setEditable(false);
+		/*ESTOS METODOS ESTABAN EN EL CONSTRUCTOR*/
+		/*EL METODO LIMPIAR TENDRA LOS METODOS QUE SE 
+		 * INICIALIZAR Y TAMBIEN DENTRO DEL BOTON NUEVO*/
+		
+		cargarcboPedidos();
+		correlativo();
+	}
+	
 }
