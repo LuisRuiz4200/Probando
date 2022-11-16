@@ -38,11 +38,12 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	private JMenuItem mniApelacion;
 	private JMenuItem mniPedido;
 	private JMenuItem mniConsultaParticipante;
-	private JMenuItem mniReportePedido;
+	private JMenuItem mniReporteParticipantes;
 	private JMenuItem mniQuienesSomos;
 	private JMenuItem mniActasPropuestas;
 	private JMenuItem mntmComite;
 	private JMenuItem mniConsultaPropusta;
+	private JMenuItem mniReportePropuesta;
 	
 	
 	public static void main (String [] args) {
@@ -125,6 +126,10 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		
 		mniParticipante = new JMenuItem ("Pariticipantes");
 		mniParticipante.addActionListener(this);
+		
+		mntmComite = new JMenuItem("Comite de Seleccion");
+		mntmComite.addActionListener(this);
+		mnMantenimiento.add(mntmComite);
 		mnMantenimiento.add(mniParticipante);
 		
 		mniPropuesta = new JMenuItem("Propuestas");
@@ -135,10 +140,6 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mniApelacion.addActionListener(this);
 		mnMantenimiento.add(mniApelacion);
 		
-		mntmComite = new JMenuItem("Comite de Seleccion");
-		mntmComite.addActionListener(this);
-		mnMantenimiento.add(mntmComite);
-		
 		
 		mniConsultaParticipante = new JMenuItem("Consulta de participantes");
 		mniConsultaParticipante.addActionListener(this);
@@ -148,9 +149,13 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mniConsultaPropusta.addActionListener(this);
 		mnConsulta.add(mniConsultaPropusta);
 		
-		mniReportePedido = new JMenuItem("Reporte de Pedidoes");
-		mniReportePedido.addActionListener(this);
-		mnReporte.add(mniReportePedido);
+		mniReporteParticipantes = new JMenuItem("Reporte de participantes");
+		mniReporteParticipantes.addActionListener(this);
+		mnReporte.add(mniReporteParticipantes);
+		
+		mniReportePropuesta = new JMenuItem("Reporte de propuestas");
+		mniReportePropuesta.addActionListener(this);
+		mnReporte.add(mniReportePropuesta);
 		
 		mniQuienesSomos = new JMenuItem("Quienes somos");
 		mniQuienesSomos.addActionListener(this);
@@ -158,6 +163,9 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mniReportePropuesta) {
+			actionPerformedMniReportePropuesta(e);
+		}
 		if (e.getSource() == mniConsultaPropusta) {
 			actionPerformedMniConsultaPropusta(e);
 		}
@@ -191,7 +199,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		if(e.getSource()==mniConsultaParticipante) {
 			actionPerformedMniConsultaParticipante(e);
 		}
-		if(e.getSource()==mniReportePedido) {
+		if(e.getSource()==mniReporteParticipantes) {
 			actionPerformedMniReportePedido(e);
 		}
 		if(e.getSource()==mniQuienesSomos) {
@@ -260,7 +268,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	
 	protected void actionPerformedMniConsultaPropusta(ActionEvent e) {
 		
-		FrmConsultaPropuesta conProp = new FrmConsultaPropuesta();
+		FrmReportePropuesta conProp = new FrmReportePropuesta();
 		conProp.setVisible(true);
 		escritorio.add(conProp).setLocation(0,0);
 		conProp.toFront();
@@ -303,6 +311,12 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		reporContra.setVisible(true);
 		escritorio.add(reporContra).setLocation(0,0);
 		reporContra.toFront();
+	}
+	protected void actionPerformedMniReportePropuesta(ActionEvent e) {
+		FrmReportePropuesta reporProp = new FrmReportePropuesta();
+		reporProp.setVisible(true);
+		escritorio.add(reporProp).setLocation(0,0);
+		reporProp.toFront();
 	}
 	
 	//AYUDA

@@ -161,6 +161,28 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		consultaParticipante();
 	}
 	
+	
+	//METODOS DE ENTRADA
+	
+	private String leerCboPedido() {
+		String res= null;
+		
+		res = (String) cboPedido.getSelectedItem();
+		
+		return res ;
+	}
+	
+	private String leerCboParticipante() {
+		String res = null;
+		
+		res = (String) cboParticipante.getSelectedItem();
+		
+		return res;
+		
+	}
+	
+	
+	//METODOS ADICIONALES
 	private void cargarCboPedido() {
 		
 		ArrayList<Pedido> list = pedDao.listarPedido();
@@ -200,14 +222,19 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		
 		ArrayList<Propuesta> listProp = propDao.listarPropuestas();
 		
+		txtS.setText("");
+		
 		for (Participante part : listPart) {
+			
+			Tool.imprimir(txtS,"PARTICIPANTE: " +  part.getEntidad() );
+			Tool.imprimir(txtS,"ID PARTICIPANTE: " +  part.getCodParticipante() );
+			Tool.imprimir(txtS,"RUC: " +  part.getRuc());
+			Tool.imprimir(txtS,"TELEFONO: " +  part.getTelefono() );
+			
 			for (Propuesta prop : listProp) {
 				
 				if(part.getCodParticipante().equals(prop.getCodParticipante())) {
-					Tool.imprimir(txtS,"PARTICIPANTE: " +  part.getEntidad() );
-					Tool.imprimir(txtS,"ID PARTICIPANTE: " +  part.getCodParticipante() );
-					Tool.imprimir(txtS,"RUC: " +  part.getRuc());
-					Tool.imprimir(txtS,"TELEFONO: " +  part.getTelefono() );
+					
 					Tool.imprimir(txtS,"============================================");
 					Tool.imprimir(txtS,"PEDIDO AL QUE PARTICIPA: " +  part.getCodPedido() );
 					Tool.imprimir(txtS,"PARTICIPANTE: " +  part.getEntidad() );
