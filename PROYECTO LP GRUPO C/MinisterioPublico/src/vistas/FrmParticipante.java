@@ -56,7 +56,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	public FrmParticipante() {
 		
 		setTitle("Participantes");
-		setBounds(100,100,773,478);
+		setBounds(100,100,773,427);
 		
 		this.getContentPane().setLayout(null);
 		this.getContentPane().setBackground(Color.lightGray);
@@ -148,7 +148,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		getContentPane().add(btnModificar);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 180, 726, 257);
+		scrollPane.setBounds(10, 180, 726, 201);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();

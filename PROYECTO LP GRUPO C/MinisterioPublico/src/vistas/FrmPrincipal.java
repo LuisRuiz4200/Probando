@@ -59,9 +59,10 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	}
 	
 	public FrmPrincipal() {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmPrincipal.class.getResource("/imagenes/logo3.jpg")));
 		setTitle("FrmPrincipal");
-		setBounds(100,100,839,525);
+		setBounds(100,100,877,586);
 		setLocationRelativeTo(this);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,8 +71,8 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		getContentPane().add(escritorio, BorderLayout.CENTER);
 		
 		lblImgFonfo = new JLabel("");
-		lblImgFonfo.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/banner2.jpg")));
-		lblImgFonfo.setBounds(0, 0, 830, 456);
+		lblImgFonfo.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/banner5.jpg")));
+		lblImgFonfo.setBounds(0, 0, 861, 517);
 		escritorio.add(lblImgFonfo);
 		
 		menuBar = new JMenuBar();

@@ -63,10 +63,6 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private JTextField txtEntidadParti;
 	private JLabel lblEntidad;
 	private JLabel lblRuc;
-	private JTextField txtTelefonoParti;
-	private JLabel lblTelefono;
-	private JTextField txtCorreoParti;
-	private JLabel lblCorreo;
 	private JTextField txtRucParti;
 	private JLabel lblIdPedido;
 	private JTextField txtEstado;
@@ -99,7 +95,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	public FrmPropuesta() {
 		setTitle("Propuesta");
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 757, 518);
+		setBounds(100, 100, 737, 486);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -112,7 +108,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 		btnActualizar = new JButton("Actualizar");
 		btnActualizar.addActionListener(this);
-		btnActualizar.setBounds(604, 172, 102, 22);
+		btnActualizar.setBounds(132, 171, 102, 22);
 		contentPane.add(btnActualizar);
 
 		lblPropuestaTecnica = new JLabel("Propuesta Tecnica:");
@@ -155,16 +151,16 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		contentPane.add(rdbtnNewRadioButton_3);
 
 		txtPropTecnica = new JEditorPane();
-		txtPropTecnica.setBounds(10, 256, 306, 221);
+		txtPropTecnica.setBounds(10, 256, 338, 189);
 		contentPane.add(txtPropTecnica);
 
 		txtPropEconomica = new JEditorPane();
-		txtPropEconomica.setBounds(358, 254, 306, 221);
+		txtPropEconomica.setBounds(358, 254, 351, 189);
 		contentPane.add(txtPropEconomica);
 
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(492, 172, 102, 22);
+		btnRegistrar.setBounds(20, 171, 102, 22);
 		contentPane.add(btnRegistrar);
 		
 		panelParticipante = new JPanel();
@@ -172,7 +168,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panelParticipante.setOpaque(false);
 		panelParticipante.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PARTICIPANTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelParticipante.setBackground(SystemColor.menu);
-		panelParticipante.setBounds(329, 0, 402, 158);
+		panelParticipante.setBounds(326, 100, 383, 115);
 		contentPane.add(panelParticipante);
 		
 		txtEntidadParti = new JTextField();
@@ -188,26 +184,6 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		lblRuc = new JLabel("RUC");
 		lblRuc.setBounds(213, 66, 92, 14);
 		panelParticipante.add(lblRuc);
-		
-		txtTelefonoParti = new JTextField();
-		txtTelefonoParti.setText("");
-		txtTelefonoParti.setColumns(10);
-		txtTelefonoParti.setBounds(10, 127, 114, 20);
-		panelParticipante.add(txtTelefonoParti);
-		
-		lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(10, 112, 92, 14);
-		panelParticipante.add(lblTelefono);
-		
-		txtCorreoParti = new JTextField();
-		txtCorreoParti.setText("");
-		txtCorreoParti.setColumns(10);
-		txtCorreoParti.setBounds(170, 127, 204, 20);
-		panelParticipante.add(txtCorreoParti);
-		
-		lblCorreo = new JLabel("Correo");
-		lblCorreo.setBounds(171, 112, 92, 14);
-		panelParticipante.add(lblCorreo);
 		
 		txtRucParti = new JTextField();
 		txtRucParti.setText("");
@@ -230,7 +206,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "PEDIDO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setOpaque(false);
-		panel.setBounds(10, 0, 306, 99);
+		panel.setBounds(10, 11, 306, 99);
 		contentPane.add(panel);
 		panel.setLayout(null);
 								
@@ -252,7 +228,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panel.add(lblRucPedido);
 																		
 		panelPropuesta = new JPanel();
-		panelPropuesta.setBounds(10, 108, 279, 110);
+		panelPropuesta.setBounds(329, 11, 389, 78);
 		contentPane.add(panelPropuesta);
 		panelPropuesta.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelPropuesta.setLayout(null);
@@ -262,30 +238,30 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panelPropuesta.add(lblNumeroPostulacion);
 																				
 		txtPropuesta = new JTextField();
-		txtPropuesta.setBounds(10, 36, 115, 20);
+		txtPropuesta.setBounds(10, 36, 106, 20);
 		panelPropuesta.add(txtPropuesta);
 																						
 		lblFechaProp = new JLabel("FECHA:");
-		lblFechaProp.setBounds(10, 65, 53, 14);
+		lblFechaProp.setBounds(138, 22, 53, 14);
 		panelPropuesta.add(lblFechaProp);
 																								
 		fechaProp = new JDateChooser();
-		fechaProp.setBounds(10, 79, 124, 20);
+		fechaProp.setBounds(138, 36, 124, 20);
 		panelPropuesta.add(fechaProp);
 		
 		txtEstado = new JTextField();
-		txtEstado.setBounds(157, 27, 106, 29);
+		txtEstado.setBounds(272, 27, 106, 29);
 		panelPropuesta.add(txtEstado);
 		txtEstado.setText("REGISTRADO");
 		txtEstado.setEditable(false);
 		txtEstado.setColumns(10);
 		
 		lblEstado_1 = new JLabel("ESTADO");
-		lblEstado_1.setBounds(157, 13, 67, 14);
+		lblEstado_1.setBounds(272, 13, 67, 14);
 		panelPropuesta.add(lblEstado_1);
 																										
 		btnNuevo = new JButton("Nuevo");
-		btnNuevo.setBounds(339, 169, 89, 23);
+		btnNuevo.setBounds(20, 137, 89, 23);
 		contentPane.add(btnNuevo);
 		cboPedido.addItemListener(this);
 		btnBuscar.addActionListener(this);
