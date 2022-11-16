@@ -36,9 +36,6 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 	private JPanel contentPane;
 	private JButton btnBuscar;
 	private DefaultTableModel model; 
-	private JLabel lblNumeroPedido;
-	private JComboBox<Object> cboPedido;
-	private JScrollPane scrollPane;
 	
 	private PedidoDAO pedDao;
 	private ParticipanteDAO partDao;
@@ -70,7 +67,7 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 	public FrmConsultaParticipante() {
 		setTitle("Consulta de participantes");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 690, 409);
+		setBounds(100, 100, 567, 382);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
@@ -83,7 +80,7 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(326, 24, 89, 31);
+		btnBuscar.setBounds(191, 24, 89, 31);
 		contentPane.add(btnBuscar);
 		
 		model = new DefaultTableModel();
@@ -95,29 +92,17 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		model.addColumn("TELEFONO");
 		model.addColumn("ESTADO");
 		
-		lblNumeroPedido = new JLabel("Numero de Pedido:");
-		lblNumeroPedido.setBounds(10, 32, 138, 14);
-		contentPane.add(lblNumeroPedido);
-		
-		cboPedido = new JComboBox<Object>();
-		cboPedido.addMouseListener(this);
-		cboPedido.setBounds(141, 28, 138, 22);
-		contentPane.add(cboPedido);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 119, 654, 249);
-		contentPane.add(scrollPane);
-		
-		txtS = new JTextArea();
-		scrollPane.setViewportView(txtS);
-		
 		lblIdParticipante = new JLabel("ID Participante");
-		lblIdParticipante.setBounds(10, 67, 101, 14);
+		lblIdParticipante.setBounds(20, 11, 101, 14);
 		contentPane.add(lblIdParticipante);
 		
 		cboParticipante = new JComboBox<Object>();
-		cboParticipante.setBounds(141, 63, 138, 22);
+		cboParticipante.setBounds(20, 28, 138, 22);
 		contentPane.add(cboParticipante);
+		
+		txtS = new JTextArea();
+		txtS.setBounds(10, 80, 523, 247);
+		contentPane.add(txtS);
 		
 		
 		partDao= new ParticipanteDAO();
@@ -131,14 +116,12 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 	}
 	private void arranque() {
 		
-		cargarCboPedido();
+		cargarCboParticipante();
+		cboParticipante.setEditable(true);
 		
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == cboPedido) {
-			mouseClickedCboPedido(e);
-		}
 	}
 	public void mouseEntered(MouseEvent e) {
 	}
@@ -147,9 +130,6 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 	public void mousePressed(MouseEvent e) {
 	}
 	public void mouseReleased(MouseEvent e) {
-	}
-	protected void mouseClickedCboPedido(MouseEvent e) {
-		cargarCboParticipante();
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -164,14 +144,6 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 	
 	//METODOS DE ENTRADA
 	
-	private String leerCboPedido() {
-		String res= null;
-		
-		res = (String) cboPedido.getSelectedItem();
-		
-		return res ;
-	}
-	
 	private String leerCboParticipante() {
 		String res = null;
 		
@@ -183,24 +155,13 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 	
 	
 	//METODOS ADICIONALES
-	private void cargarCboPedido() {
-		
-		ArrayList<Pedido> list = pedDao.listarPedido();
-		
-		cboPedido.removeAllItems();
-		cboPedido.addItem("SELECCIONE..");
-		
-		for (Pedido ped: list) {
-			
-			cboPedido.addItem(ped.getCodigo());
-			
-		}
-	}
+
+	
+	
 	private void cargarCboParticipante() {
 		
-		String idPedido = cboPedido.getSelectedItem().toString();
 		
-		ArrayList<Participante> list = partDao.buscarXPedido(idPedido);
+		ArrayList<Participante> list = partDao.listarParticipante();
 		
 		cboParticipante.removeAllItems();
 		cboParticipante.addItem("SELECCIONE..");
