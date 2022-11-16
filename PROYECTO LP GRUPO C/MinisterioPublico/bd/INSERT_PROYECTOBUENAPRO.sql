@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: proyectobuenapro
+-- Host: localhost    Database: proyectobuenapro
 -- ------------------------------------------------------
 -- Server version	8.0.22
 
@@ -67,7 +67,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `tb_participante` WRITE;
 /*!40000 ALTER TABLE `tb_participante` DISABLE KEYS */;
-INSERT INTO `tb_participante` VALUES ('PD001','PA001','Luis','12345678945212','luisruiz.com',987447092,'REGISTRADO'),('PD001','PA002','Klisman','12345678945212','luisruiz.com',987447092,'PROCESO'),('PD001','PA003','JeanPierre','12345678945212','luisruiz.com',987447092,'REGISTRADO'),('PD001','PA004','Daniel','12345678945212','luisruiz.com',987447092,'REGISTRADO'),('PD001','PA005','Julio','12345678945212','luisruiz.com',987447092,'REGISTRADO'),('PD002','PA006','Luis','784512135','luis ruiz',4784565,'REGISTRADO'),('PD002','PA007','Susana','784512135','luis ruiz',4784565,'REGISTRADO'),('PD002','PA008','Jasmin','784512135','luis ruiz',4784565,'REGISTRADO'),('PD002','PA009','Yuliana','784512135','luis ruiz',4784565,'REGISTRADO');
+INSERT INTO `tb_participante` VALUES ('PD001','PA004','Ricardo','456645468','ricardo.com',989845646,'REGISTRADO'),('PD001','PA005','Nicol','456645468','Nicol.com',98984564,'REGISTRADO'),('PD002','PA001','Luis','12315468','luis.com',9854567,'REGISTRADO'),('PD002','PA002','Klisman','455468798451','klisman.com',984564,'REGISTRADO'),('PD002','PA003','JeanPierr','455468798451','klisman.com',984564,'REGISTRADO');
 /*!40000 ALTER TABLE `tb_participante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +77,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `tb_pedido` WRITE;
 /*!40000 ALTER TABLE `tb_pedido` DISABLE KEYS */;
-INSERT INTO `tb_pedido` VALUES ('PD001','Gloria',2,1,'Mas vacas','2022-11-13','EN PROCESO'),('PD002','Claro',3,2,'Carcasas','2022-11-13','EN PROCESO'),('PD003','Cibertec',3,2,'Más computadoras','2022-11-13','REGISTRADO');
+INSERT INTO `tb_pedido` VALUES ('PD001','Gloria','12345678',1,2,'Mas vacas','2022-11-15','REGISTRADO'),('PD002','TuLicort','45655789',3,2,'Mas barriles de ron','2022-11-15','REGISTRADO'),('PD003','Cusqueña','4565574789',3,3,'Mas puntos de ventas','2022-11-15','REGISTRADO');
 /*!40000 ALTER TABLE `tb_pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +87,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `tb_propuesta` WRITE;
 /*!40000 ALTER TABLE `tb_propuesta` DISABLE KEYS */;
-INSERT INTO `tb_propuesta` VALUES ('PD001','PR001','PA002','2022-11-08','Descripcion tecnica','Descripcion economica','REGISTRADO');
+INSERT INTO `tb_propuesta` VALUES ('PD001','PR001','PA004','2022-11-17','Descripcion tecnica','Descripcion economica','REGISTRADO'),('PD001','PR002','PA005','2022-11-17','Descripcion tecnica 2','Descripcion economica 2','REGISTRADO'),('PD002','PR003','PA002','2022-11-17','Descripcion tecnica 3','Descripcion economica 3','REGISTRADO');
 /*!40000 ALTER TABLE `tb_propuesta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,6 +111,25 @@ INSERT INTO `tb_tipopedido` VALUES (1,'Licitacion Publica'),(2,'Concurso Publica
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `tb_tipouser`
+--
+
+LOCK TABLES `tb_tipouser` WRITE;
+/*!40000 ALTER TABLE `tb_tipouser` DISABLE KEYS */;
+INSERT INTO `tb_tipouser` VALUES (1,'Administrador'),(2,'Miembro del CEP'),(3,'Asistente de logistica'),(4,'Asesor juricio');
+/*!40000 ALTER TABLE `tb_tipouser` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `tb_usuario`
+--
+
+LOCK TABLES `tb_usuario` WRITE;
+/*!40000 ALTER TABLE `tb_usuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping events for database 'proyectobuenapro'
 --
 
@@ -127,4 +146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-13 18:31:13
+-- Dump completed on 2022-11-15 20:04:20
