@@ -42,8 +42,15 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 	private PropuestaDAO propDao;
 	private ApelacionDAO apelDao;
 	private JLabel lblIdParticipante;
-	private JTextArea txtS;
+	private JTextArea txtParticipante;
 	private JComboBox<Object> cboParticipante;
+	private JTextArea txtPedido;
+	private JTextArea txtPropuesta;
+	private JTextArea txtApelacion;
+	private JLabel lblPedido;
+	private JLabel lblParticipante;
+	private JLabel lblPropuesta;
+	private JLabel lblApelacion;
 
 	/**
 	 * Launch the application.
@@ -67,7 +74,7 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 	public FrmConsultaParticipante() {
 		setTitle("Consulta de participantes");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 567, 382);
+		setBounds(100, 100, 735, 433);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
@@ -100,9 +107,37 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		cboParticipante.setBounds(20, 28, 138, 22);
 		contentPane.add(cboParticipante);
 		
-		txtS = new JTextArea();
-		txtS.setBounds(10, 80, 523, 247);
-		contentPane.add(txtS);
+		txtPedido = new JTextArea();
+		txtPedido.setBounds(10, 85, 328, 134);
+		contentPane.add(txtPedido);
+		
+		txtPropuesta = new JTextArea();
+		txtPropuesta.setBounds(10, 258, 330, 134);
+		contentPane.add(txtPropuesta);
+		
+		txtApelacion = new JTextArea();
+		txtApelacion.setBounds(379, 258, 330, 134);
+		contentPane.add(txtApelacion);
+		
+		txtParticipante = new JTextArea();
+		txtParticipante.setBounds(377, 85, 330, 134);
+		contentPane.add(txtParticipante);
+		
+		lblPedido = new JLabel("INFORMACION DEL PEDIDO");
+		lblPedido.setBounds(10, 60, 233, 14);
+		contentPane.add(lblPedido);
+		
+		lblParticipante = new JLabel("INFORMACION DEL PARTICIPANTE");
+		lblParticipante.setBounds(379, 60, 233, 14);
+		contentPane.add(lblParticipante);
+		
+		lblPropuesta = new JLabel("INFORMACION DE LA PROPUESTA");
+		lblPropuesta.setBounds(10, 233, 233, 14);
+		contentPane.add(lblPropuesta);
+		
+		lblApelacion = new JLabel("INFORMACION DE LA APELACION");
+		lblApelacion.setBounds(379, 233, 233, 14);
+		contentPane.add(lblApelacion);
 		
 		
 		partDao= new ParticipanteDAO();
@@ -175,37 +210,90 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 	
 	private void consultaParticipante() {
 		
-		String idParticipante = cboParticipante.getSelectedItem().toString();
+		String idParticipante = leerCboParticipante();
 		
-		ArrayList<Participante> listPart = partDao.buscarXIdParticipante(idParticipante);
+		Participante part = partDao.buscarXIdParticipante(idParticipante);
 		
-		ArrayList<Pedido> listPed = pedDao.listarPedido();
+		cargarParticipante (part);
 		
-		ArrayList<Propuesta> listProp = propDao.listarPropuestas();
+		String idPedido = part.getCodPedido();
 		
-		txtS.setText("");
+		Pedido ped = pedDao.buscarXIdPedido(idPedido);
 		
-		for (Participante part : listPart) {
-			
-			Tool.imprimir(txtS,"PARTICIPANTE: " +  part.getEntidad() );
-			Tool.imprimir(txtS,"ID PARTICIPANTE: " +  part.getCodParticipante() );
-			Tool.imprimir(txtS,"RUC: " +  part.getRuc());
-			Tool.imprimir(txtS,"TELEFONO: " +  part.getTelefono() );
-			
-			for (Propuesta prop : listProp) {
-				
-				if(part.getCodParticipante().equals(prop.getCodParticipante())) {
-					
-					Tool.imprimir(txtS,"============================================");
-					Tool.imprimir(txtS,"PEDIDO AL QUE PARTICIPA: " +  part.getCodPedido() );
-					Tool.imprimir(txtS,"PARTICIPANTE: " +  part.getEntidad() );
-					Tool.imprimir(txtS,"PARTICIPANTE: " +  part.getEntidad() );
-				}
-				
-			}
-		}
+		cargarPedido(ped);
+		
+		
+		Propuesta prop = propDao.buscarPropuesta(idParticipante);
+		
+		
+		cargarPropuesta(prop);
+		
 
 	}	
+
 	
+	private void cargarParticipante(Participante part) {
+		
+		txtParticipante.setText("");
+		
+		if (part == null){
+			return;
+		}else {
+			
+			Tool.imprimir(txtParticipante,"PARTICIPANTE	: " +  part.getEntidad() );
+			Tool.imprimir(txtParticipante,"ID	: " +  part.getCodParticipante() );
+			Tool.imprimir(txtParticipante,"RUC	: " +  part.getRuc());
+			Tool.imprimir(txtParticipante,"TELEFONO	: " +  part.getTelefono() );
+			Tool.imprimir(txtParticipante,"ESTADO	: " + part.getEstado());
+		}
+		
+	}
 	
+	private void cargarPedido(Pedido ped) {
+
+		txtPedido.setText("");
+		
+		if(ped == null) {
+			return;
+		}else {
+			
+			Tool.imprimir(txtPedido,"PEDIDO	: " +  ped.getEntidad() );
+			Tool.imprimir(txtPedido,"DESCRIPCION	: " +  ped.getDescripcion() );
+			Tool.imprimir(txtPedido,"ID	: " +  ped.getCodigo());
+			Tool.imprimir(txtPedido,"RUC	: " +  ped.getRuc());
+			Tool.imprimir(txtPedido,"ESTADO	: " + ped.getEstado());
+		}
+		
+	}
+	
+	private void cargarApelacion(Apelacion apel) {
+		
+		txtApelacion.setText("");
+		
+		if (apel == null) {
+			return;
+		} else {
+			
+			Tool.imprimir(txtApelacion,"ID APELACION	: " +  apel.getCodApelacion() );
+			Tool.imprimir(txtApelacion,"FECHA	: " +  apel.getFecha() );
+			Tool.imprimir(txtApelacion,"ESTADO	: " + apel.getEstado());
+		}
+		
+	}
+	
+	private void cargarPropuesta(Propuesta prop) {
+		
+
+		txtPropuesta.setText("");
+		
+		if (prop == null) {
+			return;
+		}else {
+			
+			Tool.imprimir(txtPropuesta,"ID PROPUESTA	: " +  prop.getCodPropuesta() );
+			Tool.imprimir(txtPropuesta,"FECHA		: " +  prop.getFecha() );
+			Tool.imprimir(txtPropuesta,"ESTADO		: " + prop.getEstado());
+		}
+		
+	}
 }

@@ -183,6 +183,7 @@ public class ParticipanteDAO {
 		return list;	
 	}
 	
+	// Varios participante dentos de un pedido por eso un  array list 
 	
 	public ArrayList<Participante> buscarXPedido(String id_ped) {
 		
@@ -240,9 +241,11 @@ public class ParticipanteDAO {
 		
 	}
 	
-	public ArrayList<Participante> buscarXIdParticipante(String idParticipante) {
+	// Un participante por cada ID por eso solo un objeto del tipo participante
+	
+	public Participante buscarXIdParticipante(String idParticipante) {
 		
-		ArrayList<Participante> list = new ArrayList<Participante>();
+		Participante part= null;
 		
 		Connection con =null;
 		PreparedStatement pstm = null;
@@ -255,8 +258,6 @@ public class ParticipanteDAO {
 			
 			String sql = "select * from tb_participante"
 					+ " where codigo_parti = ?"; 
-			//String sql2 = "select * from tb_participante "
-				//	+ "where empresa_parti like concat(?,'%')";
 						
 			pstm = con.prepareStatement(sql);
 			
@@ -265,7 +266,7 @@ public class ParticipanteDAO {
 			res = pstm.executeQuery();
 			
 			while (res.next()) {
-				Participante part = new Participante(
+				part = new Participante(
 						res.getString(1),
 						res.getString(2),
 						res.getString(3),
@@ -275,8 +276,7 @@ public class ParticipanteDAO {
 						res.getString(7)
 						
 						);
-				
-				list.add(part);
+			
 			}
 			
 			
@@ -294,7 +294,7 @@ public class ParticipanteDAO {
 		
 		
 		
-		return list;
+		return part;
 		
 	}
 

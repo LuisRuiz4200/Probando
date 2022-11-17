@@ -184,6 +184,64 @@ public class PedidoDAO {
 		
 		return list;	
 	}
+	
+	//BUSQUEDA 
+	
+	public Pedido buscarXIdPedido(String idPedido) {
+		
+		Pedido ped = null;
+		
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		ResultSet res = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql = "select * from tb_pedido"
+					+ " where id_ped = ?"; 
+						
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString (1,idPedido);
+			
+			res = pstm.executeQuery();
+			
+			while (res.next()) {
+				ped = new Pedido(
+						res.getString(1),
+						res.getString(2),
+						res.getString(3),
+						res.getInt(4),
+						res.getInt(5),
+						res.getString(6),
+						res.getString(7),
+						res.getString(8)
+						
+						);
+				
+			}
+			
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+				if (res !=null)res.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		
+		return ped;
+		
+	}
 
 	
 

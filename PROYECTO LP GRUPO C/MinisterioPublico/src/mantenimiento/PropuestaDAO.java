@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import clases.Propuesta;
+import clases.*;
 import interfaces.PropuestaInterfacesDAO;
 import utils.MySQLConexion8;
 
@@ -200,7 +200,7 @@ public class PropuestaDAO implements PropuestaInterfacesDAO {
 		}
 		return listaProp;
 	}
-
+	
 	@Override
 	public ArrayList<Propuesta> buscarXPedido(String id_ped) {
 		ArrayList<Propuesta> list = new ArrayList<Propuesta>();

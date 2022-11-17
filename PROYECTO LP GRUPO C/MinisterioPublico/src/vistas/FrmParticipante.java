@@ -331,21 +331,19 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	}
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
 		
-		ArrayList <Participante> list = partDao.buscarXIdParticipante(txtIdParticipante.getText().trim());
+		Participante part = partDao.buscarXIdParticipante(txtIdParticipante.getText().trim());
 		
-		if (list.size()==0) {
+		if (part == null) {
 			Tool.mensajeError(this, "El ID ingresado no se encuentra registrado");
 		}else {
 			
-			for (Participante part : list ) {
-				cboPedido.setSelectedItem(part.getCodPedido());
-				txtIdParticipante.setText(part.getCodParticipante());
-				txtEntidad.setText(part.getEntidad());
-				txtRuc.setText(part.getRuc());
-				txtCorreo.setText(part.getCorreo());
-				txtTelefono.setText(part.getTelefono() + "");
-				txtEstado.setText((part.getEstado()));
-			}
+			cboPedido.setSelectedItem(part.getCodPedido());
+			txtIdParticipante.setText(part.getCodParticipante());
+			txtEntidad.setText(part.getEntidad());
+			txtRuc.setText(part.getRuc());
+			txtCorreo.setText(part.getCorreo());
+			txtTelefono.setText(part.getTelefono() + "");
+			txtEstado.setText((part.getEstado()));
 			
 		}
 				

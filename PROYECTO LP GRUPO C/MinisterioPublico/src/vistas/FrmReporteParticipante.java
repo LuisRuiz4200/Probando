@@ -157,23 +157,21 @@ public class FrmReporteParticipante extends JInternalFrame implements ActionList
 		String idParticipante = txtEntidad.getText().trim();
 		
 		
-		ArrayList <Participante> list = partDao.buscarXIdParticipante(idParticipante);
+		Participante  part = partDao.buscarXIdParticipante(idParticipante);
 			
 		model.setRowCount(0);
 		
-		for (Participante part : list) {
-			Object [] x = {
-					part.getCodPedido(),
-					part.getCodParticipante(),
-					part.getEntidad(),
-					part.getRuc(),
-					part.getCorreo(),
-					part.getTelefono(),
-					part.getEstado()
-				};
-				
-				model.addRow(x);
-		}
+		Object [] x = {
+				part.getCodPedido(),
+				part.getCodParticipante(),
+				part.getEntidad(),
+				part.getRuc(),
+				part.getCorreo(),
+				part.getTelefono(),
+				part.getEstado()
+			};
+			
+		model.addRow(x);
 	}
 	
 	private void cargarTablaXPedido() {
