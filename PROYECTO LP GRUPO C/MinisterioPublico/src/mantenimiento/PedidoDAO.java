@@ -243,6 +243,55 @@ public class PedidoDAO {
 		
 	}
 
-	
+	public ArrayList <Pedido> listarPedidoConParticipantes (){
+		
+		ArrayList<Pedido> list= new ArrayList<Pedido>();
+		
+		Connection con = null;
+		PreparedStatement pstm = null;
+		
+		ResultSet res = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql= "select ped.* from tb_pedido ped "
+					+ "inner join  tb_participante parti on ped.id_ped = parti.id_ped "
+					+ "where ped.id_ped = parti.id_ped group by id_ped";
+			
+			pstm = con.prepareStatement(sql);
+			
+			res = pstm.executeQuery();
+			
+			while (res.next()) {
+				Pedido ped = new Pedido(
+						res.getString(1),
+						res.getString(2),
+						res.getString(3),
+						res.getInt(4),
+						res.getInt(5),
+						res.getString(6),
+						res.getString(7),
+						res.getString(8)
+						);
+				
+				list.add(ped);
+			}
+			
+		}catch (Exception e){
+			System.out.println("ERROR EN LA INSTRUCCION DEL BD" +  e.getMessage());
+		}finally {
+			try {
+				if(con!=null) con.close();
+				if(pstm!=null) pstm.close();
+				if(res!=null) res.close();
+			}catch (SQLException e2) {
+				System.out.println("ERROR AL CERRAR LA CONEXION DE BD" +  e2.getMessage());
+			}
+		}
+		return list;
+		
+	}
 
 }

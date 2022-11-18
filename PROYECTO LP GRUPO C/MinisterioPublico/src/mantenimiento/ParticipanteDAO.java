@@ -183,7 +183,7 @@ public class ParticipanteDAO {
 		return list;	
 	}
 	
-	// Varios participante dentos de un pedido por eso un  array list 
+	// Varios participante dentro de un pedido por eso un  array list 
 	
 	public ArrayList<Participante> buscarXPedido(String id_ped) {
 		

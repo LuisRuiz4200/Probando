@@ -130,7 +130,7 @@ puntEconomica_evaProp decimal,
 fecha_evaProp date,
 estado_evaProp varchar(25),
 
-primary key (id_prop, id_evaProp),
+primary key (id_evaProp),
 foreign key (id_prop) references tb_propuesta (id_prop)
 );
 
@@ -192,4 +192,13 @@ select * from tb_participante;
 
 select * from tb_propuesta;
 
+select * from tb_apelacion;
 
+select *  from tb_evaluacionpropuesta;
+
+
+delete  from tb_participantes;
+
+/*select ped.* from tb_pedido ped
+inner join  tb_participante parti on ped.id_ped = parti.id_ped
+where ped.id_ped = parti.id_ped group by id_ped;*/
