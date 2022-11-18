@@ -246,4 +246,53 @@ public class PropuestaDAO implements PropuestaInterfacesDAO {
 		return list;
 	}
 
+
+	//ADICIONAL 
+	
+	public Propuesta buscarXIdPropuesta(String idProp) {
+		Propuesta prop = null;
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+
+		try {
+			con = MySQLConexion8.getConexion();
+			// paso 2: Instruccion SQL - consulta
+			String sql = "select * from tb_propuesta where id_prop = ?";
+			// paso 3
+			pstm = con.prepareStatement(sql);
+			// paso 4
+			pstm.setString(1, idProp);
+			// paso 5:
+			res = pstm.executeQuery();
+			//
+			if (res.next()) {
+				prop = new Propuesta();
+				prop.setCodPedido(res.getString(1));
+				prop.setCodPropuesta(res.getString(2));
+				prop.setCodParticipante(res.getString(3));
+				prop.setFecha(res.getString(4));
+				prop.setPropTecnica(res.getString(5));
+				prop.setPropEconomica(res.getString(6));
+				prop.setEstado(res.getString(7));
+			}
+
+		} catch (Exception e) {
+			System.out.println("Error en la instruccion SQL - Consultar Propuesta " + e.getMessage());
+		} finally {
+			try {
+				if (pstm != null)
+					pstm.close();
+				if (res != null)
+					res.close();
+				if (con != null)
+					con.close();
+
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar la BD " + e2.getMessage());
+			}
+		}
+		return prop;
+	}
+	
 }

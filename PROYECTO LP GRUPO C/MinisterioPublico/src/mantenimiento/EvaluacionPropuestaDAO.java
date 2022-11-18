@@ -6,90 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import clases.*;
+import clases.EvaluacionPropuesta;
 import utils.MySQLConexion8;
 
-public class ApelacionDAO {
-	
-	// DEFINIR 
-	public int resgistrarApelacion (Apelacion ape) {
-        int res = 0;
+public class EvaluacionPropuestaDAO {
+
+public int registrarEvaluacionPropuesta(EvaluacionPropuesta evProp) {
 		
-		Connection con = null;
-		PreparedStatement pstm = null;
-		
-		try {
-			con = MySQLConexion8.getConexion();
-			
-		    String sql = "insert into tb_apelacion values (?,?,?,?,?)";
-			
-			pstm = con.prepareStatement(sql);
-			
-			pstm.setString(2,ape.getCodPropuesta());
-			pstm.setString(1,ape.getCodApelacion());
-			pstm.setString(3,ape.getFecha());
-			pstm.setString(4,ape.getDescripcion());
-			pstm.setString(5,ape.getEstado());
-			
-	
-			
-			res = pstm.executeUpdate();
-			
-		} catch (Exception e) {
-			System.out.println("Error en la instruccion" + e.getMessage());
-		} finally {
-			try {
-				if (con!=null)con.close();
-				if (pstm!=null)pstm.close();
-			} catch (SQLException e) {
-				System.out.println("Error al cerrar la base de datos" + e.getMessage());
-			}
-		}
-		
-		return res;
-		
-	}
-	
-	public int modificarApelacion (Apelacion ape) {
-		
-        int res = 0;
-		Connection con = null;
-		PreparedStatement pstm = null;
-		
-		try {
-			con = MySQLConexion8.getConexion();
-			
-	
-	
-			String sql = "insert into tb_apelacion set fecha_apel= ?, "
-					+ "descripcion_apel = ?, estado_apel = ?"
-					+ "where id_prop= ? and id_apel = ?";
-			
-			pstm = con.prepareStatement(sql);
-			
-			pstm.setString(1,ape.getFecha());
-			pstm.setString(2,ape.getDescripcion());
-			pstm.setString(3,ape.getEstado());
-			pstm.setString(4,ape.getCodPropuesta());
-			pstm.setString(5,ape.getCodApelacion());
-			
-			res = pstm.executeUpdate();
-			
-		} catch (Exception e) {
-			System.out.println("Error en la instruccion" + e.getMessage());
-		} finally {
-			try {
-				if (con!=null)con.close();
-				if (pstm!=null)pstm.close();
-			} catch (SQLException e) {
-				System.out.println("Error al cerrar la base de datos" + e.getMessage());
-			}
-		}
-		
-		return res;
-	}
-	
-	public int eliminarApelacion ( String codPropuesta, String codApelacion) {
 		int res = 0;
 		
 		Connection con =null;
@@ -97,35 +20,115 @@ public class ApelacionDAO {
 		
 		try {
 			
-            con = MySQLConexion8.getConexion();
+			con = MySQLConexion8.getConexion();
 			
-			String sql = "delete from tb_apelacion where id_prop= ? and id_apel = ?"; 
-						
+			String sql = "insert into tb_evaluacionpropuesta values (?,?,?,?,?,?)";
+			
 			pstm = con.prepareStatement(sql);
 			
-			
-			pstm.setString(1, codPropuesta);
-			pstm.setString(2, codApelacion);
+			pstm.setString(1,evProp.getIdPropuesta());
+			pstm.setString(2,evProp.getIdEvapropuesta());
+			pstm.setDouble(3,evProp.getPuntTecnica());
+			pstm.setDouble(4,evProp.getPuntEconomica());
+			pstm.setString(5,evProp.getFecha());
+			pstm.setString(6,evProp.getEstadoPropuesta());
 			
 			res = pstm.executeUpdate();
 			
-		} catch (Exception e) {
+		}catch(Exception e) {
 			System.out.println("Error en la instruccion" + e.getMessage());
 		}finally {
 			try {
 				if (con!=null)con.close();
 				if (pstm!=null)pstm.close();
-			} catch (SQLException e2) {
-				System.out.println("Error al cerrar la base de datos" + e2.getMessage());
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
 			}
 		}
 		
+		
 		return res;
-	
+		
+		
 	}
 	
-	public ArrayList<Apelacion> listarApelacion(){
-		ArrayList <Apelacion> list = new ArrayList<Apelacion>();
+	public int actualizarEvaluacionPropuesta(EvaluacionPropuesta evaProp) {
+		int res = 0;
+		
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql = "update tb_evaluacionpropuesta"
+					+ " set puntTecnica_evaProp = ?,"
+					+ "puntTecnica_evaProp =?, fecha_evaProp = ?, estado_evaProp = ?, "
+					+ "where id_evaProp = ? ";
+			
+			pstm = con.prepareStatement(sql);
+			
+			
+			pstm.setDouble(1, evaProp.getPuntTecnica());
+			pstm.setDouble(2, evaProp.getPuntEconomica());
+			pstm.setString(3, evaProp.getFecha());
+			pstm.setString(4, evaProp.getEstadoPropuesta());
+			pstm.setString(5, evaProp.getIdEvapropuesta());
+			
+			res = pstm.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		return res;
+	}
+
+	public int EliminarEvaluacionPropuesta( String idEvaProp) {
+		int res = 0;
+		
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql = "delete from tb_evaluacionpropuesta where id_evaProp = ?"; 
+						
+			pstm = con.prepareStatement(sql);
+			
+			
+			pstm.setString(1, idEvaProp);
+			
+			res = pstm.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		return res;
+	}
+	
+	public ArrayList<EvaluacionPropuesta> listarEvaluacionPropuesta(){
+		ArrayList <EvaluacionPropuesta> list = new ArrayList<EvaluacionPropuesta>();;
 		
 		Connection con =null;
 		PreparedStatement pstm = null;
@@ -136,23 +139,23 @@ public class ApelacionDAO {
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "select * from tb_apelacion"; 
+			String sql = "select * from tb_evaluacionpropuesta"; 
 						
 			pstm = con.prepareStatement(sql);
 			
 			res = pstm.executeQuery();
 			
 			while (res.next()) {
-				Apelacion ape = new Apelacion(
+				EvaluacionPropuesta ped = new EvaluacionPropuesta(
 						res.getString(1),
 						res.getString(2),
-						res.getString(3),
-						res.getString(4),
-						res.getString(5)
-						
+						res.getDouble(3),
+						res.getDouble(4),
+						res.getString(5),
+						res.getString(6)
 						);
 				
-				list.add(ape);
+				list.add(ped);
 			}
 			
 			
@@ -171,12 +174,11 @@ public class ApelacionDAO {
 		
 		return list;	
 	}
+
 	
-	//BUSQUEDA
-	
-	public Apelacion buscarXIdApelacion(String idApelacion) {
+	public EvaluacionPropuesta buscarXIdParticipante(String idPropuesta) {
 		
-		Apelacion apel = null;
+		EvaluacionPropuesta part= null;
 		
 		Connection con =null;
 		PreparedStatement pstm = null;
@@ -187,23 +189,26 @@ public class ApelacionDAO {
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "select * from where id_apel = ? ";
+			String sql = "select * from tb_evaluacionpropuesta"
+					+ " where id_evaProp = ?"; 
 						
 			pstm = con.prepareStatement(sql);
 			
-			pstm.setString (1,idApelacion);
+			pstm.setString (1,idPropuesta);
 			
 			res = pstm.executeQuery();
 			
 			while (res.next()) {
-				apel = new Apelacion(
+				part = new EvaluacionPropuesta(
 						res.getString(1),
 						res.getString(2),
-						res.getString(3),
-						res.getString(4),
-						res.getString(5)
+						res.getDouble(3),
+						res.getDouble(4),
+						res.getString(5),
+						res.getString(6)
 						
 						);
+			
 			}
 			
 			
@@ -221,10 +226,9 @@ public class ApelacionDAO {
 		
 		
 		
-		return apel;
+		return part;
 		
 	}
-
 	
 	
 }
