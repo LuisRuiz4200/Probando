@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class FrmPrincipal extends JFrame implements ActionListener  {
@@ -37,12 +38,14 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	private JMenuItem mniApelacion;
 	private JMenuItem mniPedido;
 	private JMenuItem mniConsultaParticipante;
+	private JMenuItem mniReporteParticipantes;
 	private JMenuItem mniQuienesSomos;
 	private JMenuItem mniActasPropuestas;
 	private JMenuItem mntmComite;
 	private JMenuItem mniConsultaPropusta;
 	private JMenuItem mniReportePropuesta;
 	private JMenuItem mniUsuario;
+	private JMenuItem mntmConsultaApelacion;
 	
 	
 	public static void main (String [] args) {
@@ -152,6 +155,10 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mniConsultaPropusta.addActionListener(this);
 		mnConsulta.add(mniConsultaPropusta);
 		
+		mntmConsultaApelacion = new JMenuItem("Consulta Apelacion");
+		mntmConsultaApelacion.addActionListener(this);
+		mnConsulta.add(mntmConsultaApelacion);
+		
 		mniReportePropuesta = new JMenuItem("Reporte de propuestas");
 		mniReportePropuesta.addActionListener(this);
 		mnReporte.add(mniReportePropuesta);
@@ -162,6 +169,9 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmConsultaApelacion) {
+			actionPerformedMntmConsultaApelacion(e);
+		}
 		if (e.getSource() == mniUsuario) {
 			actionPerformedMniUsuario(e);
 		}
@@ -201,6 +211,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		if(e.getSource()==mniConsultaParticipante) {
 			actionPerformedMniConsultaParticipante(e);
 		}
+		
 		if(e.getSource()==mniQuienesSomos) {
 			actionPerformedMniQuienesSomos(e);
 		}
@@ -275,11 +286,18 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	
 	protected void actionPerformedMniConsultaPropusta(ActionEvent e) {
 		
-		FrmConsultaPropuesta conProp = new FrmConsultaPropuesta();
+		FrmReportePropuesta conProp = new FrmReportePropuesta();
 		conProp.setVisible(true);
 		escritorio.add(conProp).setLocation(0,0);
 		conProp.toFront();
 		
+	}
+	
+	protected void actionPerformedMntmConsultaApelacion(ActionEvent e) {
+		FrmConsultaApelacion conApe = new FrmConsultaApelacion();
+		conApe.setVisible(true);
+		escritorio.add(conApe).setLocation(0,0);
+		conApe.toFront();
 	}
 	
 	//TRANSACCION
@@ -305,6 +323,11 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		escritorio.add(form).setLocation(0,0);
 		form.toFront();
 	}
+	
+	
+	//REPORTE
+	
+	
 	protected void actionPerformedMniReportePropuesta(ActionEvent e) {
 		FrmReportePropuesta reporProp = new FrmReportePropuesta();
 		reporProp.setVisible(true);
@@ -312,7 +335,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		reporProp.toFront();
 	}
 	
-	//AYUDA MACHACA
+	//AYUDA 
 	
 	protected void actionPerformedMniQuienesSomos(ActionEvent e) {
 		FrmAyuda ayuda= new FrmAyuda();
@@ -328,5 +351,5 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		escritorio.add(reporContra).setLocation(0,0);
 		reporContra.toFront();
 	}
-	
+
 }
