@@ -286,7 +286,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	
 	protected void actionPerformedMniConsultaPropusta(ActionEvent e) {
 		
-		FrmReportePropuesta conProp = new FrmReportePropuesta();
+		FrmConsultaPropuesta conProp = new FrmConsultaPropuesta();
 		conProp.setVisible(true);
 		escritorio.add(conProp).setLocation(0,0);
 		conProp.toFront();
