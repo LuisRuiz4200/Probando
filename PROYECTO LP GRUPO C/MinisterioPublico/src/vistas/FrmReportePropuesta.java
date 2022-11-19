@@ -131,6 +131,8 @@ public class FrmReportePropuesta extends JInternalFrame implements ActionListene
 		propDao = new PropuestaDAO();
 		
 		
+		arranque();
+		
 		
 	}
 	private void arranque() {
