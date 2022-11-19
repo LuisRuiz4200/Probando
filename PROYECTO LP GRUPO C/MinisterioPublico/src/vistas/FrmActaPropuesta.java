@@ -13,15 +13,15 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class FrmActaPropuesta extends JInternalFrame {
 	private JLabel lblCodigo;
-	private JComboBox<Object> cboPropuesta;
-	private JTextField txtCodigo;
-	private JDateChooser dcFecha;
+	private JComboBox<Object> cboIdPropuesta;
+	private JTextField txtIdActa;
+	private JDateChooser dcFechaActa;
 	private JLabel lblFecha;
 	private JLabel lblCircunstancia;
 	private JEditorPane txtDocumento;
 	private JButton btnRegistrar;
 	private JButton btnModificar;
-	private JComboBox<Object> cboEstado;
+	private JComboBox<Object> cboEstadoActa;
 	private JLabel lblEstado;
 
 	private PropuestaDAO gProp = new PropuestaDAO();
@@ -34,6 +34,8 @@ public class FrmActaPropuesta extends JInternalFrame {
 	private JLabel lblIdPedido;
 	private JTextField txtIdPedido;
 	private JPanel panelPropuesta_1;
+	private JLabel lblTipo;
+	private JComboBox<Object> cboTipoActa;
 
 	public static void main(String[] args) {
 
@@ -82,9 +84,9 @@ public class FrmActaPropuesta extends JInternalFrame {
 		lblNumeroPostulacion.setBounds(10, 21, 106, 14);
 		panelPropuesta.add(lblNumeroPostulacion);
 		
-				cboPropuesta = new JComboBox<Object>();
-				cboPropuesta.setBounds(10, 34, 106, 22);
-				panelPropuesta.add(cboPropuesta);
+				cboIdPropuesta = new JComboBox<Object>();
+				cboIdPropuesta.setBounds(10, 34, 106, 22);
+				panelPropuesta.add(cboIdPropuesta);
 				
 						lblFechaPropuesta = new JLabel("Fecha:");
 						lblFechaPropuesta.setBounds(150, 21, 95, 14);
@@ -125,30 +127,38 @@ public class FrmActaPropuesta extends JInternalFrame {
 		panelPropuesta_1.setBounds(317, 11, 291, 114);
 		getContentPane().add(panelPropuesta_1);
 		
-				txtCodigo = new JTextField();
-				txtCodigo.setBounds(10, 34, 106, 20);
-				panelPropuesta_1.add(txtCodigo);
-				txtCodigo.setColumns(10);
+				txtIdActa = new JTextField();
+				txtIdActa.setBounds(10, 34, 106, 20);
+				panelPropuesta_1.add(txtIdActa);
+				txtIdActa.setColumns(10);
 				
 						lblCodigo = new JLabel("ID Acta:");
 						lblCodigo.setBounds(10, 21, 46, 14);
 						panelPropuesta_1.add(lblCodigo);
 						
-								lblFecha = new JLabel("Fecha");
+								lblFecha = new JLabel("Fecha:");
 								lblFecha.setBounds(154, 21, 46, 14);
 								panelPropuesta_1.add(lblFecha);
 								
-										dcFecha = new JDateChooser();
-										dcFecha.setBounds(154, 34, 124, 20);
-										panelPropuesta_1.add(dcFecha);
+										dcFechaActa = new JDateChooser();
+										dcFechaActa.setBounds(154, 34, 124, 20);
+										panelPropuesta_1.add(dcFechaActa);
 										
-												lblEstado = new JLabel("Estado");
+												lblEstado = new JLabel("Estado:");
 												lblEstado.setBounds(10, 65, 65, 14);
 												panelPropuesta_1.add(lblEstado);
 												
-														cboEstado = new JComboBox<Object>();
-														cboEstado.setBounds(10, 81, 106, 22);
-														panelPropuesta_1.add(cboEstado);
+														cboEstadoActa = new JComboBox<Object>();
+														cboEstadoActa.setBounds(10, 81, 106, 22);
+														panelPropuesta_1.add(cboEstadoActa);
+														
+														lblTipo = new JLabel("Tipo:");
+														lblTipo.setBounds(154, 65, 65, 14);
+														panelPropuesta_1.add(lblTipo);
+														
+														cboTipoActa = new JComboBox<Object>();
+														cboTipoActa.setBounds(154, 81, 124, 22);
+														panelPropuesta_1.add(cboTipoActa);
 
 	}
 }
