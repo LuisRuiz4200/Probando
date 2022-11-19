@@ -312,7 +312,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		reporProp.toFront();
 	}
 	
-	//AYUDA
+	//AYUDA MACHACA
 	
 	protected void actionPerformedMniQuienesSomos(ActionEvent e) {
 		FrmAyuda ayuda= new FrmAyuda();
