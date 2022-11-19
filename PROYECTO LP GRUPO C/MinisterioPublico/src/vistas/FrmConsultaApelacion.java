@@ -31,6 +31,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import javax.swing.ScrollPaneConstants;
+import java.awt.Font;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 @SuppressWarnings({ "serial", "unused" })
 public class FrmConsultaApelacion extends JInternalFrame implements MouseListener, ActionListener {
@@ -70,11 +73,11 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 	 * Create the frame.
 	 */
 	public FrmConsultaApelacion() {
-		setTitle("Consulta de participantes");
+		setTitle("Consulta de Apelaciones");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 641, 473);
+		setBounds(100, 100, 641, 461);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		
 		setClosable(true);
 		setMaximizable(true);
@@ -85,31 +88,36 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 		
 		btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(this);
-		btnConsultar.setBounds(345, 22, 89, 22);
+		btnConsultar.setBounds(380, 11, 89, 22);
 		contentPane.add(btnConsultar);
 		
 		lblIdParticipante = new JLabel("ID Apelacion :");
-		lblIdParticipante.setBounds(49, 26, 89, 14);
+		lblIdParticipante.setFont(new Font("Bahnschrift", Font.PLAIN, 13));
+		lblIdParticipante.setBounds(107, 16, 97, 14);
 		contentPane.add(lblIdParticipante);
 		
 		cboApelacion = new JComboBox<Object>();
-		cboApelacion.setBounds(143, 22, 138, 22);
+		cboApelacion.setBounds(214, 11, 138, 22);
 		contentPane.add(cboApelacion);
 		
 		txtCuadro2 = new JTextArea();
-		txtCuadro2.setBounds(20, 294, 595, 138);
+		txtCuadro2.setEditable(false);
+		txtCuadro2.setBounds(20, 282, 595, 138);
 		contentPane.add(txtCuadro2);
 		
 		txtCuadro1 = new JTextArea();
-		txtCuadro1.setBounds(20, 94, 595, 164);
+		txtCuadro1.setEditable(false);
+		txtCuadro1.setBounds(20, 74, 595, 179);
 		contentPane.add(txtCuadro1);
 		
 		lblPedido = new JLabel("DESCRIPCION DE LA APELACION:");
-		lblPedido.setBounds(20, 269, 233, 14);
+		lblPedido.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblPedido.setBounds(20, 264, 233, 14);
 		contentPane.add(lblPedido);
 		
 		lblApelacion = new JLabel("DATOS GENERALES: ");
-		lblApelacion.setBounds(20, 69, 233, 14);
+		lblApelacion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblApelacion.setBounds(20, 49, 233, 14);
 		contentPane.add(lblApelacion);
 		
 		
@@ -177,7 +185,8 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 		
 		cargarPropuesta(prop);  
 		
-		//Pedido ped = pedDao.buscarXIdPropuesta(id);
+		//String idPedido = prop.getCodPedido();
+		//Propuesta ped = propDao.buscarPropuesta(idPedido);
 		
 		//cargarPedido(ped);
 		
@@ -185,7 +194,7 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 	}	
 
 	
-	private void cargarParticipante(Participante part) {
+	/*private void cargarParticipante(Participante part) {
 		
 		//txtCuadro1.setText("");
 		
@@ -202,9 +211,9 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 		
 	}
 	
-	private void cargarPedido(Pedido ped) {
+	private void cargarPedido(Propuesta ped) {
 
-		//txtCuadro1.setText("");
+		txtCuadro1.setText("");
 		
 		if(ped == null) {
 			return;
@@ -217,7 +226,7 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 			Tool.imprimir(txtCuadro1,"ESTADO	:" + ped.getEstado());
 		}
 		
-	}
+	}*/
 	
 	private void cargarApelacion(Apelacion apel) {
 		
@@ -237,10 +246,7 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 	}
 
 	private void cargarPropuesta(Propuesta prop) {
-		
-
 		//txtCuadro1.setText("");
-		
 		if (prop == null) {
 			return;
 		}else {
