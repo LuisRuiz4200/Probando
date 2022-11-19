@@ -1,14 +1,18 @@
 package vistas;
 
-import javax.swing.*;
+import java.awt.Color;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import com.toedter.calendar.JDateChooser;
-
-import mantenimiento.PropuestaDAO;
-import java.awt.SystemColor;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
-import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class FrmActaPropuesta extends JInternalFrame {
@@ -24,7 +28,6 @@ public class FrmActaPropuesta extends JInternalFrame {
 	private JComboBox<Object> cboEstadoActa;
 	private JLabel lblEstado;
 
-	private PropuestaDAO gProp = new PropuestaDAO();
 	private JPanel panelPropuesta;
 	private JLabel lblNumeroPostulacion;
 	private JLabel lblFechaPropuesta;
@@ -45,6 +48,7 @@ public class FrmActaPropuesta extends JInternalFrame {
 	}
 
 	public FrmActaPropuesta() {
+		getContentPane().setBackground(new Color(192, 192, 192));
 
 		setTitle("Acta de propuesta");
 		setBounds(100, 100, 640, 358);

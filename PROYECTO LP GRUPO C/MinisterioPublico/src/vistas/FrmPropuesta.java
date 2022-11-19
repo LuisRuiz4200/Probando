@@ -94,6 +94,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 737, 472);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -193,6 +194,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panelPedido.add(lblRucPedido);
 
 		panelPropuesta = new JPanel();
+		panelPropuesta.setOpaque(false);
 		panelPropuesta.setBounds(329, 11, 389, 78);
 		contentPane.add(panelPropuesta);
 		panelPropuesta.setBorder(new TitledBorder(

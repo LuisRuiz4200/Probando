@@ -29,6 +29,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.awt.Color;
 
 @SuppressWarnings({ "serial", "unused" })
 public class FrmConsultaPropuesta extends JInternalFrame implements ActionListener, KeyListener, MouseListener {
@@ -74,6 +75,7 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 744, 409);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setClosable(true);

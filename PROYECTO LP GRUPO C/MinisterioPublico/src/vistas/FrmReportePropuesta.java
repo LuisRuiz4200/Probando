@@ -29,6 +29,7 @@ import utils.Tool;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
 
 @SuppressWarnings({ "serial", "unused" })
 public class FrmReportePropuesta extends JInternalFrame implements ActionListener {
@@ -72,6 +73,7 @@ public class FrmReportePropuesta extends JInternalFrame implements ActionListene
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 690, 409);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		setClosable(true);

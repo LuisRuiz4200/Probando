@@ -1,14 +1,13 @@
 package vistas;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Formatter;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -61,6 +60,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 	}
 	
 	public FrmUsuario() {
+		getContentPane().setBackground(new Color(192, 192, 192));
 		
 		setTitle("USUARIO");
 		setBounds(100,100,696,432);
@@ -423,8 +423,6 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 	}
 	private void correlativo () {
 		
-		@SuppressWarnings("resource")
-		Formatter ft = new Formatter();
 		
 		ArrayList<Usuario> listUser = usuarioDao.listarUsuario();
 		

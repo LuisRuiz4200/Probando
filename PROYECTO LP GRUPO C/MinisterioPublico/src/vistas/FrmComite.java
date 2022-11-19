@@ -1,6 +1,8 @@
 package vistas;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -20,13 +22,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Comite;
-import clases.Participante;
 import clases.Pedido;
 import mantenimiento.ComiteDAO;
 import mantenimiento.PedidoDAO;
 import utils.Tool;
-import java.awt.Font;
-import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class FrmComite extends JInternalFrame implements ActionListener, MouseListener {
@@ -263,6 +262,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 			}else {
 				Tool.mensajeExito(this, "Registro exitoso");
 				cargarTabla();
+				limpiar();
 				correlativo();
 			}
 		}

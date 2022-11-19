@@ -1,13 +1,16 @@
 package vistas;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Formatter;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
@@ -22,12 +25,15 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
-import clases.*;
-import mantenimiento.*;
+import clases.ObjetoPedido;
+import clases.Participante;
+import clases.Pedido;
+import clases.TipoPedido;
+import mantenimiento.ObjetoPedidoDAO;
+import mantenimiento.ParticipanteDAO;
+import mantenimiento.PedidoDAO;
+import mantenimiento.TipoPedidoDAO;
 import utils.Tool;
-import java.awt.event.MouseListener;
-import java.text.ParseException;
-import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class FrmPedido extends JInternalFrame implements ActionListener, MouseListener {
@@ -85,6 +91,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 763, 444);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -511,6 +518,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	
 	private void limpiar () {
 		txtEntidad.setText("");
+		txtRuc.setText("");
 		dcFecha.setDate(new Date());
 		txtDescripcion.setText("");
 		txtEstado.setText("REGISTRADO");

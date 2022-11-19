@@ -1,29 +1,34 @@
 package vistas;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Formatter;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import mantenimiento.*;
-import utils.Tool;
-import clases.*;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import com.toedter.calendar.JDateChooser;
 
-import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
-import java.awt.Color;
-import java.awt.SystemColor;
-import java.awt.Font;
+import clases.Apelacion;
+import clases.Propuesta;
+import mantenimiento.ApelacionDAO;
+import mantenimiento.PropuestaDAO;
+import utils.Tool;
 
 @SuppressWarnings("serial")
 public class FrmApelacion extends JInternalFrame implements ActionListener {
@@ -79,6 +84,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		setIconifiable(true);
 		
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);

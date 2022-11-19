@@ -16,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class FrmPrincipal extends JFrame implements ActionListener  {
@@ -38,7 +37,6 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	private JMenuItem mniApelacion;
 	private JMenuItem mniPedido;
 	private JMenuItem mniConsultaParticipante;
-	private JMenuItem mniReporteParticipantes;
 	private JMenuItem mniQuienesSomos;
 	private JMenuItem mniActasPropuestas;
 	private JMenuItem mntmComite;
