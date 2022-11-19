@@ -32,7 +32,7 @@ public class ActaPropuestaDAO implements ActaPropuestaInterfacesDAO{
 			//
 			if (res.next()) {
 				aprop = new ActaPropuesta();
-				aprop.setIdActaPropuesta(res.getString(1));
+				aprop.setDesActaPropuesta(res.getString(1));
 				aprop.setIdPropuesta(res.getString(2));
 				aprop.setFecha(res.getString(3));
 				aprop.setDesActaPropuesta(res.getString(4));;

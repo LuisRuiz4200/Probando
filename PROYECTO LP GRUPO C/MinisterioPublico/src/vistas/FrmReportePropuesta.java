@@ -18,35 +18,37 @@ import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
 import java.awt.event.ActionEvent;
 
 import clases.*;
 
 import mantenimiento.*;
 import utils.Tool;
-
+import javax.swing.JEditorPane;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
-import com.toedter.calendar.JDateChooser;
 
 @SuppressWarnings({ "serial", "unused" })
-public class FrmReportePropuesta extends JInternalFrame implements ActionListener {
+public class FrmReportePropuesta extends JInternalFrame implements ActionListener, KeyListener, MouseListener {
 
 	private JPanel contentPane;
-	private DefaultTableModel model; 
-	
-	private PedidoDAO pedDao;
-	private ParticipanteDAO partDao;
-	private JDateChooser dcFechaInicio;
-	private JDateChooser dcFechaFin;
-	private JTable table;
-	private JButton btnReporte;
-	private JButton btnExportar;
-	private JLabel lblFechaInicio;
-	private JLabel lblFechaFin;
-	private PropuestaDAO propDao;
+	private JButton btnBuscar;
+	private JLabel lblNumeroPedido;
+	private JComboBox<Object> cboPedido;
+	private JTable tblPropuestas;
 	private JScrollPane scrollPane;
+
+	private PropuestaDAO gProp = new PropuestaDAO();
+	private PedidoDAO gPed = new PedidoDAO();
+
+	// estructura de la tabla
+	private DefaultTableModel model = new DefaultTableModel();
+	private JEditorPane txtPropTecnica;
+	private JEditorPane txtPropEconomica;
+	private JLabel lblPropEconomica;
+	private JLabel lblPropTecnica;
 
 	/**
 	 * Launch the application.
@@ -68,155 +70,177 @@ public class FrmReportePropuesta extends JInternalFrame implements ActionListene
 	 * Create the frame.
 	 */
 	public FrmReportePropuesta() {
-		setTitle("Reporte de propuestas");
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 690, 409);
+		setTitle("Consulta de propuestas");
+		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 744, 409);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
+
 		setClosable(true);
 		setMaximizable(true);
 		setIconifiable(true);
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		dcFechaInicio = new JDateChooser();
-		dcFechaInicio.setBounds(36, 33, 124, 20);
-		contentPane.add(dcFechaInicio);
-		
-		dcFechaFin = new JDateChooser();
-		dcFechaFin.setBounds(222, 33, 124, 20);
-		contentPane.add(dcFechaFin);
-		
+
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(this);
+		btnBuscar.setBounds(299, 24, 89, 31);
+		contentPane.add(btnBuscar);
+
+		lblNumeroPedido = new JLabel("Numero de Pedido:");
+		lblNumeroPedido.setBounds(10, 32, 138, 14);
+		contentPane.add(lblNumeroPedido);
+
+		cboPedido = new JComboBox<Object>();
+		cboPedido.setBounds(141, 28, 138, 22);
+		contentPane.add(cboPedido);
+
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 93, 654, 275);
+		scrollPane.setBounds(10, 81, 446, 287);
 		contentPane.add(scrollPane);
+
+		tblPropuestas = new JTable();
+		tblPropuestas.addMouseListener(this);
+		tblPropuestas.addKeyListener(this);
+		tblPropuestas.setFillsViewportHeight(true);
+		tblPropuestas.setModel(model);
+		scrollPane.setViewportView(tblPropuestas);
+
+		// crear collumnas para la tabla
+		model.addColumn("ID Pedido");
+		model.addColumn("ID Propuesta");
+		model.addColumn("ID Participante");
+		model.addColumn("Fecha");
+		model.addColumn("Estado");
+		// Asociar table con objeto model
+		tblPropuestas.setModel(model);
 		
+		txtPropTecnica = new JEditorPane();
+		txtPropTecnica.setBounds(466, 88, 252, 128);
+		contentPane.add(txtPropTecnica);
 		
-		model = new DefaultTableModel();
-		model.addColumn("ID PEDIDO");
-		model.addColumn("ID PROPUESTA");
-		model.addColumn("ID PARTICIPANTE");
-		model.addColumn("FECHA PROP");
-		model.addColumn("ESTADO DE PROPUESTA");
+		txtPropEconomica = new JEditorPane();
+		txtPropEconomica.setBounds(466, 240, 252, 128);
+		contentPane.add(txtPropEconomica);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		table.setModel(model);
+		lblPropEconomica = new JLabel("Propuesta economica");
+		lblPropEconomica.setBounds(466, 227, 172, 14);
+		contentPane.add(lblPropEconomica);
 		
-		btnReporte = new JButton("Reporte");
-		btnReporte.addActionListener(this);
-		btnReporte.setBounds(395, 59, 109, 23);
-		contentPane.add(btnReporte);
-		
-		btnExportar = new JButton("Exportar");
-		btnExportar.addActionListener(this);
-		btnExportar.setBounds(524, 59, 109, 23);
-		contentPane.add(btnExportar);
-		
-		lblFechaInicio = new JLabel("FECHA INICIO");
-		lblFechaInicio.setBounds(36, 16, 89, 14);
-		contentPane.add(lblFechaInicio);
-		
-		lblFechaFin = new JLabel("FECHA FIN ");
-		lblFechaFin.setBounds(222, 16, 98, 14);
-		contentPane.add(lblFechaFin);
-		
-	
-		
-		
-		partDao= new ParticipanteDAO();
-		pedDao = new PedidoDAO();
-		propDao = new PropuestaDAO();
-		
-		
-		
-	}
-	private void arranque() {
-	
-		dcFechaInicio.setDate(new Date());
-		dcFechaFin.setDate(new Date());
-		
+		lblPropTecnica = new JLabel("Propuesta tecnica");
+		lblPropTecnica.setBounds(466, 73, 172, 14);
+		contentPane.add(lblPropTecnica);
+
+		arranque();
+
 	}
 
-	
-	
-	
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnExportar) {
-			actionPerformedBtnExportar(e);
-		}
-		if (e.getSource() == btnReporte) {
-			actionPerformedBtnReporte(e);
-		}
+	private void arranque() {
+		cargarcboPedidos();
+		cargarDataPropuestas();
 	}
-	protected void actionPerformedBtnReporte(ActionEvent e) {
-		
-		String fechaInicio= leerFechaInicio();
-		String fechaFin = leerFechaFin();
-		
-		if (fechaInicio == null || fechaFin == null) {
-			return;
-		}else {
-			cargarTablaXFecha(fechaInicio, fechaFin);
-			
-			
-		}
-		
-	}
-	protected void actionPerformedBtnExportar(ActionEvent e) {
-	}
-	
-	
-	//METODOS DE ENTRADA 
-	
-	private String leerFechaInicio() {
-		String res = null;
-		
-		res = Tool.sdf.format(dcFechaInicio.getDate()).toString();
-		
-		return res;
-	}
-	
-	private String leerFechaFin() {
-		String res = null;
-		
-		res = Tool.sdf.format(dcFechaFin.getDate()).toString();
-		
-		return res;
-	}
-	
-	//METODOS ADICIONALES
-	
-	private void cargarTablaXFecha (String fechaIni, String fechaFin) {
-		
-		ArrayList<Propuesta> listProp = propDao.reporteXFecha(fechaIni, fechaFin);
-		
-		model.setRowCount(0);
-		
-		if (listProp.size()==0) {
-			Tool.mensajeError(this, "No se econtraron registro dentro del rango de fechas");
-			return;
-		}else {
-			
-			for (Propuesta  prop : listProp) {
-				Object [] x = {
-						
-						prop.getCodPedido(),
-						prop.getCodPropuesta(),
-						prop.getCodParticipante(),
-						prop.getFecha(),
-						prop.getEstado()
-						
-				};
-				
-				model.addRow(x);
+
+	private void cargarcboPedidos() {
+		// 1. Obtener el resultado del proceso -- listar
+		ArrayList<Pedido> list = gPed.listarPedido();
+		// 2. Validar el resultado del proceso
+		if (list.size() == 0) {
+			Tool.mensajeError(null, "Lista vacía");
+		} else {
+			cboPedido.addItem("Seleccione ... ");
+			for (Pedido ped : list) {
+				cboPedido.addItem(ped.getCodigo());
 			}
 		}
-		
-		
-		
+
 	}
 	
+	private void cargarTabla(ArrayList<Propuesta> list) {
+		model.setRowCount(0);
+		for (Propuesta prop : list) {
+			Object fila[] = { prop.getCodPedido(),
+					prop.getCodPropuesta(),
+					prop.getCodParticipante(),
+					prop.getFecha(),
+					prop.getEstado() };
+			
+			
+			
+			// añadir fila a la tabla
+			model.addRow(fila);
+		}
 	}
+
+	// método encargado de cargar los datos desde la BD a la tabla
+	private void cargarDataPropuestas() {
+		ArrayList<Propuesta> list = gProp.listarPropuestas();
+		cargarTabla(list);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnBuscar) {
+			actionPerformedBtnBuscar(e);
+		}
+	}
+	protected void actionPerformedBtnBuscar(ActionEvent e) {
+		buscarPropuestasXPedido();
+	}
+	
+	private String getCodPedido() {
+		return cboPedido.getSelectedItem().toString();
+	}
+	
+	private void buscarPropuestasXPedido() {
+		String codPedido = getCodPedido();
+		
+		ArrayList<Propuesta> list = gProp.buscarXPedido(codPedido);
+		cargarTabla(list);
+	}
+	
+	private void consultarPropuesta() {
+		int indice = tblPropuestas.getSelectedRow();
+		
+		String idProp = tblPropuestas.getValueAt(indice,1).toString();
+		
+		ArrayList<Propuesta> list = gProp.listarPropuestas();
+		
+		for(Propuesta prop : list) {
+			if(prop.getCodPropuesta().equals(idProp)) {
+				txtPropTecnica.setText(prop.getPropTecnica());
+				txtPropEconomica.setText(prop.getPropEconomica());
+			}
+		}
+	}
+	
+	public void keyPressed(KeyEvent e) {
+	}
+	public void keyReleased(KeyEvent e) {
+		if (e.getSource() == tblPropuestas) {
+			keyReleasedTblPropuestas(e);
+		}
+	}
+	public void keyTyped(KeyEvent e) {
+	}
+	protected void keyReleasedTblPropuestas(KeyEvent e) {
+		consultarPropuesta();
+	}
+	
+
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == tblPropuestas) {
+			mouseClickedTblPropuestas(e);
+		}
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	protected void mouseClickedTblPropuestas(MouseEvent e) {
+		consultarPropuesta();
+	}
+}

@@ -2,8 +2,8 @@ package clases;
 
 public class ActaPropuesta {
 	
-	private String idActaPropuesta;
-	private String idPropuesta;
+	private int idActaPropuesta;
+	private int idPropuesta;
 	private String fecha;
 	private String desActaPropuesta;
 	private String tipoActa;
@@ -14,7 +14,7 @@ public class ActaPropuesta {
 	}
 	
 	// Constructor
-	public ActaPropuesta(String idActaPropuesta, String idPropuesta, String fecha, String desActaPropuesta, String tipoActa,
+	public ActaPropuesta(int idActaPropuesta, int idPropuesta, String fecha, String desActaPropuesta, String tipoActa,
 			String estadoActa) {
 		super();
 		this.idActaPropuesta = idActaPropuesta;
@@ -26,16 +26,16 @@ public class ActaPropuesta {
 	}
 	
 	// Set/Get
-	public String getIdActaPropuesta() {
+	public int getIdActaPropuesta() {
 		return idActaPropuesta;
 	}
-	public void setIdActaPropuesta(String idActaPropuesta) {
+	public void setIdActaPropuesta(int idActaPropuesta) {
 		this.idActaPropuesta = idActaPropuesta;
 	}
-	public String getIdPropuesta() {
+	public int getIdPropuesta() {
 		return idPropuesta;
 	}
-	public void setIdPropuesta(String idPropuesta) {
+	public void setIdPropuesta(int idPropuesta) {
 		this.idPropuesta = idPropuesta;
 	}
 	public String getFecha() {

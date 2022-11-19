@@ -1,28 +1,10 @@
 package vistas;
 
-import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Formatter;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JEditorPane;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -34,6 +16,20 @@ import mantenimiento.PedidoDAO;
 import mantenimiento.PropuestaDAO;
 import utils.Tool;
 
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Formatter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.SystemColor;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
+
 @SuppressWarnings("serial")
 public class FrmPropuesta extends JInternalFrame implements ActionListener, ItemListener {
 
@@ -42,19 +38,27 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private JLabel lblPropuestaTecnica;
 	private JLabel lblPropuestaEcono;
 	private JLabel lblPedido;
+	private JRadioButton rdbtnNewRadioButton;
+	private JRadioButton rdbtnNewRadioButton_1;
+	private JRadioButton rdbtnNewRadioButton_2;
+	private JRadioButton rdbtnNewRadioButton_3;
 	private JLabel lblNumeroPostulacion;
 	private JTextField txtPropuesta;
+	private DefaultTableModel model;
 	private JEditorPane txtPropTecnica;
 	private JEditorPane txtPropEconomica;
+	private JButton btnBuscar;
 	private JDateChooser dcFechaProp;
 	private JLabel lblFechaProp;
+	private final ButtonGroup buttonGroupPT = new ButtonGroup();
+	private final ButtonGroup buttonGroupPE = new ButtonGroup();
 
 	private PropuestaDAO gProp = new PropuestaDAO();
 	private PedidoDAO gPed = new PedidoDAO();
 	private ParticipanteDAO gPart = new ParticipanteDAO();
 
-	private JComboBox<Object> cboPedido;
-	private JComboBox<Object> cboParticipante;
+	private JComboBox <Object>cboPedido;
+	private JComboBox <Object>cboParticipante;
 	private JButton btnRegistrar;
 	private JPanel panelParticipante;
 	private JTextField txtEntidadParti;
@@ -92,7 +96,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	public FrmPropuesta() {
 		setTitle("Propuesta");
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 737, 472);
+		setBounds(100, 100, 737, 486);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -105,131 +109,162 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 		btnActualizar = new JButton("Actualizar");
 		btnActualizar.addActionListener(this);
-		btnActualizar.setBounds(483, 100, 108, 23);
+		btnActualizar.setBounds(132, 171, 102, 22);
 		contentPane.add(btnActualizar);
 
 		lblPropuestaTecnica = new JLabel("Propuesta Tecnica:");
-		lblPropuestaTecnica.setBounds(10, 216, 125, 14);
+		lblPropuestaTecnica.setBounds(10, 231, 125, 14);
 		contentPane.add(lblPropuestaTecnica);
 
 		lblPropuestaEcono = new JLabel("Propuesta Economica:");
-		lblPropuestaEcono.setBounds(361, 216, 128, 14);
+		lblPropuestaEcono.setBounds(358, 229, 128, 14);
 		contentPane.add(lblPropuestaEcono);
 
+		// crear columnas de la tabla
+		// Instanciar un objeto para la estructura de la tabla
+		model = new DefaultTableModel();
+		model.addColumn("Nombre Postor");
+		model.addColumn("CompaÃ±ia");
+		model.addColumn("Distrito");
+		model.addColumn("RUC");
+		model.addColumn("Prop. TÃ©cnica");
+		model.addColumn("Prop. EconÃ³mica");
+		model.addColumn("Estado");
+
+		rdbtnNewRadioButton = new JRadioButton("SI");
+		buttonGroupPT.add(rdbtnNewRadioButton);
+		rdbtnNewRadioButton.setBounds(155, 225, 46, 23);
+		contentPane.add(rdbtnNewRadioButton);
+
+		rdbtnNewRadioButton_1 = new JRadioButton("NO");
+		buttonGroupPT.add(rdbtnNewRadioButton_1);
+		rdbtnNewRadioButton_1.setBounds(214, 225, 46, 23);
+		contentPane.add(rdbtnNewRadioButton_1);
+
+		rdbtnNewRadioButton_2 = new JRadioButton("SI");
+		buttonGroupPE.add(rdbtnNewRadioButton_2);
+		rdbtnNewRadioButton_2.setBounds(503, 225, 46, 23);
+		contentPane.add(rdbtnNewRadioButton_2);
+
+		rdbtnNewRadioButton_3 = new JRadioButton("NO");
+		buttonGroupPE.add(rdbtnNewRadioButton_3);
+		rdbtnNewRadioButton_3.setBounds(562, 225, 46, 23);
+		contentPane.add(rdbtnNewRadioButton_3);
+
 		txtPropTecnica = new JEditorPane();
-		txtPropTecnica.setBounds(10, 243, 338, 189);
+		txtPropTecnica.setBounds(10, 256, 338, 189);
 		contentPane.add(txtPropTecnica);
 
 		txtPropEconomica = new JEditorPane();
-		txtPropEconomica.setBounds(358, 241, 351, 189);
+		txtPropEconomica.setBounds(358, 254, 351, 189);
 		contentPane.add(txtPropEconomica);
 
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(601, 100, 89, 23);
+		btnRegistrar.setBounds(20, 171, 102, 22);
 		contentPane.add(btnRegistrar);
-
+		
 		panelParticipante = new JPanel();
 		panelParticipante.setLayout(null);
 		panelParticipante.setOpaque(false);
-		panelParticipante.setBorder(new TitledBorder(
-				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
-				"PARTICIPANTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelParticipante.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PARTICIPANTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelParticipante.setBackground(SystemColor.menu);
-		panelParticipante.setBounds(10, 88, 306, 115);
+		panelParticipante.setBounds(326, 100, 383, 115);
 		contentPane.add(panelParticipante);
-
+		
 		txtEntidadParti = new JTextField();
 		txtEntidadParti.setText("");
 		txtEntidadParti.setColumns(10);
-		txtEntidadParti.setBounds(10, 81, 113, 20);
+		txtEntidadParti.setBounds(10, 81, 177, 20);
 		panelParticipante.add(txtEntidadParti);
-
+		
 		lblEntidad = new JLabel("Entidad");
 		lblEntidad.setBounds(11, 66, 67, 14);
 		panelParticipante.add(lblEntidad);
-
+		
 		lblRuc = new JLabel("RUC");
-		lblRuc.setBounds(145, 66, 92, 14);
+		lblRuc.setBounds(213, 66, 92, 14);
 		panelParticipante.add(lblRuc);
-
+		
 		txtRucParti = new JTextField();
 		txtRucParti.setText("");
 		txtRucParti.setColumns(10);
-		txtRucParti.setBounds(145, 81, 127, 20);
+		txtRucParti.setBounds(213, 81, 154, 20);
 		panelParticipante.add(txtRucParti);
-
+		
 		cboParticipante = new JComboBox<Object>();
-		cboParticipante.addItemListener(this);
 		cboParticipante.setBounds(8, 39, 115, 22);
 		panelParticipante.add(cboParticipante);
-
+				
 		lblIdPedido = new JLabel("ID. Participante");
 		lblIdPedido.setBounds(8, 21, 116, 14);
 		panelParticipante.add(lblIdPedido);
-
+				
+		btnBuscar = new JButton("Buscar ");
+		btnBuscar.setBounds(133, 29, 80, 29);
+		panelParticipante.add(btnBuscar);
+						
 		panelPedido = new JPanel();
 		panelPedido.setBorder(new TitledBorder(null, "PEDIDO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelPedido.setOpaque(false);
-		panelPedido.setBounds(10, 11, 306, 78);
+		panelPedido.setBounds(10, 11, 306, 99);
 		contentPane.add(panelPedido);
 		panelPedido.setLayout(null);
-
+								
 		lblPedido = new JLabel("Nro de Pedido");
 		lblPedido.setBounds(10, 21, 119, 14);
 		panelPedido.add(lblPedido);
-
+								
 		cboPedido = new JComboBox<Object>();
 		cboPedido.setBounds(124, 17, 115, 22);
 		panelPedido.add(cboPedido);
-
+										
 		txtRucPedido = new JTextField();
 		txtRucPedido.setColumns(10);
-		txtRucPedido.setBounds(124, 46, 115, 20);
+		txtRucPedido.setBounds(10, 64, 146, 20);
 		panelPedido.add(txtRucPedido);
-
+										
 		lblRucPedido = new JLabel("RUC pedido");
 		lblRucPedido.setBounds(10, 46, 119, 14);
 		panelPedido.add(lblRucPedido);
-
+																		
 		panelPropuesta = new JPanel();
 		panelPropuesta.setBounds(329, 11, 389, 78);
 		contentPane.add(panelPropuesta);
-		panelPropuesta.setBorder(new TitledBorder(
-				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelPropuesta.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelPropuesta.setLayout(null);
-
+																		
 		lblNumeroPostulacion = new JLabel("ID Propuesta:");
 		lblNumeroPostulacion.setBounds(10, 22, 106, 14);
 		panelPropuesta.add(lblNumeroPostulacion);
-
+																				
 		txtPropuesta = new JTextField();
 		txtPropuesta.setBounds(10, 36, 106, 20);
 		panelPropuesta.add(txtPropuesta);
-
+																						
 		lblFechaProp = new JLabel("FECHA:");
 		lblFechaProp.setBounds(138, 22, 53, 14);
 		panelPropuesta.add(lblFechaProp);
-
+																								
 		dcFechaProp = new JDateChooser();
 		dcFechaProp.setBounds(138, 36, 124, 20);
 		panelPropuesta.add(dcFechaProp);
-
+		
 		txtEstado = new JTextField();
 		txtEstado.setBounds(272, 27, 106, 29);
 		panelPropuesta.add(txtEstado);
 		txtEstado.setColumns(10);
-
+		
 		lblEstado_1 = new JLabel("ESTADO");
 		lblEstado_1.setBounds(272, 13, 67, 14);
 		panelPropuesta.add(lblEstado_1);
-
+																										
 		btnNuevo = new JButton("Nuevo");
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(379, 100, 89, 23);
+		btnNuevo.setBounds(20, 137, 89, 23);
 		contentPane.add(btnNuevo);
 		cboPedido.addItemListener(this);
+		btnBuscar.addActionListener(this);
 
 		limpiar();
 	}
@@ -238,16 +273,17 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 		ArrayList<Propuesta> list = gProp.listarPropuestas();
 
+
 		@SuppressWarnings("resource")
 		Formatter ft = new Formatter();
-
+		
 		if (list.size() == 0) {
 			txtPropuesta.setText("PR001");
 		} else {
 			String idProp = list.get(list.size() - 1).getCodPropuesta();
 
 			int correlativo = Integer.parseInt(idProp.substring(2)) + 1;
-
+			
 			txtPropuesta.setText("PR" + ft.format("%03d", correlativo));
 
 		}
@@ -264,17 +300,19 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		if (e.getSource() == btnActualizar) {
 			actionPerformedBtnActualizar(e);
 		}
+		if (e.getSource() == btnBuscar) {
+			actionPerformedBtnBuscar(e);
+		}
 	}
 
 	private void cargarcboPedidos() {
 		// 1. Obtener el resultado del proceso -- listar
-		ArrayList<Pedido> list = gPed.listarPedidoConParticipantes();
+		ArrayList<Pedido> list = gPed.listarPedido();
 		// 2. Validar el resultado del proceso
-
-		// 2.1. Limpiar el cbo
-		cboPedido.removeAllItems();
-		;
-
+		
+		// 2.1. Limpiar el cbo 
+		cboPedido.removeAllItems();;
+		
 		if (list.size() == 0) {
 			Tool.mensajeError(this, "Lista vacía");
 		} else {
@@ -294,7 +332,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		if (list.size() == 0) {
 			// Tool.mensajeError(null, "Lista vacía");
 		} else {
-			cboParticipante.addItem("Seleccione...");
+			cboParticipante.addItem("Seleccione ... ");
 			for (Participante par : list) {
 				cboParticipante.addItem(par.getCodParticipante());
 			}
@@ -302,15 +340,8 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 	}
 
-	private void cargaRucPedido() {
-		Pedido p = gPed.buscarXIdPedido(getCodigoPedido());
-
-		if (p != null) {
-			txtRucPedido.setText(p.getRuc());
-		} else {
-			txtRucPedido.setText("");
-		}
-
+	protected void actionPerformedBtnBuscar(ActionEvent e) {
+		buscarPropuesta();
 	}
 
 	private String getCodigo() {
@@ -318,22 +349,16 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	}
 
 	private String getCodigoParticipante() {
-		try {
-			return cboParticipante.getSelectedItem().toString();
-		} catch (NullPointerException e) {
-			return null;
-		}
-
+		return cboParticipante.getSelectedItem().toString();
 	}
 
 	private String getCodigoPedido() {
-
-		/*
-		 * Valor del tipo string en ves de ToString para evitar conflicto al momento de
-		 * pasar datos al cboParticipante,
-		 */
-
-		return (String) cboPedido.getSelectedItem();
+		
+		/*Valor del tipo string en ves de
+		 * ToString para evitar conflicto al
+		 * momento de pasar datos al cboParticipante,*/
+		
+		return (String)cboPedido.getSelectedItem();
 	}
 
 	private String getEstado() {
@@ -361,28 +386,17 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		// 1 obtener el codigo ingresado
 		codigo = getCodigoParticipante();
 		// Validar
-		if (codigo == null || codigo == "Seleccione...") {
-			txtPropuesta.setText("");
-			txtEstado.setText("REGISTRADO");
-			dcFechaProp.setDate(null);
-			txtPropTecnica.setText("");
-			txtPropEconomica.setText("");
-			correlativo();
+		if (codigo == null) {
 			return;
 		} else {
 			// llamar al proceso
 			Propuesta prop = gProp.buscarPropuesta(codigo);
 			// Validar el resultado del proceso
 			if (prop == null) {
-				Tool.mensajeError(this, "Participante no cuenta con propuesta");
-				txtPropuesta.setText("");
-				txtEstado.setText("REGISTRADO");
-				dcFechaProp.setDate(null);
-				txtPropTecnica.setText("");
-				txtPropEconomica.setText("");
-				correlativo();
+				Tool.mensajeError(this, "Propuesta no existe");
 			} else {
-				txtPropuesta.setText(prop.getCodPedido());
+				cboPedido.setSelectedItem(prop.getCodPedido());
+				cboParticipante.setSelectedItem(prop.getCodParticipante());
 				txtPropTecnica.setText(prop.getPropTecnica());
 				txtPropEconomica.setText(prop.getPropEconomica());
 				txtEstado.setText(prop.getEstado());
@@ -475,9 +489,6 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	}
 
 	public void itemStateChanged(ItemEvent e) {
-		if (e.getSource() == cboParticipante) {
-			itemStateChangedCboParticipante(e);
-		}
 		if (e.getSource() == cboPedido) {
 			itemStateChangedCboPedido(e);
 		}
@@ -485,15 +496,13 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 	protected void itemStateChangedCboPedido(ItemEvent e) {
 		cargarcboParticipantes();
-		cargaRucPedido();
 	}
-
-	/* REVISA RICARDO */
+	
+	/*REVISA RICARDO */
 	protected void actionPerformedBtnNuevo(ActionEvent e) {
 		limpiar();
-
+		
 	}
-
 	private void limpiar() {
 
 		txtEstado.setText("REGISTRADO");
@@ -502,38 +511,12 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtRucPedido.setEditable(false);
 		txtEntidadParti.setEditable(false);
 		txtRucParti.setEditable(false);
-		dcFechaProp.setDate(new Date());
-		txtRucPedido.setText("");
-		txtEntidadParti.setText("");
-		txtRucParti.setText("");
-		dcFechaProp.setDate(new Date());
-		/* ESTOS METODOS ESTABAN EN EL CONSTRUCTOR */
-		/*
-		 * EL METODO LIMPIAR TENDRA LOS METODOS QUE SE INICIALIZAR Y TAMBIEN DENTRO DEL
-		 * BOTON NUEVO
-		 */
-
+		/*ESTOS METODOS ESTABAN EN EL CONSTRUCTOR*/
+		/*EL METODO LIMPIAR TENDRA LOS METODOS QUE SE 
+		 * INICIALIZAR Y TAMBIEN DENTRO DEL BOTON NUEVO*/
+		
 		cargarcboPedidos();
 		correlativo();
 	}
-
-	protected void itemStateChangedCboParticipante(ItemEvent e) {
-		if (e.getStateChange() == ItemEvent.SELECTED) {
-			buscarDatosParticipante();
-			buscarPropuesta();
-		}
-
-	}
-
-	private void buscarDatosParticipante() {
-		Participante p = gPart.buscarXIdParticipante(getCodigoParticipante());
-		if (p != null) {
-			txtEntidadParti.setText(p.getEntidad());
-			txtRucParti.setText(p.getRuc());
-		} else {
-			txtEntidadParti.setText("");
-			txtRucParti.setText("");
-		}
-		
-	}
+	
 }

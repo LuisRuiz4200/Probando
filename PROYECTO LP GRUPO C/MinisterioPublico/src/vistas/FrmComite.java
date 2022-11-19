@@ -310,9 +310,9 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	}
 	
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
-		ArrayList <Comite> list = comiDao.buscarXIdMiembro(leerIdMiembro());
+ArrayList <Comite> list = comiDao.buscarXIdMiembro(txtIdMiembro.getText().trim());
 		
-		if (list.size()==0) {
+		if (list.equals("[]")) {
 			Tool.mensajeError(this, "El ID ingresado no se encuentra registrado");
 		}else {
 			
@@ -327,7 +327,8 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 			}
 			
 		}
-			
+		
+		System.out.println("" + list);		
 	}
 	
 	protected void actionPerformedBtnNuevo(ActionEvent e) {

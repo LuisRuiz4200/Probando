@@ -325,7 +325,7 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 				Tool.mensajeError(this, "Error al registrar puntajes");
 			}else {
 				Tool.mensajeExito(this,"Puntajes registrados !");
-				estadoPropuesta ("EVALUADO");
+				estadoPropuesta ("EVALUACION");
 				cargarTablaEvaluacionPropuesta();
 			}
 			
