@@ -15,8 +15,14 @@ import clases.*;
 import com.toedter.calendar.JDateChooser;
 
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 @SuppressWarnings("serial")
 public class FrmApelacion extends JInternalFrame implements ActionListener {
@@ -29,18 +35,20 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 	private JComboBox <Object> cboPropuesta;
 	private JDateChooser dcFechaApelacion;
 	private JEditorPane txtDescripcion;
-	private JComboBox <Object> cboEstado;
 	private JButton btnRegistrar;
-	private JButton btnModificar;
 	private JScrollPane spDescripcion;
 	private JTextField txtIdApelacion;
-	private JLabel lblCodigo;
 	
 	private PropuestaDAO propDao;
 	private ApelacionDAO apeDao;
 	private JButton btnBuscar;
-	private JButton btnEliminar;
 	private JButton btnLimpiar;
+	private JLabel lblCodigo_1;
+	private JPanel panelPedido;
+	private JPanel panelParticipante;
+	private JLabel lblEstadoDePropuesta;
+	private JTextField txtEstado;
+	private JTextField txtEstado1;
 
 	/**
 	 * Launch the application.
@@ -63,7 +71,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 	 */
 	public FrmApelacion() {
 		setTitle("Apelacion");
-		setBounds(100, 100, 687, 409);
+		setBounds(100, 100, 700, 409);
 		
 		setClosable(true);
 		setMaximizable(true);
@@ -75,29 +83,9 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		lblPropuesta = new JLabel("ID Propuesta:");
-		lblPropuesta.setBounds(10, 11, 140, 14);
-		contentPane.add(lblPropuesta);
-		
-		lblFechaApelacion = new JLabel("Fecha de la Apelación:");
-		lblFechaApelacion.setBounds(10, 119, 140, 14);
-		contentPane.add(lblFechaApelacion);
-		
 		lblDescripcion = new JLabel("Descripción:");
 		lblDescripcion.setBounds(309, 11, 109, 14);
 		contentPane.add(lblDescripcion);
-		
-		lblEstado = new JLabel("Estado de Apelación:");
-		lblEstado.setBounds(160, 12, 123, 14);
-		contentPane.add(lblEstado);
-		
-		cboPropuesta = new JComboBox<Object>();
-		cboPropuesta.setBounds(10, 31, 123, 22);
-		contentPane.add(cboPropuesta);
-		
-		dcFechaApelacion = new JDateChooser();
-		dcFechaApelacion.setBounds(10, 144, 123, 20);
-		contentPane.add(dcFechaApelacion);
 		
 		spDescripcion = new JScrollPane();
 		spDescripcion.setBounds(310, 36, 338, 323);
@@ -106,44 +94,82 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		
 		txtDescripcion = new JEditorPane();
 		spDescripcion.setViewportView(txtDescripcion);
-	
-		cboEstado = new JComboBox<Object>();
-		cboEstado.setModel(new DefaultComboBoxModel<Object>(new String[] {"Seleccionar", "En Proceso",  "Aceptado", "Rechazado"}));
-		cboEstado.setBounds(160, 30, 123, 22);
-		contentPane.add(cboEstado);
 		
 		
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(10, 234, 77, 23);
+		btnRegistrar.setBounds(62, 320, 89, 23);
 		getContentPane().add(btnRegistrar);
 		
-		btnModificar = new JButton("Modificar");
-		btnModificar.addActionListener(this);
-		btnModificar.setBounds(107, 234, 77, 23);
-		getContentPane().add(btnModificar);
+		panelPedido = new JPanel();
+		panelPedido.setLayout(null);
+		panelPedido.setOpaque(false);
+		panelPedido.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "APELACION", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelPedido.setBounds(10, 154, 284, 147);
+		contentPane.add(panelPedido);
+		
+		lblCodigo_1 = new JLabel("ID Apelacion:");
+		lblCodigo_1.setBounds(10, 21, 83, 14);
+		panelPedido.add(lblCodigo_1);
 		
 		txtIdApelacion = new JTextField();
-		txtIdApelacion.setBounds(10, 83, 123, 20);
-		contentPane.add(txtIdApelacion);
+		txtIdApelacion.setBounds(10, 46, 123, 20);
+		panelPedido.add(txtIdApelacion);
 		
-		lblCodigo = new JLabel("ID Apelacion:");
-		lblCodigo.setBounds(10, 63, 140, 14);
-		contentPane.add(lblCodigo);
-		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(178, 82, 89, 23);
-		contentPane.add(btnBuscar);
-		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.addActionListener(this);
-		btnEliminar.setBounds(206, 234, 89, 23);
-		contentPane.add(btnEliminar);
-		
-		btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.addActionListener(this);
-		btnLimpiar.setBounds(178, 141, 89, 23);
-		contentPane.add(btnLimpiar);
+		lblEstado = new JLabel("Estado de Apelación:");
+		lblEstado.setBounds(151, 21, 123, 14);
+		panelPedido.add(lblEstado);
+			
+			lblFechaApelacion = new JLabel("Fecha de la Apelación:");
+			lblFechaApelacion.setBounds(10, 77, 142, 14);
+			panelPedido.add(lblFechaApelacion);
+			
+			dcFechaApelacion = new JDateChooser();
+			dcFechaApelacion.setBounds(10, 102, 123, 20);
+			panelPedido.add(dcFechaApelacion);
+			
+			txtEstado1 = new JTextField();
+			txtEstado1.setEditable(false);
+			txtEstado1.setText("REGISTRADO");
+			txtEstado1.setBounds(151, 46, 113, 20);
+			panelPedido.add(txtEstado1);
+			txtEstado1.setColumns(10);
+			
+			panelParticipante = new JPanel();
+			panelParticipante.setLayout(null);
+			panelParticipante.setOpaque(false);
+			panelParticipante.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panelParticipante.setBackground(SystemColor.menu);
+			panelParticipante.setBounds(10, 11, 284, 132);
+			contentPane.add(panelParticipante);
+			
+			lblPropuesta = new JLabel("ID Propuesta:");
+			lblPropuesta.setBounds(10, 26, 140, 14);
+			panelParticipante.add(lblPropuesta);
+			
+			cboPropuesta = new JComboBox<Object>();
+			cboPropuesta.setBounds(10, 43, 123, 22);
+			panelParticipante.add(cboPropuesta);
+			
+			btnBuscar = new JButton("Buscar");
+			btnBuscar.addActionListener(this);
+			btnBuscar.setBounds(166, 43, 89, 23);
+			panelParticipante.add(btnBuscar);
+			
+			lblEstadoDePropuesta = new JLabel("Estado de Propuesta:");
+			lblEstadoDePropuesta.setBounds(10, 76, 123, 14);
+			panelParticipante.add(lblEstadoDePropuesta);
+			
+			txtEstado = new JTextField();
+			txtEstado.setEditable(false);
+			txtEstado.setColumns(10);
+			txtEstado.setBounds(10, 99, 106, 22);
+			panelParticipante.add(txtEstado);
+			
+			btnLimpiar = new JButton("Limpiar");
+			btnLimpiar.setBounds(180, 320, 89, 23);
+			contentPane.add(btnLimpiar);
+			btnLimpiar.addActionListener(this);
 		
 		propDao = new PropuestaDAO();
 		apeDao = new ApelacionDAO();
@@ -154,15 +180,12 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnBuscar) {
+			actionPerformedBtnBuscar(e);
+		}
 		if (e.getSource() == btnLimpiar) {
 			actionPerformedBtnLimpiar(e);
 		}
-		if (e.getSource() == btnEliminar) {
-			actionPerformedBtnEliminar(e);
-		}
-		if (e.getSource() == btnModificar) {
-			actionPerformedBtnModificar(e);
-		} 
 		if (e.getSource() == btnRegistrar) {
 			actionPerformedBtnRegistrar(e);
 		}
@@ -190,44 +213,6 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 			}
 		}
 	}
-    
-	protected void actionPerformedBtnModificar(ActionEvent e) {
-		String idApelacion = leerIdApelacion();
-		String idPropuesta = leerIdPropuesta();
-		String fechPropuesta = leerFecha();
-		String descripcion = leerDescripcion();
-		String estado = leerEstado();
-		
-		if ( idApelacion == null || idPropuesta == null || fechPropuesta == null ||
-				descripcion == null || estado == null ) {
-			return; 
-		} else {
-			Apelacion ape = new Apelacion (
-					idApelacion, idPropuesta, fechPropuesta, descripcion, descripcion   
-					);
-			int ok = apeDao.modificarApelacion(ape);
-			if (ok == 0) {
-				Tool.mensajeError(this, "Error de registro");
-			}else {
-				Tool.mensajeExito(this, "Registro exitoso");
-				correlativo();
-			}
-		}
-	}
-	
-	protected void actionPerformedBtnEliminar(ActionEvent e) {
-		String codApelacion =  leerIdApelacion();
-		String codPropuesta = leerIdPropuesta();
-		
-		int ok = apeDao.eliminarApelacion (codApelacion, codPropuesta);
-		
-		if(ok == 0) {
-			Tool.mensajeError(this, "Error en eliminar!");
-		}else {
-			Tool.mensajeExito(this, "Se eliminó un participante");
-			
-		}
-	}
 	
 	protected void actionPerformedBtnLimpiar(ActionEvent e) {
 		limpiar();
@@ -250,7 +235,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 
 	private String leerEstado() {
 	    String res=null;
-		res = cboEstado.getSelectedItem().toString();
+		res = txtEstado1.getText().trim();
 		
 		return res;
 	}
@@ -290,7 +275,6 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		txtDescripcion.setText("");
 		dcFechaApelacion.setDate(new Date());
 		cboPropuesta.setSelectedIndex(0);
-		cboEstado.setSelectedIndex(0);
 	
     }
     private void correlativo() {
@@ -309,5 +293,26 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 			txtIdApelacion.setText("AP"+ft.format("%03d", n));
           }
     }
+	protected void actionPerformedBtnBuscar(ActionEvent e) {
+		String codigo;
+		// 1 obtener el codigo ingresado
+		codigo = getCodigoPropuesta();
+		// Validar
+				if (codigo == null) {
+					return;
+				} else {
+					// llamar al proceso
+					Propuesta prop = propDao.buscarXIdPropuesta(codigo);
+					// Validar el resultado del proceso
+					if (prop == null) {
+						Tool.mensajeError(this, "Propuesta no existe");
+					} else {
+						txtEstado.setText(prop.getEstado());						
+					}
+				}
+	}
 
+	private String getCodigoPropuesta() {
+		return cboPropuesta.getSelectedItem().toString();
+	}
 }
