@@ -8,7 +8,6 @@ import utils.Tool;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
@@ -34,13 +33,15 @@ public class FrmLogin extends JFrame implements ActionListener{
 		
 		setTitle("LOGIN");
 		setBounds(100,100,461,275);
+		setLocationRelativeTo(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.getContentPane().setLayout(null);
 		
 		lblUsuario = new JLabel("USUARIO");
+		lblUsuario.setIcon(new ImageIcon(FrmLogin.class.getResource("/imagenes/login/iconoLoginUsuario32x32.png")));
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblUsuario.setBounds(10, 24, 106, 14);
+		lblUsuario.setBounds(10, 11, 136, 32);
 		getContentPane().add(lblUsuario);
 		
 		txtUsuario = new JTextField();
@@ -49,12 +50,13 @@ public class FrmLogin extends JFrame implements ActionListener{
 		txtUsuario.setColumns(10);
 		
 		txtPassword = new JPasswordField();
-		txtPassword.setBounds(10, 106, 171, 20);
+		txtPassword.setBounds(10, 117, 171, 20);
 		getContentPane().add(txtPassword);
 		
 		lblPassword = new JLabel("PASSWORD");
+		lblPassword.setIcon(new ImageIcon(FrmLogin.class.getResource("/imagenes/login/iconoLoginPassword32x32.png")));
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblPassword.setBounds(10, 81, 106, 14);
+		lblPassword.setBounds(10, 80, 192, 32);
 		getContentPane().add(lblPassword);
 		
 		btnIngresar = new JButton("Ingresar");

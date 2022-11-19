@@ -1,10 +1,28 @@
 package vistas;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Formatter;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -16,20 +34,6 @@ import mantenimiento.PedidoDAO;
 import mantenimiento.PropuestaDAO;
 import utils.Tool;
 
-import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Formatter;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import java.awt.SystemColor;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
-import java.awt.Color;
-
 @SuppressWarnings("serial")
 public class FrmPropuesta extends JInternalFrame implements ActionListener, ItemListener {
 
@@ -40,13 +44,10 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private JLabel lblPedido;
 	private JLabel lblNumeroPostulacion;
 	private JTextField txtPropuesta;
-	private DefaultTableModel model;
 	private JEditorPane txtPropTecnica;
 	private JEditorPane txtPropEconomica;
 	private JDateChooser dcFechaProp;
 	private JLabel lblFechaProp;
-	private final ButtonGroup buttonGroupPT = new ButtonGroup();
-	private final ButtonGroup buttonGroupPE = new ButtonGroup();
 
 	private PropuestaDAO gProp = new PropuestaDAO();
 	private PedidoDAO gPed = new PedidoDAO();
@@ -114,17 +115,6 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		lblPropuestaEcono = new JLabel("Propuesta Economica:");
 		lblPropuestaEcono.setBounds(361, 216, 128, 14);
 		contentPane.add(lblPropuestaEcono);
-
-		// crear columnas de la tabla
-		// Instanciar un objeto para la estructura de la tabla
-		model = new DefaultTableModel();
-		model.addColumn("Nombre Postor");
-		model.addColumn("Compañia");
-		model.addColumn("Distrito");
-		model.addColumn("RUC");
-		model.addColumn("Prop. Técnica");
-		model.addColumn("Prop. Económica");
-		model.addColumn("Estado");
 
 		txtPropTecnica = new JEditorPane();
 		txtPropTecnica.setBounds(10, 243, 338, 189);
@@ -512,11 +502,11 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtRucPedido.setEditable(false);
 		txtEntidadParti.setEditable(false);
 		txtRucParti.setEditable(false);
-		
+		dcFechaProp.setDate(new Date());
 		txtRucPedido.setText("");
 		txtEntidadParti.setText("");
 		txtRucParti.setText("");
-		dcFechaProp.setDate(null);
+		dcFechaProp.setDate(new Date());
 		/* ESTOS METODOS ESTABAN EN EL CONSTRUCTOR */
 		/*
 		 * EL METODO LIMPIAR TENDRA LOS METODOS QUE SE INICIALIZAR Y TAMBIEN DENTRO DEL
@@ -544,5 +534,6 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 			txtEntidadParti.setText("");
 			txtRucParti.setText("");
 		}
+		
 	}
 }

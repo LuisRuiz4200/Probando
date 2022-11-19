@@ -16,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class FrmPrincipal extends JFrame implements ActionListener  {
@@ -38,7 +37,6 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	private JMenuItem mniApelacion;
 	private JMenuItem mniPedido;
 	private JMenuItem mniConsultaParticipante;
-	private JMenuItem mniReporteParticipantes;
 	private JMenuItem mniQuienesSomos;
 	private JMenuItem mniActasPropuestas;
 	private JMenuItem mntmComite;
@@ -154,10 +152,6 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mniConsultaPropusta.addActionListener(this);
 		mnConsulta.add(mniConsultaPropusta);
 		
-		mniReporteParticipantes = new JMenuItem("Reporte de participantes");
-		mniReporteParticipantes.addActionListener(this);
-		mnReporte.add(mniReporteParticipantes);
-		
 		mniReportePropuesta = new JMenuItem("Reporte de propuestas");
 		mniReportePropuesta.addActionListener(this);
 		mnReporte.add(mniReportePropuesta);
@@ -206,9 +200,6 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		}
 		if(e.getSource()==mniConsultaParticipante) {
 			actionPerformedMniConsultaParticipante(e);
-		}
-		if(e.getSource()==mniReporteParticipantes) {
-			actionPerformedMniReportePedido(e);
 		}
 		if(e.getSource()==mniQuienesSomos) {
 			actionPerformedMniQuienesSomos(e);
@@ -284,7 +275,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	
 	protected void actionPerformedMniConsultaPropusta(ActionEvent e) {
 		
-		FrmReportePropuesta conProp = new FrmReportePropuesta();
+		FrmConsultaPropuesta conProp = new FrmConsultaPropuesta();
 		conProp.setVisible(true);
 		escritorio.add(conProp).setLocation(0,0);
 		conProp.toFront();
@@ -313,16 +304,6 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		form.setVisible(true);
 		escritorio.add(form).setLocation(0,0);
 		form.toFront();
-	}
-	
-	
-	//REPORTE
-	
-	protected void actionPerformedMniReportePedido(ActionEvent e) {
-		FrmReportePedido reporContra = new FrmReportePedido ();
-		reporContra.setVisible(true);
-		escritorio.add(reporContra).setLocation(0,0);
-		reporContra.toFront();
 	}
 	protected void actionPerformedMniReportePropuesta(ActionEvent e) {
 		FrmReportePropuesta reporProp = new FrmReportePropuesta();
