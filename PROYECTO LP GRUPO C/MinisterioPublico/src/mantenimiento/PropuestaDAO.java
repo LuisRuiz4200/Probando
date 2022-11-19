@@ -22,7 +22,7 @@ public class PropuestaDAO implements PropuestaInterfacesDAO {
 		try {
 			con = MySQLConexion8.getConexion();
 			// paso 2: Instruccion SQL - consulta
-			String sql = "select * from tb_propuesta where codigo_parti = ?";
+			String sql = "select * from tb_propuesta where id_pedido = ?";
 			// paso 3
 			pstm = con.prepareStatement(sql);
 			// paso 4
