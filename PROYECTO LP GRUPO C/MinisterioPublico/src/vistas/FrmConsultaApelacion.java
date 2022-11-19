@@ -77,6 +77,7 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 641, 461);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		
 		setClosable(true);
@@ -88,36 +89,36 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 		
 		btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(this);
-		btnConsultar.setBounds(380, 11, 89, 22);
+		btnConsultar.setBounds(155, 73, 89, 22);
 		contentPane.add(btnConsultar);
 		
 		lblIdParticipante = new JLabel("ID Apelacion :");
 		lblIdParticipante.setFont(new Font("Bahnschrift", Font.PLAIN, 13));
-		lblIdParticipante.setBounds(107, 16, 97, 14);
+		lblIdParticipante.setBounds(10, 59, 97, 14);
 		contentPane.add(lblIdParticipante);
 		
 		cboApelacion = new JComboBox<Object>();
-		cboApelacion.setBounds(214, 11, 138, 22);
+		cboApelacion.setBounds(10, 73, 138, 22);
 		contentPane.add(cboApelacion);
 		
 		txtCuadro2 = new JTextArea();
 		txtCuadro2.setEditable(false);
-		txtCuadro2.setBounds(20, 282, 595, 138);
+		txtCuadro2.setBounds(254, 74, 361, 346);
 		contentPane.add(txtCuadro2);
 		
 		txtCuadro1 = new JTextArea();
 		txtCuadro1.setEditable(false);
-		txtCuadro1.setBounds(20, 74, 595, 179);
+		txtCuadro1.setBounds(11, 198, 224, 187);
 		contentPane.add(txtCuadro1);
 		
 		lblPedido = new JLabel("DESCRIPCION DE LA APELACION:");
 		lblPedido.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblPedido.setBounds(20, 264, 233, 14);
+		lblPedido.setBounds(255, 49, 233, 14);
 		contentPane.add(lblPedido);
 		
 		lblApelacion = new JLabel("DATOS GENERALES: ");
 		lblApelacion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblApelacion.setBounds(20, 49, 233, 14);
+		lblApelacion.setBounds(11, 173, 233, 14);
 		contentPane.add(lblApelacion);
 		
 		

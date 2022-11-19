@@ -208,7 +208,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 				descripcion == null || estado ==  null ) {
 			return; 
 		} else {
-			Apelacion ape = new Apelacion (idPropuesta, idApelacion, 
+			Apelacion ape = new Apelacion (idApelacion,idPropuesta, 
 					fechPropuesta, descripcion, estado   
 					);
 			int ok = apeDao.resgistrarApelacion(ape);
