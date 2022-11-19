@@ -1,7 +1,7 @@
 package clases;
 
 public class Comite {
-   // incializamos entradas 
+   //INCIALIZAMOS ENTRADAS 
    private String codPedido;
    private String codMiembro;
    private String nombMiembro;
@@ -10,12 +10,11 @@ public class Comite {
    private String funcion;
    private String Dependencia;
 
-   
-   //Constructor vacio
+   //CONSTRUCTOR VACIO
    public Comite() {
 	}
    
-   //Constructor
+   //CONSTRUCTOR
    public Comite(String codPedido, String codMiembro, String nombMiembro, String apeMiembro, String dni, String funcion,
 			String dependencia) {
 		super();
@@ -28,63 +27,47 @@ public class Comite {
 		this.Dependencia = dependencia;
 	}
    
-   // Set/Get
-   
+   //SET/GET
    public String getCodPedido() {
 		return codPedido;
 	}
-
 	public void setCodPedido(String codPedido) {
 		this.codPedido = codPedido;
 	}
-
 	public String getCodMiembro() {
 		return codMiembro;
 	}
-
 	public void setCodMiembro (String codMiembro) {
 		this.codMiembro = codMiembro;
 	}
-
 	public String getNombMiembro() {
 		return nombMiembro;
 	}
-
 	public void setNombMiembro(String nombMiembro) {
 		this.nombMiembro = nombMiembro;
 	}
-
 	public String getApeMiembro() {
 		return apeMiembro;
 	}
-
 	public void setApeMiembro(String apeMiembro) {
 		this.apeMiembro = apeMiembro;
 	}
-
 	public String getDni() {
 		return dni;
 	}
-
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-
 	public String getFuncion() {
 		return funcion;
 	}
-
 	public void setFuncion(String funcion) {
 		this.funcion = funcion;
 	}
-
 	public String getDependencia() {
 		return Dependencia;
 	}
-
 	public void setDependencia(String dependencia) {
 		Dependencia = dependencia;
 	}
-   
-   
 }
