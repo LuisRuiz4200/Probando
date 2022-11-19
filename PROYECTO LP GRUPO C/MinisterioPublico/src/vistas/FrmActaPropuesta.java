@@ -72,11 +72,7 @@ public class FrmActaPropuesta extends JInternalFrame {
 
 		panelPropuesta = new JPanel();
 		panelPropuesta.setLayout(null);
-		panelPropuesta.setBorder(new TitledBorder(
-
-				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA",
-
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelPropuesta.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA",TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelPropuesta.setBounds(17, 11, 291, 114);
 		getContentPane().add(panelPropuesta);
 
@@ -84,81 +80,77 @@ public class FrmActaPropuesta extends JInternalFrame {
 		lblNumeroPostulacion.setBounds(10, 21, 106, 14);
 		panelPropuesta.add(lblNumeroPostulacion);
 		
-				cboIdPropuesta = new JComboBox<Object>();
-				cboIdPropuesta.setBounds(10, 34, 106, 22);
-				panelPropuesta.add(cboIdPropuesta);
+		cboIdPropuesta = new JComboBox<Object>();
+		cboIdPropuesta.setBounds(10, 34, 106, 22);
+		panelPropuesta.add(cboIdPropuesta);
 				
-						lblFechaPropuesta = new JLabel("Fecha:");
-						lblFechaPropuesta.setBounds(150, 21, 95, 14);
-						panelPropuesta.add(lblFechaPropuesta);
+		lblFechaPropuesta = new JLabel("Fecha:");
+		lblFechaPropuesta.setBounds(150, 21, 95, 14);
+		panelPropuesta.add(lblFechaPropuesta);
 						
-								dcFechaProp = new JDateChooser();
-								dcFechaProp.setBounds(150, 34, 124, 22);
-								panelPropuesta.add(dcFechaProp);
+		dcFechaProp = new JDateChooser();
+		dcFechaProp.setBounds(150, 34, 124, 22);
+		panelPropuesta.add(dcFechaProp);
 								
-										lblIdPedido = new JLabel("ID Pedido:");
-										lblIdPedido.setBounds(10, 65, 106, 14);
-										panelPropuesta.add(lblIdPedido);
+		lblIdPedido = new JLabel("ID Pedido:");
+		lblIdPedido.setBounds(10, 65, 106, 14);
+		panelPropuesta.add(lblIdPedido);
 										
-												txtIdPedido = new JTextField();
-												txtIdPedido.setBounds(10, 81, 106, 22);
-												panelPropuesta.add(txtIdPedido);
-												txtIdPedido.setEditable(false);
-												txtIdPedido.setColumns(10);
+		txtIdPedido = new JTextField();
+		txtIdPedido.setBounds(10, 81, 106, 22);
+		panelPropuesta.add(txtIdPedido);
+		txtIdPedido.setEditable(false);
+		txtIdPedido.setColumns(10);
 												
-														lblEstado_1 = new JLabel("Estado:");
-														lblEstado_1.setBounds(150, 65, 67, 14);
-														panelPropuesta.add(lblEstado_1);
+		lblEstado_1 = new JLabel("Estado:");
+		lblEstado_1.setBounds(150, 65, 67, 14);
+		panelPropuesta.add(lblEstado_1);
 														
-																txtEstadoProp = new JTextField();
-																txtEstadoProp.setBounds(150, 81, 124, 22);
-																panelPropuesta.add(txtEstadoProp);
-																txtEstadoProp.setText("REGISTRADO");
-																txtEstadoProp.setEditable(false);
-																txtEstadoProp.setColumns(10);
+		txtEstadoProp = new JTextField();
+		txtEstadoProp.setBounds(150, 81, 124, 22);
+		panelPropuesta.add(txtEstadoProp);
+		txtEstadoProp.setText("REGISTRADO");
+		txtEstadoProp.setEditable(false);
+		txtEstadoProp.setColumns(10);
 
 		panelPropuesta_1 = new JPanel();
 		panelPropuesta_1.setLayout(null);
-		panelPropuesta_1.setBorder(new TitledBorder(
-
-				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "ACTA",
-
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelPropuesta_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "ACTA",TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelPropuesta_1.setBounds(317, 11, 291, 114);
 		getContentPane().add(panelPropuesta_1);
 		
-				txtIdActa = new JTextField();
-				txtIdActa.setBounds(10, 34, 106, 20);
-				panelPropuesta_1.add(txtIdActa);
-				txtIdActa.setColumns(10);
+		txtIdActa = new JTextField();
+		txtIdActa.setBounds(10, 34, 106, 20);
+		panelPropuesta_1.add(txtIdActa);
+		txtIdActa.setColumns(10);
 				
-						lblCodigo = new JLabel("ID Acta:");
-						lblCodigo.setBounds(10, 21, 46, 14);
-						panelPropuesta_1.add(lblCodigo);
+		lblCodigo = new JLabel("ID Acta:");
+		lblCodigo.setBounds(10, 21, 46, 14);
+		panelPropuesta_1.add(lblCodigo);
 						
-								lblFecha = new JLabel("Fecha:");
-								lblFecha.setBounds(154, 21, 46, 14);
-								panelPropuesta_1.add(lblFecha);
+		lblFecha = new JLabel("Fecha:");
+		lblFecha.setBounds(154, 21, 46, 14);
+		panelPropuesta_1.add(lblFecha);
 								
-										dcFechaActa = new JDateChooser();
-										dcFechaActa.setBounds(154, 34, 124, 20);
-										panelPropuesta_1.add(dcFechaActa);
+		dcFechaActa = new JDateChooser();
+		dcFechaActa.setBounds(154, 34, 124, 20);
+		panelPropuesta_1.add(dcFechaActa);
 										
-												lblEstado = new JLabel("Estado:");
-												lblEstado.setBounds(10, 65, 65, 14);
-												panelPropuesta_1.add(lblEstado);
+		lblEstado = new JLabel("Estado:");
+		lblEstado.setBounds(10, 65, 65, 14);
+		panelPropuesta_1.add(lblEstado);
 												
-														cboEstadoActa = new JComboBox<Object>();
-														cboEstadoActa.setBounds(10, 81, 106, 22);
-														panelPropuesta_1.add(cboEstadoActa);
+		cboEstadoActa = new JComboBox<Object>();
+		cboEstadoActa.setBounds(10, 81, 106, 22);
+		panelPropuesta_1.add(cboEstadoActa);
 														
-														lblTipo = new JLabel("Tipo:");
-														lblTipo.setBounds(154, 65, 65, 14);
-														panelPropuesta_1.add(lblTipo);
+		lblTipo = new JLabel("Tipo:");
+		lblTipo.setBounds(154, 65, 65, 14);
+		panelPropuesta_1.add(lblTipo);
 														
-														cboTipoActa = new JComboBox<Object>();
-														cboTipoActa.setBounds(154, 81, 124, 22);
-														panelPropuesta_1.add(cboTipoActa);
+		cboTipoActa = new JComboBox<Object>();
+		cboTipoActa.setBounds(154, 81, 124, 22);
+		panelPropuesta_1.add(cboTipoActa);
 
 	}
 }
