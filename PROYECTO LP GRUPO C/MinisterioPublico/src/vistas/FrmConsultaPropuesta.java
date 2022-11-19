@@ -117,10 +117,12 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		tblPropuestas.setModel(model);
 		
 		txtPropTecnica = new JEditorPane();
+		txtPropTecnica.setEditable(false);
 		txtPropTecnica.setBounds(466, 88, 252, 128);
 		contentPane.add(txtPropTecnica);
 		
 		txtPropEconomica = new JEditorPane();
+		txtPropEconomica.setEditable(false);
 		txtPropEconomica.setBounds(466, 240, 252, 128);
 		contentPane.add(txtPropEconomica);
 		

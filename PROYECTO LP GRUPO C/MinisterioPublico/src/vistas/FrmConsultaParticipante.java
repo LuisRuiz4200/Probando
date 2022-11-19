@@ -29,6 +29,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 
 @SuppressWarnings({ "serial", "unused" })
 public class FrmConsultaParticipante extends JInternalFrame implements MouseListener, ActionListener {
@@ -74,8 +75,9 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 	public FrmConsultaParticipante() {
 		setTitle("Consulta de participantes");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 735, 433);
+		setBounds(100, 100, 735, 452);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		setClosable(true);
@@ -108,27 +110,39 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		contentPane.add(cboParticipante);
 		
 		txtPedido = new JTextArea();
-		txtPedido.setBounds(10, 85, 328, 134);
+		txtPedido.setBorder(new EmptyBorder(10, 10, 10, 10));
+		txtPedido.setEditable(false);
+		txtPedido.setLineWrap(true);
+		txtPedido.setBounds(368, 91, 328, 134);
 		contentPane.add(txtPedido);
 		
 		txtPropuesta = new JTextArea();
+		txtPropuesta.setBorder(new EmptyBorder(10, 10, 10, 10));
+		txtPropuesta.setEditable(false);
+		txtPropuesta.setLineWrap(true);
 		txtPropuesta.setBounds(10, 258, 330, 134);
 		contentPane.add(txtPropuesta);
 		
 		txtApelacion = new JTextArea();
-		txtApelacion.setBounds(379, 258, 330, 134);
+		txtApelacion.setBorder(new EmptyBorder(10, 10, 10, 10));
+		txtApelacion.setEditable(false);
+		txtApelacion.setLineWrap(true);
+		txtApelacion.setBounds(368, 258, 330, 134);
 		contentPane.add(txtApelacion);
 		
 		txtParticipante = new JTextArea();
-		txtParticipante.setBounds(377, 85, 330, 134);
+		txtParticipante.setBorder(new EmptyBorder(10, 10, 10, 10));
+		txtParticipante.setEditable(false);
+		txtParticipante.setLineWrap(true);
+		txtParticipante.setBounds(10, 91, 330, 134);
 		contentPane.add(txtParticipante);
 		
 		lblPedido = new JLabel("INFORMACION DEL PEDIDO");
-		lblPedido.setBounds(10, 60, 233, 14);
+		lblPedido.setBounds(368, 66, 233, 14);
 		contentPane.add(lblPedido);
 		
 		lblParticipante = new JLabel("INFORMACION DEL PARTICIPANTE");
-		lblParticipante.setBounds(379, 60, 233, 14);
+		lblParticipante.setBounds(12, 66, 233, 14);
 		contentPane.add(lblParticipante);
 		
 		lblPropuesta = new JLabel("INFORMACION DE LA PROPUESTA");
@@ -136,7 +150,7 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		contentPane.add(lblPropuesta);
 		
 		lblApelacion = new JLabel("INFORMACION DE LA APELACION");
-		lblApelacion.setBounds(379, 233, 233, 14);
+		lblApelacion.setBounds(368, 233, 233, 14);
 		contentPane.add(lblApelacion);
 		
 		
@@ -239,12 +253,12 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		if (part == null){
 			return;
 		}else {
-			
-			Tool.imprimir(txtParticipante,"PARTICIPANTE	: " +  part.getEntidad() );
-			Tool.imprimir(txtParticipante,"ID	: " +  part.getCodParticipante() );
-			Tool.imprimir(txtParticipante,"RUC	: " +  part.getRuc());
-			Tool.imprimir(txtParticipante,"TELEFONO	: " +  part.getTelefono() );
-			Tool.imprimir(txtParticipante,"ESTADO	: " + part.getEstado());
+
+			Tool.imprimir(txtParticipante,"ID PARTICIPANTE	: " +  part.getCodParticipante() );
+			Tool.imprimir(txtParticipante,"PARTICIPANTE		: " +  part.getEntidad() );
+			Tool.imprimir(txtParticipante,"RUC		: " +  part.getRuc());
+			Tool.imprimir(txtParticipante,"TELEFONO		: " +  part.getTelefono() );
+			Tool.imprimir(txtParticipante,"ESTADO		: " + part.getEstado());
 		}
 		
 	}
@@ -256,12 +270,12 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		if(ped == null) {
 			return;
 		}else {
-			
-			Tool.imprimir(txtPedido,"PEDIDO	: " +  ped.getEntidad() );
-			Tool.imprimir(txtPedido,"DESCRIPCION	: " +  ped.getDescripcion() );
-			Tool.imprimir(txtPedido,"ID	: " +  ped.getCodigo());
-			Tool.imprimir(txtPedido,"RUC	: " +  ped.getRuc());
-			Tool.imprimir(txtPedido,"ESTADO	: " + ped.getEstado());
+
+			Tool.imprimir(txtPedido,"ID PEDIDO		: " +  ped.getCodigo());
+			Tool.imprimir(txtPedido,"PEDIDO		: " +  ped.getEntidad() );
+			Tool.imprimir(txtPedido,"DESCRIPCION		: " +  ped.getDescripcion() );
+			Tool.imprimir(txtPedido,"RUC		: " +  ped.getRuc());
+			Tool.imprimir(txtPedido,"ESTADO		: " + ped.getEstado());
 		}
 		
 	}

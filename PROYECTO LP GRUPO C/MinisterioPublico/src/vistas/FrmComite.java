@@ -26,6 +26,7 @@ import mantenimiento.ComiteDAO;
 import mantenimiento.PedidoDAO;
 import utils.Tool;
 import java.awt.Font;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class FrmComite extends JInternalFrame implements ActionListener, MouseListener {
@@ -77,6 +78,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 763, 446);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
