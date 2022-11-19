@@ -199,6 +199,8 @@ select *  from tb_evaluacionpropuesta;
 
 delete  from tb_participantes;
 
+select * from tb_usuario;
+
 /*select ped.* from tb_pedido ped
 inner join  tb_participante parti on ped.id_ped = parti.id_ped
 where ped.id_ped = parti.id_ped group by id_ped;*/

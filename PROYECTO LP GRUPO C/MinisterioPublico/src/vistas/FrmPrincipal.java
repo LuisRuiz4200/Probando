@@ -44,6 +44,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	private JMenuItem mntmComite;
 	private JMenuItem mniConsultaPropusta;
 	private JMenuItem mniReportePropuesta;
+	private JMenuItem mniUsuario;
 	
 	
 	public static void main (String [] args) {
@@ -62,7 +63,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	public FrmPrincipal() {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmPrincipal.class.getResource("/imagenes/logo3.jpg")));
-		setTitle("FrmPrincipal");
+		setTitle("FrmPrincipal " + FrmLogin.user.getNombreUsuario());
 		setBounds(100,100,877,586);
 		setLocationRelativeTo(this);
 		
@@ -105,6 +106,10 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		
 		mniSalir = new JMenuItem("Salir");
 		mniSalir.addActionListener(this);
+		
+		mniUsuario = new JMenuItem("Gestion de usuarios");
+		mniUsuario.addActionListener(this);
+		mnArchivo.add(mniUsuario);
 		mnArchivo.add(mniSalir);
 		
 		mniResultadoPostulacion = new JMenuItem("Puntaje en la evaluacion de propuestas");
@@ -163,6 +168,9 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mniUsuario) {
+			actionPerformedMniUsuario(e);
+		}
 		if (e.getSource() == mniReportePropuesta) {
 			actionPerformedMniReportePropuesta(e);
 		}
@@ -225,6 +233,14 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		}*/
 	}
 	
+
+	protected void actionPerformedMniUsuario(ActionEvent e) {
+		FrmUsuario user = new FrmUsuario();
+		user.setVisible(true);
+		escritorio.add(user).setLocation(0,0);
+		user.toFront();
+	}
+	
 	//MANTENIMIENTO
 	
 	protected void actionPerformedMniPostulacion(ActionEvent e) {
@@ -281,12 +297,8 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	protected void actionPerformedMniResultadoPostulacion(ActionEvent e) {	
 		FrmPuntajePropuesta resPos= new FrmPuntajePropuesta();
 		resPos.setVisible(true);
-		if(JOptionPane.showConfirmDialog(this, "ERES DEL AREA CORRESPONDIENTE", "ACCESO", JOptionPane.YES_NO_OPTION,0)==0) {
-			escritorio.add(resPos).setLocation(0,0);
-			resPos.toFront();
-		} else {
-			JOptionPane.showMessageDialog(this, "ACCESO DENEGADO","ERROR",1);
-		}
+		escritorio.add(resPos).setLocation(0,0);
+		resPos.toFront();
 		
 	}
 	protected void actionPerformedMniSolucionApelacion(ActionEvent e) {

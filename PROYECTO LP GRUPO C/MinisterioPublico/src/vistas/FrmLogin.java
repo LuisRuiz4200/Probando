@@ -2,21 +2,25 @@ package vistas;
 
 import javax.swing.*;
 
+import clases.Usuario;
+import mantenimiento.UsuarioDAO;
 import utils.Tool;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class FrmLogin extends JFrame implements ActionListener{
 	private JLabel lblUsuario;
-	private JTextField txtUsuario;
+	private static JTextField txtUsuario;
 	private JPasswordField txtPassword;
 	private JLabel lblPassword;
 	private JButton btnIngresar;
 	private JButton btnCancelar;
-	
+	public static Usuario user = new Usuario();
+	private UsuarioDAO usuarioDao;
 	
 	
 	public static void main(String [] args) {
@@ -63,6 +67,10 @@ public class FrmLogin extends JFrame implements ActionListener{
 		btnCancelar.setBounds(122, 156, 89, 23);
 		getContentPane().add(btnCancelar);
 		
+		
+		usuarioDao = new UsuarioDAO();
+		
+		
 	}
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnCancelar) {
@@ -74,25 +82,34 @@ public class FrmLogin extends JFrame implements ActionListener{
 	}
 	protected void actionPerformedBtnIngresar(ActionEvent e) {
 		
-		String usuario = txtUsuario.getText();
+	
 		
 		@SuppressWarnings("deprecation")
 		String password = txtPassword.getText();
-		
+		String usuario = txtUsuario.getText();	
 	
 		
-		if (usuario.equals("luis") && password.equals("123")) {
+		user =  usuarioDao.validarAcceso(usuario, password);
+		
+		if (user == null) {
+			Tool.mensajeError(this,"Usuario y/o contraseña incorrecta");
+			return ;
+		}else {
+			Tool.mensajeExito(this,"Bienvenido " + user.getNombreUsuario());
 			FrmPrincipal form = new FrmPrincipal();
 			form.setVisible(true);
 			form.setLocationRelativeTo(this);
 			this.dispose();
-		}else {
-			Tool.mensajeError(this, "error de instancia");
 		}
 		
-		System.out.println(password);
 		
 	}
 	protected void actionPerformedBtnCancelar(ActionEvent e) {
+		limpiar();
+	}
+	
+	private void limpiar () {
+		txtUsuario.setText("");
+		txtPassword.setText("");
 	}
 }
