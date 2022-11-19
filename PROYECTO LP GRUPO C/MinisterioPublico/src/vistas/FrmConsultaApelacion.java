@@ -52,6 +52,7 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 	private JTextArea txtCuadro2;
 	private JLabel lblPedido;
 	private JLabel lblApelacion;
+	private JTextArea txtCuadro3;
 
 	/**
 	 * Launch the application.
@@ -75,7 +76,7 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 	public FrmConsultaApelacion() {
 		setTitle("Consulta de Apelaciones");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 641, 461);
+		setBounds(100, 100, 641, 521);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -89,37 +90,42 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 		
 		btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(this);
-		btnConsultar.setBounds(155, 73, 89, 22);
+		btnConsultar.setBounds(360, 12, 89, 22);
 		contentPane.add(btnConsultar);
 		
 		lblIdParticipante = new JLabel("ID Apelacion :");
 		lblIdParticipante.setFont(new Font("Bahnschrift", Font.PLAIN, 13));
-		lblIdParticipante.setBounds(10, 59, 97, 14);
+		lblIdParticipante.setBounds(76, 11, 97, 26);
 		contentPane.add(lblIdParticipante);
 		
 		cboApelacion = new JComboBox<Object>();
-		cboApelacion.setBounds(10, 73, 138, 22);
+		cboApelacion.setBounds(183, 12, 138, 22);
 		contentPane.add(cboApelacion);
 		
 		txtCuadro2 = new JTextArea();
 		txtCuadro2.setEditable(false);
-		txtCuadro2.setBounds(254, 74, 361, 346);
+		txtCuadro2.setBounds(20, 296, 583, 184);
 		contentPane.add(txtCuadro2);
 		
 		txtCuadro1 = new JTextArea();
 		txtCuadro1.setEditable(false);
-		txtCuadro1.setBounds(11, 198, 224, 187);
+		txtCuadro1.setBounds(20, 73, 278, 187);
 		contentPane.add(txtCuadro1);
 		
-		lblPedido = new JLabel("DESCRIPCION DE LA APELACION:");
+		lblPedido = new JLabel("DESCRIPCION DE LA APELACION :");
 		lblPedido.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblPedido.setBounds(255, 49, 233, 14);
+		lblPedido.setBounds(20, 271, 233, 14);
 		contentPane.add(lblPedido);
 		
-		lblApelacion = new JLabel("DATOS GENERALES: ");
+		lblApelacion = new JLabel("DATOS GENERALES : ");
 		lblApelacion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblApelacion.setBounds(11, 173, 233, 14);
+		lblApelacion.setBounds(20, 48, 233, 14);
 		contentPane.add(lblApelacion);
+		
+		txtCuadro3 = new JTextArea();
+		txtCuadro3.setEditable(false);
+		txtCuadro3.setBounds(318, 73, 282, 187);
+		contentPane.add(txtCuadro3);
 		
 		
 		partDao= new ParticipanteDAO();
@@ -185,49 +191,49 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 		Propuesta prop = propDao.buscarXIdPropuesta(idPropuesta);
 		
 		cargarPropuesta(prop);  
+		Pedido ped = pedDao.buscarXIdPedido(prop.getCodPedido());
+		cargarPedido(ped);
 		
-		//String idPedido = prop.getCodPedido();
-		//Propuesta ped = propDao.buscarPropuesta(idPedido);
-		
-		//cargarPedido(ped);
+		Participante part = partDao.buscarXIdParticipante(prop.getCodParticipante());
+		cargarParticipante(part);
 		
 
+		
 	}	
 
 	
-	/*private void cargarParticipante(Participante part) {
-		
-		//txtCuadro1.setText("");
-		
-		if (part == null){
-			return;
-		}else {
-			
-			Tool.imprimir(txtCuadro1,"PARTICIPANTE	: " +  part.getEntidad() );
-			Tool.imprimir(txtCuadro1,"ID	: " +  part.getCodParticipante() );
-			Tool.imprimir(txtCuadro1,"RUC	: " +  part.getRuc());
-			Tool.imprimir(txtCuadro1,"TELEFONO	: " +  part.getTelefono() );
-			Tool.imprimir(txtCuadro1,"ESTADO	: " + part.getEstado());
-		}
-		
-	}
-	
-	private void cargarPedido(Propuesta ped) {
-
-		txtCuadro1.setText("");
+	private void cargarPedido(Pedido ped) {
+	     txtCuadro3.setText("");
 		
 		if(ped == null) {
 			return;
 		}else {
 			
-			Tool.imprimir(txtCuadro1,"PEDIDO	  :" +  ped.getEntidad() );
-			Tool.imprimir(txtCuadro1,"DESCRIPCION :" +  ped.getDescripcion() );
-			Tool.imprimir(txtCuadro1,"ID	 :" +  ped.getCodigo());
-			Tool.imprimir(txtCuadro1,"RUC	:" +  ped.getRuc());
-			Tool.imprimir(txtCuadro1,"ESTADO	:" + ped.getEstado());
+			Tool.imprimir(txtCuadro3," PEDIDO	  :" +  ped.getEntidad() );
+			Tool.imprimir(txtCuadro3," DESCRIPCION :" +  ped.getDescripcion() );
+			Tool.imprimir(txtCuadro3," ID	 :" +  ped.getCodigo());
+			Tool.imprimir(txtCuadro3," RUC	:" +  ped.getRuc());
+			Tool.imprimir(txtCuadro3," ESTADO	:" + ped.getEstado());
+			Tool.imprimir(txtCuadro3," ");
+		}
+	}
+
+	private void cargarParticipante(Participante part) {
+		
+		//txtCuadro1.setText("");s
+		
+		if (part == null){
+			return;
+		}else {
+			
+			Tool.imprimir(txtCuadro3," PARTICIPANTE	: " + part.getEntidad() );
+			Tool.imprimir(txtCuadro3," ID PARTICIPANTE: " + part.getCodParticipante() );
+			Tool.imprimir(txtCuadro3," RUC : " + part.getRuc());
+			Tool.imprimir(txtCuadro3," TELEFONO	: " + part.getTelefono() );
+			Tool.imprimir(txtCuadro3," ESTADO : " + part.getEstado());
 		}
 		
-	}*/
+	}
 	
 	private void cargarApelacion(Apelacion apel) {
 		
@@ -237,10 +243,10 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 			return;
 		} else {
 			
-			Tool.imprimir(txtCuadro1,"ID APELACION : " +  apel.getCodApelacion() );
-			Tool.imprimir(txtCuadro1,"FECHA : " +  apel.getFecha() );
-			Tool.imprimir(txtCuadro1,"ESTADO : " +  apel.getEstado());
-			Tool.imprimir(txtCuadro2,"DESCRIPCION : " +  apel.getDescripcion());
+			Tool.imprimir(txtCuadro1," ID APELACION : " +  apel.getCodApelacion() );
+			Tool.imprimir(txtCuadro1," FECHA : " +  apel.getFecha() );
+			Tool.imprimir(txtCuadro1," ESTADO : " +  apel.getEstado());
+			Tool.imprimir(txtCuadro2," DESCRIPCION : " +  apel.getDescripcion());
 			Tool.imprimir(txtCuadro1," ");
 		}
 		
@@ -252,9 +258,9 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 			return;
 		}else {
 			
-			Tool.imprimir(txtCuadro1,"ID PROPUESTA : " +  prop.getCodPropuesta() );
-			Tool.imprimir(txtCuadro1,"FECHA : " +  prop.getFecha() );
-			Tool.imprimir(txtCuadro1,"ESTADO : " +  prop.getEstado());
+			Tool.imprimir(txtCuadro1," ID PROPUESTA : " +  prop.getCodPropuesta() );
+			Tool.imprimir(txtCuadro1," FECHA : " +  prop.getFecha() );
+			Tool.imprimir(txtCuadro1," ESTADO : " +  prop.getEstado());
 		}
 	}
 
