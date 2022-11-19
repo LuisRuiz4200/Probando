@@ -43,7 +43,6 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	private JMenuItem mniConsultaPropusta;
 	private JMenuItem mniReportePropuesta;
 	private JMenuItem mniUsuario;
-	private JMenuItem mntmConsultaApelacion;
 	
 	
 	public static void main (String [] args) {
@@ -153,14 +152,6 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mniConsultaPropusta.addActionListener(this);
 		mnConsulta.add(mniConsultaPropusta);
 		
-		mntmConsultaApelacion = new JMenuItem("Consulta Apelacion");
-		mntmConsultaApelacion.addActionListener(this);
-		mnConsulta.add(mntmConsultaApelacion);
-		
-		mniReporteParticipantes = new JMenuItem("Reporte de participantes");
-		mniReporteParticipantes.addActionListener(this);
-		mnReporte.add(mniReporteParticipantes);
-		
 		mniReportePropuesta = new JMenuItem("Reporte de propuestas");
 		mniReportePropuesta.addActionListener(this);
 		mnReporte.add(mniReportePropuesta);
@@ -171,9 +162,6 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		
 	}
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == mntmConsultaApelacion) {
-			actionPerformedMntmConsultaApelacion(e);
-		}
 		if (e.getSource() == mniUsuario) {
 			actionPerformedMniUsuario(e);
 		}
@@ -294,13 +282,6 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		
 	}
 	
-	protected void actionPerformedMntmConsultaApelacion(ActionEvent e) {
-		FrmConsultaApelacion conApe = new FrmConsultaApelacion();
-		conApe.setVisible(true);
-		escritorio.add(conApe).setLocation(0,0);
-		conApe.toFront();
-	}
-	
 	//TRANSACCION
 	
 	
@@ -347,5 +328,5 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		escritorio.add(reporContra).setLocation(0,0);
 		reporContra.toFront();
 	}
-
+	
 }
