@@ -33,7 +33,7 @@ public class FrmLogin extends JFrame implements ActionListener{
 	public FrmLogin() {
 		
 		setTitle("LOGIN");
-		setBounds(100,100,269,287);
+		setBounds(100,100,461,275);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.getContentPane().setLayout(null);

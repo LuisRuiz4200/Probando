@@ -175,7 +175,7 @@ public class ComiteDAO {
 		return list;	
 	}
 
-public ArrayList<Comite> buscarXIdMiembro (String idMiembro) {
+	public ArrayList<Comite> buscarXIdMiembro (String idMiembro) {
 		
 		ArrayList<Comite> list = new ArrayList<Comite>();
 		
