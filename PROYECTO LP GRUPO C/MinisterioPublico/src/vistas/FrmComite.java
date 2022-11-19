@@ -25,6 +25,7 @@ import clases.Pedido;
 import mantenimiento.ComiteDAO;
 import mantenimiento.PedidoDAO;
 import utils.Tool;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class FrmComite extends JInternalFrame implements ActionListener, MouseListener {
@@ -74,7 +75,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	public FrmComite() {
 		setTitle("Miembro del CEP");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 763, 402);
+		setBounds(100, 100, 763, 446);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -86,37 +87,43 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		setIconifiable(true);
 		
 		txtIdMiembro = new JTextField();
-		txtIdMiembro.setBounds(144, 42, 75, 20);
+		txtIdMiembro.setBounds(294, 10, 110, 20);
 		contentPane.add(txtIdMiembro);
 		txtIdMiembro.setColumns(10);
 		
 		lblNroPedido = new JLabel("ID Pedido:");
-		lblNroPedido.setBounds(10, 14, 124, 14);
+		lblNroPedido.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblNroPedido.setBounds(20, 14, 66, 14);
 		contentPane.add(lblNroPedido);
 		
-		lblIdMiembro = new JLabel("ID Miembro del Comite:");
-		lblIdMiembro.setBounds(10, 45, 124, 14);
+		lblIdMiembro = new JLabel("ID Miembro :");
+		lblIdMiembro.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblIdMiembro.setBounds(217, 14, 75, 14);
 		contentPane.add(lblIdMiembro);
 		
-		lblNomMiembro = new JLabel("Nombre:");
-		lblNomMiembro.setBounds(10, 76, 124, 14);
+		lblNomMiembro = new JLabel("Nombres del Miembro:");
+		lblNomMiembro.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblNomMiembro.setBounds(20, 55, 124, 14);
 		contentPane.add(lblNomMiembro);
 		
-		lblApellido = new JLabel("Apellido:");
-		lblApellido.setBounds(10, 111, 124, 14);
+		lblApellido = new JLabel("Apellidos del Miembro:");
+		lblApellido.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblApellido.setBounds(20, 104, 124, 14);
 		contentPane.add(lblApellido);
 		
 		lblFuncion = new JLabel("Funcion/Cargo:");
-		lblFuncion.setBounds(319, 42, 86, 20);
+		lblFuncion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblFuncion.setBounds(217, 101, 86, 20);
 		contentPane.add(lblFuncion);
 		
-		lblDni = new JLabel("Dni: ");
-		lblDni.setBounds(319, 14, 86, 14);
+		lblDni = new JLabel("Documento de Identidad : ");
+		lblDni.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblDni.setBounds(217, 55, 147, 14);
 		contentPane.add(lblDni);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.addMouseListener(this);
-		scrollPane.setBounds(10, 154, 727, 198);
+		scrollPane.setBounds(10, 168, 727, 237);
 		contentPane.add(scrollPane);
 		
 		tbComite = new JTable();
@@ -125,12 +132,12 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		
 		btnGuardar = new JButton("GUARDAR");
 		btnGuardar.addActionListener(this);
-		btnGuardar.setBounds(478, 107, 117, 23);
+		btnGuardar.setBounds(597, 28, 100, 23);
 		contentPane.add(btnGuardar);
 		
 		btnModificar = new JButton("MODIFICAR");
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(611, 107, 108, 23);
+		btnModificar.setBounds(597, 72, 100, 23);
 		contentPane.add(btnModificar);
 		
 		// crear columnas de la tabla
@@ -147,50 +154,51 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(144, 73, 147, 20);
+		txtNombre.setBounds(20, 73, 147, 20);
 		contentPane.add(txtNombre);
 		
 		txtApellido = new JTextField();
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(144, 108, 147, 20);
+		txtApellido.setBounds(20, 125, 147, 20);
 		contentPane.add(txtApellido);
 		
 		cboPedido = new JComboBox<Object>();
-		cboPedido.setBounds(144, 9, 102, 22);
+		cboPedido.setBounds(85, 9, 117, 22);
 		contentPane.add(cboPedido);
 		
 		txtDni = new JTextField();
-		txtDni.setBounds(415, 11, 117, 20);
+		txtDni.setBounds(217, 73, 137, 20);
 		contentPane.add(txtDni);
 		txtDni.setColumns(10);
 		
 		txtFuncion = new JTextField();
-		txtFuncion.setBounds(415, 42, 117, 20);
+		txtFuncion.setBounds(217, 125, 137, 20);
 		contentPane.add(txtFuncion);
 		txtFuncion.setColumns(10);
 		
 		lblDependencia = new JLabel("Dependencia:");
-		lblDependencia.setBounds(319, 76, 86, 20);
+		lblDependencia.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblDependencia.setBounds(404, 52, 86, 20);
 		contentPane.add(lblDependencia);
 		
 		txtDependencia = new JTextField();
 		txtDependencia.setColumns(10);
-		txtDependencia.setBounds(415, 73, 117, 20);
+		txtDependencia.setBounds(404, 73, 117, 20);
 		contentPane.add(txtDependencia);
 		
 		btnEliminar = new JButton("ELIMINAR");
 		btnEliminar.addActionListener(this);
-		btnEliminar.setBounds(648, 10, 89, 23);
+		btnEliminar.setBounds(597, 110, 100, 23);
 		contentPane.add(btnEliminar);
 		
-		btnNuevo = new JButton("NUEVO");
+		btnNuevo = new JButton("LIMPIAR");
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(648, 41, 89, 23);
+		btnNuevo.setBounds(416, 122, 89, 23);
 		contentPane.add(btnNuevo);
 		
-		btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("BUSCAR");
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(229, 41, 68, 23);
+		btnBuscar.setBounds(435, 9, 86, 23);
 		contentPane.add(btnBuscar);
 		
 		pedDao = new PedidoDAO();

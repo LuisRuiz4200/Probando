@@ -23,6 +23,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class FrmApelacion extends JInternalFrame implements ActionListener {
@@ -84,6 +85,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		contentPane.setLayout(null);
 		
 		lblDescripcion = new JLabel("Descripción:");
+		lblDescripcion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 		lblDescripcion.setBounds(309, 11, 109, 14);
 		contentPane.add(lblDescripcion);
 		
@@ -96,7 +98,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		spDescripcion.setViewportView(txtDescripcion);
 		
 		
-		btnRegistrar = new JButton("Registrar");
+		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(this);
 		btnRegistrar.setBounds(62, 320, 89, 23);
 		getContentPane().add(btnRegistrar);
@@ -109,6 +111,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		contentPane.add(panelPedido);
 		
 		lblCodigo_1 = new JLabel("ID Apelacion:");
+		lblCodigo_1.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 		lblCodigo_1.setBounds(10, 21, 83, 14);
 		panelPedido.add(lblCodigo_1);
 		
@@ -117,10 +120,12 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		panelPedido.add(txtIdApelacion);
 		
 		lblEstado = new JLabel("Estado de Apelación:");
+		lblEstado.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 		lblEstado.setBounds(151, 21, 123, 14);
 		panelPedido.add(lblEstado);
 			
 			lblFechaApelacion = new JLabel("Fecha de la Apelación:");
+			lblFechaApelacion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 			lblFechaApelacion.setBounds(10, 77, 142, 14);
 			panelPedido.add(lblFechaApelacion);
 			
@@ -144,6 +149,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 			contentPane.add(panelParticipante);
 			
 			lblPropuesta = new JLabel("ID Propuesta:");
+			lblPropuesta.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 			lblPropuesta.setBounds(10, 26, 140, 14);
 			panelParticipante.add(lblPropuesta);
 			
@@ -157,6 +163,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 			panelParticipante.add(btnBuscar);
 			
 			lblEstadoDePropuesta = new JLabel("Estado de Propuesta:");
+			lblEstadoDePropuesta.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 			lblEstadoDePropuesta.setBounds(10, 76, 123, 14);
 			panelParticipante.add(lblEstadoDePropuesta);
 			
@@ -166,7 +173,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 			txtEstado.setBounds(10, 99, 106, 22);
 			panelParticipante.add(txtEstado);
 			
-			btnLimpiar = new JButton("Limpiar");
+			btnLimpiar = new JButton("LIMPIAR");
 			btnLimpiar.setBounds(180, 320, 89, 23);
 			contentPane.add(btnLimpiar);
 			btnLimpiar.addActionListener(this);
