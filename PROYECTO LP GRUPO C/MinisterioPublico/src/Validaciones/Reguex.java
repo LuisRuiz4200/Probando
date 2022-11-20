@@ -50,10 +50,7 @@ public class Reguex {
 	public static String PUNTTECNICO_EVALUACION = "\\d{0,3}";
 	public static String PUNTECONOMICO_EVALUACION= "\\d{0,3}";
 	
-	// PRONUNCIAMIENTO
-	public static String ID_PRONUNCIAMIENTO="[P][A]\\d{3}";
-	public static String NOMBRE_ACESOR="[a-zA-Z\\ñ\\s]{2,20}";
-	public static String DNI_ACESOR = "\\d{8}";
-	public static String CONCLUSION=".{2,500}";
+	
+	
 	
 }
