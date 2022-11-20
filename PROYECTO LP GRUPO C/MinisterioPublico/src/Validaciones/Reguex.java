@@ -42,7 +42,7 @@ public class Reguex {
 	
 	public static String ID_APELACION = "[A][P]\\d{3}";
 	public static String DESCRIPCION_APE=".{2,450}";
-	public static String ESTADO_APE="[a-zA-Z\\ï¿½\\s]{2,20}";
+	public static String ESTADO_APE="[a-zA-Z\\ñ\\s]{2,20}";
 	
 	
 	// EVALUACION DE PROPUESTA
