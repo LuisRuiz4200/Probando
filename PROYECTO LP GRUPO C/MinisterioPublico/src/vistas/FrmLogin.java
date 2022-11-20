@@ -32,7 +32,7 @@ public class FrmLogin extends JFrame implements ActionListener{
 	}
 	
 	public FrmLogin() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmLogin.class.getResource("/imagenes/logo3.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmLogin.class.getResource("/imagenes/cibertecLogo.png")));
 		
 		setTitle("LOGIN");
 		setBounds(100,100,468,300);
@@ -73,7 +73,7 @@ public class FrmLogin extends JFrame implements ActionListener{
 		getContentPane().add(btnCancelar);
 		
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(FrmLogin.class.getResource("/imagenes/login/fondoLogin.jpeg")));
+		lblNewLabel.setIcon(new ImageIcon(FrmLogin.class.getResource("/imagenes/cibertecFondo2.jpg")));
 		lblNewLabel.setBounds(0, 0, 452, 261);
 		getContentPane().add(lblNewLabel);
 		

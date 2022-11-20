@@ -138,7 +138,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		txtDescripcion = new JTextArea();
 		txtDescripcion.setBounds(413, 64, 279, 88);
 		txtDescripcion.setLineWrap(true);
-		txtDescripcion.setBorder(new EmptyBorder(10,10,10,10));
+		txtDescripcion.setBorder(new EmptyBorder(5,5,5,5));
 		contentPane.add(txtDescripcion);
 		
 		lblDescripcion = new JLabel("Descripcion de \r\nRequrimiento:");
@@ -529,24 +529,21 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		int indice = tbPedidos.getSelectedRow();
 		
 		String idPedido = tbPedidos.getValueAt(indice, 0).toString();
-		String entidad = tbPedidos.getValueAt(indice, 1).toString();
-		String idTipoPedido = tbPedidos.getValueAt(indice, 2).toString();
-		String idObjetoPedido = tbPedidos.getValueAt(indice, 3).toString();
-		String descripcion  = tbPedidos.getValueAt(indice, 4).toString();
-		String fecha = tbPedidos.getValueAt(indice, 5).toString();
-		String estado = tbPedidos.getValueAt(indice, 6).toString();
 		
-		txtIdPedido.setText(idPedido);
-		txtEntidad.setText(entidad);
-		cboTipo.setSelectedIndex(Integer.parseInt(idTipoPedido));
-		cboObjeto.setSelectedIndex(Integer.parseInt(idObjetoPedido));
-		txtDescripcion.setText(descripcion);
+		Pedido ped =pedDao.buscarXIdPedido(idPedido);
+		
+		txtIdPedido.setText(ped.getCodigo());
+		txtEntidad.setText(ped.getEntidad());
+		cboTipo.setSelectedIndex(ped.getTipo());
+		cboObjeto.setSelectedIndex(ped.getObjeto());
+		txtDescripcion.setText(ped.getDescripcion());
+		txtRuc.setText(ped.getRuc());
 		try {
-			dcFecha.setDate(Tool.sdf.parse(fecha));
+			dcFecha.setDate(Tool.sdf.parse(ped.getFecha()));
 		} catch (ParseException e) {
 			Tool.mensajeError(this,"Error de formato en fecha");
 		}
-		txtEstado.setText(estado);
+		txtEstado.setText(ped.getEstado());
 
 		
 	}

@@ -237,7 +237,7 @@ public class FrmReportePropuesta extends JInternalFrame implements ActionListene
 	
 	void imprimirPDF() {
 		
-		String nombArchivo= "ListadUsuarios.pdf";
+		String nombArchivo= "ReportePropuestas.pdf";
 		
 		try {
 			// CREAR PLANTILLA
@@ -249,13 +249,13 @@ public class FrmReportePropuesta extends JInternalFrame implements ActionListene
 			// ABRIR DOCUMENTO A MODO DE ESCRITURA
 			plantilla.open();
 			//AGREGAR IMAGEN
-			Image img = Image.getInstance("src/img/logociberfarma.png");
+			Image img = Image.getInstance("src/imagenes/cibertecFondo.jpg");
 			img.scaleToFit(90,90);
 			img.setAlignment(Chunk.ALIGN_RIGHT);
 			plantilla.add(img);
 			
 			//AGREGAR PARRAFO
-			Paragraph p = new Paragraph("LISTADO  PROPUESTAS",FontFactory.getFont("arial",20,Font.BOLD,BaseColor.BLUE));
+			Paragraph p = new Paragraph("LISTADO DE PROPUESTAS",FontFactory.getFont("arial",20,Font.BOLD,BaseColor.BLUE));
 			p.setAlignment(Chunk.ALIGN_CENTER);
 			plantilla.add(p);
 			//SALTO DE LINEA

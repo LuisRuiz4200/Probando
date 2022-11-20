@@ -61,7 +61,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	
 	public FrmPrincipal() {
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmPrincipal.class.getResource("/imagenes/logo3.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmPrincipal.class.getResource("/imagenes/cibertecLogo.png")));
 		setTitle("FrmPrincipal " + FrmLogin.user.getNombreUsuario());
 		setBounds(100,100,993,613);
 		setLocationRelativeTo(this);
