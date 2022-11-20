@@ -295,10 +295,17 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		cboPropuesta.removeAllItems();
 		cboPropuesta.addItem("SELECCIONE...");
 		
+		boolean bandera = false;
+		
 		for (Propuesta ped : list) {
-			
-			cboPropuesta.addItem(ped.getCodPropuesta());
-			
+			if (ped.getEstado().equals("OBSERVADO")) {
+				cboPropuesta.addItem(ped.getCodPropuesta());
+				bandera = true;
+			}
+		}
+		
+		if (bandera == false) {
+			Tool.mensajeError(this, "No hay propuestas en estado de OBSERVADO");
 		}
 
      }

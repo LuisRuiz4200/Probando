@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Formatter;
 
 import javax.swing.JButton;
@@ -46,7 +47,7 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 	private JPanel panelPropuesta;
 	private JLabel lblNumeroPostulacion;
 	private JLabel lblFechaPropuesta;
-	private JDateChooser dcFechaProp;
+	private JTextField dcFechaProp;
 	private JTextField txtEstadoProp;
 	private JLabel lblEstado_1;
 	private JLabel lblIdPedido;
@@ -96,6 +97,7 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		getContentPane().add(btnModificar);
 
 		panelPropuesta = new JPanel();
+		panelPropuesta.setOpaque(false);
 		panelPropuesta.setLayout(null);
 		panelPropuesta.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA",
@@ -116,8 +118,10 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		lblFechaPropuesta.setBounds(150, 21, 95, 14);
 		panelPropuesta.add(lblFechaPropuesta);
 
-		dcFechaProp = new JDateChooser();
+		dcFechaProp = new JTextField();
 		dcFechaProp.setBounds(150, 34, 124, 22);
+		dcFechaProp.setEditable(false);
+
 		panelPropuesta.add(dcFechaProp);
 
 		lblIdPedido = new JLabel("ID Pedido:");
@@ -142,6 +146,7 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		txtEstadoProp.setColumns(10);
 
 		panelPropuesta_1 = new JPanel();
+		panelPropuesta_1.setOpaque(false);
 		panelPropuesta_1.setLayout(null);
 		panelPropuesta_1.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "ACTA",
@@ -175,7 +180,7 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		panelPropuesta_1.add(lblTipo);
 
 		cboTipoActa = new JComboBox<Object>();
-		cboTipoActa.setModel(new DefaultComboBoxModel(new String[] { "Seleccione...", "Resultados", "Observaciones" }));
+		cboTipoActa.setModel(new DefaultComboBoxModel<Object>(new String[] { "Seleccione...", "Resultados", "Observaciones" }));
 		cboTipoActa.setBounds(154, 81, 124, 22);
 		panelPropuesta_1.add(cboTipoActa);
 
@@ -222,11 +227,7 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		if (prop != null) {
 			txtIdPedido.setText(prop.getCodPedido());
 			txtEstadoProp.setText(prop.getEstado());
-			try {
-				dcFechaProp.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(prop.getFecha()));
-			} catch (ParseException e) {
-				System.out.println("Error en el formato de la fecha");
-			}
+			dcFechaProp.setText(prop.getFecha());
 		} else {
 			limpiar();
 		}
@@ -248,7 +249,7 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 	private void limpiar() {
 		txtIdPedido.setText("");
 		txtEstadoProp.setText("");
-		dcFechaProp.setDate(null);
+		dcFechaProp.setText("");
 		cboIdPropuesta.setSelectedIndex(-1);
 
 		limpiarActa();
@@ -258,7 +259,7 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		txtIdActa.setText("");
 		txtEstadoActa.setText("");
 		txtDocumento.setText("");
-		dcFechaActa.setDate(null);
+		dcFechaActa.setDate(new Date());
 		cboTipoActa.setSelectedIndex(-1);
 	}
 
@@ -336,6 +337,7 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		// variables
 		String codActa, codProp, fechaActa, descActa, tipoActa, estado;
 
+		Propuesta prop = null;
 		codActa = getCodActa();
 		codProp = getCodigoPropuesta();
 		fechaActa = getFechaActa();
@@ -365,10 +367,18 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 			} else {
 				Tool.mensajeExito(this, "Propuesta registrada");
 				txtEstadoActa.setText("REGISTRADO");
+				if (aprop.getTipoActa().equals("Observaciones")) {
+					prop = gProp.buscarXIdPropuesta(aprop.getIdPropuesta());
+					prop.setEstado("OBSERVADO");
+					gProp.actualizarPropuesta(prop);
+				}else if (aprop.getTipoActa().equals("Resultados")) {
+					prop = gProp.buscarXIdPropuesta(aprop.getIdPropuesta());
+					prop.setEstado("NO ADMITIDA");
+					gProp.actualizarPropuesta(prop);
+				}
 			}
 		}
 	}
-
 	protected void actionPerformedBtnModificar(ActionEvent e) {
 		actualizarActa();
 	}

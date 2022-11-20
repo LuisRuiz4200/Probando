@@ -24,7 +24,7 @@ import clases.*;
 
 import mantenimiento.*;
 import utils.Tool;
-import javax.swing.JEditorPane;
+import javax.swing.JTextArea;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyListener;
@@ -39,17 +39,19 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 	private JLabel lblNumeroPedido;
 	private JComboBox<Object> cboPedido;
 	private JTable tblPropuestas;
-	private JScrollPane scrollPane;
+	private JScrollPane spTablaPropuestas;
 
 	private PropuestaDAO gProp = new PropuestaDAO();
 	private PedidoDAO gPed = new PedidoDAO();
 
 	// estructura de la tabla
 	private DefaultTableModel model = new DefaultTableModel();
-	private JEditorPane txtPropTecnica;
-	private JEditorPane txtPropEconomica;
+	private JTextArea txtPropTecnica;
+	private JTextArea txtPropEconomica;
 	private JLabel lblPropEconomica;
 	private JLabel lblPropTecnica;
+	private JScrollPane spPropTecnica;
+	private JScrollPane spPropEconomica;
 
 	/**
 	 * Launch the application.
@@ -98,16 +100,16 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		cboPedido.setBounds(141, 28, 138, 22);
 		contentPane.add(cboPedido);
 
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 81, 446, 287);
-		contentPane.add(scrollPane);
+		spTablaPropuestas = new JScrollPane();
+		spTablaPropuestas.setBounds(10, 81, 446, 287);
+		contentPane.add(spTablaPropuestas);
 
 		tblPropuestas = new JTable();
 		tblPropuestas.addMouseListener(this);
 		tblPropuestas.addKeyListener(this);
 		tblPropuestas.setFillsViewportHeight(true);
 		tblPropuestas.setModel(model);
-		scrollPane.setViewportView(tblPropuestas);
+		spTablaPropuestas.setViewportView(tblPropuestas);
 
 		// crear collumnas para la tabla
 		model.addColumn("ID Pedido");
@@ -118,15 +120,25 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		// Asociar table con objeto model
 		tblPropuestas.setModel(model);
 		
-		txtPropTecnica = new JEditorPane();
-		txtPropTecnica.setEditable(false);
-		txtPropTecnica.setBounds(466, 88, 252, 128);
-		contentPane.add(txtPropTecnica);
+		spPropTecnica = new JScrollPane();
+		spPropTecnica.setBounds(466, 88, 252, 128);
+		contentPane.add(spPropTecnica);
 		
-		txtPropEconomica = new JEditorPane();
+		txtPropTecnica = new JTextArea();
+		spPropTecnica.setViewportView(txtPropTecnica);
+		txtPropTecnica.setEditable(false);
+		txtPropTecnica.setLineWrap(true);
+		txtPropTecnica.setBorder(new EmptyBorder(5,5,5,5));
+		
+		spPropEconomica = new JScrollPane();
+		spPropEconomica.setBounds(466, 240, 252, 128);
+		contentPane.add(spPropEconomica);
+		
+		txtPropEconomica = new JTextArea();
+		spPropEconomica.setViewportView(txtPropEconomica);
 		txtPropEconomica.setEditable(false);
-		txtPropEconomica.setBounds(466, 240, 252, 128);
-		contentPane.add(txtPropEconomica);
+		txtPropEconomica.setLineWrap(true);
+		txtPropEconomica.setBorder(new EmptyBorder(5,5,5,5));
 		
 		lblPropEconomica = new JLabel("Propuesta economica");
 		lblPropEconomica.setBounds(466, 227, 172, 14);
