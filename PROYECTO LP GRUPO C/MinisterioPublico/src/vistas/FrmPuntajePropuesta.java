@@ -7,7 +7,6 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
-import Validaciones.Reguex;
 import clases.EvaluacionPropuesta;
 import clases.Participante;
 import clases.Pedido;
@@ -38,6 +37,7 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private JLabel lblPuntEconomico;
 	private JTable table;
 	private JButton btnRegistrar;
+	private JButton btnModificar;
 	private DefaultTableModel modelo;
 	private JScrollPane scrollPane;
 	private JTextField txtEvaluacion;
@@ -118,8 +118,13 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(525, 201, 89, 23);
+		btnRegistrar.setBounds(379, 201, 89, 23);
 		getContentPane().add(btnRegistrar);
+		
+		btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(this);
+		btnModificar.setBounds(486, 201, 89, 23);
+		getContentPane().add(btnModificar);
 		
 		modelo = new DefaultTableModel();
 		modelo.addColumn("ID PROPUESTA");
@@ -131,7 +136,6 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		table.setModel(modelo);
 		
 		txtEvaluacion = new JTextField();
-		txtEvaluacion.setEditable(false);
 		txtEvaluacion.setColumns(10);
 		txtEvaluacion.setBounds(22, 31, 98, 20);
 		getContentPane().add(txtEvaluacion);
@@ -205,7 +209,6 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		getContentPane().add(panelPropuesta);
 		
 		cboPropuesta = new JComboBox <Object>();
-		cboPropuesta.setEditable(true);
 		cboPropuesta.setBounds(10, 42, 107, 22);
 		panelPropuesta.add(cboPropuesta);
 		
@@ -253,6 +256,9 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		if (e.getSource() == btnNuevo) {
 			actionPerformedBtnNuevo(e);
 		}
+		if (e.getSource() == btnModificar) {
+			actionPerformedBtnModificar(e);
+		}
 		if (e.getSource() == btnRegistrar) {
 			actionPerformedBtnRegistrar(e);
 		}
@@ -288,7 +294,6 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		
 		txtEntidadPedido.setText(ped.getEntidad());
 		txtRucPedido.setText(ped.getRuc());
-		
 		
 	}
 	protected void actionPerformedBtnRegistrar(ActionEvent e) {
@@ -328,20 +333,47 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		
 	}
 	
+
+	protected void actionPerformedBtnModificar(ActionEvent e) {
+		String idEvaluacion = leerIdEvaluacion();
+		String fecha = leerFecha();
+		String estado = leerEstado();
+		String idPropuesta = leerIdPropuesta();
+		double puntTecnico = leerPuntTecnico();
+		double puntEconomico = leerPuntEconomico();
+		
+		EvaluacionPropuesta evProp = null;
+		
+		if (idEvaluacion == null || fecha == null || estado == null ||
+				idPropuesta == null || puntTecnico == -1 ||
+				puntEconomico == -1 ) {
+			Tool.mensajeError(this, "Error durante la actualizacion de puntajes");
+		}else {
+			
+			evProp = new EvaluacionPropuesta(
+					idPropuesta,idEvaluacion,
+					puntTecnico, puntEconomico,
+					fecha,estado
+					);
+			
+			int ok = evaPropDao.actualizarEvaluacionPropuesta(evProp);
+			
+			if (ok == 0) {
+				Tool.mensajeError(this, "Error al actualizar puntajes");
+			}else {
+				Tool.mensajeExito(this,"Puntajes actualizados !");
+				cargarTablaEvaluacionPropuesta();
+			}
+			
+		}
+	}
+	
 	//METODOS DE ENTRADA
 	
 	private String leerIdEvaluacion() {
 		String res = null;
 		
-		if (txtEvaluacion.getText().trim().length()==0) {
-			Tool.mensajeError(this, "El campo del ID de la evaluación está vacía !");
-			txtEvaluacion.requestFocus();
-		}else if (txtEvaluacion.getText().trim().matches(Reguex.ID_EVALUACION)) {
-			res = txtEvaluacion.getText().trim();
-		}else {
-			Tool.mensajeError(this, "ID de la evaluación inválida. Ejemp. (EVPR002)");
-			txtEvaluacion.requestFocus();
-		}
+		res = txtEvaluacion.getText().trim();
 		
 		return res;
 	}
@@ -349,12 +381,7 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private String leerFecha() {
 		String res = null;
 		
-		if (dcFecha.getDate()==null) {
-			Tool.mensajeError(this, "Campo de la fecha está vacío !");
-			dcFecha.requestFocus();
-		}else {
-			res = Tool.sdf.format(dcFecha.getDate());
-		}
+		res = Tool.sdf.format(dcFecha.getDate());
 		
 		return res;
 	}
@@ -362,11 +389,7 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private String leerEstado() {
 		String res = null;
 		
-		if (txtEstado.getText().trim().length()==0) {
-			Tool.mensajeError(this, "Campo del Estado está vacío !");
-		}else {
-			res = txtEstado.getText().trim();
-		}
+		res = txtEstado.getText().trim();
 		
 		return res;
 	}
@@ -374,11 +397,7 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private String leerIdPropuesta() {
 		String res = null;
 		
-		if (cboPropuesta.getSelectedIndex()==0) {
-			Tool.mensajeError(this, "Eliga una ID de propuesta !");
-		}else {
-			res = cboPropuesta.getSelectedItem().toString();
-		}
+		res = cboPropuesta.getSelectedItem().toString();
 		
 		return res;
 	}
@@ -386,14 +405,7 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private double leerPuntTecnico() {
 		double res = -1;
 		
-		if (txtPuntTecnico.getText().trim().length()==0) {
-			Tool.mensajeError(this, "Campo del Puntaje Técnico está vacío !");
-			txtPuntTecnico.requestFocus();
-		}else if(txtPuntTecnico.getText().trim().matches(Reguex.PUNTTECNICO_EVALUACION)&&Integer.parseInt(txtPuntTecnico.getText())<=100){
-			res = Double.parseDouble(txtPuntTecnico.getText().trim());
-		}else {
-			Tool.mensajeError(this, "Puntaje técnico inválido. Ejemp.  (XXX) entre 1 y 3 digitos numéricos no mayor a 100");
-		}
+		res = Double.parseDouble(txtPuntTecnico.getText().trim());
 		
 		return res;
 	}
@@ -401,14 +413,8 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private double leerPuntEconomico() {
 		double res = -1;
 		
-		if (txtPuntEconomico.getText().trim().length()==0) {
-			Tool.mensajeError(this, "Campo del Puntaje Económico está vacío !");
-			txtPuntEconomico.requestFocus();
-		}else if(txtPuntEconomico.getText().trim().matches(Reguex.PUNTECONOMICO_EVALUACION)&&Integer.parseInt(txtPuntEconomico.getText())<=100){
-			res = Double.parseDouble(txtPuntEconomico.getText().trim());
-		}else {
-			Tool.mensajeError(this, "Puntaje económico inválido. Ejemp.  (XXX) entre 1 y 3 digitos numéricos no mayor 100");
-		}		
+		res = Double.parseDouble(txtPuntEconomico.getText().trim());
+		
 		return res;
 	}
 	

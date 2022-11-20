@@ -110,7 +110,7 @@ index (id_prop)
 create table tb_apelacion (
 
 id_apel char (10) not null,
-id_prop char (10) not null unique,
+id_prop char (10) not null,
 fecha_apel date,
 descripcion_apel varchar (500) ,
 estado_apel varchar (25),
@@ -123,7 +123,7 @@ index (id_apel)
 /*CUADRO COMPARATIVO*/
 create table tb_evaluacionPropuesta (
 
-id_prop char (10) not null unique,
+id_prop char (10) not null,
 id_evaProp char (10) not null,
 puntTecnica_evaProp decimal,
 puntEconomica_evaProp decimal,
@@ -137,7 +137,7 @@ foreign key (id_prop) references tb_propuesta (id_prop)
 create table tb_actaPropuesta (
 
 id_actaProp char (10) not null,
-id_prop char (10) not null unique,
+id_prop char (10) not null,
 fecha_actaProp date,
 descripcion_actaProp varchar (500),
 tipo_actaProp varchar (25),
@@ -151,7 +151,7 @@ index (id_prop)
 create table tb_proyectoPronunciamientoApelacion (
 
 id_pronApel char (10) not null,
-id_apel char (10) not null unique,
+id_apel char (10) not null,
 nomGerenteAJ_pronApel varchar (25),
 dniGerenteAJ_pronApel varchar (25),
 fecha_pronApel date,
@@ -197,13 +197,9 @@ select * from tb_apelacion;
 select *  from tb_evaluacionpropuesta;
 
 
-select  * from tb_proyectopronunciamientoapelacion;
-
-select * from tb_participante group by codigo_parti ;
+delete  from tb_participantes;
 
 select * from tb_usuario;
-
-select * from tb_actapropuesta	;
 
 /*select ped.* from tb_pedido ped
 inner join  tb_participante parti on ped.id_ped = parti.id_ped

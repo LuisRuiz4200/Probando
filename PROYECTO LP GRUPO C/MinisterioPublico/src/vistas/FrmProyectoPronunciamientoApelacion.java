@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Formatter;
 
 import javax.swing.DefaultComboBoxModel;
@@ -18,15 +17,10 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
-import Validaciones.Reguex;
 import clases.Apelacion;
-import clases.Participante;
 import clases.Pronunciamiento;
-import clases.Propuesta;
 import mantenimiento.ApelacionDAO;
-import mantenimiento.ParticipanteDAO;
 import mantenimiento.PronunciamientoDAO;
-import mantenimiento.PropuestaDAO;
 import utils.Tool;
 
 
@@ -49,10 +43,9 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 	private JTextField txtDni;
 	private JLabel lblDni;
 	private JButton btnRegistrar;
+	private JButton btnModificar;
 	private JComboBox <Object> cboResultado;
     private PronunciamientoDAO proDao;
-    private PropuestaDAO propDao;
-    private ParticipanteDAO partDao;
     private ApelacionDAO apeDao;
 	
 	public static void main (String [] args) {
@@ -146,16 +139,19 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(301, 385, 109, 23);
+		btnRegistrar.setBounds(228, 385, 109, 23);
 		getContentPane().add(btnRegistrar);
+		
+		btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(this);
+		btnModificar.setBounds(376, 385, 109, 23);
+		getContentPane().add(btnModificar);
 		
 		cboResultado = new JComboBox <Object>();
 		cboResultado.setModel(new DefaultComboBoxModel<Object>(new String[] {"Fundado", "No fundado"}));
 		cboResultado.setBounds(573, 30, 98, 22);
 		getContentPane().add(cboResultado);
 		
-		propDao= new PropuestaDAO();
-		partDao = new ParticipanteDAO();
 		proDao = new PronunciamientoDAO();
 		apeDao = new ApelacionDAO();
 		
@@ -165,10 +161,14 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 
 	private void arranque() {
 		cargarCboApelacion();
-		limpiar();
+		
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnModificar) {
+			actionPerformedBtnModificar(e);
+		}
 		if (e.getSource() == btnRegistrar) {
 			actionPerformedBtnRegistrar(e);
 		}
@@ -181,10 +181,6 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		String fecha = leerFecha();
 		String conclusion = leerConclusion();
 		String estado = leerEstado();
-		
-		Propuesta prop = null;
-		Apelacion apel = null;
-		Participante part =  null;
 		
 		if (idPronApelacion == null || idApelacion == null || 
 				nombGerente == null || dni == null ||  fecha == null || 
@@ -199,29 +195,34 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 				Tool.mensajeError(this, "Error de registro");
 			}else {
 				Tool.mensajeExito(this, "Registro exitoso");
-				limpiar();
-				
-				//CAMBIO DE ESTADO EN LAS ENTIDADES RELACIONADAS
-				
-				apel = apeDao.buscarXIdApelacion(pro.getIdApel());
-				
-				prop = propDao.buscarXIdPropuesta(apel.getCodPropuesta());
-				
-				part = partDao.buscarXIdParticipante(prop.getCodParticipante());
-				
-				if (pro.getEstado().equals("fundado")) {
-					apel.setEstado("FUNDADO");
-					prop.setEstado("PROCESO");
-					propDao.actualizarPropuesta(prop);
-					apeDao.modificarApelacion(apel);
-				}else if (prop.getEstado().equals("no fundado")) {
-					apel.setEstado("NO FUNDADO");
-					prop.setEstado("NO ADMITIDA");
-					part.setEstado("NO CALIFICA");
-					propDao.actualizarPropuesta(prop);
-					apeDao.modificarApelacion(apel);
-					partDao.actualizarPartcipante(part);
-				}
+				correlativo();
+			}
+		}
+	}
+	
+	protected void actionPerformedBtnModificar(ActionEvent e) {
+		String idPronApelacion = leerPronApelacion();
+		String idApelacion = leerIdApelacion();
+		String nombGerente = leerNomGerente();
+		String dni = leerDni();
+		String fecha = leerFecha();
+		String conclusion = leerConclusion();
+		String estado = leerEstado();
+		
+		if (idPronApelacion == null || idApelacion == null || 
+				nombGerente == null || dni == null ||  fecha == null || 
+				conclusion == null || estado == null ) {
+			return;
+		}else {
+			Pronunciamiento pro = new Pronunciamiento (idPronApelacion,
+					idApelacion, nombGerente, dni, fecha, conclusion,
+					estado);
+			int ok = proDao.modificarPronApelacion(pro);
+			if (ok == 0) {
+				Tool.mensajeError(this, "Error de Actualizacion");
+			}else {
+				Tool.mensajeExito(this, "Actualizacion exitoso");
+				correlativo();
 			}
 		}
 	}
@@ -234,18 +235,7 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 
 	private String leerConclusion() {
 		String res = null;
-		if(txtConclusiones.getText().trim().length() == 0) {
-			Tool.mensajeError(this," Ingresar Conclusion");
-			txtConclusiones.requestFocus();
-		}else if (txtConclusiones.getText().trim().matches(Reguex.CONCLUSION)) {
-			res = txtConclusiones.getText().trim();
-		}else {
-			Tool.mensajeError(this," Reducir la redaccion ");
-			txtDni.setText("");
-			txtDni.requestFocus();
-		}
-		
-		return res ;
+		return res = txtConclusiones.getText().trim();
 	}
 
 	private String leerFecha() {
@@ -255,18 +245,7 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 
 	private String leerDni() {
 		String res = null;
-		if(txtDni.getText().trim().length() == 0) {
-			Tool.mensajeError(this," Ingresar el DNI del Acesor");
-			txtDni.requestFocus();
-		}else if (txtDni.getText().trim().matches(Reguex.DNI_ACESOR)) {
-			res = txtDni.getText().trim();
-		}else {
-			Tool.mensajeError(this," Ingresar numero de DNI valido ");
-			txtDni.setText("");
-			txtDni.requestFocus();
-		}
-		
-		return res ;
+		return res = txtDni.getText().trim();
 	}
 
 	private String leerNomGerente() {
@@ -281,18 +260,7 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 
 	private String leerPronApelacion() {
 		String res = null;
-		if(txtPronunciamiento.getText().trim().length() == 0) {
-			Tool.mensajeError(this," Ingresar el Id de Pronunciamiento de Apelacion");
-			txtPronunciamiento.requestFocus();
-		}else if (txtPronunciamiento.getText().trim().matches(Reguex.ID_PRONUNCIAMIENTO)) {
-			res = txtPronunciamiento.getText().trim();
-		}else {
-			Tool.mensajeError(this," Ingresar Id Pronunciamiento Valido Ej: PA001 ");
-			txtPronunciamiento.setText("");
-			txtPronunciamiento.requestFocus();
-		}
-		
-		return res ;
+		return res = txtPronunciamiento.getText().trim();
 	}
 
 	//METODOS AADICIONALES
@@ -320,16 +288,6 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 			txtPronunciamiento.setText("");
 			txtPronunciamiento.setText("PA"+ft.format("%03d", n));
 		}
-	}
-	private void limpiar() {
-		correlativo();
-		dcFecha.setDate(new Date());
-		cboResultado.setSelectedIndex(0);
-		txtNombreEncargado.setText("");
-		txtApellidoEncargado.setText("");
-		txtDni.setText("");
-		cboApelacion.setSelectedIndex(0);
-		txtConclusiones.setText("");
 	}
 	
 }

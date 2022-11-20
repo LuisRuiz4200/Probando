@@ -416,15 +416,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private String leerRuc() {
 		String res = null;
 		
-		if (txtRuc.getText().trim().length()==0) {
-			Tool.mensajeError(this, "El campo de RUC está vacío !");
-			txtRuc.requestFocus();
-		}else if (txtRuc.getText().trim().matches(Reguex.RUC_PARTICIPANTE)){
-			res = txtRuc.getText().trim();
-		}else {
-			Tool.mensajeError(this,"RUC inválido. Ejemp (XXXXXXXXXXX, 11 digitos)");
-		}
-		
+		res = txtRuc.getText().trim();
 		
 		return res ;
 	}
@@ -432,15 +424,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private String leerCorreo() {
 		String res = null;
 		
-		if(txtCorreo.getText().trim().length()==0) {
-			Tool.mensajeError(this,"El campo del Correo está vacío !");
-			txtCorreo.requestFocus();
-		}else if (txtCorreo.getText().trim().matches(Reguex.CORREO_PARTICIPANTE)) {
-			res = txtCorreo.getText().trim();
-		}else {
-			Tool.mensajeError(this,"Correo inválido. Ejemp. (estoesuncorreo@hotmail.com)");
-			txtCorreo.requestFocus();
-		}
+		res = txtCorreo.getText().trim();
 		
 		return res ;
 	}
@@ -448,15 +432,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private int leerTelefono() {
 		int res = -1;
 		
-		if(txtTelefono.getText().trim().length()==0) {
-			Tool.mensajeError(this, "Campo del Teléfono está vacío !");
-			txtTelefono.requestFocus();
-		}else if(txtTelefono.getText().trim().matches(Reguex.TELEFONO_PARTICIPANTE)){
-			res = Integer.parseInt(txtTelefono.getText().trim());
-		}else {
-			Tool.mensajeError(this, "Telefono inválido. Ejemp. (999 999 999), 9 dígitos");
-			txtTelefono.requestFocus();
-		}
+		res = Integer.parseInt(txtTelefono.getText().trim());
 		
 		return res ;
 	}
@@ -464,12 +440,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private String leerEstado() {
 		String res = null;
 		
-		if(txtEstado.getText().trim().length()==0) {
-			Tool.mensajeError(this,"Campo de Estado está vacío !");
-			txtEstado.requestFocus();
-		}else {
-			res = txtEstado.getText().toString();
-		}
+		res = txtEstado.getText().toString();
 		
 		return res ;
 	}
