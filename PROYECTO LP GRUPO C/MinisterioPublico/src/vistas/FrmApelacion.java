@@ -167,7 +167,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 			
 			btnBuscar = new JButton("Buscar \r\nPropuesta");
 			btnBuscar.addActionListener(this);
-			btnBuscar.setBounds(151, 64, 123, 36);
+			btnBuscar.setBounds(143, 26, 123, 36);
 			panelParticipante.add(btnBuscar);
 			
 			lblEstadoDePropuesta = new JLabel("Estado de Propuesta:");
