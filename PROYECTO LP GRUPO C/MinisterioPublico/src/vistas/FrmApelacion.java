@@ -24,6 +24,7 @@ import javax.swing.border.TitledBorder;
 
 import com.toedter.calendar.JDateChooser;
 
+import Validaciones.Reguex;
 import clases.Apelacion;
 import clases.Propuesta;
 import mantenimiento.ApelacionDAO;
@@ -234,9 +235,18 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
     //METODOS DE ENTRADA 
 	private String leerDescripcion() {
 		String res = null;
-		res = txtDescripcion.getText().trim();
+		if(txtDescripcion.getText().trim().length() == 0) {
+			Tool.mensajeError(this," Ingresar el Descripcion de la Apelacion");
+			txtDescripcion.requestFocus();
+		}else if (txtDescripcion.getText().trim().matches(Reguex.DESCRIPCION_APE)) {
+			res = txtDescripcion.getText().trim();
+		}else {
+			Tool.mensajeError(this," Ingresar Descripcion Valida ");
+			txtDescripcion.setText("");
+			txtDescripcion.requestFocus();
+		}
 		
-		return res;
+		return res ;
 	}
 	
 	private String leerFecha() {
@@ -255,9 +265,18 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 
 	private String leerIdApelacion() {
 		String res = null;
-		res = txtIdApelacion.getText().trim();
+		if(txtIdApelacion.getText().trim().length() == 0) {
+			Tool.mensajeError(this," Ingresar el Id Apelacion");
+			txtIdApelacion.requestFocus();
+		}else if (txtIdApelacion.getText().trim().matches(Reguex.ID_APELACION)) {
+			res = txtIdApelacion.getText().trim();
+		}else {
+			Tool.mensajeError(this," Ingresar Id Apelacion Valido. Ej: AP001 ");
+			txtIdApelacion.setText("");
+			txtIdApelacion.requestFocus();
+		}
 		
-		return res;
+		return res ;
 	}
 	
 	private String leerIdPropuesta() {

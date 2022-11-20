@@ -26,7 +26,7 @@ import clases.Pedido;
 import mantenimiento.ComiteDAO;
 import mantenimiento.PedidoDAO;
 import utils.Tool;
-
+import Validaciones.Reguex;
 @SuppressWarnings("serial")
 public class FrmComite extends JInternalFrame implements ActionListener, MouseListener {
 
@@ -364,49 +364,93 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 
 	//METODOS DE ENTRADA
 	private String leerDependencia() {
-	    String res = null;
-		
-		res = txtDependencia.getText().trim();
-		
+		String res = null;
+    	if(txtDependencia.getText().trim().length() == 0) {
+			Tool.mensajeError(this," Ingresar la dependencia del miembro ");
+			txtDependencia.requestFocus();
+		}else if (txtDependencia.getText().trim().matches(Reguex.DEPENDENCIA_CEP)) {
+			res = txtDependencia.getText().trim();
+		}else {
+			Tool.mensajeError(this," Dependencia del miembro no valida ");
+			txtDependencia.setText("");
+			txtDependencia.requestFocus();
+		}
 		return res ;
 	}
 
 	private String leerFuncion() {
-	    String res = null;
-		
-		res = txtFuncion.getText().trim();
-		
+		String res = null;
+    	if(txtFuncion.getText().trim().length() == 0) {
+			Tool.mensajeError(this," Ingresar la funcion del Miembro ");
+			txtFuncion.requestFocus();
+		}else if (txtFuncion.getText().trim().matches(Reguex.FUNCION_CEP)) {
+			res = txtFuncion.getText().trim();
+		}else {
+			Tool.mensajeError(this," Funcion del miembro no valida ");
+			txtFuncion.setText("");
+			txtFuncion.requestFocus();
+		}
 		return res ;
 	}
 
 	private String leerDni() {
-        String res = null;
-		
-		res = txtDni.getText().trim();
-		
-		return res ;
+		 String res = null;
+	    	if(txtDni.getText().trim().length() == 0) {
+				Tool.mensajeError(this," Ingresar el DNI ");
+				txtDni.requestFocus();
+			}else if (txtDni.getText().trim().matches(Reguex.DNI_CEP)) {
+				res = txtDni.getText().trim();
+			}else {
+				Tool.mensajeError(this," Ingresar DNI correctamente ");
+				txtDni.setText("");
+				txtDni.requestFocus();
+			}
+			return res ;
 	}
 
 	private String leerApellido() {
-        String res = null;
-		
-		res = txtApellido.getText().trim();
-		
+	    String res = null;
+    	if(txtApellido.getText().trim().length() == 0) {
+			Tool.mensajeError(this," Ingresar el Nombre del miembro del Comite");
+			txtApellido.requestFocus();
+		}else if (txtApellido.getText().trim().matches(Reguex.APELLIDO_CEP)) {
+			res = txtApellido.getText().trim();
+		}else {
+			Tool.mensajeError(this," Ingresar su Apellido correctamente ");
+			txtApellido.setText("");
+			txtApellido.requestFocus();
+		}
 		return res ;
 	}
 
 	private String leerNombre() {
         String res = null;
-		
-		res = txtNombre.getText().trim();
+    	if(txtNombre.getText().trim().length() == 0) {
+			Tool.mensajeError(this," Ingresar el Nombre del miembro del Comite");
+			txtNombre.requestFocus();
+		}else if (txtNombre.getText().trim().matches(Reguex.NOMBRE_CEP)) {
+			res = txtNombre.getText().trim();
+		}else {
+			Tool.mensajeError(this," Ingresar su Nombre correctamente ");
+			txtNombre.setText("");
+			txtNombre.requestFocus();
+		}
 		
 		return res ;
 	}
 
 	private String leerIdMiembro() {
         String res = null;
-		
-		res = txtIdMiembro.getText().trim();
+		if(txtIdMiembro.getText().trim().length() == 0) {
+			Tool.mensajeError(this," Ingresar el Id Miembro de Comite");
+			txtIdMiembro.requestFocus();
+		}else if (txtIdMiembro.getText().trim().matches(Reguex.ID_CEP)) {
+			res = txtIdMiembro.getText().trim();
+		}else {
+			Tool.mensajeError(this," Ingresar Id Miembro Valido Ej: MC001 ");
+			txtIdMiembro.setText("");
+			txtIdMiembro.requestFocus();
+		}
 		
 		return res ;
 	}
