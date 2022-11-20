@@ -99,7 +99,7 @@ public class UsuarioDAO {
 		try {
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "delete from tb_usuario where codigo_user = ? ";
+			String sql = "update tb_usuario set estado_user = 'ELIMINADO' where codigo_user = ? ";
 			
 			pstm = con.prepareStatement(sql);
 			
@@ -222,4 +222,54 @@ public class UsuarioDAO {
 		return user;
 	}
 	
+	public Usuario buscarXIdUSuario(int idUsuario) {
+		Usuario user = null;
+		
+		Connection con = null;
+		PreparedStatement pstm = null;
+		
+		ResultSet res = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql = "select * from tb_usuario where codigo_user =?";
+			
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setInt(1, idUsuario);
+			
+			res = pstm.executeQuery();
+			
+			while (res.next()) {
+				
+				user = new Usuario(
+						res.getInt(1),
+						res.getString(2),
+						res.getString(3),
+						res.getString(4),
+						res.getString(5),
+						res.getString(6),
+						res.getInt(7),
+						res.getString(8)
+						);
+			}
+			
+			
+		}catch (Exception e){
+			System.out.println("ERROR EN LA INSTRUCCION DE LA BD" + e.getMessage());
+		}finally {
+			try {
+				if (con != null) con.close();
+				if(pstm!= null) pstm.close();
+				if (res!=null) res.close();
+			} catch (SQLException e) {
+				System.out.println("ERROR AL CERRAR LAS CONEXIONES" + e.getMessage());
+			}
+		}
+		
+		
+		return user;
+	}
 }

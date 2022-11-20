@@ -23,9 +23,12 @@ import clases.Usuario;
 import mantenimiento.TipoUsuarioDAO;
 import mantenimiento.UsuarioDAO;
 import utils.Tool;
+import java.awt.event.MouseListener;
+import java.text.ParseException;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
-public class FrmUsuario extends JInternalFrame implements ActionListener{
+public class FrmUsuario extends JInternalFrame implements ActionListener, MouseListener{
 	private JLabel lblCodigo;
 	private JTextField txtCodigoUsuario;
 	private JTextField txtNombreUsuario;
@@ -128,6 +131,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 		getContentPane().add(lblFechaNac);
 		
 		txtEstado = new JTextField();
+		txtEstado.setEditable(false);
 		txtEstado.setColumns(10);
 		txtEstado.setBounds(545, 32, 101, 28);
 		getContentPane().add(txtEstado);
@@ -149,6 +153,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
+		table.addMouseListener(this);
 		scrollPane.setViewportView(table);
 		
 		btnEliminar = new JButton("Eliminar");
@@ -487,4 +492,44 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 		
 	}
 	
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == table) {
+			mouseClickedTable(e);
+		}
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	protected void mouseClickedTable(MouseEvent e) {
+		cargarUsuario();
+	}
+	
+	
+	private void cargarUsuario() {
+		
+		int indice = table.getSelectedRow();
+		
+		int codigo = Integer.parseInt(table.getValueAt(indice, 0).toString());
+		
+		Usuario user = usuarioDao.buscarXIdUSuario(codigo);
+		
+		txtCodigoUsuario.setText("" + user.getCodigoUsuario());
+		txtNombreUsuario.setText(user.getNombreUsuario());
+		txtApellidoUsuario.setText(user.getApellidoUsuario());
+		try {
+			dcFechaNac.setDate(Tool.sdf.parse(user.getFechaNacUsuario()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		cboTipoUsuario.setSelectedIndex(user.getTipoUsuario());
+		txtUsuario.setText(user.getUserUsuario());
+		txtClave.setText(user.getClaveUsuario());
+		txtEstado.setText(user.getEstadoUsario());
+	}
 }

@@ -38,7 +38,6 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private JLabel lblPuntEconomico;
 	private JTable table;
 	private JButton btnRegistrar;
-	private JButton btnModificar;
 	private DefaultTableModel modelo;
 	private JScrollPane scrollPane;
 	private JTextField txtEvaluacion;
@@ -119,13 +118,8 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(379, 201, 89, 23);
+		btnRegistrar.setBounds(525, 201, 89, 23);
 		getContentPane().add(btnRegistrar);
-		
-		btnModificar = new JButton("Modificar");
-		btnModificar.addActionListener(this);
-		btnModificar.setBounds(486, 201, 89, 23);
-		getContentPane().add(btnModificar);
 		
 		modelo = new DefaultTableModel();
 		modelo.addColumn("ID PROPUESTA");
@@ -137,6 +131,7 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		table.setModel(modelo);
 		
 		txtEvaluacion = new JTextField();
+		txtEvaluacion.setEditable(false);
 		txtEvaluacion.setColumns(10);
 		txtEvaluacion.setBounds(22, 31, 98, 20);
 		getContentPane().add(txtEvaluacion);
@@ -210,6 +205,7 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		getContentPane().add(panelPropuesta);
 		
 		cboPropuesta = new JComboBox <Object>();
+		cboPropuesta.setEditable(true);
 		cboPropuesta.setBounds(10, 42, 107, 22);
 		panelPropuesta.add(cboPropuesta);
 		
@@ -257,9 +253,6 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		if (e.getSource() == btnNuevo) {
 			actionPerformedBtnNuevo(e);
 		}
-		if (e.getSource() == btnModificar) {
-			actionPerformedBtnModificar(e);
-		}
 		if (e.getSource() == btnRegistrar) {
 			actionPerformedBtnRegistrar(e);
 		}
@@ -295,6 +288,7 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		
 		txtEntidadPedido.setText(ped.getEntidad());
 		txtRucPedido.setText(ped.getRuc());
+		
 		
 	}
 	protected void actionPerformedBtnRegistrar(ActionEvent e) {
@@ -332,41 +326,6 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 			
 		}
 		
-	}
-	
-
-	protected void actionPerformedBtnModificar(ActionEvent e) {
-		String idEvaluacion = leerIdEvaluacion();
-		String fecha = leerFecha();
-		String estado = leerEstado();
-		String idPropuesta = leerIdPropuesta();
-		double puntTecnico = leerPuntTecnico();
-		double puntEconomico = leerPuntEconomico();
-		
-		EvaluacionPropuesta evProp = null;
-		
-		if (idEvaluacion == null || fecha == null || estado == null ||
-				idPropuesta == null || puntTecnico == -1 ||
-				puntEconomico == -1 ) {
-			Tool.mensajeError(this, "Error durante la actualizacion de puntajes");
-		}else {
-			
-			evProp = new EvaluacionPropuesta(
-					idPropuesta,idEvaluacion,
-					puntTecnico, puntEconomico,
-					fecha,estado
-					);
-			
-			int ok = evaPropDao.actualizarEvaluacionPropuesta(evProp);
-			
-			if (ok == 0) {
-				Tool.mensajeError(this, "Error al actualizar puntajes");
-			}else {
-				Tool.mensajeExito(this,"Puntajes actualizados !");
-				cargarTablaEvaluacionPropuesta();
-			}
-			
-		}
 	}
 	
 	//METODOS DE ENTRADA
@@ -430,10 +389,10 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		if (txtPuntTecnico.getText().trim().length()==0) {
 			Tool.mensajeError(this, "Campo del Puntaje Técnico está vacío !");
 			txtPuntTecnico.requestFocus();
-		}else if(txtPuntTecnico.getText().trim().matches(Reguex.PUNTTECNICO_EVALUACION)){
+		}else if(txtPuntTecnico.getText().trim().matches(Reguex.PUNTTECNICO_EVALUACION)&&Integer.parseInt(txtPuntTecnico.getText())<=100){
 			res = Double.parseDouble(txtPuntTecnico.getText().trim());
 		}else {
-			Tool.mensajeError(this, "Puntaje técnico inválido. Ejemp.  (XXX) entre 1 y 3 digitos numéricos");
+			Tool.mensajeError(this, "Puntaje técnico inválido. Ejemp.  (XXX) entre 1 y 3 digitos numéricos no mayor a 100");
 		}
 		
 		return res;
@@ -445,10 +404,10 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 		if (txtPuntEconomico.getText().trim().length()==0) {
 			Tool.mensajeError(this, "Campo del Puntaje Económico está vacío !");
 			txtPuntEconomico.requestFocus();
-		}else if(txtPuntEconomico.getText().trim().matches(Reguex.PUNTECONOMICO_EVALUACION)){
+		}else if(txtPuntEconomico.getText().trim().matches(Reguex.PUNTECONOMICO_EVALUACION)&&Integer.parseInt(txtPuntEconomico.getText())<=100){
 			res = Double.parseDouble(txtPuntEconomico.getText().trim());
 		}else {
-			Tool.mensajeError(this, "Puntaje económico inválido. Ejemp.  (XXX) entre 1 y 3 digitos numéricos");
+			Tool.mensajeError(this, "Puntaje económico inválido. Ejemp.  (XXX) entre 1 y 3 digitos numéricos no mayor 100");
 		}		
 		return res;
 	}

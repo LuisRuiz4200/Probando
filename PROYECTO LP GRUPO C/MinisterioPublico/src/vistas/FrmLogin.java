@@ -9,6 +9,7 @@ import utils.Tool;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class FrmLogin extends JFrame implements ActionListener{
@@ -20,6 +21,7 @@ public class FrmLogin extends JFrame implements ActionListener{
 	private JButton btnCancelar;
 	public static Usuario user = new Usuario();
 	private UsuarioDAO usuarioDao;
+	private JLabel lblNewLabel;
 	
 	
 	public static void main(String [] args) {
@@ -30,9 +32,10 @@ public class FrmLogin extends JFrame implements ActionListener{
 	}
 	
 	public FrmLogin() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmLogin.class.getResource("/imagenes/logo3.jpg")));
 		
 		setTitle("LOGIN");
-		setBounds(100,100,461,275);
+		setBounds(100,100,468,300);
 		setLocationRelativeTo(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -68,6 +71,11 @@ public class FrmLogin extends JFrame implements ActionListener{
 		btnCancelar.addActionListener(this);
 		btnCancelar.setBounds(122, 156, 89, 23);
 		getContentPane().add(btnCancelar);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(FrmLogin.class.getResource("/imagenes/login/fondoLogin.jpeg")));
+		lblNewLabel.setBounds(0, 0, 452, 261);
+		getContentPane().add(lblNewLabel);
 		
 		
 		usuarioDao = new UsuarioDAO();
