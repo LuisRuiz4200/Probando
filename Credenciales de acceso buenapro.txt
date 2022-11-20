@@ -1,0 +1,15 @@
+CREDENCIALES DE ACCESO ========================================
+-luis27, 1234, admin
+-JP1987, 1987, CEP
+-tubebito, 4321, Logistico
+-nicol12, 1234, juridica
+
+
+
+
+NOTAS =============
+
+Nombres y apellido mayores a 16 caracteres.
+Entidad solicitando entre 5 y 25.
+
+Inabilitar panel de participante dentro del gui participantes mientrar no se eliga un ID pedido en el combo box.

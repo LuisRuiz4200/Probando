@@ -27,9 +27,22 @@ import mantenimiento.*;
 import utils.Tool;
 
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.awt.event.KeyEvent;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
+import java.awt.Desktop;
 
 @SuppressWarnings({ "serial", "unused" })
 public class FrmReportePropuesta extends JInternalFrame implements ActionListener {
@@ -170,6 +183,7 @@ public class FrmReportePropuesta extends JInternalFrame implements ActionListene
 		
 	}
 	protected void actionPerformedBtnExportar(ActionEvent e) {
+		imprimirPDF();
 	}
 	
 	
@@ -219,8 +233,76 @@ public class FrmReportePropuesta extends JInternalFrame implements ActionListene
 			}
 		}
 		
+	}
+	
+	void imprimirPDF() {
 		
+		String nombArchivo= "ListadUsuarios.pdf";
+		
+		try {
+			// CREAR PLANTILLA
+			Document plantilla = new Document ();
+			// CREAR ARCHIVO PDF
+			FileOutputStream fos = new FileOutputStream(nombArchivo);
+			// RELACIONAR LA PLANTILLA CON EL ARCHIVO
+			PdfWriter pdfW= PdfWriter.getInstance(plantilla, fos);
+			// ABRIR DOCUMENTO A MODO DE ESCRITURA
+			plantilla.open();
+			//AGREGAR IMAGEN
+			Image img = Image.getInstance("src/img/logociberfarma.png");
+			img.scaleToFit(90,90);
+			img.setAlignment(Chunk.ALIGN_RIGHT);
+			plantilla.add(img);
+			
+			//AGREGAR PARRAFO
+			Paragraph p = new Paragraph("LISTADO  PROPUESTAS",FontFactory.getFont("arial",20,Font.BOLD,BaseColor.BLUE));
+			p.setAlignment(Chunk.ALIGN_CENTER);
+			plantilla.add(p);
+			//SALTO DE LINEA
+			
+			p= new Paragraph (" ");
+			plantilla.add(p);
+			
+			//LLAMAR AL PROCESO DE CONSULTA
+			// LLAMAR AL PROCESO -- listar usuario
+			ArrayList<Propuesta> lista = propDao.listarPropuestas();
+			if(lista.size()==0) {
+				p = new Paragraph("Listado vacio");
+				plantilla.add(p);
+			}else {
+				
+				//crear tabla 
+				
+				PdfPTable tabla = new PdfPTable(5);
+				//agregar columnas a la tabla
+				
+				tabla.addCell("ID PEDIDO");
+				tabla.addCell("ID PROPUESTA");
+				tabla.addCell("ID PARTICIPANTE");
+				tabla.addCell("FECHA DE PROPUESTA");
+				tabla.addCell("ESTADO DE PROPUESTA");
+				
+				for (Propuesta prop :lista ) {
+					tabla.addCell(prop.getCodPedido());
+					tabla.addCell(prop.getCodPropuesta());
+					tabla.addCell(prop.getCodParticipante());
+					tabla.addCell(prop.getFecha());
+					tabla.addCell(prop.getEstado());
+				}
+				
+				plantilla.add(tabla);
+			}
+			
+			
+			//CERRAR EL DOCUMENTO
+			plantilla.close();
+			//MOSTRAR EL ARCHIVO PDF 
+			Desktop.getDesktop().open(new File(nombArchivo));
+			
+		}catch (Exception e) {
+			System.out.println("Error al generar reporte" + e.getMessage());
+		}
 		
 	}
 	
-	}
+}
