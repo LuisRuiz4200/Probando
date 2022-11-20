@@ -44,40 +44,7 @@ public class PronunciamientoDAO {
 		}
 		return res;
 	}
-	//MODIFICAR PRONUNCIAMIENTO
-	public int modificarPronApelacion (Pronunciamiento proEva ) {
-        int res = 0;
-		Connection con =null;
-		PreparedStatement pstm = null;
-		
-		try {	
-			con = MySQLConexion8.getConexion();
-			String sql = "update tb_proyectopronunciamientoapelacion set nomGerenteAJ_pronApel = ?, dniGerenteAJ_pronApel = ?, fecha_pronApel = ?, descripcion_pronApel = ?, estado_pronApel = ? "
-					+ "where id_pronApel = ? and id_apel = ?";
-			pstm = con.prepareStatement(sql);
-			
-			pstm.setString(1,proEva.getNomGerente());
-			pstm.setString(2,proEva.getDni());
-			pstm.setString(3,proEva.getFecha());
-			pstm.setString(4,proEva.getDesApelacion());
-			pstm.setString(5,proEva.getEstado());
-			pstm.setString(6,proEva.getIdPronun());
-			pstm.setString(7,proEva.getIdApel());
-			
-			res = pstm.executeUpdate();
-			
-		}catch(Exception e) {
-			System.out.println("Error en la instruccion " + e.getMessage());
-		}finally {
-			try {
-				if (con!=null)con.close();
-				if (pstm!=null)pstm.close();
-			}catch (SQLException e) {
-				System.out.println("Error al cerrar la base de datos" + e.getMessage());
-			}
-		}
-		return res;
-	}
+	
 	//LISTAR PRONUNCIAMIENTO
 	public ArrayList<Pronunciamiento> listarPronunciamiento() {
 	

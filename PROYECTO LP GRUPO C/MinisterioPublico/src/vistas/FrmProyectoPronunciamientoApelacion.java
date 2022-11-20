@@ -44,7 +44,6 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 	private JTextField txtDni;
 	private JLabel lblDni;
 	private JButton btnRegistrar;
-	private JButton btnModificar;
 	private JComboBox <Object> cboResultado;
     private PronunciamientoDAO proDao;
     private ApelacionDAO apeDao;
@@ -140,13 +139,8 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(228, 385, 109, 23);
+		btnRegistrar.setBounds(301, 385, 109, 23);
 		getContentPane().add(btnRegistrar);
-		
-		btnModificar = new JButton("Modificar");
-		btnModificar.addActionListener(this);
-		btnModificar.setBounds(376, 385, 109, 23);
-		getContentPane().add(btnModificar);
 		
 		cboResultado = new JComboBox <Object>();
 		cboResultado.setModel(new DefaultComboBoxModel<Object>(new String[] {"Fundado", "No fundado"}));
@@ -167,9 +161,6 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnModificar) {
-			actionPerformedBtnModificar(e);
-		}
 		if (e.getSource() == btnRegistrar) {
 			actionPerformedBtnRegistrar(e);
 		}
@@ -196,33 +187,6 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 				Tool.mensajeError(this, "Error de registro");
 			}else {
 				Tool.mensajeExito(this, "Registro exitoso");
-				correlativo();
-			}
-		}
-	}
-	
-	protected void actionPerformedBtnModificar(ActionEvent e) {
-		String idPronApelacion = leerPronApelacion();
-		String idApelacion = leerIdApelacion();
-		String nombGerente = leerNomGerente();
-		String dni = leerDni();
-		String fecha = leerFecha();
-		String conclusion = leerConclusion();
-		String estado = leerEstado();
-		
-		if (idPronApelacion == null || idApelacion == null || 
-				nombGerente == null || dni == null ||  fecha == null || 
-				conclusion == null || estado == null ) {
-			return;
-		}else {
-			Pronunciamiento pro = new Pronunciamiento (idPronApelacion,
-					idApelacion, nombGerente, dni, fecha, conclusion,
-					estado);
-			int ok = proDao.modificarPronApelacion(pro);
-			if (ok == 0) {
-				Tool.mensajeError(this, "Error de Actualizacion");
-			}else {
-				Tool.mensajeExito(this, "Actualizacion exitoso");
 				correlativo();
 			}
 		}
