@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import Validaciones.Reguex;
 import clases.EvaluacionPropuesta;
 import clases.Participante;
 import clases.Pedido;
@@ -373,7 +374,15 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private String leerIdEvaluacion() {
 		String res = null;
 		
-		res = txtEvaluacion.getText().trim();
+		if (txtEvaluacion.getText().trim().length()==0) {
+			Tool.mensajeError(this, "El campo del ID de la evaluación está vacía !");
+			txtEvaluacion.requestFocus();
+		}else if (txtEvaluacion.getText().trim().matches(Reguex.ID_EVALUACION)) {
+			res = txtEvaluacion.getText().trim();
+		}else {
+			Tool.mensajeError(this, "ID de la evaluación inválida. Ejemp. (EVPR002)");
+			txtEvaluacion.requestFocus();
+		}
 		
 		return res;
 	}
@@ -381,7 +390,12 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private String leerFecha() {
 		String res = null;
 		
-		res = Tool.sdf.format(dcFecha.getDate());
+		if (dcFecha.getDate()==null) {
+			Tool.mensajeError(this, "Campo de la fecha está vacío !");
+			dcFecha.requestFocus();
+		}else {
+			res = Tool.sdf.format(dcFecha.getDate());
+		}
 		
 		return res;
 	}
@@ -389,7 +403,11 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private String leerEstado() {
 		String res = null;
 		
-		res = txtEstado.getText().trim();
+		if (txtEstado.getText().trim().length()==0) {
+			Tool.mensajeError(this, "Campo del Estado está vacío !");
+		}else {
+			res = txtEstado.getText().trim();
+		}
 		
 		return res;
 	}
@@ -397,7 +415,11 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private String leerIdPropuesta() {
 		String res = null;
 		
-		res = cboPropuesta.getSelectedItem().toString();
+		if (cboPropuesta.getSelectedIndex()==0) {
+			Tool.mensajeError(this, "Eliga una ID de propuesta !");
+		}else {
+			res = cboPropuesta.getSelectedItem().toString();
+		}
 		
 		return res;
 	}
@@ -405,7 +427,14 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private double leerPuntTecnico() {
 		double res = -1;
 		
-		res = Double.parseDouble(txtPuntTecnico.getText().trim());
+		if (txtPuntTecnico.getText().trim().length()==0) {
+			Tool.mensajeError(this, "Campo del Puntaje Técnico está vacío !");
+			txtPuntTecnico.requestFocus();
+		}else if(txtPuntTecnico.getText().trim().matches(Reguex.PUNTTECNICO_EVALUACION)){
+			res = Double.parseDouble(txtPuntTecnico.getText().trim());
+		}else {
+			Tool.mensajeError(this, "Puntaje técnico inválido. Ejemp.  (XXX) entre 1 y 3 digitos numéricos");
+		}
 		
 		return res;
 	}
@@ -413,8 +442,14 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	private double leerPuntEconomico() {
 		double res = -1;
 		
-		res = Double.parseDouble(txtPuntEconomico.getText().trim());
-		
+		if (txtPuntEconomico.getText().trim().length()==0) {
+			Tool.mensajeError(this, "Campo del Puntaje Económico está vacío !");
+			txtPuntEconomico.requestFocus();
+		}else if(txtPuntEconomico.getText().trim().matches(Reguex.PUNTECONOMICO_EVALUACION)){
+			res = Double.parseDouble(txtPuntEconomico.getText().trim());
+		}else {
+			Tool.mensajeError(this, "Puntaje económico inválido. Ejemp.  (XXX) entre 1 y 3 digitos numéricos");
+		}		
 		return res;
 	}
 	

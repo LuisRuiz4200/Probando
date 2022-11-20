@@ -464,7 +464,12 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private String leerEstado() {
 		String res = null;
 		
-		res = txtEstado.getText().toString();
+		if(txtEstado.getText().trim().length()==0) {
+			Tool.mensajeError(this,"Campo de Estado está vacío !");
+			txtEstado.requestFocus();
+		}else {
+			res = txtEstado.getText().toString();
+		}
 		
 		return res ;
 	}

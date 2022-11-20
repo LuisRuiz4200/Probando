@@ -326,7 +326,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 		}else if (txtNombreUsuario.getText().trim().matches(Reguex.NOMBRE_USUARIO)) {
 			res = txtNombreUsuario.getText();
 		}else {
-			Tool.mensajeError(this, "Nombre incorrecto. Caracteres entre 3 y 16");
+			Tool.mensajeError(this, "Nombre incorrecto. Caracteres entre 3 y 25");
 		}
 		
 		return res;
@@ -341,7 +341,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 		}else if (txtApellidoUsuario.getText().trim().matches(Reguex.APELLIDO_USUARIO)) {
 			res = txtApellidoUsuario.getText();
 		}else {
-			Tool.mensajeError(this, "Apellido incorrecto. Caracteres entre 3 y 16");
+			Tool.mensajeError(this, "Apellido incorrecto. Caracteres entre 3 y 25");
 		}
 		
 		return res;

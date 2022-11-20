@@ -145,7 +145,7 @@ public class ParticipanteDAO {
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "select * from tb_participante"; 
+			String sql = "select * from tb_participante group by codigo_parti"; 
 						
 			pstm = con.prepareStatement(sql);
 			
