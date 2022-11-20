@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import Validaciones.Reguex;
 import clases.TipoUsuario;
 import clases.Usuario;
 import mantenimiento.TipoUsuarioDAO;
@@ -241,6 +242,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 			}else {
 				Tool.mensajeExito(this, "Registrado correctamente !");
 				cargarTabla();
+				
 			}
 			
 		}
@@ -306,15 +308,26 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 	private int leerCodigoUsuario() {
 		int res = -1;
 		
-		res = Integer.parseInt(txtCodigoUsuario.getText().trim());
-		
+		if (txtCodigoUsuario.getText().trim().length()==0){
+			Tool.mensajeError(this,"Campo codigo sin llenar");
+			txtCodigoUsuario.requestFocus();
+		}else {
+			res = Integer.parseInt(txtCodigoUsuario.getText().trim());
+		}
 		return res;
 	}
 
 	private String leerNombreUsuario() {
 		String res = null;
 		
-		res = txtNombreUsuario.getText();
+		if(txtNombreUsuario.getText().trim().length()==0) {
+			Tool.mensajeError(this, "Coloque los nombres del usuario");
+			txtNombreUsuario.requestFocus();
+		}else if (txtNombreUsuario.getText().trim().matches(Reguex.NOMBRE_USUARIO)) {
+			res = txtNombreUsuario.getText();
+		}else {
+			Tool.mensajeError(this, "Nombre incorrecto. Caracteres entre 3 y 16");
+		}
 		
 		return res;
 	}
@@ -322,7 +335,14 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 	private String leerApellidoUsuario() {
 		String res = null;
 		
-		res = txtApellidoUsuario.getText();
+		if(txtApellidoUsuario.getText().trim().length()==0) {
+			Tool.mensajeError(this, "Coloque los apellidos del usuario");
+			txtApellidoUsuario.requestFocus();
+		}else if (txtApellidoUsuario.getText().trim().matches(Reguex.APELLIDO_USUARIO)) {
+			res = txtApellidoUsuario.getText();
+		}else {
+			Tool.mensajeError(this, "Apellido incorrecto. Caracteres entre 3 y 16");
+		}
 		
 		return res;
 	}
@@ -330,7 +350,14 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 	private String leerUserUsario() {
 		String res = null;
 		
-		res = txtUsuario.getText();
+		if(txtUsuario.getText().trim().length()==0) {
+			Tool.mensajeError(this, "Escriba un usuario");
+			txtUsuario.requestFocus();
+		}else if (txtUsuario.getText().trim().matches(Reguex.USER_USUARIO)) {
+			res = txtUsuario.getText();
+		}else {
+			Tool.mensajeError(this, "User incorrecto. Letras y numeros de 4 a 8 caracteres");
+		}
 		
 		return res;
 	}
@@ -338,7 +365,14 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 	private String leerClaveUsuario() {
 		String res = null;
 	
-		 res = txtClave.getText();
+		if(txtClave.getText().trim().length()==0) {
+			Tool.mensajeError(this, "Escriba una clave");
+			txtClave.requestFocus();
+		}else if (txtClave.getText().trim().matches(Reguex.USER_USUARIO)) {
+			res = txtClave.getText();
+		}else {
+			Tool.mensajeError(this, "Clave incorrecta. Letras y numeros de 4 a 8 caracteres ");
+		}
 				 
 		return res;
 	}
@@ -346,7 +380,14 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 	private String leerFechaNacUsuario() {
 		String res = null;
 		
-		res =Tool.sdf.format(dcFechaNac.getDate()).toString();
+		if (dcFechaNac.getDate()==null) {
+			Tool.mensajeError(this, "El campo de la fecha esta vacía");
+			dcFechaNac.requestFocus();
+		}else {
+			res =Tool.sdf.format(dcFechaNac.getDate()).toString();
+		}
+		
+		
 		
 		return res;
 	}
@@ -354,7 +395,11 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 	private int leerTipoUsuario() {
 		int res = -1;
 		
-		res = cboTipoUsuario.getSelectedIndex();
+		if (cboTipoUsuario.getSelectedIndex()==0) {
+			Tool.mensajeError(this,"Eliga un tipo de usuario");
+		}else {
+			res = cboTipoUsuario.getSelectedIndex();
+		}
 		
 		return res;
 	}
@@ -362,7 +407,13 @@ public class FrmUsuario extends JInternalFrame implements ActionListener{
 	private String leerEstadoUsuario() {
 		String res = null;
 		
-		res = txtEstado.getText();
+		if (txtEstado.getText().trim().length()==0){
+			Tool.mensajeError(this, "Campo del estado esta vacío !");
+			txtEstado.requestFocus();
+		}else {
+			res = txtEstado.getText();
+		}
+		
 		
 		return res;
 	}

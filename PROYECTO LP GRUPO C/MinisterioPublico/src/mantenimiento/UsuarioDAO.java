@@ -61,7 +61,7 @@ public class UsuarioDAO {
 			con = MySQLConexion8.getConexion();
 			
 			String sql = "update tb_usuario set nombre_user = ?, apellido_user = ?, usuario_user = ?, "
-					+ "clave_user = ?, tipo_user= ?, estado_user=? where codigo_user = ?;";
+					+ "clave_user = ?, fechaNac_user = ?, tipo_user= ?,estado_user=? where codigo_user = ?;";
 			
 			pstm = con.prepareStatement(sql);
 			

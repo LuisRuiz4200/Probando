@@ -26,9 +26,7 @@ public class Tool {
 		
 	}
 	
-	
 	public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	public static SimpleDateFormat sdfChooser = new SimpleDateFormat("dd-MM-yyyy");
 	
 	public static Formatter ft = new Formatter();
 	

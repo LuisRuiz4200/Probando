@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import Validaciones.Reguex;
 import clases.ObjetoPedido;
 import clases.Participante;
 import clases.Pedido;
@@ -334,7 +335,15 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private String leerIdPedido() {
 		String res=null;
 		
-		res = txtIdPedido.getText().trim();
+		if (txtIdPedido.getText().trim().length()==0) {
+			Tool.mensajeError(this, "Campo del id pedido esta vacío !");
+			txtIdPedido.requestFocus();
+		}else if (txtIdPedido.getText().trim().matches(Reguex.ID_PEDIDO)) {
+			res = txtIdPedido.getText().trim();
+		}else {
+			Tool.mensajeError(this,"ID pedido inválido. Ejemp (PD002)");
+			txtIdPedido.requestFocus();
+		}
 		
 		return res;
 	}
@@ -342,7 +351,16 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private String leerEntidad() {
 		String res=null;
 		
-		res = txtEntidad.getText().trim();
+		if (txtEntidad.getText().trim().length()==0) {
+			Tool.mensajeError(this, "Campo entidad esta vacío !");
+			txtEntidad.requestFocus();
+		}else if (txtEntidad.getText().trim().matches(Reguex.ENTIDAD_PEDIDO)) {
+			res = txtEntidad.getText().trim();
+		}else {
+			Tool.mensajeError(this, "Entidad inválida. Cantidad de caracteres (5 y 10)");
+			txtEntidad.requestFocus();
+		}
+		
 		
 		return res;
 	}
@@ -351,7 +369,16 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private String leerRuc() {
 		String res=null;
 		
-		res= txtRuc.getText();
+		if (txtRuc.getText().trim().length()==0) {
+			Tool.mensajeError(this,"Campo del RUC está vacío !");
+			txtRuc.requestFocus();
+		}else if (txtRuc.getText().trim().matches(Reguex.RUC_PEDIDO)) {
+			res= txtRuc.getText();
+		}else {
+			Tool.mensajeError(this,"Ruc inválido. Ejemp (XXXXXXXXXXX, 11 digitos)");
+			txtRuc.requestFocus();
+		}
+		
 		
 		return res;
 	}
@@ -359,7 +386,11 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private int leerTipo() {
 		int res=-1;
 		
-		res = cboTipo.getSelectedIndex();
+		if(cboTipo.getSelectedIndex()==0) {
+			Tool.mensajeError(this,"Elige un tipo de pedido");
+		}else {
+			res = cboTipo.getSelectedIndex();
+		}
 		
 		return res;
 	}
@@ -367,7 +398,12 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private int leerObjeto() {
 		int res=-1;
 		
-		res = cboObjeto.getSelectedIndex();
+		if (cboObjeto.getSelectedIndex()==0) {
+			Tool.mensajeError(this,"Elige un objeto de contratación");
+		}else {
+			res = cboObjeto.getSelectedIndex();
+		}
+		
 		
 		return res;
 	}
@@ -375,17 +411,24 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private String leerDescripcion() {
 		String res=null;
 		
-		res = txtDescripcion.getText().trim();
-	
+		if (txtDescripcion.getText().trim().length()==0) {
+			Tool.mensajeError(this, "El registro necesita un descripcion");
+			txtDescripcion.requestFocus();
+		}else {
+			res = txtDescripcion.getText().trim();
+		}
 		return res;
 	}
 
 	private String leerFecha() {
 		String res=null;
 		
-		res = Tool.sdf.format(dcFecha.getDate()).toString();
-		
-		
+		if (dcFecha.getDate()==null) {
+			Tool.mensajeError(this, "El campo fecha está vacío !");
+			dcFecha.requestFocus();
+		}else {
+			res = Tool.sdf.format(dcFecha.getDate()).toString();
+		}
 		
 		return res;
 	}
@@ -393,7 +436,12 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private String leerEstado() {
 		String res=null;
 		
-		res = txtEstado.getText().toString();
+		if (txtEstado.getText().trim().length()==0) {
+			Tool.mensajeError(this,"El campo estado está vacío !");
+			txtEstado.requestFocus();
+		}else {
+			res = txtEstado.getText().toString();
+		}
 		
 		return res;
 	}
