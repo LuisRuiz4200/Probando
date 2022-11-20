@@ -53,6 +53,9 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 	private JLabel lblPedido;
 	private JLabel lblApelacion;
 	private JTextArea txtCuadro3;
+	private JScrollPane scrollPane;
+	private JScrollPane scrollPane_1;
+	private JScrollPane scrollPane_2;
 
 	/**
 	 * Launch the application.
@@ -76,7 +79,7 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 	public FrmConsultaApelacion() {
 		setTitle("Consulta de Apelaciones");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 641, 521);
+		setBounds(100, 100, 750, 549);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -90,42 +93,57 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 		
 		btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(this);
-		btnConsultar.setBounds(360, 12, 89, 22);
+		btnConsultar.setBounds(294, 12, 89, 22);
 		contentPane.add(btnConsultar);
 		
 		lblIdParticipante = new JLabel("ID Apelacion :");
 		lblIdParticipante.setFont(new Font("Bahnschrift", Font.PLAIN, 13));
-		lblIdParticipante.setBounds(76, 11, 97, 26);
+		lblIdParticipante.setBounds(10, 11, 97, 26);
 		contentPane.add(lblIdParticipante);
 		
 		cboApelacion = new JComboBox<Object>();
-		cboApelacion.setBounds(183, 12, 138, 22);
+		cboApelacion.setBounds(117, 12, 138, 22);
 		contentPane.add(cboApelacion);
 		
+		scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(350, 89, 360, 419);
+		contentPane.add(scrollPane_2);
+		
 		txtCuadro2 = new JTextArea();
+		txtCuadro2.setBorder(new EmptyBorder(5, 5, 5, 5));
+		scrollPane_2.setViewportView(txtCuadro2);
+		txtCuadro2.setLineWrap(true);
 		txtCuadro2.setEditable(false);
-		txtCuadro2.setBounds(20, 296, 583, 184);
-		contentPane.add(txtCuadro2);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 89, 330, 173);
+		contentPane.add(scrollPane);
 		
 		txtCuadro1 = new JTextArea();
+		txtCuadro1.setBorder(new EmptyBorder(5, 5, 5, 5));
+		scrollPane.setViewportView(txtCuadro1);
+		txtCuadro1.setLineWrap(true);
 		txtCuadro1.setEditable(false);
-		txtCuadro1.setBounds(20, 73, 278, 187);
-		contentPane.add(txtCuadro1);
 		
 		lblPedido = new JLabel("DESCRIPCION DE LA APELACION :");
 		lblPedido.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblPedido.setBounds(20, 271, 233, 14);
+		lblPedido.setBounds(348, 61, 233, 17);
 		contentPane.add(lblPedido);
 		
 		lblApelacion = new JLabel("DATOS GENERALES : ");
 		lblApelacion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblApelacion.setBounds(20, 48, 233, 14);
+		lblApelacion.setBounds(10, 64, 233, 14);
 		contentPane.add(lblApelacion);
 		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 273, 330, 235);
+		contentPane.add(scrollPane_1);
+		
 		txtCuadro3 = new JTextArea();
+		txtCuadro3.setBorder(new EmptyBorder(5, 5, 5, 5));
+		scrollPane_1.setViewportView(txtCuadro3);
+		txtCuadro3.setLineWrap(true);
 		txtCuadro3.setEditable(false);
-		txtCuadro3.setBounds(318, 73, 282, 187);
-		contentPane.add(txtCuadro3);
 		
 		
 		partDao= new ParticipanteDAO();
@@ -209,28 +227,29 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 			return;
 		}else {
 			
-			Tool.imprimir(txtCuadro3," PEDIDO	  :" +  ped.getEntidad() );
-			Tool.imprimir(txtCuadro3," DESCRIPCION :" +  ped.getDescripcion() );
-			Tool.imprimir(txtCuadro3," ID	 :" +  ped.getCodigo());
-			Tool.imprimir(txtCuadro3," RUC	:" +  ped.getRuc());
-			Tool.imprimir(txtCuadro3," ESTADO	:" + ped.getEstado());
+			Tool.imprimir(txtCuadro3, "=========================================");
+			Tool.imprimir(txtCuadro3," ID PEDIDO		 :" +  ped.getCodigo());
+			Tool.imprimir(txtCuadro3," PEDIDO	  	:" +  ped.getEntidad() );
+			Tool.imprimir(txtCuadro3," RUC		:" +  ped.getRuc());
+			Tool.imprimir(txtCuadro3," ESTADO		:" + ped.getEstado());
 			Tool.imprimir(txtCuadro3," ");
 		}
 	}
 
 	private void cargarParticipante(Participante part) {
 		
-		//txtCuadro1.setText("");s
+		//txtCuadro1.setText("");
 		
 		if (part == null){
 			return;
 		}else {
 			
+			Tool.imprimir(txtCuadro3, "=========================================");
+			Tool.imprimir(txtCuadro3," ID PARTICIPANTE	: " + part.getCodParticipante() );
 			Tool.imprimir(txtCuadro3," PARTICIPANTE	: " + part.getEntidad() );
-			Tool.imprimir(txtCuadro3," ID PARTICIPANTE: " + part.getCodParticipante() );
-			Tool.imprimir(txtCuadro3," RUC : " + part.getRuc());
-			Tool.imprimir(txtCuadro3," TELEFONO	: " + part.getTelefono() );
-			Tool.imprimir(txtCuadro3," ESTADO : " + part.getEstado());
+			Tool.imprimir(txtCuadro3," RUC		: " + part.getRuc());
+			Tool.imprimir(txtCuadro3," TELEFONO		: " + part.getTelefono() );
+			Tool.imprimir(txtCuadro3," ESTADO		: " + part.getEstado());
 		}
 		
 	}
@@ -243,10 +262,12 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 			return;
 		} else {
 			
-			Tool.imprimir(txtCuadro1," ID APELACION : " +  apel.getCodApelacion() );
-			Tool.imprimir(txtCuadro1," FECHA : " +  apel.getFecha() );
-			Tool.imprimir(txtCuadro1," ESTADO : " +  apel.getEstado());
-			Tool.imprimir(txtCuadro2," DESCRIPCION : " +  apel.getDescripcion());
+			Tool.imprimir(txtCuadro1, "=========================================");
+			Tool.imprimir(txtCuadro1," ID APELACION		: " +  apel.getCodApelacion() );
+			Tool.imprimir(txtCuadro1," FECHA		: " +  apel.getFecha() );
+			Tool.imprimir(txtCuadro1," ESTADO		: " +  apel.getEstado());
+			//DESCRIPCION
+			Tool.imprimir(txtCuadro2,apel.getDescripcion());
 			Tool.imprimir(txtCuadro1," ");
 		}
 		
@@ -257,10 +278,10 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 		if (prop == null) {
 			return;
 		}else {
-			
-			Tool.imprimir(txtCuadro1," ID PROPUESTA : " +  prop.getCodPropuesta() );
-			Tool.imprimir(txtCuadro1," FECHA : " +  prop.getFecha() );
-			Tool.imprimir(txtCuadro1," ESTADO : " +  prop.getEstado());
+			Tool.imprimir(txtCuadro1, "=========================================");
+			Tool.imprimir(txtCuadro1," ID PROPUESTA	: " +  prop.getCodPropuesta() );
+			Tool.imprimir(txtCuadro1," FECHA		: " +  prop.getFecha() );
+			Tool.imprimir(txtCuadro1," ESTADO		: " +  prop.getEstado());
 		}
 	}
 

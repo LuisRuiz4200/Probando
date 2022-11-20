@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -47,7 +48,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private JLabel lblTipo;
 	private JLabel lblObjeto;
 	private JComboBox<Object> cboTipo;
-	private JEditorPane txtDescripcion;
+	private JTextArea txtDescripcion;
 	private JLabel lblDescripcion;
 	private JLabel lblFecha;
 	private JTable tbPedidos;
@@ -134,8 +135,10 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		cboTipo.setBounds(167, 99, 220, 22);
 		contentPane.add(cboTipo);
 		
-		txtDescripcion = new JEditorPane();
+		txtDescripcion = new JTextArea();
 		txtDescripcion.setBounds(413, 64, 279, 88);
+		txtDescripcion.setLineWrap(true);
+		txtDescripcion.setBorder(new EmptyBorder(10,10,10,10));
 		contentPane.add(txtDescripcion);
 		
 		lblDescripcion = new JLabel("Descripcion de \r\nRequrimiento:");
@@ -357,7 +360,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		}else if (txtEntidad.getText().trim().matches(Reguex.ENTIDAD_PEDIDO)) {
 			res = txtEntidad.getText().trim();
 		}else {
-			Tool.mensajeError(this, "Entidad inválida. Cantidad de caracteres (5 y 10)");
+			Tool.mensajeError(this, "Entidad inválida. Cantidad de caracteres (3 y 20)");
 			txtEntidad.requestFocus();
 		}
 		

@@ -30,6 +30,7 @@ import clases.Propuesta;
 import mantenimiento.ApelacionDAO;
 import mantenimiento.PropuestaDAO;
 import utils.Tool;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class FrmApelacion extends JInternalFrame implements ActionListener {
@@ -107,7 +108,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		
 		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(62, 320, 89, 23);
+		btnRegistrar.setBounds(51, 320, 97, 23);
 		getContentPane().add(btnRegistrar);
 		
 		panelPedido = new JPanel();
@@ -164,9 +165,9 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 			cboPropuesta.setBounds(10, 43, 123, 22);
 			panelParticipante.add(cboPropuesta);
 			
-			btnBuscar = new JButton("Buscar");
+			btnBuscar = new JButton("Buscar \r\nPropuesta");
 			btnBuscar.addActionListener(this);
-			btnBuscar.setBounds(166, 43, 89, 23);
+			btnBuscar.setBounds(143, 26, 123, 36);
 			panelParticipante.add(btnBuscar);
 			
 			lblEstadoDePropuesta = new JLabel("Estado de Propuesta:");
@@ -294,10 +295,17 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		cboPropuesta.removeAllItems();
 		cboPropuesta.addItem("SELECCIONE...");
 		
+		boolean bandera = false;
+		
 		for (Propuesta ped : list) {
-			
-			cboPropuesta.addItem(ped.getCodPropuesta());
-			
+			if (ped.getEstado().equals("OBSERVADO")) {
+				cboPropuesta.addItem(ped.getCodPropuesta());
+				bandera = true;
+			}
+		}
+		
+		if (bandera == false) {
+			Tool.mensajeError(this, "No hay propuestas en estado de OBSERVADO");
 		}
 
      }
