@@ -167,7 +167,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 			
 			btnBuscar = new JButton("Buscar \r\nPropuesta");
 			btnBuscar.addActionListener(this);
-			btnBuscar.setBounds(151, 64, 123, 36);
+			btnBuscar.setBounds(143, 26, 123, 36);
 			panelParticipante.add(btnBuscar);
 			
 			lblEstadoDePropuesta = new JLabel("Estado de Propuesta:");
@@ -295,10 +295,17 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		cboPropuesta.removeAllItems();
 		cboPropuesta.addItem("SELECCIONE...");
 		
+		boolean bandera = false;
+		
 		for (Propuesta ped : list) {
-			
-			cboPropuesta.addItem(ped.getCodPropuesta());
-			
+			if (ped.getEstado().equals("OBSERVADO")) {
+				cboPropuesta.addItem(ped.getCodPropuesta());
+				bandera = true;
+			}
+		}
+		
+		if (bandera == false) {
+			Tool.mensajeError(this, "No hay propuestas en estado de OBSERVADO");
 		}
 
      }

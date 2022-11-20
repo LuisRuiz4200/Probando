@@ -15,7 +15,7 @@ import java.util.Formatter;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JEditorPane;
+import javax.swing.JTextArea;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -44,8 +44,8 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private JLabel lblPedido;
 	private JLabel lblNumeroPostulacion;
 	private JTextField txtPropuesta;
-	private JEditorPane txtPropTecnica;
-	private JEditorPane txtPropEconomica;
+	private JTextArea txtPropTecnica;
+	private JTextArea txtPropEconomica;
 	private JDateChooser dcFechaProp;
 	private JLabel lblFechaProp;
 
@@ -106,28 +106,32 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 		btnActualizar = new JButton("Actualizar");
 		btnActualizar.addActionListener(this);
-		btnActualizar.setBounds(483, 100, 108, 23);
+		btnActualizar.setBounds(456, 180, 108, 23);
 		contentPane.add(btnActualizar);
 
 		lblPropuestaTecnica = new JLabel("Propuesta Tecnica:");
-		lblPropuestaTecnica.setBounds(10, 216, 125, 14);
+		lblPropuestaTecnica.setBounds(10, 214, 125, 14);
 		contentPane.add(lblPropuestaTecnica);
 
 		lblPropuestaEcono = new JLabel("Propuesta Economica:");
-		lblPropuestaEcono.setBounds(361, 216, 128, 14);
+		lblPropuestaEcono.setBounds(361, 214, 128, 14);
 		contentPane.add(lblPropuestaEcono);
 
-		txtPropTecnica = new JEditorPane();
-		txtPropTecnica.setBounds(10, 243, 338, 189);
+		txtPropTecnica = new JTextArea();
+		txtPropTecnica.setBounds(10, 241, 338, 189);
+		txtPropTecnica.setLineWrap(true);
+		txtPropTecnica.setBorder(new EmptyBorder(8,8,8,8));
 		contentPane.add(txtPropTecnica);
 
-		txtPropEconomica = new JEditorPane();
+		txtPropEconomica = new JTextArea();
 		txtPropEconomica.setBounds(358, 241, 351, 189);
+		txtPropEconomica.setLineWrap(true);
+		txtPropEconomica.setBorder(new EmptyBorder(8,8,8,8));
 		contentPane.add(txtPropEconomica);
 
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(601, 100, 89, 23);
+		btnRegistrar.setBounds(574, 180, 89, 23);
 		contentPane.add(btnRegistrar);
 
 		panelParticipante = new JPanel();
@@ -143,7 +147,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtEntidadParti = new JTextField();
 		txtEntidadParti.setText("");
 		txtEntidadParti.setColumns(10);
-		txtEntidadParti.setBounds(10, 81, 113, 20);
+		txtEntidadParti.setBounds(10, 81, 177, 20);
 		panelParticipante.add(txtEntidadParti);
 
 		lblEntidad = new JLabel("Entidad");
@@ -151,13 +155,13 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panelParticipante.add(lblEntidad);
 
 		lblRuc = new JLabel("RUC");
-		lblRuc.setBounds(145, 66, 92, 14);
+		lblRuc.setBounds(133, 21, 92, 14);
 		panelParticipante.add(lblRuc);
 
 		txtRucParti = new JTextField();
 		txtRucParti.setText("");
 		txtRucParti.setColumns(10);
-		txtRucParti.setBounds(145, 81, 127, 20);
+		txtRucParti.setBounds(133, 36, 127, 20);
 		panelParticipante.add(txtRucParti);
 
 		cboParticipante = new JComboBox<Object>();
@@ -170,7 +174,9 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panelParticipante.add(lblIdPedido);
 
 		panelPedido = new JPanel();
-		panelPedido.setBorder(new TitledBorder(null, "PEDIDO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelPedido.setBorder(new TitledBorder(
+				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelPedido.setOpaque(false);
 		panelPedido.setBounds(10, 11, 306, 78);
 		contentPane.add(panelPedido);
@@ -330,11 +336,6 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 	private String getCodigoPedido() {
 
-		/*
-		 * Valor del tipo string en ves de ToString para evitar conflicto al momento de
-		 * pasar datos al cboParticipante,
-		 */
-
 		return (String) cboPedido.getSelectedItem();
 	}
 
@@ -366,7 +367,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		if (codigo == null || codigo == "Seleccione...") {
 			txtPropuesta.setText("");
 			txtEstado.setText("REGISTRADO");
-			dcFechaProp.setDate(null);
+			dcFechaProp.setDate( new Date());
 			txtPropTecnica.setText("");
 			txtPropEconomica.setText("");
 			correlativo();
@@ -379,7 +380,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 				Tool.mensajeError(this, "Participante no cuenta con propuesta");
 				txtPropuesta.setText("");
 				txtEstado.setText("REGISTRADO");
-				dcFechaProp.setDate(null);
+				dcFechaProp.setDate( new Date());
 				txtPropTecnica.setText("");
 				txtPropEconomica.setText("");
 				correlativo();
@@ -509,6 +510,8 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtEntidadParti.setText("");
 		txtRucParti.setText("");
 		dcFechaProp.setDate(new Date());
+		txtPropTecnica.setText("");
+		txtPropEconomica.setText("");
 		/* ESTOS METODOS ESTABAN EN EL CONSTRUCTOR */
 		/*
 		 * EL METODO LIMPIAR TENDRA LOS METODOS QUE SE INICIALIZAR Y TAMBIEN DENTRO DEL

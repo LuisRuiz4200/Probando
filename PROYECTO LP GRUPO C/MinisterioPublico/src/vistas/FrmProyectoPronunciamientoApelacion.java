@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Formatter;
 
 import javax.swing.DefaultComboBoxModel;
@@ -19,9 +20,13 @@ import com.toedter.calendar.JDateChooser;
 
 import Validaciones.Reguex;
 import clases.Apelacion;
+import clases.Participante;
 import clases.Pronunciamiento;
+import clases.Propuesta;
 import mantenimiento.ApelacionDAO;
+import mantenimiento.ParticipanteDAO;
 import mantenimiento.PronunciamientoDAO;
+import mantenimiento.PropuestaDAO;
 import utils.Tool;
 
 
@@ -46,6 +51,8 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 	private JButton btnRegistrar;
 	private JComboBox <Object> cboResultado;
     private PronunciamientoDAO proDao;
+    private PropuestaDAO propDao;
+    private ParticipanteDAO partDao;
     private ApelacionDAO apeDao;
 	
 	public static void main (String [] args) {
@@ -147,6 +154,8 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		cboResultado.setBounds(573, 30, 98, 22);
 		getContentPane().add(cboResultado);
 		
+		propDao= new PropuestaDAO();
+		partDao = new ParticipanteDAO();
 		proDao = new PronunciamientoDAO();
 		apeDao = new ApelacionDAO();
 		
@@ -156,8 +165,7 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 
 	private void arranque() {
 		cargarCboApelacion();
-		
-		
+		limpiar();
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -174,6 +182,10 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		String conclusion = leerConclusion();
 		String estado = leerEstado();
 		
+		Propuesta prop = null;
+		Apelacion apel = null;
+		Participante part =  null;
+		
 		if (idPronApelacion == null || idApelacion == null || 
 				nombGerente == null || dni == null ||  fecha == null || 
 				conclusion == null || estado == null ) {
@@ -187,7 +199,29 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 				Tool.mensajeError(this, "Error de registro");
 			}else {
 				Tool.mensajeExito(this, "Registro exitoso");
-				correlativo();
+				limpiar();
+				
+				//CAMBIO DE ESTADO EN LAS ENTIDADES RELACIONADAS
+				
+				apel = apeDao.buscarXIdApelacion(pro.getIdApel());
+				
+				prop = propDao.buscarXIdPropuesta(apel.getCodPropuesta());
+				
+				part = partDao.buscarXIdParticipante(prop.getCodParticipante());
+				
+				if (pro.getEstado().equals("fundado")) {
+					apel.setEstado("FUNDADO");
+					prop.setEstado("PROCESO");
+					propDao.actualizarPropuesta(prop);
+					apeDao.modificarApelacion(apel);
+				}else if (prop.getEstado().equals("no fundado")) {
+					apel.setEstado("NO FUNDADO");
+					prop.setEstado("NO ADMITIDA");
+					part.setEstado("NO CALIFICA");
+					propDao.actualizarPropuesta(prop);
+					apeDao.modificarApelacion(apel);
+					partDao.actualizarPartcipante(part);
+				}
 			}
 		}
 	}
@@ -286,6 +320,16 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 			txtPronunciamiento.setText("");
 			txtPronunciamiento.setText("PA"+ft.format("%03d", n));
 		}
+	}
+	private void limpiar() {
+		correlativo();
+		dcFecha.setDate(new Date());
+		cboResultado.setSelectedIndex(0);
+		txtNombreEncargado.setText("");
+		txtApellidoEncargado.setText("");
+		txtDni.setText("");
+		cboApelacion.setSelectedIndex(0);
+		txtConclusiones.setText("");
 	}
 	
 }
