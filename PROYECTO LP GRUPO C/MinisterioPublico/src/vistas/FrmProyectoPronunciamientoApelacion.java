@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+import Validaciones.Reguex;
 import clases.Apelacion;
 import clases.Pronunciamiento;
 import mantenimiento.ApelacionDAO;
@@ -235,7 +236,18 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 
 	private String leerConclusion() {
 		String res = null;
-		return res = txtConclusiones.getText().trim();
+		if(txtConclusiones.getText().trim().length() == 0) {
+			Tool.mensajeError(this," Ingresar Conclusion");
+			txtConclusiones.requestFocus();
+		}else if (txtConclusiones.getText().trim().matches(Reguex.CONCLUSION)) {
+			res = txtConclusiones.getText().trim();
+		}else {
+			Tool.mensajeError(this," Reducir la redaccion ");
+			txtDni.setText("");
+			txtDni.requestFocus();
+		}
+		
+		return res ;
 	}
 
 	private String leerFecha() {
@@ -245,7 +257,18 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 
 	private String leerDni() {
 		String res = null;
-		return res = txtDni.getText().trim();
+		if(txtDni.getText().trim().length() == 0) {
+			Tool.mensajeError(this," Ingresar el DNI del Acesor");
+			txtDni.requestFocus();
+		}else if (txtDni.getText().trim().matches(Reguex.DNI_ACESOR)) {
+			res = txtDni.getText().trim();
+		}else {
+			Tool.mensajeError(this," Ingresar numero de DNI valido ");
+			txtDni.setText("");
+			txtDni.requestFocus();
+		}
+		
+		return res ;
 	}
 
 	private String leerNomGerente() {
@@ -260,7 +283,18 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 
 	private String leerPronApelacion() {
 		String res = null;
-		return res = txtPronunciamiento.getText().trim();
+		if(txtPronunciamiento.getText().trim().length() == 0) {
+			Tool.mensajeError(this," Ingresar el Id de Pronunciamiento de Apelacion");
+			txtPronunciamiento.requestFocus();
+		}else if (txtPronunciamiento.getText().trim().matches(Reguex.ID_PRONUNCIAMIENTO)) {
+			res = txtPronunciamiento.getText().trim();
+		}else {
+			Tool.mensajeError(this," Ingresar Id Pronunciamiento Valido Ej: PA001 ");
+			txtPronunciamiento.setText("");
+			txtPronunciamiento.requestFocus();
+		}
+		
+		return res ;
 	}
 
 	//METODOS AADICIONALES
