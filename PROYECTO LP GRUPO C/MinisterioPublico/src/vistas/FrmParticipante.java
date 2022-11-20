@@ -3,6 +3,9 @@ package vistas;
 import java.awt.Color;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import Validaciones.Reguex;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -371,7 +374,11 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private String leerIdPedido() {
 		String res = null;
 		
-		res = cboPedido.getSelectedItem().toString();
+		if (cboPedido.getSelectedIndex()==0) {
+			Tool.mensajeError(this,"Eligo el ID del pedido en el cual se registrara al participante");
+		}else {
+			res = cboPedido.getSelectedItem().toString();
+		}
 		
 		return res ;
 	}
@@ -379,7 +386,14 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private String leerIdParticipante() {
 		String res = null;
 		
-		res = txtIdParticipante.getText().trim();
+		if (txtIdParticipante.getText().trim().length()==0) {
+			Tool.mensajeError(this, "El campo del ID participante está vacío !");
+			txtIdParticipante.requestFocus();
+		}else if (txtIdParticipante.getText().trim().matches(Reguex.ID_PARTICIPANTE)){
+			res = txtIdParticipante.getText().trim();
+		}else {
+			Tool.mensajeError(this, "ID inválido. Ejemp (PA002)");
+		}
 		
 		return res ;
 	}
@@ -387,7 +401,14 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private String leerEntidad() {
 		String res = null;
 		
-		res = txtEntidad.getText().trim();
+		if (txtEntidad.getText().trim().length()==0) {
+			Tool.mensajeError(this, "El campo de entidad está vacío !");
+			txtEntidad.requestFocus();
+		}else if (txtEntidad.getText().trim().matches(Reguex.ENTIDAD_PARTICIPANTE)){
+			res = txtEntidad.getText().trim();
+		}else {
+			Tool.mensajeError(this,"Entidad inválida. Ejemp (Entre 5 y 10 caracteres)");
+		}
 		
 		return res ;
 	}
