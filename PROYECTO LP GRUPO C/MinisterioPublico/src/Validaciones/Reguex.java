@@ -27,12 +27,12 @@ public class Reguex {
 	
 	//MIEMBRO DEL CEP
 	
-	public static String ID_CEP = "";
-	public static String NOMBRE_CEP="";
-	public static String APELLIDO_CEP= "";
-	public static String DNI_CEP = "";
-	public static String FUNCION_CEP = "";
-	public static String DEPENDENCIA_CEP = "";
+	public static String ID_CEP = "[M][C]\\d{3}";
+	public static String NOMBRE_CEP="[a-zA-Z\\s]{2,20}";
+	public static String APELLIDO_CEP="[a-zA-Z\\�\\s]{2,20}";
+	public static String DNI_CEP = "\\d{8}";
+	public static String FUNCION_CEP ="[a-zA-Z\\s]{2,20}";
+	public static String DEPENDENCIA_CEP ="[a-zA-Z\\s]{2,20}";
 	
 	//PROPUESTA
 	
@@ -40,7 +40,10 @@ public class Reguex {
 	
 	//APELACION
 	
-	public static String ID_APELACION = "";
+	public static String ID_APELACION = "[A][P]\\d{3}";
+	public static String DESCRIPCION_APE=".{2,450}";
+	public static String ESTADO_APE="[a-zA-Z\\�\\s]{2,20}";
+	
 	
 	// EVALUACION DE PROPUESTA
 	public static String ID_EVALUACION="[EVPR]\\d{3}";
