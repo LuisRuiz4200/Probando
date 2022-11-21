@@ -33,6 +33,7 @@ import mantenimiento.ParticipanteDAO;
 import mantenimiento.PedidoDAO;
 import mantenimiento.PropuestaDAO;
 import utils.Tool;
+import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class FrmPropuesta extends JInternalFrame implements ActionListener, ItemListener {
@@ -69,6 +70,8 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private JLabel lblRucPedido;
 	private JPanel panelPropuesta;
 	private JButton btnNuevo;
+	private JScrollPane scrollPane;
+	private JScrollPane scrollPane_1;
 
 	/**
 	 * Launch the application.
@@ -116,18 +119,24 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		lblPropuestaEcono = new JLabel("Propuesta Economica:");
 		lblPropuestaEcono.setBounds(361, 214, 128, 14);
 		contentPane.add(lblPropuestaEcono);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 241, 338, 189);
+		contentPane.add(scrollPane);
 
 		txtPropTecnica = new JTextArea();
-		txtPropTecnica.setBounds(10, 241, 338, 189);
+		scrollPane.setViewportView(txtPropTecnica);
 		txtPropTecnica.setLineWrap(true);
 		txtPropTecnica.setBorder(new EmptyBorder(8,8,8,8));
-		contentPane.add(txtPropTecnica);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(358, 241, 351, 189);
+		contentPane.add(scrollPane_1);
 
 		txtPropEconomica = new JTextArea();
-		txtPropEconomica.setBounds(358, 241, 351, 189);
+		scrollPane_1.setViewportView(txtPropEconomica);
 		txtPropEconomica.setLineWrap(true);
 		txtPropEconomica.setBorder(new EmptyBorder(8,8,8,8));
-		contentPane.add(txtPropEconomica);
 
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
@@ -174,9 +183,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panelParticipante.add(lblIdPedido);
 
 		panelPedido = new JPanel();
-		panelPedido.setBorder(new TitledBorder(
-				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelPedido.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PEDIDO", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelPedido.setOpaque(false);
 		panelPedido.setBounds(10, 11, 306, 78);
 		contentPane.add(panelPedido);

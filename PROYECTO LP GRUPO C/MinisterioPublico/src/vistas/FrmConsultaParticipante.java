@@ -242,6 +242,15 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		
 		cargarPropuesta(prop);
 		
+		ArrayList <Apelacion > listApel = apelDao.listarApelacion();
+		
+		for (Apelacion apel : listApel){
+			if (apel.getCodPropuesta().equals(prop.getCodPropuesta())) {
+				cargarApelacion (apel);
+			}else {
+				return;
+			}
+		}		
 
 	}	
 

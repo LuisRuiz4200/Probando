@@ -63,7 +63,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmPrincipal.class.getResource("/imagenes/cibertecLogo.png")));
 		setTitle("FrmPrincipal " + FrmLogin.user.getNombreUsuario());
-		setBounds(100,100,993,613);
+		setBounds(100,100,988,655);
 		setLocationRelativeTo(this);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,7 +73,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		
 		lblImgFonfo = new JLabel("");
 		lblImgFonfo.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/banner5.jpg")));
-		lblImgFonfo.setBounds(0, 0, 977, 544);
+		lblImgFonfo.setBounds(0, 0, 972, 586);
 		escritorio.add(lblImgFonfo);
 		
 		menuBar = new JMenuBar();
@@ -219,18 +219,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	
 	protected void actionPerformedMniSalir(ActionEvent e) {
 		
-		FileDialog fd = new FileDialog(new Frame(),"SELECCIONA UN ARCHIVO",FileDialog.LOAD);
-		fd.setVisible(true);
-		
-		
-		fd.setFilenameFilter(null);
-		String file = fd.getFile();
-		
-		System.out.println(file);
-		/**int dialog = (int) JOptionPane.showConfirmDialog(this,"Seguro quiere salir ?", "CERRANDO", JOptionPane.YES_NO_OPTION,2);
-		if(dialog == 0) {
-			System.exit(0);
-		}*/
+		System.exit(0);
 	}
 	
 
