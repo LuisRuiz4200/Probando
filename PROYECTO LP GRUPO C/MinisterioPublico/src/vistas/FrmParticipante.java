@@ -18,6 +18,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class FrmParticipante extends JInternalFrame implements ActionListener, MouseListener{
@@ -48,6 +49,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private JButton btnNuevo;
 	private JTextField txtEstado;
 	private JPanel panleParticipante;
+	private JLabel lblNewLabel;
 	
 	
 	
@@ -58,8 +60,8 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	
 	public FrmParticipante() {
 		
-		setTitle("Participantes");
-		setBounds(100,100,773,427);
+		setTitle("Registro de Participantes");
+		setBounds(100,100,773,460);
 		
 		this.getContentPane().setLayout(null);
 		this.getContentPane().setBackground(Color.lightGray);
@@ -72,7 +74,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		panleParticipante.setOpaque(false);
 		panleParticipante.setBackground(new Color(240, 240, 240));
 		panleParticipante.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PARTICIPANTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panleParticipante.setBounds(314, 11, 402, 158);
+		panleParticipante.setBounds(137, 11, 599, 169);
 		getContentPane().add(panleParticipante);
 		panleParticipante.setLayout(null);
 		
@@ -81,34 +83,34 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		panleParticipante.add(txtEntidad);
 		txtEntidad.setColumns(10);
 		
-		lblEntidad = new JLabel("Entidad");
-		lblEntidad.setBounds(11, 66, 67, 14);
+		lblEntidad = new JLabel("Nombre o Razon  social :");
+		lblEntidad.setBounds(11, 66, 138, 14);
 		panleParticipante.add(lblEntidad);
 		
-		lblRuc = new JLabel("RUC");
-		lblRuc.setBounds(213, 66, 92, 14);
+		lblRuc = new JLabel("RUC :");
+		lblRuc.setBounds(219, 66, 92, 14);
 		panleParticipante.add(lblRuc);
 		
 		txtTelefono = new JTextField();
-		txtTelefono.setBounds(10, 127, 114, 20);
+		txtTelefono.setBounds(10, 127, 139, 20);
 		panleParticipante.add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
-		lblTelefono = new JLabel("Telefono");
+		lblTelefono = new JLabel("Telefono :");
 		lblTelefono.setBounds(10, 112, 92, 14);
 		panleParticipante.add(lblTelefono);
 		
 		txtCorreo = new JTextField();
-		txtCorreo.setBounds(170, 127, 204, 20);
+		txtCorreo.setBounds(219, 127, 194, 20);
 		panleParticipante.add(txtCorreo);
 		txtCorreo.setColumns(10);
 		
-		lblCorreo = new JLabel("Correo");
-		lblCorreo.setBounds(171, 112, 92, 14);
+		lblCorreo = new JLabel("Correo :");
+		lblCorreo.setBounds(219, 112, 92, 14);
 		panleParticipante.add(lblCorreo);
 		
 		txtRuc = new JTextField();
-		txtRuc.setBounds(213, 81, 154, 20);
+		txtRuc.setBounds(219, 81, 154, 20);
 		panleParticipante.add(txtRuc);
 		txtRuc.setColumns(10);
 		
@@ -117,41 +119,41 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		panleParticipante.add(txtIdParticipante);
 		txtIdParticipante.setColumns(10);
 		
-		lblIdPedido = new JLabel("ID. Participante");
+		lblIdPedido = new JLabel("ID. Participante :");
 		lblIdPedido.setBounds(10, 21, 116, 14);
 		panleParticipante.add(lblIdPedido);
 		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(130, 21, 86, 38);
+		btnBuscar = new JButton("BUSCAR PARTICIPANTE");
+		btnBuscar.setBounds(134, 26, 162, 29);
 		panleParticipante.add(btnBuscar);
 		
 		txtEstado = new JTextField();
-		txtEstado.setBounds(269, 26, 106, 29);
+		txtEstado.setBounds(319, 36, 106, 20);
 		panleParticipante.add(txtEstado);
 		txtEstado.setColumns(10);
 		
-		lblEstado = new JLabel("ESTADO");
-		lblEstado.setBounds(269, 12, 67, 14);
+		lblEstado = new JLabel("Estado:");
+		lblEstado.setBounds(319, 21, 67, 14);
 		panleParticipante.add(lblEstado);
+		
+		btnModificar = new JButton("MODIFICAR");
+		btnModificar.setBounds(479, 80, 99, 23);
+		panleParticipante.add(btnModificar);
+		
+		btnAgregar = new JButton("REGISTRAR");
+		btnAgregar.setBounds(479, 35, 99, 23);
+		panleParticipante.add(btnAgregar);
+		
+		btnEliminar = new JButton("ELIMINAR");
+		btnEliminar.setBounds(479, 126, 99, 23);
+		panleParticipante.add(btnEliminar);
+		btnEliminar.addActionListener(this);
+		btnAgregar.addActionListener(this);
+		btnModificar.addActionListener(this);
 		btnBuscar.addActionListener(this);
 		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.addActionListener(this);
-		btnAgregar.setBounds(10, 135, 89, 23);
-		getContentPane().add(btnAgregar);
-		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.addActionListener(this);
-		btnEliminar.setBounds(208, 135, 89, 23);
-		getContentPane().add(btnEliminar);
-		
-		btnModificar = new JButton("Modificar");
-		btnModificar.addActionListener(this);
-		btnModificar.setBounds(109, 135, 89, 23);
-		getContentPane().add(btnModificar);
-		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 180, 726, 201);
+		scrollPane.setBounds(10, 205, 737, 214);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -174,14 +176,20 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		cboPedido.setBounds(21, 26, 106, 22);
 		getContentPane().add(cboPedido);
 		
-		lblPedido = new JLabel("ID. Pedido");
+		lblPedido = new JLabel("ID. Pedido :");
 		lblPedido.setBounds(22, 11, 139, 14);
 		getContentPane().add(lblPedido);
 		
-		btnNuevo = new JButton("Nuevo");
+		btnNuevo = new JButton("LIMPIAR");
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(203, 26, 89, 23);
+		btnNuevo.setBounds(21, 59, 89, 23);
 		getContentPane().add(btnNuevo);
+		
+		lblNewLabel = new JLabel("TABLA DE REGISTROS\r\n");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(10, 184, 726, 23);
+		getContentPane().add(lblNewLabel);
 		
 		pedDao = new PedidoDAO();
 		partDao = new ParticipanteDAO();

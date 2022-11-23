@@ -30,6 +30,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings({ "serial", "unused" })
 public class FrmConsultaParticipante extends JInternalFrame implements MouseListener, ActionListener {
@@ -73,7 +74,7 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 	 * Create the frame.
 	 */
 	public FrmConsultaParticipante() {
-		setTitle("Consulta de participantes");
+		setTitle("Consulta de Participantes");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 735, 452);
 		contentPane = new JPanel();
@@ -87,9 +88,10 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("BUSCAR PARTICIPANTE");
+		btnBuscar.setHorizontalAlignment(SwingConstants.TRAILING);
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(191, 24, 89, 31);
+		btnBuscar.setBounds(186, 26, 154, 24);
 		contentPane.add(btnBuscar);
 		
 		model = new DefaultTableModel();
@@ -101,7 +103,7 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		model.addColumn("TELEFONO");
 		model.addColumn("ESTADO");
 		
-		lblIdParticipante = new JLabel("ID Participante");
+		lblIdParticipante = new JLabel("ID Participante :");
 		lblIdParticipante.setBounds(20, 11, 101, 14);
 		contentPane.add(lblIdParticipante);
 		
@@ -137,19 +139,19 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		txtParticipante.setBounds(10, 91, 330, 134);
 		contentPane.add(txtParticipante);
 		
-		lblPedido = new JLabel("INFORMACION DEL PEDIDO");
+		lblPedido = new JLabel("INFORMACION DEL PEDIDO :");
 		lblPedido.setBounds(368, 66, 233, 14);
 		contentPane.add(lblPedido);
 		
-		lblParticipante = new JLabel("INFORMACION DEL PARTICIPANTE");
+		lblParticipante = new JLabel("INFORMACION DEL PARTICIPANTE :");
 		lblParticipante.setBounds(12, 66, 233, 14);
 		contentPane.add(lblParticipante);
 		
-		lblPropuesta = new JLabel("INFORMACION DE LA PROPUESTA");
+		lblPropuesta = new JLabel("INFORMACION DE LA PROPUESTA :");
 		lblPropuesta.setBounds(10, 233, 233, 14);
 		contentPane.add(lblPropuesta);
 		
-		lblApelacion = new JLabel("INFORMACION DE LA APELACION");
+		lblApelacion = new JLabel("INFORMACION DE LA APELACION :");
 		lblApelacion.setBounds(368, 233, 233, 14);
 		contentPane.add(lblApelacion);
 		

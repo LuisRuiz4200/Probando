@@ -90,7 +90,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	 * Create the frame.
 	 */
 	public FrmPropuesta() {
-		setTitle("Propuesta");
+		setTitle("Registro de Propuestas");
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 737, 472);
 		contentPane = new JPanel();
@@ -104,17 +104,17 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		setMaximizable(true);
 		setIconifiable(true);
 
-		btnActualizar = new JButton("Actualizar");
+		btnActualizar = new JButton("MODIFICAR");
 		btnActualizar.addActionListener(this);
-		btnActualizar.setBounds(483, 100, 108, 23);
+		btnActualizar.setBounds(547, 168, 108, 23);
 		contentPane.add(btnActualizar);
 
-		lblPropuestaTecnica = new JLabel("Propuesta Tecnica:");
+		lblPropuestaTecnica = new JLabel("Propuesta Tecnica :");
 		lblPropuestaTecnica.setBounds(10, 216, 125, 14);
 		contentPane.add(lblPropuestaTecnica);
 
-		lblPropuestaEcono = new JLabel("Propuesta Economica:");
-		lblPropuestaEcono.setBounds(361, 216, 128, 14);
+		lblPropuestaEcono = new JLabel("Propuesta Economica :");
+		lblPropuestaEcono.setBounds(361, 216, 151, 14);
 		contentPane.add(lblPropuestaEcono);
 
 		txtPropTecnica = new JEditorPane();
@@ -125,9 +125,9 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtPropEconomica.setBounds(358, 241, 351, 189);
 		contentPane.add(txtPropEconomica);
 
-		btnRegistrar = new JButton("Registrar");
+		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(601, 100, 89, 23);
+		btnRegistrar.setBounds(411, 168, 101, 23);
 		contentPane.add(btnRegistrar);
 
 		panelParticipante = new JPanel();
@@ -146,11 +146,11 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtEntidadParti.setBounds(10, 81, 113, 20);
 		panelParticipante.add(txtEntidadParti);
 
-		lblEntidad = new JLabel("Entidad");
-		lblEntidad.setBounds(11, 66, 67, 14);
+		lblEntidad = new JLabel("Nombre social:");
+		lblEntidad.setBounds(11, 66, 92, 14);
 		panelParticipante.add(lblEntidad);
 
-		lblRuc = new JLabel("RUC");
+		lblRuc = new JLabel("RUC :");
 		lblRuc.setBounds(145, 66, 92, 14);
 		panelParticipante.add(lblRuc);
 
@@ -165,7 +165,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		cboParticipante.setBounds(8, 39, 115, 22);
 		panelParticipante.add(cboParticipante);
 
-		lblIdPedido = new JLabel("ID. Participante");
+		lblIdPedido = new JLabel("ID. Participante :");
 		lblIdPedido.setBounds(8, 21, 116, 14);
 		panelParticipante.add(lblIdPedido);
 
@@ -176,7 +176,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		contentPane.add(panelPedido);
 		panelPedido.setLayout(null);
 
-		lblPedido = new JLabel("Nro de Pedido");
+		lblPedido = new JLabel("Nro de Pedido :");
 		lblPedido.setBounds(10, 21, 119, 14);
 		panelPedido.add(lblPedido);
 
@@ -189,7 +189,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtRucPedido.setBounds(124, 46, 115, 20);
 		panelPedido.add(txtRucPedido);
 
-		lblRucPedido = new JLabel("RUC pedido");
+		lblRucPedido = new JLabel("RUC pedido :");
 		lblRucPedido.setBounds(10, 46, 119, 14);
 		panelPedido.add(lblRucPedido);
 
@@ -219,7 +219,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panelPropuesta.add(dcFechaProp);
 
 		txtEstado = new JTextField();
-		txtEstado.setBounds(272, 27, 106, 29);
+		txtEstado.setBounds(272, 36, 106, 20);
 		panelPropuesta.add(txtEstado);
 		txtEstado.setColumns(10);
 
@@ -227,9 +227,9 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		lblEstado_1.setBounds(272, 13, 67, 14);
 		panelPropuesta.add(lblEstado_1);
 
-		btnNuevo = new JButton("Nuevo");
+		btnNuevo = new JButton("LIMPIAR");
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(379, 100, 89, 23);
+		btnNuevo.setBounds(339, 100, 89, 23);
 		contentPane.add(btnNuevo);
 		cboPedido.addItemListener(this);
 
