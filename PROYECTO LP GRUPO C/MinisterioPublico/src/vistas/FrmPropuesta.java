@@ -93,7 +93,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	 * Create the frame.
 	 */
 	public FrmPropuesta() {
-		setTitle("Propuesta");
+		setTitle("Registro de Propuestas");
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 737, 472);
 		contentPane = new JPanel();
@@ -107,7 +107,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		setMaximizable(true);
 		setIconifiable(true);
 
-		btnActualizar = new JButton("Actualizar");
+		btnActualizar = new JButton("MODIFICAR");
 		btnActualizar.addActionListener(this);
 		btnActualizar.setBounds(456, 180, 108, 23);
 		contentPane.add(btnActualizar);
@@ -138,9 +138,9 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtPropEconomica.setLineWrap(true);
 		txtPropEconomica.setBorder(new EmptyBorder(8,8,8,8));
 
-		btnRegistrar = new JButton("Registrar");
+		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(574, 180, 89, 23);
+		btnRegistrar.setBounds(411, 168, 101, 23);
 		contentPane.add(btnRegistrar);
 
 		panelParticipante = new JPanel();
@@ -159,8 +159,8 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtEntidadParti.setBounds(10, 81, 177, 20);
 		panelParticipante.add(txtEntidadParti);
 
-		lblEntidad = new JLabel("Entidad");
-		lblEntidad.setBounds(11, 66, 67, 14);
+		lblEntidad = new JLabel("Nombre social:");
+		lblEntidad.setBounds(11, 66, 92, 14);
 		panelParticipante.add(lblEntidad);
 
 		lblRuc = new JLabel("RUC");
@@ -178,7 +178,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		cboParticipante.setBounds(8, 39, 115, 22);
 		panelParticipante.add(cboParticipante);
 
-		lblIdPedido = new JLabel("ID. Participante");
+		lblIdPedido = new JLabel("ID. Participante :");
 		lblIdPedido.setBounds(8, 21, 116, 14);
 		panelParticipante.add(lblIdPedido);
 
@@ -189,7 +189,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		contentPane.add(panelPedido);
 		panelPedido.setLayout(null);
 
-		lblPedido = new JLabel("Nro de Pedido");
+		lblPedido = new JLabel("Nro de Pedido :");
 		lblPedido.setBounds(10, 21, 119, 14);
 		panelPedido.add(lblPedido);
 
@@ -202,7 +202,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtRucPedido.setBounds(124, 46, 115, 20);
 		panelPedido.add(txtRucPedido);
 
-		lblRucPedido = new JLabel("RUC pedido");
+		lblRucPedido = new JLabel("RUC pedido :");
 		lblRucPedido.setBounds(10, 46, 119, 14);
 		panelPedido.add(lblRucPedido);
 
@@ -232,7 +232,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panelPropuesta.add(dcFechaProp);
 
 		txtEstado = new JTextField();
-		txtEstado.setBounds(272, 27, 106, 29);
+		txtEstado.setBounds(272, 36, 106, 20);
 		panelPropuesta.add(txtEstado);
 		txtEstado.setColumns(10);
 
@@ -240,9 +240,9 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		lblEstado_1.setBounds(272, 13, 67, 14);
 		panelPropuesta.add(lblEstado_1);
 
-		btnNuevo = new JButton("Nuevo");
+		btnNuevo = new JButton("LIMPIAR");
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(379, 100, 89, 23);
+		btnNuevo.setBounds(339, 100, 89, 23);
 		contentPane.add(btnNuevo);
 		cboPedido.addItemListener(this);
 
@@ -291,7 +291,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		;
 
 		if (list.size() == 0) {
-			Tool.mensajeError(this, "Lista vacía");
+			Tool.mensajeError(this, "Lista vacï¿½a");
 		} else {
 			cboPedido.addItem("Seleccione ... ");
 			for (Pedido ped : list) {
@@ -307,7 +307,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		// 2. Validar el resultado del proceso
 		cboParticipante.removeAllItems();
 		if (list.size() == 0) {
-			// Tool.mensajeError(null, "Lista vacía");
+			// Tool.mensajeError(null, "Lista vacï¿½a");
 		} else {
 			cboParticipante.addItem("Seleccione...");
 			for (Participante par : list) {
@@ -365,7 +365,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		return txtPropEconomica.getText();
 	}
 
-	// Busca propuesta por su código
+	// Busca propuesta por su cï¿½digo
 	private void buscarPropuesta() {
 		String codigo;
 		// 1 obtener el codigo ingresado
@@ -433,7 +433,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 			int res = gProp.actualizarPropuesta(prop);
 			// validar el resultado del proceso de actualizar
 			if (res == 0) {
-				Tool.mensajeError(this, "Error en la actualización");
+				Tool.mensajeError(this, "Error en la actualizaciï¿½n");
 			} else {
 				Tool.mensajeExito(this, "Usuario actualizado");
 			}

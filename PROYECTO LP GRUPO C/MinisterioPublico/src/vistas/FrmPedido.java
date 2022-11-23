@@ -36,6 +36,9 @@ import mantenimiento.ParticipanteDAO;
 import mantenimiento.PedidoDAO;
 import mantenimiento.TipoPedidoDAO;
 import utils.Tool;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JPasswordField;
 
 @SuppressWarnings("serial")
 public class FrmPedido extends JInternalFrame implements ActionListener, MouseListener {
@@ -68,6 +71,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private JLabel lblEstado;
 	private JLabel lblRuc;
 	private JTextField txtRuc;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -89,9 +93,9 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	 * Create the frame.
 	 */
 	public FrmPedido() {
-		setTitle("Pedido");
+		setTitle("Registro de Pedido");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 763, 444);
+		setBounds(100, 100, 763, 452);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -106,33 +110,33 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		
 		txtIdPedido = new JTextField();
 		txtIdPedido.setEditable(false);
-		txtIdPedido.setBounds(167, 11, 117, 20);
+		txtIdPedido.setBounds(20, 33, 122, 20);
 		contentPane.add(txtIdPedido);
 		txtIdPedido.setColumns(10);
 		
 		txtEntidad = new JTextField();
-		txtEntidad.setBounds(167, 42, 117, 20);
+		txtEntidad.setBounds(167, 33, 117, 20);
 		contentPane.add(txtEntidad);
 		txtEntidad.setColumns(10);
 		
-		lblNroPedido = new JLabel("ID Pedido:");
-		lblNroPedido.setBounds(10, 14, 147, 14);
+		lblNroPedido = new JLabel("ID Pedido :");
+		lblNroPedido.setBounds(20, 14, 147, 14);
 		contentPane.add(lblNroPedido);
 		
-		lblEntidad = new JLabel("Entidad Solicitante:");
-		lblEntidad.setBounds(10, 44, 147, 14);
+		lblEntidad = new JLabel("Entidad Solicitante :");
+		lblEntidad.setBounds(167, 14, 147, 14);
 		contentPane.add(lblEntidad);
 		
-		lblTipo = new JLabel("Tipo de Contratacion:");
-		lblTipo.setBounds(10, 103, 147, 14);
+		lblTipo = new JLabel("Tipo de Contratacion :");
+		lblTipo.setBounds(20, 113, 147, 14);
 		contentPane.add(lblTipo);
 		
-		lblObjeto = new JLabel("Objeto de Contratacion:");
-		lblObjeto.setBounds(10, 138, 147, 14);
+		lblObjeto = new JLabel("Objeto de Contratacion :");
+		lblObjeto.setBounds(20, 64, 147, 14);
 		contentPane.add(lblObjeto);
 		
 		cboTipo = new JComboBox<Object>();
-		cboTipo.setBounds(167, 99, 220, 22);
+		cboTipo.setBounds(20, 130, 220, 22);
 		contentPane.add(cboTipo);
 		
 		txtDescripcion = new JTextArea();
@@ -142,15 +146,15 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		contentPane.add(txtDescripcion);
 		
 		lblDescripcion = new JLabel("Descripcion de \r\nRequrimiento:");
-		lblDescripcion.setBounds(413, 42, 254, 20);
+		lblDescripcion.setBounds(445, 11, 175, 20);
 		contentPane.add(lblDescripcion);
 		
-		lblFecha = new JLabel("Fecha Inicio: ");
-		lblFecha.setBounds(318, 14, 75, 14);
+		lblFecha = new JLabel("Fecha Inicio : ");
+		lblFecha.setBounds(313, 64, 75, 14);
 		contentPane.add(lblFecha);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 205, 727, 198);
+		scrollPane.setBounds(10, 182, 727, 229);
 		contentPane.add(scrollPane);
 		
 		tbPedidos = new JTable();
@@ -159,16 +163,16 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		
 		btnGuardar = new JButton("GUARDAR");
 		btnGuardar.addActionListener(this);
-		btnGuardar.setBounds(480, 171, 117, 23);
+		btnGuardar.setBounds(481, 130, 117, 23);
 		contentPane.add(btnGuardar);
 		
 		btnModificar = new JButton("MODIFICAR");
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(610, 171, 108, 23);
+		btnModificar.setBounds(608, 130, 108, 23);
 		contentPane.add(btnModificar);
 		
 		dcFecha = new JDateChooser();
-		dcFecha.setBounds(403, 11, 108, 20);
+		dcFecha.setBounds(313, 80, 108, 20);
 		contentPane.add(dcFecha);
 		
 		model = new DefaultTableModel();
@@ -183,33 +187,39 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		tbPedidos.setModel(model);
 		
 		cboObjeto = new JComboBox<Object>();
-		cboObjeto.setBounds(167, 134, 117, 22);
+		cboObjeto.setBounds(20, 80, 122, 22);
 		contentPane.add(cboObjeto);
 		
-		btnNuevo = new JButton("Nuevo");
+		btnNuevo = new JButton("LIMPIAR");
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(361, 171, 89, 23);
+		btnNuevo.setBounds(313, 109, 89, 23);
 		contentPane.add(btnNuevo);
 		
 		txtEstado = new JTextField();
 		txtEstado.setEditable(false);
 		txtEstado.setColumns(10);
-		txtEstado.setBounds(612, 25, 106, 29);
+		txtEstado.setBounds(313, 33, 106, 20);
 		contentPane.add(txtEstado);
 		
-		lblEstado = new JLabel("ESTADO");
-		lblEstado.setBounds(612, 11, 67, 14);
+		lblEstado = new JLabel("Estado :");
+		lblEstado.setBounds(313, 14, 67, 14);
 		contentPane.add(lblEstado);
 		
-		lblRuc = new JLabel("RUC:");
-		lblRuc.setBounds(10, 74, 147, 14);
+		lblRuc = new JLabel("RUC :");
+		lblRuc.setBounds(167, 64, 147, 14);
 		contentPane.add(lblRuc);
 		
 		txtRuc = new JTextField();
 		txtRuc.setText("");
 		txtRuc.setColumns(10);
-		txtRuc.setBounds(167, 72, 117, 20);
+		txtRuc.setBounds(167, 81, 117, 20);
 		contentPane.add(txtRuc);
+		
+		lblNewLabel = new JLabel("TABLA DE PEDIDOS");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lblNewLabel.setBounds(10, 163, 727, 20);
+		contentPane.add(lblNewLabel);
 		
 		tipPedDao = new TipoPedidoDAO();
 		objPedDao = new ObjetoPedidoDAO();
@@ -339,12 +349,12 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		String res=null;
 		
 		if (txtIdPedido.getText().trim().length()==0) {
-			Tool.mensajeError(this, "Campo del id pedido esta vacío !");
+			Tool.mensajeError(this, "Campo del id pedido esta vacï¿½o !");
 			txtIdPedido.requestFocus();
 		}else if (txtIdPedido.getText().trim().matches(Reguex.ID_PEDIDO)) {
 			res = txtIdPedido.getText().trim();
 		}else {
-			Tool.mensajeError(this,"ID pedido inválido. Ejemp (PD002)");
+			Tool.mensajeError(this,"ID pedido invï¿½lido. Ejemp (PD002)");
 			txtIdPedido.requestFocus();
 		}
 		
@@ -355,12 +365,12 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		String res=null;
 		
 		if (txtEntidad.getText().trim().length()==0) {
-			Tool.mensajeError(this, "Campo entidad esta vacío !");
+			Tool.mensajeError(this, "Campo entidad esta vacï¿½o !");
 			txtEntidad.requestFocus();
 		}else if (txtEntidad.getText().trim().matches(Reguex.ENTIDAD_PEDIDO)) {
 			res = txtEntidad.getText().trim();
 		}else {
-			Tool.mensajeError(this, "Entidad inválida. Cantidad de caracteres (3 y 20)");
+			Tool.mensajeError(this, "Entidad invï¿½lida. Cantidad de caracteres (3 y 20)");
 			txtEntidad.requestFocus();
 		}
 		
@@ -373,12 +383,12 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		String res=null;
 		
 		if (txtRuc.getText().trim().length()==0) {
-			Tool.mensajeError(this,"Campo del RUC está vacío !");
+			Tool.mensajeError(this,"Campo del RUC estï¿½ vacï¿½o !");
 			txtRuc.requestFocus();
 		}else if (txtRuc.getText().trim().matches(Reguex.RUC_PEDIDO)) {
 			res= txtRuc.getText();
 		}else {
-			Tool.mensajeError(this,"Ruc inválido. Ejemp (XXXXXXXXXXX, 11 digitos)");
+			Tool.mensajeError(this,"Ruc invï¿½lido. Ejemp (XXXXXXXXXXX, 11 digitos)");
 			txtRuc.requestFocus();
 		}
 		
@@ -402,7 +412,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		int res=-1;
 		
 		if (cboObjeto.getSelectedIndex()==0) {
-			Tool.mensajeError(this,"Elige un objeto de contratación");
+			Tool.mensajeError(this,"Elige un objeto de contrataciï¿½n");
 		}else {
 			res = cboObjeto.getSelectedIndex();
 		}
@@ -427,7 +437,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		String res=null;
 		
 		if (dcFecha.getDate()==null) {
-			Tool.mensajeError(this, "El campo fecha está vacío !");
+			Tool.mensajeError(this, "El campo fecha estï¿½ vacï¿½o !");
 			dcFecha.requestFocus();
 		}else {
 			res = Tool.sdf.format(dcFecha.getDate()).toString();
@@ -440,7 +450,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		String res=null;
 		
 		if (txtEstado.getText().trim().length()==0) {
-			Tool.mensajeError(this,"El campo estado está vacío !");
+			Tool.mensajeError(this,"El campo estado estï¿½ vacï¿½o !");
 			txtEstado.requestFocus();
 		}else {
 			res = txtEstado.getText().toString();
