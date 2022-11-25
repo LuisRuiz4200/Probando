@@ -84,7 +84,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		txtEntidad.setColumns(10);
 		
 		lblEntidad = new JLabel("Nombre o Razon  social :");
-		lblEntidad.setBounds(11, 66, 138, 14);
+		lblEntidad.setBounds(11, 66, 176, 14);
 		panleParticipante.add(lblEntidad);
 		
 		lblRuc = new JLabel("RUC :");
@@ -132,7 +132,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		panleParticipante.add(txtEstado);
 		txtEstado.setColumns(10);
 		
-		lblEstado = new JLabel("Estado:");
+		lblEstado = new JLabel("Estado :");
 		lblEstado.setBounds(319, 21, 67, 14);
 		panleParticipante.add(lblEstado);
 		

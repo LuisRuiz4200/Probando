@@ -150,7 +150,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		contentPane.add(lblDescripcion);
 		
 		lblFecha = new JLabel("Fecha Inicio : ");
-		lblFecha.setBounds(313, 64, 75, 14);
+		lblFecha.setBounds(313, 64, 89, 14);
 		contentPane.add(lblFecha);
 		
 		scrollPane = new JScrollPane();
