@@ -67,7 +67,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private JLabel lblEstado_1;
 	private JPanel panelPedido;
 	private JTextField txtRucPedido;
-	private JLabel lblRucPedido;
+	private JLabel lblObjetoPedido;
 	private JPanel panelPropuesta;
 	private JButton btnNuevo;
 	private JScrollPane scrollPane;
@@ -109,7 +109,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 		btnActualizar = new JButton("MODIFICAR");
 		btnActualizar.addActionListener(this);
-		btnActualizar.setBounds(456, 180, 108, 23);
+		btnActualizar.setBounds(536, 168, 108, 23);
 		contentPane.add(btnActualizar);
 
 		lblPropuestaTecnica = new JLabel("Propuesta Tecnica:");
@@ -156,7 +156,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtEntidadParti = new JTextField();
 		txtEntidadParti.setText("");
 		txtEntidadParti.setColumns(10);
-		txtEntidadParti.setBounds(10, 81, 177, 20);
+		txtEntidadParti.setBounds(10, 81, 146, 20);
 		panelParticipante.add(txtEntidadParti);
 
 		lblEntidad = new JLabel("Nombre social:");
@@ -164,13 +164,13 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panelParticipante.add(lblEntidad);
 
 		lblRuc = new JLabel("RUC");
-		lblRuc.setBounds(133, 21, 92, 14);
+		lblRuc.setBounds(166, 66, 92, 14);
 		panelParticipante.add(lblRuc);
 
 		txtRucParti = new JTextField();
 		txtRucParti.setText("");
 		txtRucParti.setColumns(10);
-		txtRucParti.setBounds(133, 36, 127, 20);
+		txtRucParti.setBounds(166, 81, 127, 20);
 		panelParticipante.add(txtRucParti);
 
 		cboParticipante = new JComboBox<Object>();
@@ -202,9 +202,9 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtRucPedido.setBounds(124, 46, 115, 20);
 		panelPedido.add(txtRucPedido);
 
-		lblRucPedido = new JLabel("RUC pedido :");
-		lblRucPedido.setBounds(10, 46, 119, 14);
-		panelPedido.add(lblRucPedido);
+		lblObjetoPedido = new JLabel("Objeto de pedido :");
+		lblObjetoPedido.setBounds(10, 46, 119, 14);
+		panelPedido.add(lblObjetoPedido);
 
 		panelPropuesta = new JPanel();
 		panelPropuesta.setOpaque(false);
