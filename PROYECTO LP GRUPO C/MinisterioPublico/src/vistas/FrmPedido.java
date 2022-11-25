@@ -140,7 +140,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		contentPane.add(cboTipo);
 		
 		txtDescripcion = new JTextArea();
-		txtDescripcion.setBounds(413, 64, 279, 88);
+		txtDescripcion.setBounds(445, 28, 279, 88);
 		txtDescripcion.setLineWrap(true);
 		txtDescripcion.setBorder(new EmptyBorder(5,5,5,5));
 		contentPane.add(txtDescripcion);

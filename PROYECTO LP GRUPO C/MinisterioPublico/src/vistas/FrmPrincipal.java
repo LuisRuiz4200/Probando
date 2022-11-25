@@ -145,11 +145,11 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mnMantenimiento.add(mniApelacion);
 		
 		
-		mniConsultaParticipante = new JMenuItem("Consulta Participante");
+		mniConsultaParticipante = new JMenuItem("Consulta de participantes");
 		mniConsultaParticipante.addActionListener(this);
 		mnConsulta.add(mniConsultaParticipante);
 		
-		mniConsultaPropusta = new JMenuItem("Consulta Propuesta");
+		mniConsultaPropusta = new JMenuItem("Consulta de propuestas");
 		mniConsultaPropusta.addActionListener(this);
 		mnConsulta.add(mniConsultaPropusta);
 		

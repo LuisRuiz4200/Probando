@@ -123,8 +123,8 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		lblIdPedido.setBounds(10, 21, 116, 14);
 		panleParticipante.add(lblIdPedido);
 		
-		btnBuscar = new JButton("BUSCAR PARTICIPANTE");
-		btnBuscar.setBounds(134, 26, 162, 29);
+		btnBuscar = new JButton("BUSCAR");
+		btnBuscar.setBounds(134, 26, 92, 29);
 		panleParticipante.add(btnBuscar);
 		
 		txtEstado = new JTextField();

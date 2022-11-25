@@ -88,10 +88,9 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		btnBuscar = new JButton("BUSCAR PARTICIPANTE");
-		btnBuscar.setHorizontalAlignment(SwingConstants.TRAILING);
+		btnBuscar = new JButton("BUSCAR");
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(186, 26, 154, 24);
+		btnBuscar.setBounds(186, 26, 86, 24);
 		contentPane.add(btnBuscar);
 		
 		model = new DefaultTableModel();
