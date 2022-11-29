@@ -183,4 +183,46 @@ public class ComiteDAO {
 		     }
 		return list;	
 	}
+
+
+    public ArrayList<Comite> listarComiteXPedido(String idPedido){
+		ArrayList <Comite> list = new ArrayList<Comite>();
+		Connection con =null;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+		
+		try {
+			con = MySQLConexion8.getConexion();
+			String sql = "select * from tb_cep_pedido where id_ped = ?";
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, idPedido);
+			res = pstm.executeQuery();
+			
+			while (res.next()) {
+				Comite com = new Comite(
+						res.getString(1),
+						res.getString(2),
+						res.getString(3),
+						res.getString(4),
+						res.getString(5),
+						res.getString(6),
+						res.getString(7)
+						);
+				list.add(com);
+			}			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+				if (res !=null)res.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		return list;	
+	}
+
 }
+

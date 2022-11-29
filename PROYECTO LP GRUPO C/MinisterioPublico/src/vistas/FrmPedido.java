@@ -27,10 +27,12 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 
 import Validaciones.Reguex;
+import clases.Comite;
 import clases.ObjetoPedido;
 import clases.Participante;
 import clases.Pedido;
 import clases.TipoPedido;
+import mantenimiento.ComiteDAO;
 import mantenimiento.ObjetoPedidoDAO;
 import mantenimiento.ParticipanteDAO;
 import mantenimiento.PedidoDAO;
@@ -39,6 +41,8 @@ import utils.Tool;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
 
 @SuppressWarnings("serial")
 public class FrmPedido extends JInternalFrame implements ActionListener, MouseListener {
@@ -64,6 +68,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	
 	private TipoPedidoDAO tipPedDao;
 	private ObjetoPedidoDAO objPedDao;
+	private ComiteDAO cepDao;
 	private PedidoDAO pedDao;
 	private ParticipanteDAO partDao;
 	private JButton btnNuevo;
@@ -72,6 +77,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private JLabel lblRuc;
 	private JTextField txtRuc;
 	private JLabel lblNewLabel;
+	private JPanel panel;
 
 	/**
 	 * Launch the application.
@@ -95,7 +101,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	public FrmPedido() {
 		setTitle("Registro de Pedido");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 763, 452);
+		setBounds(100, 100, 763, 487);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -110,51 +116,42 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		
 		txtIdPedido = new JTextField();
 		txtIdPedido.setEditable(false);
-		txtIdPedido.setBounds(20, 33, 122, 20);
+		txtIdPedido.setBounds(339, 33, 122, 20);
 		contentPane.add(txtIdPedido);
 		txtIdPedido.setColumns(10);
 		
-		txtEntidad = new JTextField();
-		txtEntidad.setBounds(167, 33, 117, 20);
-		contentPane.add(txtEntidad);
-		txtEntidad.setColumns(10);
-		
 		lblNroPedido = new JLabel("ID Pedido :");
-		lblNroPedido.setBounds(20, 14, 147, 14);
+		lblNroPedido.setBounds(339, 14, 147, 14);
 		contentPane.add(lblNroPedido);
 		
-		lblEntidad = new JLabel("Entidad Solicitante :");
-		lblEntidad.setBounds(167, 14, 147, 14);
-		contentPane.add(lblEntidad);
-		
 		lblTipo = new JLabel("Tipo de Contratacion :");
-		lblTipo.setBounds(20, 113, 147, 14);
+		lblTipo.setBounds(20, 141, 147, 14);
 		contentPane.add(lblTipo);
 		
 		lblObjeto = new JLabel("Objeto de Contratacion :");
-		lblObjeto.setBounds(20, 64, 147, 14);
+		lblObjeto.setBounds(20, 92, 147, 14);
 		contentPane.add(lblObjeto);
 		
 		cboTipo = new JComboBox<Object>();
-		cboTipo.setBounds(20, 130, 220, 22);
+		cboTipo.setBounds(20, 158, 220, 22);
 		contentPane.add(cboTipo);
 		
 		txtDescripcion = new JTextArea();
-		txtDescripcion.setBounds(445, 28, 279, 88);
+		txtDescripcion.setBounds(458, 81, 279, 88);
 		txtDescripcion.setLineWrap(true);
 		txtDescripcion.setBorder(new EmptyBorder(5,5,5,5));
 		contentPane.add(txtDescripcion);
 		
 		lblDescripcion = new JLabel("Descripcion de \r\nRequrimiento:");
-		lblDescripcion.setBounds(445, 11, 175, 20);
+		lblDescripcion.setBounds(458, 64, 175, 20);
 		contentPane.add(lblDescripcion);
 		
 		lblFecha = new JLabel("Fecha Inicio : ");
-		lblFecha.setBounds(313, 64, 89, 14);
+		lblFecha.setBounds(177, 92, 89, 14);
 		contentPane.add(lblFecha);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 182, 727, 229);
+		scrollPane.setBounds(10, 217, 727, 229);
 		contentPane.add(scrollPane);
 		
 		tbPedidos = new JTable();
@@ -163,16 +160,16 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		
 		btnGuardar = new JButton("GUARDAR");
 		btnGuardar.addActionListener(this);
-		btnGuardar.setBounds(481, 130, 117, 23);
+		btnGuardar.setBounds(494, 183, 117, 23);
 		contentPane.add(btnGuardar);
 		
 		btnModificar = new JButton("MODIFICAR");
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(608, 130, 108, 23);
+		btnModificar.setBounds(621, 183, 108, 23);
 		contentPane.add(btnModificar);
 		
 		dcFecha = new JDateChooser();
-		dcFecha.setBounds(313, 80, 108, 20);
+		dcFecha.setBounds(177, 108, 108, 20);
 		contentPane.add(dcFecha);
 		
 		model = new DefaultTableModel();
@@ -187,44 +184,61 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		tbPedidos.setModel(model);
 		
 		cboObjeto = new JComboBox<Object>();
-		cboObjeto.setBounds(20, 80, 122, 22);
+		cboObjeto.setBounds(20, 108, 122, 22);
 		contentPane.add(cboObjeto);
 		
 		btnNuevo = new JButton("LIMPIAR");
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(313, 109, 89, 23);
+		btnNuevo.setBounds(352, 109, 89, 23);
 		contentPane.add(btnNuevo);
 		
 		txtEstado = new JTextField();
 		txtEstado.setEditable(false);
 		txtEstado.setColumns(10);
-		txtEstado.setBounds(313, 33, 106, 20);
+		txtEstado.setBounds(610, 33, 106, 20);
 		contentPane.add(txtEstado);
 		
 		lblEstado = new JLabel("Estado :");
-		lblEstado.setBounds(313, 14, 67, 14);
+		lblEstado.setBounds(610, 14, 67, 14);
 		contentPane.add(lblEstado);
-		
-		lblRuc = new JLabel("RUC :");
-		lblRuc.setBounds(167, 64, 147, 14);
-		contentPane.add(lblRuc);
-		
-		txtRuc = new JTextField();
-		txtRuc.setText("");
-		txtRuc.setColumns(10);
-		txtRuc.setBounds(167, 81, 117, 20);
-		contentPane.add(txtRuc);
 		
 		lblNewLabel = new JLabel("TABLA DE PEDIDOS");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblNewLabel.setBounds(10, 163, 727, 20);
+		lblNewLabel.setBounds(20, 186, 727, 20);
 		contentPane.add(lblNewLabel);
+		
+		panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "ENTIDAD", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 11, 319, 70);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		txtRuc = new JTextField();
+		txtRuc.setBounds(167, 39, 117, 20);
+		panel.add(txtRuc);
+		txtRuc.setText("");
+		txtRuc.setColumns(10);
+		
+		txtEntidad = new JTextField();
+		txtEntidad.setBounds(10, 39, 147, 20);
+		panel.add(txtEntidad);
+		txtEntidad.setColumns(10);
+		
+		lblEntidad = new JLabel("Entidad Solicitante :");
+		lblEntidad.setBounds(10, 22, 147, 14);
+		panel.add(lblEntidad);
+		
+		lblRuc = new JLabel("RUC :");
+		lblRuc.setBounds(167, 20, 147, 14);
+		panel.add(lblRuc);
 		
 		tipPedDao = new TipoPedidoDAO();
 		objPedDao = new ObjetoPedidoDAO();
 		pedDao = new PedidoDAO();
 		partDao = new ParticipanteDAO();
+		cepDao = new ComiteDAO();
 		
 		arranque();
 		
@@ -268,27 +282,27 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		String fecha = leerFecha();
 		String estado = leerEstado();
 		
+		
+		
 		if (idPedido==null ||entidad==null||ruc==null  ||idTipoPedido==-1 ||
 				idObjetoPedido==-1 ||descripcion==null 
 				||fecha==null || estado ==null) {
 			return;
 		}else {
+				Pedido ped = new Pedido(idPedido,entidad,ruc,
+						idTipoPedido,idObjetoPedido,descripcion,
+						fecha,estado);
+				
+				int ok = pedDao.registrarPedido(ped);
 			
-			Pedido ped = new Pedido(idPedido,entidad,ruc,
-					idTipoPedido,idObjetoPedido,descripcion,
-					fecha,estado);
-			
-			int ok = pedDao.registrarPedido(ped);
-		
-			if(ok == 0){
-				Tool.mensajeError(this, "Error de registro");
-			}else {
-				Tool.mensajeExito(this, "Pedido registrado!");
-				correlativo();
-				cargarTabla();
-			}
+				if(ok == 0){
+					Tool.mensajeError(this, "Error de registro");
+				}else {
+					Tool.mensajeExito(this, "Pedido registrado!");
+					correlativo();
+					cargarTabla();
+				}
 		}
-		
 	}
 
 	protected void actionPerformedBtnModificar(ActionEvent e) {
@@ -575,8 +589,10 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	}
 	
 	private void limpiar () {
-		txtEntidad.setText("");
-		txtRuc.setText("");
+		txtEntidad.setEditable(false);
+		txtRuc.setEditable(false);
+		txtEntidad.setText("MINISTERIO PÚBLICO");
+		txtRuc.setText("20131370301");
 		dcFecha.setDate(new Date());
 		txtDescripcion.setText("");
 		txtEstado.setText("REGISTRADO");

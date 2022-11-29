@@ -42,7 +42,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private JLabel lblIdPedido;
 	private JLabel lblEstado;
 	private JButton btnBuscar;
-	
+	private ComiteDAO cepDao;
 	private PedidoDAO pedDao;
 	private ParticipanteDAO partDao;
 	private PropuestaDAO propDao;
@@ -194,7 +194,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		pedDao = new PedidoDAO();
 		partDao = new ParticipanteDAO();
 		propDao = new PropuestaDAO();
-		
+		cepDao = new ComiteDAO();
 		
 		arranque();
 		
@@ -260,20 +260,25 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 			return;
 			
 		}else {
+			ArrayList<Comite> listCep = cepDao.listarComiteXPedido(idPedido);
 			
-			Participante part = new Participante (
-					
-					idPedido, idParticipante, entidad, ruc, correo,telefono,estado
-					);
-			
-			int ok =partDao.registrarParticipante(part);
-			
-			if (ok == 0) {
-				Tool.mensajeError(this, "Error de registro");
+			if (listCep.size() == 3) {
+				Participante part = new Participante (
+						
+						idPedido, idParticipante, entidad, ruc, correo,telefono,estado
+						);
+				
+				int ok =partDao.registrarParticipante(part);
+				
+				if (ok == 0) {
+					Tool.mensajeError(this, "Error de registro");
+				}else {
+					Tool.mensajeExito(this, "Registro exitoso");
+					cargarTabla();
+					correlativo();
+				}
 			}else {
-				Tool.mensajeExito(this, "Registro exitoso");
-				cargarTabla();
-				correlativo();
+				Tool.mensajeError(this,"Pedido no cuenta con la cantidad de Miembros del Comité necesarios");
 			}
 			
 		}
@@ -300,20 +305,23 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 			
 		}else {
 			
-			Participante part = new Participante (
-					
-					idPedido, idParticipante, entidad, ruc, correo,telefono,estado
-					);
+				Participante part = new Participante (
+						
+						idPedido, idParticipante, entidad, ruc, correo,telefono,estado
+						);
+				
+				int ok =partDao.actualizarPartcipante(part);
+				
+				if (ok == 0) {
+					Tool.mensajeError(this, "Error de update");
+				}else {
+					Tool.mensajeExito(this, "Actualizacion exitosa");
+					correlativo();
+					cargarTabla();
+				}
 			
-			int ok =partDao.actualizarPartcipante(part);
 			
-			if (ok == 0) {
-				Tool.mensajeError(this, "Error de update");
-			}else {
-				Tool.mensajeExito(this, "Actualizacion exitosa");
-				correlativo();
-				cargarTabla();
-			}
+
 			
 		}
 		
