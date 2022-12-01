@@ -156,7 +156,7 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 		
 		String idPedido = tbPedidos.getValueAt(tbPedidos.getSelectedRow(),0).toString();
 		
-		FrmParticipante.cboPedido.setSelectedItem(idPedido);
+		FrmParticipante.txtIdPedido.setText(idPedido);
 	}
 	
 

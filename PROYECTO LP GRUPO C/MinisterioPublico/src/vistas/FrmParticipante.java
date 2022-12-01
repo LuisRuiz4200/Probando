@@ -22,6 +22,7 @@ import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class FrmParticipante extends JInternalFrame implements ActionListener, MouseListener{
+	
 	private JTextField txtEntidad;
 	private JLabel lblEntidad;
 	private JTextField txtRuc;
@@ -36,14 +37,12 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private JTable table;
 	private JScrollPane scrollPane;
 	private DefaultTableModel modelo;
-	public static JComboBox <Object> cboPedido;
 	private JLabel lblPedido;
-	private JTextField txtIdParticipante;
+	private  JTextField txtIdParticipante;
 	private JLabel lblIdPedido;
 	private JLabel lblEstado;
 	private JButton btnBuscar;
 	private ComiteDAO cepDao;
-	private PedidoDAO pedDao;
 	private ParticipanteDAO partDao;
 	private PropuestaDAO propDao;
 	private JButton btnNuevo;
@@ -51,6 +50,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private JPanel panleParticipante;
 	private JLabel lblNewLabel;
 	private JButton btnBuscarPedido;
+	public static JTextField txtIdPedido;
 	
 	
 	
@@ -172,13 +172,8 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		modelo.addColumn("ESTADO");
 		table.setModel(modelo);
 		
-		cboPedido = new JComboBox<Object>();
-		cboPedido.addActionListener(this);
-		cboPedido.setBounds(21, 26, 106, 22);
-		getContentPane().add(cboPedido);
-		
 		lblPedido = new JLabel("ID. Pedido :");
-		lblPedido.setBounds(22, 11, 139, 14);
+		lblPedido.setBounds(10, 11, 139, 14);
 		getContentPane().add(lblPedido);
 		
 		btnNuevo = new JButton("LIMPIAR");
@@ -194,10 +189,15 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		
 		btnBuscarPedido = new JButton("BUSCAR");
 		btnBuscarPedido.addActionListener(this);
-		btnBuscarPedido.setBounds(21, 59, 92, 29);
+		btnBuscarPedido.setBounds(10, 59, 92, 29);
 		getContentPane().add(btnBuscarPedido);
 		
-		pedDao = new PedidoDAO();
+		txtIdPedido = new JTextField();
+		txtIdPedido.setBounds(10, 28, 108, 20);
+		getContentPane().add(txtIdPedido);
+		txtIdPedido.setColumns(10);
+		
+		new PedidoDAO();
 		partDao = new ParticipanteDAO();
 		propDao = new PropuestaDAO();
 		cepDao = new ComiteDAO();
@@ -208,7 +208,6 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private void arranque() {
 		
 		estado();
-		cargarCboPedido();
 		cargarTabla();
 		correlativo();
 		limpiar();
@@ -224,9 +223,6 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		if (e.getSource() == btnNuevo) {
 			actionPerformedBtnNuevo(e);
 		}
-		if (e.getSource() == cboPedido) {
-			actionPerformedCboPedido(e);
-		}
 		if (e.getSource() == btnBuscar) {
 			actionPerformedBtnBuscar(e);
 		}
@@ -238,12 +234,6 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		}
 		if (e.getSource() == btnAgregar) {
 			actionPerformedBtnAgregar(e);
-		}
-	}
-	
-	protected void actionPerformedCboPedido(ActionEvent e) {
-		if (cboPedido.getSelectedIndex() != 0) {
-			cboPedido.setEnabled(false);
 		}
 	}
 	
@@ -365,7 +355,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 			Tool.mensajeError(this, "El ID ingresado no se encuentra registrado");
 		}else {
 			
-			cboPedido.setSelectedItem(part.getCodPedido());
+			txtIdPedido.setText(part.getCodPedido());
 			txtIdParticipante.setText(part.getCodParticipante());
 			txtEntidad.setText(part.getEntidad());
 			txtRuc.setText(part.getRuc());
@@ -406,13 +396,12 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private String leerIdPedido() {
 		String res = null;
 		
-		if (cboPedido.getSelectedIndex()==0) {
-			Tool.mensajeError(this,"Eligo el ID del pedido en el cual se registrara al participante");
-		}else {
-			res = cboPedido.getSelectedItem().toString();
+		if (txtIdPedido.getText().trim().length()==0) {
+			Tool.mensajeError(this,"Eliga el ID del algún pedido. Presione la opcion buscar !");
 		}
+		res = txtIdPedido.getText();
 		
-		return res ;
+		return res;
 	}
 
 	private String leerIdParticipante() {
@@ -509,19 +498,6 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	
 	//METODOS ADICIONALES
 	
-	private void cargarCboPedido() {
-		ArrayList<Pedido> list = pedDao.listarPedido();
-		
-		cboPedido.removeAllItems();
-		cboPedido.addItem("SELECCIONE...");
-		
-		for (Pedido ped : list) {
-			
-			cboPedido.addItem(ped.getCodigo());
-			
-		}
-		
-	}
 	
 	private void cargarTabla () {
 		
@@ -562,7 +538,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 			String telefono = table.getValueAt(indice, 5).toString();
 			String estado = table.getValueAt(indice, 6).toString();
 			
-			cboPedido.setSelectedItem(idPedido);
+			txtIdPedido.setText(idPedido);
 			txtIdParticipante.setText(idParticipante);
 			txtEntidad.setText(entidad);
 			txtRuc.setText(ruc);
@@ -595,8 +571,8 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	
 	private void limpiar() {
 		txtEstado.setEditable(false);
+		txtIdPedido.setEditable(false);
 		txtEstado.setText("REGISTRADO");
-		cboPedido.setEnabled(true);
 		txtEntidad.setText("");
 		txtRuc.setText("");
 		txtTelefono.setText("");
@@ -621,5 +597,4 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 			}	
 		}
 	}
-
 }
