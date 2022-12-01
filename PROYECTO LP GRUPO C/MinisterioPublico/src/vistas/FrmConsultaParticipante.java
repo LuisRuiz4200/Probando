@@ -188,7 +188,12 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		}
 	}
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
-		consultaParticipante();
+		limpiar();
+		if (cboParticipante.getSelectedIndex()==0) {
+			Tool.mensajeError(this, "Eliga un ID del participante que desea buscar");
+		}else {
+			consultaParticipante();
+		}
 	}
 	
 	
@@ -225,34 +230,13 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 	
 	private void consultaParticipante() {
 		
-		String idParticipante = leerCboParticipante();
-		
+		String idParticipante = cboParticipante.getSelectedItem().toString();
+		//OBJETO DE PARTICIPANTE
 		Participante part = partDao.buscarXIdParticipante(idParticipante);
-		
-		cargarParticipante (part);
-		
-		String idPedido = part.getCodPedido();
-		
-		Pedido ped = pedDao.buscarXIdPedido(idPedido);
-		
-		cargarPedido(ped);
-		
-		
+		//OBJETO DE PROPUESTA
 		Propuesta prop = propDao.buscarPropuesta(idParticipante);
 		
 		
-		cargarPropuesta(prop);
-		
-		ArrayList <Apelacion > listApel = apelDao.listarApelacion();
-		
-		for (Apelacion apel : listApel){
-			if (apel.getCodPropuesta().equals(prop.getCodPropuesta())) {
-				cargarApelacion (apel);
-			}else {
-				return;
-			}
-		}		
-
 	}	
 
 	
@@ -319,5 +303,12 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 			Tool.imprimir(txtPropuesta,"ESTADO		: " + prop.getEstado());
 		}
 		
+	}
+	
+	private void limpiar () {
+		txtPedido.setText("");
+		txtPropuesta.setText("");
+		txtApelacion.setText("");
+		txtParticipante.setText("");
 	}
 }

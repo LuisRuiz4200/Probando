@@ -16,31 +16,58 @@ public int registrarEvaluacionPropuesta(EvaluacionPropuesta evProp) {
 		int res = 0;
 		
 		Connection con =null;
-		PreparedStatement pstm = null;
+		PreparedStatement pstm1 = null; //REGISTRAR
+		PreparedStatement pstm2 = null; //ACTUALIZAR PROPUESTA
 		
 		try {
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "insert into tb_evaluacionpropuesta values (?,?,?,?,?,?)";
+			con.setAutoCommit(false);
 			
-			pstm = con.prepareStatement(sql);
+			//REGISTRAR
 			
-			pstm.setString(1,evProp.getIdPropuesta());
-			pstm.setString(2,evProp.getIdEvapropuesta());
-			pstm.setDouble(3,evProp.getPuntTecnica());
-			pstm.setDouble(4,evProp.getPuntEconomica());
-			pstm.setString(5,evProp.getFecha());
-			pstm.setString(6,evProp.getEstadoPropuesta());
+			String sql1 = "insert into tb_evaluacionpropuesta values (?,?,?,?,?,?)";
 			
-			res = pstm.executeUpdate();
+			pstm1 = con.prepareStatement(sql1);
+			
+			pstm1.setString(1,evProp.getIdPropuesta());
+			pstm1.setString(2,evProp.getIdEvapropuesta());
+			pstm1.setDouble(3,evProp.getPuntTecnica());
+			pstm1.setDouble(4,evProp.getPuntEconomica());
+			pstm1.setString(5,evProp.getFecha());
+			pstm1.setString(6,evProp.getEstadoPropuesta());
+			
+			res = pstm1.executeUpdate();
+			
+			//CAMBIAR ESTADO A PROPUESTA
+			
+			String sql2 = "update tb_propuesta set estado_prop = 'EVALUADA' where id_prop = ?";
+			
+			pstm2 = con.prepareStatement(sql2);
+			
+			pstm2.setString(1,evProp.getIdPropuesta());
+			
+			res = pstm2.executeUpdate();
+			
+			con.commit();
+			
 			
 		}catch(Exception e) {
 			System.out.println("Error en la instruccion" + e.getMessage());
+			
+			res =0;
+			
+			try {
+				con.rollback();
+			}catch(SQLException e2) {
+				System.out.println("Error al restuarar la bd" + e.getMessage());
+			}
+			
 		}finally {
 			try {
 				if (con!=null)con.close();
-				if (pstm!=null)pstm.close();
+				if (pstm1!=null)pstm1.close();
 			}catch (SQLException e) {
 				System.out.println("Error al cerrar la base de datos" + e.getMessage());
 			}

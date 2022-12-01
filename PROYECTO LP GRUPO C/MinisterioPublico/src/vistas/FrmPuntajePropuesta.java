@@ -267,27 +267,34 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 	
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
 		
-		String idPropuesta = leerIdPropuesta();
 		
-		Propuesta prop = propDao.buscarXIdPropuesta(idPropuesta);
+		if(cboPropuesta.getSelectedIndex()==0) {
+			Tool.mensajeError(this,"Eliga el ID de una propuesta para iniciar la busqueda");
+		}else {
+			String idPropuesta = leerIdPropuesta();
+			
+			Propuesta prop = propDao.buscarXIdPropuesta(idPropuesta);
+			
+			String idParticipante = prop.getCodParticipante();
+			
+			Participante part = partDao.buscarXIdParticipante(idParticipante);
+			
+			String idPedido = part.getCodPedido();
+			
+			Pedido ped = pedDao.buscarXIdPedido(idPedido);
+			
+			//LLENAR PANEL PARTICIPANTE
+			
+			txtEntidadParti.setText(part.getEntidad());
+			txtRucParti.setText(part.getRuc());
+			
+			//LLENAR PALEN PEDIDO
+			
+			txtEntidadPedido.setText(ped.getEntidad());
+			txtRucPedido.setText(ped.getRuc());
+			
+		}
 		
-		String idParticipante = prop.getCodParticipante();
-		
-		Participante part = partDao.buscarXIdParticipante(idParticipante);
-		
-		String idPedido = part.getCodPedido();
-		
-		Pedido ped = pedDao.buscarXIdPedido(idPedido);
-		
-		//LLENAR PANEL PARTICIPANTE
-		
-		txtEntidadParti.setText(part.getEntidad());
-		txtRucParti.setText(part.getRuc());
-		
-		//LLENAR PALEN PEDIDO
-		
-		txtEntidadPedido.setText(ped.getEntidad());
-		txtRucPedido.setText(ped.getRuc());
 		
 		
 	}
@@ -320,7 +327,6 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 				Tool.mensajeError(this, "Error al registrar puntajes");
 			}else {
 				Tool.mensajeExito(this,"Puntajes registrados !");
-				estadoPropuesta ("EVALUADO");
 				cargarTablaEvaluacionPropuesta();
 			}
 			
@@ -483,18 +489,6 @@ public class FrmPuntajePropuesta extends JInternalFrame implements ActionListene
 			
 			modelo.addRow(x);
 		}
-		
-	}
-	
-	private void estadoPropuesta(String estado) {
-		
-		String idPropuesta = leerIdPropuesta();
-		
-		Propuesta prop = propDao.buscarXIdPropuesta(idPropuesta);
-
-		
-		prop.setEstado(estado);
-		propDao.actualizarPropuesta(prop);
 		
 	}
 	
