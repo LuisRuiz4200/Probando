@@ -233,8 +233,28 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		String idParticipante = cboParticipante.getSelectedItem().toString();
 		//OBJETO DE PARTICIPANTE
 		Participante part = partDao.buscarXIdParticipante(idParticipante);
+		cargarParticipante(part);
 		//OBJETO DE PROPUESTA
 		Propuesta prop = propDao.buscarPropuesta(idParticipante);
+		cargarPropuesta(prop);
+		//OBJETO DE APELACION
+		Pedido ped = pedDao.buscarXIdPedido(part.getCodPedido());
+		cargarPedido(ped);
+		//OBJETO DE APELACION
+		
+		ArrayList<Apelacion> listApel = apelDao.listarApelacion();
+		
+		if (prop == null) {
+			return;
+		}else {
+			for (Apelacion ape : listApel) {
+				if (ape.getCodPropuesta().equals(prop.getCodPropuesta())) {
+					cargarApelacion(ape);
+				}
+			}
+		}
+		
+
 		
 		
 	}	
@@ -266,10 +286,8 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		}else {
 
 			Tool.imprimir(txtPedido,"ID PEDIDO		: " +  ped.getCodigo());
-			Tool.imprimir(txtPedido,"PEDIDO		: " +  ped.getEntidad() );
-			Tool.imprimir(txtPedido,"DESCRIPCION		: " +  ped.getDescripcion() );
-			Tool.imprimir(txtPedido,"RUC		: " +  ped.getRuc());
 			Tool.imprimir(txtPedido,"ESTADO		: " + ped.getEstado());
+			Tool.imprimir(txtPedido,"DESCRIPCION		: " +  ped.getDescripcion() );
 		}
 		
 	}

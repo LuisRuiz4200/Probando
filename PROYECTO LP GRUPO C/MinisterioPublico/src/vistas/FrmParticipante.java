@@ -36,7 +36,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private JTable table;
 	private JScrollPane scrollPane;
 	private DefaultTableModel modelo;
-	private JComboBox <Object> cboPedido;
+	public static JComboBox <Object> cboPedido;
 	private JLabel lblPedido;
 	private JTextField txtIdParticipante;
 	private JLabel lblIdPedido;
@@ -50,6 +50,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private JTextField txtEstado;
 	private JPanel panleParticipante;
 	private JLabel lblNewLabel;
+	private JButton btnBuscarPedido;
 	
 	
 	
@@ -182,7 +183,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		
 		btnNuevo = new JButton("LIMPIAR");
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(21, 59, 89, 23);
+		btnNuevo.setBounds(37, 150, 89, 23);
 		getContentPane().add(btnNuevo);
 		
 		lblNewLabel = new JLabel("TABLA DE REGISTROS\r\n");
@@ -190,6 +191,11 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(10, 184, 726, 23);
 		getContentPane().add(lblNewLabel);
+		
+		btnBuscarPedido = new JButton("BUSCAR");
+		btnBuscarPedido.addActionListener(this);
+		btnBuscarPedido.setBounds(21, 59, 92, 29);
+		getContentPane().add(btnBuscarPedido);
 		
 		pedDao = new PedidoDAO();
 		partDao = new ParticipanteDAO();
@@ -212,6 +218,9 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnBuscarPedido) {
+			actionPerformedBtnBuscarPedido(e);
+		}
 		if (e.getSource() == btnNuevo) {
 			actionPerformedBtnNuevo(e);
 		}
@@ -366,6 +375,13 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 			
 		}
 				
+	}
+	protected void actionPerformedBtnBuscarPedido(ActionEvent e) {
+		
+		FrmPrincipal principal = new FrmPrincipal();
+		
+		FrmBuscarPedido buscarPedido = new FrmBuscarPedido(principal,true);
+		buscarPedido.setVisible(true);
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -605,4 +621,5 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 			}	
 		}
 	}
+
 }

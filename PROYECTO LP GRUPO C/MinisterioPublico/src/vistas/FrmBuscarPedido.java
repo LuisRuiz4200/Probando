@@ -11,9 +11,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class FrmBuscarPedido extends JFrame implements MouseListener, KeyListener{
+public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListener, ActionListener{
 	private JTable tbPedidos;
 	private JTextArea txtDescripcion;
 	private JLabel lblDescripcion;
@@ -23,18 +25,21 @@ public class FrmBuscarPedido extends JFrame implements MouseListener, KeyListene
 	private PedidoDAO pedDao;
 	
 	
-	public static void main(String [] args) {
+	/*public static void main(String [] args) {
 		
 		FrmBuscarPedido form = new FrmBuscarPedido();
 		form.setVisible(true);
 		
 	}
-	
-	public FrmBuscarPedido() {
+	*/
+	public FrmBuscarPedido(JFrame parent,boolean modal) {
+		
+		super(parent,modal);
 		
 		setTitle("Buscar pedido");
 		setBounds(100,100,579,278);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(this);
+		setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 		
 		this.getContentPane().setLayout(null);
 		
@@ -69,6 +74,7 @@ public class FrmBuscarPedido extends JFrame implements MouseListener, KeyListene
 		getContentPane().add(lblDescripcion);
 		
 		btnSeleccionar = new JButton("Seleccionar");
+		btnSeleccionar.addActionListener(this);
 		btnSeleccionar.setBounds(400, 19, 122, 23);
 		getContentPane().add(btnSeleccionar);
 		
@@ -76,6 +82,15 @@ public class FrmBuscarPedido extends JFrame implements MouseListener, KeyListene
 		
 		arranque();
 		
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSeleccionar) {
+			actionPerformedBtnSeleccionar(e);
+		}
+	}
+	protected void actionPerformedBtnSeleccionar(ActionEvent e) {
+		exportarDatos();
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -137,6 +152,14 @@ public class FrmBuscarPedido extends JFrame implements MouseListener, KeyListene
 		txtDescripcion.setText(ped.getDescripcion());
 	}
 	
+	private void exportarDatos() {
+		
+		String idPedido = tbPedidos.getValueAt(tbPedidos.getSelectedRow(),0).toString();
+		
+		FrmParticipante.cboPedido.setSelectedItem(idPedido);
+	}
+	
+
 
 
 }
