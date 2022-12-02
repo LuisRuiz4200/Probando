@@ -311,7 +311,6 @@ public class FrmReportePropuesta extends JInternalFrame implements ActionListene
 	
 	void imprimirPDF() {
 		
-		// LLAMAR AL PROCESO -- listar usuario
 		ArrayList<Propuesta> lista = propDao.reporteXFecha(leerFechaInicio(), leerFechaFin());
 		
 		try {

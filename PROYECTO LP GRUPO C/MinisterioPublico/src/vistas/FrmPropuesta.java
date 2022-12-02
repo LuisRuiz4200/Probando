@@ -510,12 +510,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtPropEconomica.setText("");
 		txtIdPedido.setEditable(false);
 		cargarcboParticipantes();
-		/* ESTOS METODOS ESTABAN EN EL CONSTRUCTOR */
-		/*
-		 * EL METODO LIMPIAR TENDRA LOS METODOS QUE SE INICIALIZAR Y TAMBIEN DENTRO DEL
-		 * BOTON NUEVO
-		 */
-
+	
 		correlativo();
 	}
 

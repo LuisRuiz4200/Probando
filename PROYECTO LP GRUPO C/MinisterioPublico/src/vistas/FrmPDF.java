@@ -23,7 +23,6 @@ public class FrmPDF extends JInternalFrame{
 		
 		setTitle("PDF");
 		setBounds(100,100,944,547);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
 		setClosable(true);
 		setMaximizable(true);
