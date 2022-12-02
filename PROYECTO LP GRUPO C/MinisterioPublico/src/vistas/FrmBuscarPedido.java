@@ -45,11 +45,8 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 		
 		model = new DefaultTableModel();
 		model.addColumn("ID PEDIDO");
-		model.addColumn("ENTIDAD");
 		model.addColumn("TIPO");
 		model.addColumn("OBJETO");
-		model.addColumn("DESCRIPCION");
-		model.addColumn("FECHA");
 		model.addColumn("ESTADO");
 		
 		scrollPane = new JScrollPane();
@@ -91,6 +88,7 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 	}
 	protected void actionPerformedBtnSeleccionar(ActionEvent e) {
 		exportarDatos();
+		this.dispose();
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -129,18 +127,12 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 	}
 	
 	private void cargarTabla() {
-		ArrayList<Pedido> listPed = pedDao.listarPedido();
+		ArrayList<Object[]> listPed = pedDao.reportePedido();
 		
 		model.setRowCount(0);
 		
-		for(Pedido ped : listPed) {
-			
-			Object [] x = {
-				ped.getCodigo(),
-				ped.getEntidad()
-			};
-			
-			model.addRow(x);
+		for(Object[] ped : listPed) {
+			model.addRow(ped);
 		}
 	}
 	
