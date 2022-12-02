@@ -53,7 +53,6 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private PropuestaDAO gProp = new PropuestaDAO();
 	private PedidoDAO gPed = new PedidoDAO();
 	private ParticipanteDAO gPart = new ParticipanteDAO();
-	private JComboBox<Object> cboParticipante;
 	private JButton btnRegistrar;
 	private JPanel panelParticipante;
 	private JTextField txtEntidadParti;
@@ -64,13 +63,14 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private JTextField txtEstado;
 	private JLabel lblEstado_1;
 	private JPanel panelPedido;
-	private JTextField txtRucPedido;
+	private JTextField txtObjetoPedido;
 	private JLabel lblObjetoPedido;
 	private JPanel panelPropuesta;
 	private JButton btnNuevo;
 	private JScrollPane scrollPane;
 	private JScrollPane scrollPane_1;
 	private JTextField txtIdPedido;
+	private JComboBox<Object> cboParticipante;
 
 	/**
 	 * Launch the application.
@@ -162,14 +162,14 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtRucParti.setBounds(166, 81, 127, 20);
 		panelParticipante.add(txtRucParti);
 
+		lblIdPedido = new JLabel("ID. Participante :");
+		lblIdPedido.setBounds(10, 21, 116, 14);
+		panelParticipante.add(lblIdPedido);
+		
 		cboParticipante = new JComboBox<Object>();
 		cboParticipante.addItemListener(this);
-		cboParticipante.setBounds(8, 39, 115, 22);
+		cboParticipante.setBounds(11, 35, 115, 22);
 		panelParticipante.add(cboParticipante);
-
-		lblIdPedido = new JLabel("ID. Participante :");
-		lblIdPedido.setBounds(8, 21, 116, 14);
-		panelParticipante.add(lblIdPedido);
 
 		panelPedido = new JPanel();
 		panelPedido.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PEDIDO", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -182,10 +182,10 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		lblPedido.setBounds(10, 21, 119, 14);
 		panelPedido.add(lblPedido);
 
-		txtRucPedido = new JTextField();
-		txtRucPedido.setColumns(10);
-		txtRucPedido.setBounds(124, 46, 115, 20);
-		panelPedido.add(txtRucPedido);
+		txtObjetoPedido = new JTextField();
+		txtObjetoPedido.setColumns(10);
+		txtObjetoPedido.setBounds(124, 46, 115, 20);
+		panelPedido.add(txtObjetoPedido);
 
 		lblObjetoPedido = new JLabel("Objeto de pedido :");
 		lblObjetoPedido.setBounds(10, 46, 119, 14);
@@ -285,8 +285,6 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	private void cargarcboParticipantes() {
 		// 1. Obtener el resultado del proceso -- listar
 		ArrayList<Participante> list = gPart.listarParticipante();
-		// 2. Validar el resultado del proceso
-		cboParticipante.removeAllItems();
 		if (list.size() == 0) {
 			// Tool.mensajeError(null, "Lista vac�a");
 		} else {
@@ -298,13 +296,22 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 	}
 
-	private void cargaRucPedido() {
-		Pedido p = gPed.buscarXIdPedido(getCodigoPedido());
+	private void cargarPedido() {
+		
+		Participante p = gPart.buscarXIdParticipante(getCodigoParticipante());
+		
 
 		if (p != null) {
-			txtRucPedido.setText(p.getRuc());
+			txtIdPedido.setText(p.getCodPedido());
+			ArrayList<Object[]> listPed = gPed.reportePedido();
+			
+			for (Object[] ped:listPed) {
+				if (ped[0].equals(p.getCodPedido())) {
+					txtObjetoPedido.setText(ped[2].toString());
+				}
+			}
 		} else {
-			txtRucPedido.setText("");
+			txtIdPedido.setText("");
 		}
 
 	}
@@ -490,11 +497,11 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtEstado.setText("REGISTRADO");
 		txtEstado.setEditable(false);
 		dcFechaProp.setDate(new Date());
-		txtRucPedido.setEditable(false);
+		txtObjetoPedido.setEditable(false);
 		txtEntidadParti.setEditable(false);
 		txtRucParti.setEditable(false);
 		dcFechaProp.setDate(new Date());
-		txtRucPedido.setText("");
+		txtObjetoPedido.setText("");
 		txtEntidadParti.setText("");
 		txtRucParti.setText("");
 		dcFechaProp.setDate(new Date());
@@ -511,14 +518,6 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		correlativo();
 	}
 
-	protected void itemStateChangedCboParticipante(ItemEvent e) {
-		if (e.getStateChange() == ItemEvent.SELECTED) {
-			buscarDatosParticipante();
-			buscarPropuesta();
-		}
-
-	}
-
 	private void buscarDatosParticipante() {
 		Participante p = gPart.buscarXIdParticipante(getCodigoParticipante());
 		if (p != null) {
@@ -529,5 +528,10 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 			txtRucParti.setText("");
 		}
 		
+	}
+	protected void itemStateChangedCboParticipante(ItemEvent e) {
+		buscarDatosParticipante();
+		buscarPropuesta();
+		cargarPedido();
 	}
 }
