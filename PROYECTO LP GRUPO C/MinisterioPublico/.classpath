@@ -9,5 +9,24 @@
 	<classpathentry kind="lib" path="Librerias/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="Librerias/mysql-connector-java-8.0.22.jar"/>
 	<classpathentry kind="lib" path="Librerias/itextpdf-5.4.2.jar"/>
+	<classpathentry kind="lib" path="libJasper/bcprov-jdk15on-1.70.jar"/>
+	<classpathentry kind="lib" path="libJasper/bcutil-jdk15on-1.70.jar"/>
+	<classpathentry kind="lib" path="libJasper/commons-beanutils-1.9.4.jar"/>
+	<classpathentry kind="lib" path="libJasper/commons-collections-3.2.2.jar"/>
+	<classpathentry kind="lib" path="libJasper/commons-collections4-4.2.jar"/>
+	<classpathentry kind="lib" path="libJasper/commons-digester-2.1.jar"/>
+	<classpathentry kind="lib" path="libJasper/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="libJasper/ecj-3.21.0.jar"/>
+	<classpathentry kind="lib" path="libJasper/itext-2.1.7.js10.jar"/>
+	<classpathentry kind="lib" path="libJasper/jackson-annotations-2.13.3.jar"/>
+	<classpathentry kind="lib" path="libJasper/jackson-core-2.13.3.jar"/>
+	<classpathentry kind="lib" path="libJasper/jackson-databind-2.13.3.jar"/>
+	<classpathentry kind="lib" path="libJasper/jackson-dataformat-xml-2.13.3.jar"/>
+	<classpathentry kind="lib" path="libJasper/jasperreports-6.20.0.jar"/>
+	<classpathentry kind="lib" path="libJasper/jasperreports-functions-6.20.0.jar"/>
+	<classpathentry kind="lib" path="libJasper/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="libJasper/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="libJasper/stax2-api-4.2.1.jar"/>
+	<classpathentry kind="lib" path="libJasper/woodstox-core-6.2.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

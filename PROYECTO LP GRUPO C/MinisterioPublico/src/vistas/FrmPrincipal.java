@@ -20,7 +20,7 @@ import javax.swing.JMenuItem;
 @SuppressWarnings("serial")
 public class FrmPrincipal extends JFrame implements ActionListener  {
 
-	private JDesktopPane escritorio;
+	public static JDesktopPane escritorio;
 	private JMenuBar menuBar;
 	private JMenu mnArchivo;
 	private JMenu mnMantenimiento;

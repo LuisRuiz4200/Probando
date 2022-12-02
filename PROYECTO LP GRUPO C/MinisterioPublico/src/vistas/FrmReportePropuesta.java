@@ -24,6 +24,10 @@ import java.awt.event.ActionEvent;
 import clases.*;
 
 import mantenimiento.*;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.swing.JRViewer;
+import utils.GenerarReporte;
 import utils.Tool;
 
 import java.awt.event.KeyListener;
@@ -83,7 +87,6 @@ public class FrmReportePropuesta extends JInternalFrame implements ActionListene
 	 */
 	public FrmReportePropuesta() {
 		setTitle("Reporte de propuestas");
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 690, 409);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
@@ -234,7 +237,7 @@ public class FrmReportePropuesta extends JInternalFrame implements ActionListene
 		}
 		
 	}
-	
+	/*
 	void imprimirPDF() {
 		
 		String nombArchivo= "ReportePropuestas.pdf";
@@ -304,5 +307,40 @@ public class FrmReportePropuesta extends JInternalFrame implements ActionListene
 		}
 		
 	}
+	*/
+	
+	void imprimirPDF() {
+		
+		// LLAMAR AL PROCESO -- listar usuario
+		ArrayList<Propuesta> lista = propDao.reporteXFecha(leerFechaInicio(), leerFechaFin());
+		
+		try {
+			
+			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(lista);
+			
+			String file = "reportePropuesta.jasper";
+			
+			JasperPrint jasperPrint = GenerarReporte.generar(file, dataSource, null);
+			
+			JRViewer jrViewe = new JRViewer (jasperPrint);
+			
+			FrmPDF dlgPdf =  new FrmPDF();
+			
+			dlgPdf.setVisible(true);
+			FrmPrincipal.escritorio.add(dlgPdf).setLocation(0, 0);;
+			dlgPdf.toFront();
+			
+			FrmPDF.panelReporte.removeAll();
+			FrmPDF.panelReporte.add(jrViewe);
+			FrmPDF.panelReporte.repaint();
+			FrmPDF.panelReporte.revalidate();
+			
+			
+		}catch (Exception e) {
+			System.out.println("Error al generar reporte" + e.getMessage());
+		}
+		
+	}
+	
 	
 }
