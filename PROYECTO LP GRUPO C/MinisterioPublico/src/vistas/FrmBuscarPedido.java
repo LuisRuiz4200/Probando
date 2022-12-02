@@ -39,7 +39,7 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 		setTitle("Buscar pedido");
 		setBounds(100,100,579,278);
 		setLocationRelativeTo(this);
-		setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
 		this.getContentPane().setLayout(null);
 		
