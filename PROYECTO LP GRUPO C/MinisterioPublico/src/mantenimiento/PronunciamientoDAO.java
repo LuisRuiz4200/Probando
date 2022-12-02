@@ -15,29 +15,51 @@ public class PronunciamientoDAO {
 	public int registrarPronApelacion (Pronunciamiento proEva ) {
         int res = 0;
 		Connection con =null;
-		PreparedStatement pstm = null;
+		PreparedStatement pstm1 = null;
+		PreparedStatement pstm2 = null;
 		
 		try {	
 			con = MySQLConexion8.getConexion();
-			String sql = "insert into tb_proyectopronunciamientoapelacion values (?,?,?,?,?,?,?)";
-			pstm = con.prepareStatement(sql);
+			con.setAutoCommit(false);
 			
-			pstm.setString(1,proEva.getIdPronun());
-			pstm.setString(2,proEva.getIdApel());
-			pstm.setString(3,proEva.getNomGerente());
-			pstm.setString(4,proEva.getDni());
-			pstm.setString(5,proEva.getFecha());
-			pstm.setString(6,proEva.getDesApelacion());
-			pstm.setString(7,proEva.getEstado());
+			String sql1 = "insert into tb_proyectopronunciamientoapelacion values (?,?,?,?,?,?,?)";
+			pstm1 = con.prepareStatement(sql1);
 			
-			res = pstm.executeUpdate();
+			pstm1.setString(1,proEva.getIdPronun());
+			pstm1.setString(2,proEva.getIdApel());
+			pstm1.setString(3,proEva.getNomGerente());
+			pstm1.setString(4,proEva.getDni());
+			pstm1.setString(5,proEva.getFecha());
+			pstm1.setString(6,proEva.getDesApelacion());
+			pstm1.setString(7,proEva.getEstado());
+			
+			res = pstm1.executeUpdate();
+			
+			//CAMBIAR ESTADO DE APELACION A FUNDADO Y NO FUNDADO
+			
+			String sql2 = "update tb_apelacion set estado_apel = ? where id_apel = ? ";
+			pstm2 = con.prepareStatement(sql2);
+			
+			pstm2.setString(1,proEva.getEstado());
+			pstm2.setString(2,proEva.getIdApel());
+			
+			res= pstm2.executeUpdate();
+			con.commit();
+			
 			
 		}catch(Exception e) {
 			System.out.println("Error en la instruccion " + e.getMessage());
-		}finally {
+			
+		    res = 0;
+		    
+		}try {
+			con.rollback();
+		} catch (Exception e2) {
+			System.out.println("Error al restuarar la bd" + e2.getMessage());
+		} finally {
 			try {
 				if (con!=null)con.close();
-				if (pstm!=null)pstm.close();
+				if (pstm1!=null)pstm1.close();
 			}catch (SQLException e) {
 				System.out.println("Error al cerrar la base de datos" + e.getMessage());
 			}
