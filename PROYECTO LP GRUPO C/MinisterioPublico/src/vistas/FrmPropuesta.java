@@ -296,7 +296,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 	}
 
-	private void cargarPedido() {
+	private void buscarPedido() {
 		
 		Participante p = gPart.buscarXIdParticipante(getCodigoParticipante());
 		
@@ -312,6 +312,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 			}
 		} else {
 			txtIdPedido.setText("");
+			txtObjetoPedido.setText("");
 		}
 
 	}
@@ -532,6 +533,6 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	protected void itemStateChangedCboParticipante(ItemEvent e) {
 		buscarDatosParticipante();
 		buscarPropuesta();
-		cargarPedido();
+		buscarPedido();
 	}
 }
