@@ -133,6 +133,10 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 		for(Object[] ped : listPed) {
 			model.addRow(ped);
 		}
+		
+		if(tbPedidos.getRowCount()==-1) {
+			btnSeleccionar.setEnabled(false);
+		}
 	}
 	
 	private void cargarDescripcion() {

@@ -311,6 +311,8 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		txtEstadoPropuesta.setText("");
 		txtDescripcion.setText("");
 		dcFechaApelacion.setDate(new Date());
+		txtIdPropuesta.setText("");
+		txtEstadoPropuesta.setText("");
 		
 	
     }
