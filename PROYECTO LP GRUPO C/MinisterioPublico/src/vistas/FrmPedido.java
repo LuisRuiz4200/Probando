@@ -597,7 +597,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private void limpiar () {
 		txtEntidad.setEditable(false);
 		txtRuc.setEditable(false);
-		txtEntidad.setText("MINISTERIO PÚBLICO");
+		txtEntidad.setText("MINISTERIO Pï¿½BLICO");
 		txtRuc.setText("20131370301");
 		dcFecha.setDate(new Date());
 		txtDescripcion.setText("");
