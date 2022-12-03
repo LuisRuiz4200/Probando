@@ -104,14 +104,17 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		menuBar.add(mnAyuda);
 		
 		mniSalir = new JMenuItem("Salir");
+		mniSalir.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/cerrar.png")));
 		mniSalir.addActionListener(this);
 		
 		mniUsuario = new JMenuItem("Gestion de usuarios");
+		mniUsuario.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/usuarios.png")));
 		mniUsuario.addActionListener(this);
 		mnArchivo.add(mniUsuario);
 		mnArchivo.add(mniSalir);
 		
 		mniResultadoPostulacion = new JMenuItem("Puntaje en la Evaluacion de Propuesta");
+		mniResultadoPostulacion.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/puntaje.png")));
 		mniResultadoPostulacion.addActionListener(this);
 		mnTransaccion.add(mniResultadoPostulacion);
 		
@@ -125,39 +128,48 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		
 		
 		mniPedido = new JMenuItem ("Pedidos");
+		mniPedido.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/pedido.png")));
 		mniPedido.addActionListener(this);
 		mnMantenimiento.add(mniPedido);
 		
 		mniParticipante = new JMenuItem ("Participantes");
+		mniParticipante.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/participantes.png")));
 		mniParticipante.addActionListener(this);
 		
 		mntmComite = new JMenuItem("Comite de Seleccion");
+		mntmComite.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/comite.png")));
 		mntmComite.addActionListener(this);
 		mnMantenimiento.add(mntmComite);
 		mnMantenimiento.add(mniParticipante);
 		
 		mniPropuesta = new JMenuItem("Propuestas");
+		mniPropuesta.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/propuesta.png")));
 		mniPropuesta.addActionListener(this);
 		mnMantenimiento.add(mniPropuesta);
 		
 		mniApelacion = new JMenuItem("Apelaciones");
+		mniApelacion.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/apelacion.png")));
 		mniApelacion.addActionListener(this);
 		mnMantenimiento.add(mniApelacion);
 		
 		
 		mniConsultaParticipante = new JMenuItem("Consulta de participantes");
+		mniConsultaParticipante.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/consultaApe.png")));
 		mniConsultaParticipante.addActionListener(this);
 		mnConsulta.add(mniConsultaParticipante);
 		
 		mniConsultaPropusta = new JMenuItem("Consulta de propuestas");
+		mniConsultaPropusta.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/consultaProp.png")));
 		mniConsultaPropusta.addActionListener(this);
 		mnConsulta.add(mniConsultaPropusta);
 		
 		mntmConsultaApelacion = new JMenuItem("Consulta de apelaciones");
+		mntmConsultaApelacion.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/consultaApel.png")));
 		mntmConsultaApelacion.addActionListener(this);
 		mnConsulta.add(mntmConsultaApelacion);
 		
 		mniReportePropuesta = new JMenuItem("Reporte de Propuestas");
+		mniReportePropuesta.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/reporte-de-negocios.png")));
 		mniReportePropuesta.addActionListener(this);
 		mnReporte.add(mniReportePropuesta);
 		

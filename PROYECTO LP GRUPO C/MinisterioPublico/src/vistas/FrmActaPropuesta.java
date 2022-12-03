@@ -86,12 +86,12 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		txtDocumento.setBounds(17, 161, 591, 120);
 		getContentPane().add(txtDocumento);
 
-		btnRegistrar = new JButton("Registrar");
+		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(this);
 		btnRegistrar.setBounds(171, 292, 115, 23);
 		getContentPane().add(btnRegistrar);
 
-		btnModificar = new JButton("Modificar");
+		btnModificar = new JButton("MODIFICAR");
 		btnModificar.addActionListener(this);
 		btnModificar.setBounds(348, 292, 115, 23);
 		getContentPane().add(btnModificar);
@@ -190,11 +190,14 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		txtEstadoActa.setBounds(10, 81, 106, 22);
 		panelPropuesta_1.add(txtEstadoActa);
 		txtEstadoActa.setColumns(10);
+		
+		arranque();
+	}
 
+	private void arranque() {
 		limpiar();
 		cargarcboPropuesta();
 		correlativo();
-
 	}
 
 	private void cargarcboPropuesta() {
@@ -260,7 +263,7 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 
 	private void limpiarActa() {
 		txtIdActa.setText("");
-		txtEstadoActa.setText("");
+		txtEstadoActa.setText("REGISTRADO");
 		txtDocumento.setText("");
 		dcFechaActa.setDate(new Date());
 		cboTipoActa.setSelectedIndex(-1);
@@ -378,8 +381,10 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 //					prop.setEstado("NO ADMITIDA");
 //					gProp.actualizarPropuesta(prop);
 //				}
+				
 			}
 		}
+		limpiar();
 	}
 
 	protected void actionPerformedBtnModificar(ActionEvent e) {
