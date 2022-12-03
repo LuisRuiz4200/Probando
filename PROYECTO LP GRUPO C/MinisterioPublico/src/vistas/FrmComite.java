@@ -29,6 +29,7 @@ import utils.Tool;
 import Validaciones.Reguex;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.ImageIcon;
 @SuppressWarnings("serial")
 public class FrmComite extends JInternalFrame implements ActionListener, MouseListener {
 
@@ -91,40 +92,15 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		setMaximizable(true);
 		setIconifiable(true);
 		
-		txtIdMiembro = new JTextField();
-		txtIdMiembro.setBounds(174, 51, 110, 20);
-		contentPane.add(txtIdMiembro);
-		txtIdMiembro.setColumns(10);
-		
 		lblNroPedido = new JLabel("ID Pedido:");
 		lblNroPedido.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblNroPedido.setBounds(20, 14, 66, 14);
+		lblNroPedido.setBounds(10, 24, 66, 14);
 		contentPane.add(lblNroPedido);
-		
-		lblIdMiembro = new JLabel("ID Miembro :");
-		lblIdMiembro.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblIdMiembro.setBounds(174, 30, 75, 14);
-		contentPane.add(lblIdMiembro);
 		
 		lblNomMiembro = new JLabel("Nombres del Miembro:");
 		lblNomMiembro.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 		lblNomMiembro.setBounds(174, 82, 124, 14);
 		contentPane.add(lblNomMiembro);
-		
-		lblApellido = new JLabel("Apellidos del Miembro:");
-		lblApellido.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblApellido.setBounds(174, 129, 124, 14);
-		contentPane.add(lblApellido);
-		
-		lblFuncion = new JLabel("Funcion/Cargo:");
-		lblFuncion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblFuncion.setBounds(414, 27, 86, 20);
-		contentPane.add(lblFuncion);
-		
-		lblDni = new JLabel("Documento de Identidad : ");
-		lblDni.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblDni.setBounds(414, 129, 147, 14);
-		contentPane.add(lblDni);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.addMouseListener(this);
@@ -149,76 +125,104 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(174, 100, 147, 20);
+		txtNombre.setBounds(174, 100, 158, 20);
 		contentPane.add(txtNombre);
 		
-		txtApellido = new JTextField();
-		txtApellido.setColumns(10);
-		txtApellido.setBounds(174, 143, 147, 20);
-		contentPane.add(txtApellido);
-		
-		txtDni = new JTextField();
-		txtDni.setBounds(414, 143, 137, 20);
-		contentPane.add(txtDni);
-		txtDni.setColumns(10);
-		
-		txtFuncion = new JTextField();
-		txtFuncion.setBounds(414, 51, 137, 20);
-		contentPane.add(txtFuncion);
-		txtFuncion.setColumns(10);
-		
-		lblDependencia = new JLabel("Dependencia:");
-		lblDependencia.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblDependencia.setBounds(414, 79, 86, 20);
-		contentPane.add(lblDependencia);
-		
-		txtDependencia = new JTextField();
-		txtDependencia.setColumns(10);
-		txtDependencia.setBounds(414, 100, 137, 20);
-		contentPane.add(txtDependencia);
-		
-		btnNuevo = new JButton("LIMPIAR");
+		btnNuevo = new JButton("");
+		btnNuevo.setIcon(new ImageIcon(FrmComite.class.getResource("/imagenes/iconos_24x24/limpiar.png")));
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(20, 124, 89, 23);
+		btnNuevo.setBounds(60, 87, 39, 33);
 		contentPane.add(btnNuevo);
-		
-		btnBuscar = new JButton("BUSCAR");
-		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(304, 50, 100, 23);
-		contentPane.add(btnBuscar);
 		
 		panelComite = new JPanel();
 		panelComite.setOpaque(false);
 		panelComite.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "COMITE ESPECIAL PERMANENTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelComite.setBounds(152, 11, 585, 169);
+		panelComite.setBounds(152, 11, 585, 124);
 		contentPane.add(panelComite);
 		panelComite.setLayout(null);
 		
-		btnGuardar = new JButton("REGISTRAR");
-		btnGuardar.setBounds(453, 36, 100, 23);
-		panelComite.add(btnGuardar);
+		btnBuscar = new JButton("");
+		btnBuscar.setBounds(145, 26, 36, 33);
+		panelComite.add(btnBuscar);
+		btnBuscar.setIcon(new ImageIcon(FrmComite.class.getResource("/imagenes/iconos_24x24/lupa.png")));
 		
-		btnModificar = new JButton("MODIFICAR");
-		btnModificar.setBounds(453, 78, 100, 23);
-		panelComite.add(btnModificar);
+		lblFuncion = new JLabel("Funcion/Cargo:");
+		lblFuncion.setBounds(224, 22, 86, 20);
+		panelComite.add(lblFuncion);
+		lblFuncion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 		
-		btnEliminar = new JButton("ELIMINAR");
-		btnEliminar.setBounds(453, 122, 100, 23);
-		panelComite.add(btnEliminar);
+		lblIdMiembro = new JLabel("ID Miembro :");
+		lblIdMiembro.setBounds(21, 22, 75, 20);
+		panelComite.add(lblIdMiembro);
+		lblIdMiembro.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 		
-		btnBuscarPedido = new JButton("BUSCAR");
-		btnBuscarPedido.addActionListener(this);
-		btnBuscarPedido.setBounds(20, 62, 89, 23);
-		contentPane.add(btnBuscarPedido);
+		txtIdMiembro = new JTextField();
+		txtIdMiembro.setBounds(21, 39, 110, 20);
+		panelComite.add(txtIdMiembro);
+		txtIdMiembro.setColumns(10);
+		
+		txtFuncion = new JTextField();
+		txtFuncion.setBounds(224, 39, 137, 20);
+		panelComite.add(txtFuncion);
+		txtFuncion.setColumns(10);
+		
+		lblDependencia = new JLabel("Dependencia:");
+		lblDependencia.setBounds(416, 22, 86, 20);
+		panelComite.add(lblDependencia);
+		lblDependencia.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		
+		txtDependencia = new JTextField();
+		txtDependencia.setBounds(416, 39, 137, 20);
+		panelComite.add(txtDependencia);
+		txtDependencia.setColumns(10);
+		
+		lblDni = new JLabel("Documento de Identidad : ");
+		lblDni.setBounds(416, 70, 147, 14);
+		panelComite.add(lblDni);
+		lblDni.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		
+		lblApellido = new JLabel("Apellidos del Miembro:");
+		lblApellido.setBounds(224, 70, 124, 14);
+		panelComite.add(lblApellido);
+		lblApellido.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		
+		txtApellido = new JTextField();
+		txtApellido.setBounds(224, 89, 163, 20);
+		panelComite.add(txtApellido);
+		txtApellido.setColumns(10);
+		
+		txtDni = new JTextField();
+		txtDni.setBounds(416, 89, 137, 20);
+		panelComite.add(txtDni);
+		txtDni.setColumns(10);
+		btnBuscar.addActionListener(this);
 		
 		txtPedido = new JTextField();
 		txtPedido.setEditable(false);
-		txtPedido.setBounds(20, 31, 102, 20);
+		txtPedido.setBounds(10, 42, 89, 20);
 		contentPane.add(txtPedido);
 		txtPedido.setColumns(10);
-		btnEliminar.addActionListener(this);
+		
+		btnEliminar = new JButton("ELIMINAR");
+		btnEliminar.setBounds(497, 146, 100, 23);
+		contentPane.add(btnEliminar);
+		
+		btnGuardar = new JButton("REGISTRAR");
+		btnGuardar.setBounds(221, 146, 100, 23);
+		contentPane.add(btnGuardar);
+		
+		btnModificar = new JButton("MODIFICAR");
+		btnModificar.setBounds(361, 146, 100, 23);
+		contentPane.add(btnModificar);
+		
+		btnBuscarPedido = new JButton("");
+		btnBuscarPedido.setBounds(106, 29, 36, 33);
+		contentPane.add(btnBuscarPedido);
+		btnBuscarPedido.setIcon(new ImageIcon(FrmComite.class.getResource("/imagenes/iconos_24x24/lupa.png")));
+		btnBuscarPedido.addActionListener(this);
 		btnModificar.addActionListener(this);
 		btnGuardar.addActionListener(this);
+		btnEliminar.addActionListener(this);
 		
 		pedDao = new PedidoDAO();
 		comiDao = new ComiteDAO();
