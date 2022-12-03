@@ -75,7 +75,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		panleParticipante.setOpaque(false);
 		panleParticipante.setBackground(new Color(240, 240, 240));
 		panleParticipante.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PARTICIPANTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panleParticipante.setBounds(137, 11, 599, 169);
+		panleParticipante.setBounds(159, 11, 588, 114);
 		getContentPane().add(panleParticipante);
 		panleParticipante.setLayout(null);
 		
@@ -85,38 +85,38 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		txtEntidad.setColumns(10);
 		
 		lblEntidad = new JLabel("Nombre o Razon  social :");
-		lblEntidad.setBounds(11, 66, 176, 14);
+		lblEntidad.setBounds(10, 66, 176, 14);
 		panleParticipante.add(lblEntidad);
 		
 		lblRuc = new JLabel("RUC :");
-		lblRuc.setBounds(219, 66, 92, 14);
+		lblRuc.setBounds(212, 66, 92, 14);
 		panleParticipante.add(lblRuc);
 		
 		txtTelefono = new JTextField();
-		txtTelefono.setBounds(10, 127, 139, 20);
+		txtTelefono.setBounds(384, 81, 139, 20);
 		panleParticipante.add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
 		lblTelefono = new JLabel("Telefono :");
-		lblTelefono.setBounds(10, 112, 92, 14);
+		lblTelefono.setBounds(384, 66, 92, 14);
 		panleParticipante.add(lblTelefono);
 		
 		txtCorreo = new JTextField();
-		txtCorreo.setBounds(219, 127, 194, 20);
+		txtCorreo.setBounds(384, 35, 194, 20);
 		panleParticipante.add(txtCorreo);
 		txtCorreo.setColumns(10);
 		
 		lblCorreo = new JLabel("Correo :");
-		lblCorreo.setBounds(219, 112, 92, 14);
+		lblCorreo.setBounds(384, 21, 92, 14);
 		panleParticipante.add(lblCorreo);
 		
 		txtRuc = new JTextField();
-		txtRuc.setBounds(219, 81, 154, 20);
+		txtRuc.setBounds(212, 81, 154, 20);
 		panleParticipante.add(txtRuc);
 		txtRuc.setColumns(10);
 		
 		txtIdParticipante = new JTextField();
-		txtIdParticipante.setBounds(10, 36, 114, 20);
+		txtIdParticipante.setBounds(10, 35, 114, 20);
 		panleParticipante.add(txtIdParticipante);
 		txtIdParticipante.setColumns(10);
 		
@@ -124,37 +124,24 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		lblIdPedido.setBounds(10, 21, 116, 14);
 		panleParticipante.add(lblIdPedido);
 		
-		btnBuscar = new JButton("BUSCAR");
-		btnBuscar.setBounds(134, 26, 92, 29);
+		btnBuscar = new JButton("");
+		btnBuscar.setBackground(Color.LIGHT_GRAY);
+		btnBuscar.setIcon(new ImageIcon(FrmParticipante.class.getResource("/imagenes/iconos_24x24/lupa.png")));
+		btnBuscar.setBounds(149, 21, 40, 34);
 		panleParticipante.add(btnBuscar);
 		
 		txtEstado = new JTextField();
-		txtEstado.setBounds(319, 36, 106, 20);
+		txtEstado.setBounds(212, 35, 106, 20);
 		panleParticipante.add(txtEstado);
 		txtEstado.setColumns(10);
 		
 		lblEstado = new JLabel("Estado :");
-		lblEstado.setBounds(319, 21, 67, 14);
+		lblEstado.setBounds(212, 21, 67, 14);
 		panleParticipante.add(lblEstado);
-		
-		btnModificar = new JButton("MODIFICAR");
-		btnModificar.setBounds(479, 80, 99, 23);
-		panleParticipante.add(btnModificar);
-		
-		btnAgregar = new JButton("REGISTRAR");
-		btnAgregar.setBounds(479, 35, 99, 23);
-		panleParticipante.add(btnAgregar);
-		
-		btnEliminar = new JButton("ELIMINAR");
-		btnEliminar.setBounds(479, 126, 99, 23);
-		panleParticipante.add(btnEliminar);
-		btnEliminar.addActionListener(this);
-		btnAgregar.addActionListener(this);
-		btnModificar.addActionListener(this);
 		btnBuscar.addActionListener(this);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 205, 737, 214);
+		scrollPane.setBounds(10, 192, 737, 227);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -173,29 +160,48 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		table.setModel(modelo);
 		
 		lblPedido = new JLabel("ID. Pedido :");
-		lblPedido.setBounds(10, 11, 139, 14);
+		lblPedido.setBounds(10, 20, 89, 14);
 		getContentPane().add(lblPedido);
 		
-		btnNuevo = new JButton("LIMPIAR");
+		btnNuevo = new JButton("");
+		btnNuevo.setBackground(Color.LIGHT_GRAY);
+		btnNuevo.setIcon(new ImageIcon(FrmParticipante.class.getResource("/imagenes/iconos_24x24/limpiar.png")));
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(37, 150, 89, 23);
+		btnNuevo.setBounds(10, 89, 38, 33);
 		getContentPane().add(btnNuevo);
 		
 		lblNewLabel = new JLabel("TABLA DE REGISTROS\r\n");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(10, 184, 726, 23);
+		lblNewLabel.setBounds(10, 170, 726, 23);
 		getContentPane().add(lblNewLabel);
 		
-		btnBuscarPedido = new JButton("BUSCAR");
+		btnBuscarPedido = new JButton("");
+		btnBuscarPedido.setBackground(Color.LIGHT_GRAY);
+		btnBuscarPedido.setIcon(new ImageIcon(FrmParticipante.class.getResource("/imagenes/iconos_24x24/lupa.png")));
 		btnBuscarPedido.addActionListener(this);
-		btnBuscarPedido.setBounds(10, 59, 92, 29);
+		btnBuscarPedido.setBounds(111, 32, 38, 33);
 		getContentPane().add(btnBuscarPedido);
 		
 		txtIdPedido = new JTextField();
-		txtIdPedido.setBounds(10, 28, 108, 20);
+		txtIdPedido.setBounds(10, 45, 89, 20);
 		getContentPane().add(txtIdPedido);
 		txtIdPedido.setColumns(10);
+		
+		btnAgregar = new JButton("REGISTRAR");
+		btnAgregar.setBounds(198, 136, 99, 23);
+		getContentPane().add(btnAgregar);
+		
+		btnModificar = new JButton("MODIFICAR");
+		btnModificar.setBounds(327, 136, 99, 23);
+		getContentPane().add(btnModificar);
+		
+		btnEliminar = new JButton("ELIMINAR");
+		btnEliminar.setBounds(461, 136, 99, 23);
+		getContentPane().add(btnEliminar);
+		btnEliminar.addActionListener(this);
+		btnModificar.addActionListener(this);
+		btnAgregar.addActionListener(this);
 		
 		new PedidoDAO();
 		partDao = new ParticipanteDAO();
