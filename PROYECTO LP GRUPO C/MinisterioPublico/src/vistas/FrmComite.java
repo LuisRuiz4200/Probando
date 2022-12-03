@@ -28,6 +28,7 @@ import mantenimiento.PedidoDAO;
 import utils.Tool;
 import Validaciones.Reguex;
 import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
 @SuppressWarnings("serial")
 public class FrmComite extends JInternalFrame implements ActionListener, MouseListener {
 
@@ -58,7 +59,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	private JButton btnNuevo;
 	private JButton btnBuscar;
 	private JPanel panelComite;
-	private JButton btnNewButton;
+	private JButton btnBuscarPedido;
 	static JTextField txtPedido;
 	
 	
@@ -183,11 +184,12 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		
 		btnBuscar = new JButton("BUSCAR");
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(304, 50, 75, 23);
+		btnBuscar.setBounds(304, 50, 100, 23);
 		contentPane.add(btnBuscar);
 		
 		panelComite = new JPanel();
-		panelComite.setBorder(new TitledBorder(null, "COMITE ESPECIAL PERMANENTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelComite.setOpaque(false);
+		panelComite.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "COMITE ESPECIAL PERMANENTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelComite.setBounds(152, 11, 585, 169);
 		contentPane.add(panelComite);
 		panelComite.setLayout(null);
@@ -204,10 +206,10 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		btnEliminar.setBounds(453, 122, 100, 23);
 		panelComite.add(btnEliminar);
 		
-		btnNewButton = new JButton("BUSCAR");
-		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(20, 62, 89, 23);
-		contentPane.add(btnNewButton);
+		btnBuscarPedido = new JButton("BUSCAR");
+		btnBuscarPedido.addActionListener(this);
+		btnBuscarPedido.setBounds(20, 62, 89, 23);
+		contentPane.add(btnBuscarPedido);
 		
 		txtPedido = new JTextField();
 		txtPedido.setEditable(false);
@@ -232,8 +234,8 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNewButton) {
-			actionPerformedBtnNewButton(e);
+		if (e.getSource() == btnBuscarPedido) {
+			actionPerformedBtnBuscarPedido(e);
 		}
 		if (e.getSource() == btnBuscar) {
 			actionPerformedBtnBuscar(e);
@@ -571,10 +573,10 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	
 		
 	}
-	protected void actionPerformedBtnNewButton(ActionEvent e) {
+	protected void actionPerformedBtnBuscarPedido(ActionEvent e) {
 		FrmPrincipal principal = new FrmPrincipal();
 		
-		FrmBuscarPedido2 buscarPedido = new FrmBuscarPedido2(principal,true);
+		FrmBuscarPedido2 buscarPedido = new FrmBuscarPedido2();
 		buscarPedido.setVisible(true);
 	}
 }

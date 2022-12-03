@@ -209,7 +209,9 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		} else {
 			cboIdPropuesta.addItem("Seleccione...");
 			for (Propuesta prop : list) {
-				cboIdPropuesta.addItem(prop.getCodPropuesta());
+				if(prop.getEstado().equals("REGISTRADO")) {
+					cboIdPropuesta.addItem(prop.getCodPropuesta());
+				}
 			}
 		}
 	}
@@ -338,7 +340,6 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		// variables
 		String codActa, codProp, fechaActa, descActa, tipoActa, estado;
 
-		Propuesta prop = null;
 		codActa = getCodActa();
 		codProp = getCodigoPropuesta();
 		fechaActa = getFechaActa();

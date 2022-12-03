@@ -368,9 +368,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	}
 	protected void actionPerformedBtnBuscarPedido(ActionEvent e) {
 		
-		FrmPrincipal principal = new FrmPrincipal();
-		
-		FrmBuscarPedido buscarPedido = new FrmBuscarPedido(principal,true);
+		FrmBuscarPedido buscarPedido = new FrmBuscarPedido();
 		buscarPedido.setVisible(true);
 	}
 	

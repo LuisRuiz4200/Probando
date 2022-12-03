@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import mantenimiento.*;
+import utils.Tool;
 import clases.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
@@ -15,28 +16,26 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListener, ActionListener{
-	private JTable tbPedidos;
-	private JTextArea txtDescripcion;
-	private JLabel lblDescripcion;
+public class FrmBuscarPropuesta extends JDialog implements MouseListener, KeyListener, ActionListener{
+	private JTable tbPropuestas;
 	private JButton btnSeleccionar;
 	private DefaultTableModel model;
 	private JScrollPane scrollPane;
-	private PedidoDAO pedDao;
+	private PropuestaDAO propDao;
 	
 	
 	public static void main(String [] args) {
 		
 		FrmBuscarPedido form = new FrmBuscarPedido();
 		form.setVisible(true);
-		
+
 	}
 	
-	public FrmBuscarPedido() {
+	public FrmBuscarPropuesta() {
 		
 		
-		setTitle("Buscar pedido");
-		setBounds(100,100,579,278);
+		setTitle("Buscar propuesta");
+		setBounds(100,100,541,278);
 		setLocationRelativeTo(this);
 		setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 		
@@ -44,37 +43,28 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 		
 		model = new DefaultTableModel();
 		model.addColumn("ID PEDIDO");
-		model.addColumn("TIPO");
-		model.addColumn("OBJETO");
+		model.addColumn("ID PROPUESTA");
+		model.addColumn("ID PARTICIPANTE");
+		model.addColumn("FECHA");
 		model.addColumn("ESTADO");
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 15, 332, 210);
+		scrollPane.setBounds(10, 53, 497, 172);
 		getContentPane().add(scrollPane);
 		
-		tbPedidos = new JTable();
-		tbPedidos.addKeyListener(this);
-		tbPedidos.addMouseListener(this);
-		scrollPane.setViewportView(tbPedidos);
+		tbPropuestas = new JTable();
+		tbPropuestas.addKeyListener(this);
+		tbPropuestas.addMouseListener(this);
+		scrollPane.setViewportView(tbPropuestas);
 		
-		tbPedidos.setModel(model);
-		
-		txtDescripcion = new JTextArea();
-		txtDescripcion.setLineWrap(true);
-		txtDescripcion.setBorder(new EmptyBorder(8,8,8,8));
-		txtDescripcion.setBounds(352, 78, 201, 147);
-		getContentPane().add(txtDescripcion);
-		
-		lblDescripcion = new JLabel("Descripcion");
-		lblDescripcion.setBounds(352, 53, 88, 14);
-		getContentPane().add(lblDescripcion);
+		tbPropuestas.setModel(model);
 		
 		btnSeleccionar = new JButton("Seleccionar");
 		btnSeleccionar.addActionListener(this);
-		btnSeleccionar.setBounds(400, 19, 122, 23);
+		btnSeleccionar.setBounds(386, 19, 122, 23);
 		getContentPane().add(btnSeleccionar);
 		
-		pedDao= new PedidoDAO();
+		propDao= new PropuestaDAO();
 		
 		arranque();
 		
@@ -91,7 +81,7 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == tbPedidos) {
+		if (e.getSource() == tbPropuestas) {
 			mouseClickedTbPedidos(e);
 		}
 	}
@@ -104,19 +94,19 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 	public void mouseReleased(MouseEvent e) {
 	}
 	protected void mouseClickedTbPedidos(MouseEvent e) {
-		cargarDescripcion();
+
 	}
 	public void keyPressed(KeyEvent e) {
 	}
 	public void keyReleased(KeyEvent e) {
-		if (e.getSource() == tbPedidos) {
+		if (e.getSource() == tbPropuestas) {
 			keyReleasedTbPedidos(e);
 		}
 	}
 	public void keyTyped(KeyEvent e) {
 	}
 	protected void keyReleasedTbPedidos(KeyEvent e) {
-		cargarDescripcion();
+		
 	}
 	
 	//METODOS ADICIONALES
@@ -126,28 +116,36 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 	}
 	
 	private void cargarTabla() {
-		ArrayList<Object[]> listPed = pedDao.reportePedido();
+		ArrayList<Propuesta> listPed = propDao.listarPropuestas();
 		
 		model.setRowCount(0);
 		
-		for(Object[] ped : listPed) {
-			model.addRow(ped);
+		for(Propuesta prop : listPed) {
+			
+			if(prop.getEstado().matches("[O][B][S].+")) {
+				Object [] x = {
+						prop.getCodPedido(),
+						prop.getCodPropuesta(),
+						prop.getCodParticipante(),
+						prop.getFecha(),
+						prop.getEstado()
+				};
+				
+				model.addRow(x);
+			}else if (tbPropuestas.getRowCount()==-1) {
+				Tool.mensajeError(this, "No hay propuestas pendientes para presentar apelacion");
+			}
+
 		}
-	}
-	
-	private void cargarDescripcion() {
-		String idPedido = tbPedidos.getValueAt(tbPedidos.getSelectedRow(),0).toString();
-		
-		Pedido ped = pedDao.buscarXIdPedido(idPedido);
-		
-		txtDescripcion.setText(ped.getDescripcion());
 	}
 	
 	private void exportarDatos() {
 		
-		String idPedido = tbPedidos.getValueAt(tbPedidos.getSelectedRow(),0).toString();
+		String idPropuesta = tbPropuestas.getValueAt(tbPropuestas.getSelectedRow(),1).toString();
+		String estadoPropuesta =  tbPropuestas.getValueAt(tbPropuestas.getSelectedRow(),4).toString();
 		
-		FrmParticipante.txtIdPedido.setText(idPedido);
+		FrmApelacion.txtIdPropuesta.setText(idPropuesta);
+		FrmApelacion.txtEstadoPropuesta.setText(estadoPropuesta);
 	}
 	
 

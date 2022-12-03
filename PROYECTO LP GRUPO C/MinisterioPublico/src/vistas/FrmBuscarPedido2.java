@@ -25,21 +25,20 @@ public class FrmBuscarPedido2 extends JDialog implements MouseListener, KeyListe
 	private PedidoDAO pedDao;
 	
 	
-	/*public static void main(String [] args) {
+	public static void main(String [] args) {
 		
 		FrmBuscarPedido form = new FrmBuscarPedido();
 		form.setVisible(true);
-		
+
 	}
-	*/
-	public FrmBuscarPedido2(JFrame parent,boolean modal) {
+	
+	public FrmBuscarPedido2() {
 		
-		super(parent,modal);
 		
 		setTitle("Buscar pedido");
 		setBounds(100,100,579,278);
 		setLocationRelativeTo(this);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 		
 		this.getContentPane().setLayout(null);
 		

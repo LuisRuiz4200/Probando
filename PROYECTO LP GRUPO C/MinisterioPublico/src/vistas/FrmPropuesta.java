@@ -174,7 +174,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		panelPedido = new JPanel();
 		panelPedido.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PEDIDO", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelPedido.setOpaque(false);
-		panelPedido.setBounds(323, 11, 386, 78);
+		panelPedido.setBounds(329, 82, 386, 78);
 		contentPane.add(panelPedido);
 		panelPedido.setLayout(null);
 
@@ -198,7 +198,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 
 		panelPropuesta = new JPanel();
 		panelPropuesta.setOpaque(false);
-		panelPropuesta.setBounds(323, 94, 389, 66);
+		panelPropuesta.setBounds(329, 11, 389, 66);
 		contentPane.add(panelPropuesta);
 		panelPropuesta.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA",
@@ -509,6 +509,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtPropTecnica.setText("");
 		txtPropEconomica.setText("");
 		txtIdPedido.setEditable(false);
+		txtIdPedido.setText("");
 		cargarcboParticipantes();
 	
 		correlativo();

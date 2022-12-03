@@ -28,6 +28,9 @@ import mantenimiento.ParticipanteDAO;
 import mantenimiento.PronunciamientoDAO;
 import mantenimiento.PropuestaDAO;
 import utils.Tool;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
 
 
 @SuppressWarnings("serial")
@@ -36,7 +39,6 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 	private JLabel lblCodigo;
 	private JTextField txtPronunciamiento;
 	private JLabel lblApelacion;
-	private JComboBox <Object> cboApelacion;
 	private JTextField txtNombreEncargado;
 	private JLabel lblNombreEncargado;
 	private JTextField txtApellidoEncargado;
@@ -54,6 +56,9 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
     private PropuestaDAO propDao;
     private ParticipanteDAO partDao;
     private ApelacionDAO apeDao;
+    private JButton btnBuscarApelacion;
+    public static JTextField txtIdApelacion;
+    private JPanel panelGerente;
 	
 	public static void main (String [] args) {
 		FrmProyectoPronunciamientoApelacion pro = new FrmProyectoPronunciamientoApelacion ();
@@ -63,7 +68,7 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 	public FrmProyectoPronunciamientoApelacion () {
 		
 		setTitle("Proyecto de Pronunciamiento de Apelacion");
-		setBounds(100,100,731,449);
+		setBounds(100,100,731,418);
 		
 		setClosable(true);
 		setMaximizable(true);
@@ -74,12 +79,12 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		
 		lblCodigo = new JLabel("ID Pronunciamiento :");
 		lblCodigo.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblCodigo.setBounds(200, 11, 116, 14);
+		lblCodigo.setBounds(254, 12, 116, 14);
 		getContentPane().add(lblCodigo);
 		
 		txtPronunciamiento = new JTextField();
 		txtPronunciamiento.setColumns(10);
-		txtPronunciamiento.setBounds(200, 31, 98, 20);
+		txtPronunciamiento.setBounds(254, 28, 98, 20);
 		getContentPane().add(txtPronunciamiento);
 		
 		lblApelacion = new JLabel("ID Apelacion :");
@@ -87,32 +92,8 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		lblApelacion.setBounds(10, 11, 107, 14);
 		getContentPane().add(lblApelacion);
 		
-		cboApelacion = new JComboBox <Object>();
-		cboApelacion.setBounds(10, 30, 131, 22);
-		getContentPane().add(cboApelacion);
-		
-		txtNombreEncargado = new JTextField();
-		txtNombreEncargado.setColumns(10);
-		txtNombreEncargado.setBounds(10, 80, 170, 20);
-		getContentPane().add(txtNombreEncargado);
-		
-		lblNombreEncargado = new JLabel("Nombre del gerente :");
-		lblNombreEncargado.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblNombreEncargado.setBounds(10, 61, 149, 14);
-		getContentPane().add(lblNombreEncargado);
-		
-		txtApellidoEncargado = new JTextField();
-		txtApellidoEncargado.setColumns(10);
-		txtApellidoEncargado.setBounds(200, 80, 170, 20);
-		getContentPane().add(txtApellidoEncargado);
-		
-		lblApellidoEncargado = new JLabel("Apellidos del gerente :");
-		lblApellidoEncargado.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblApellidoEncargado.setBounds(200, 61, 149, 14);
-		getContentPane().add(lblApellidoEncargado);
-		
 		dcFecha = new JDateChooser();
-		dcFecha.setBounds(400, 31, 137, 20);
+		dcFecha.setBounds(400, 28, 137, 20);
 		getContentPane().add(dcFecha);
 		
 		lblFecha = new JLabel(" Fecha :");
@@ -121,12 +102,12 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		getContentPane().add(lblFecha);
 		
 		txtConclusiones = new JEditorPane();
-		txtConclusiones.setBounds(10, 125, 695, 252);
+		txtConclusiones.setBounds(10, 181, 695, 196);
 		getContentPane().add(txtConclusiones);
 		
 		lblConclusion = new JLabel("Conclusiones :");
 		lblConclusion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblConclusion.setBounds(10, 106, 98, 14);
+		lblConclusion.setBounds(10, 159, 98, 14);
 		getContentPane().add(lblConclusion);
 		
 		lblResultado = new JLabel("Resultado :");
@@ -134,25 +115,62 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		lblResultado.setBounds(573, 11, 98, 14);
 		getContentPane().add(lblResultado);
 		
-		txtDni = new JTextField();
-		txtDni.setColumns(10);
-		txtDni.setBounds(400, 80, 137, 20);
-		getContentPane().add(txtDni);
-		
-		lblDni = new JLabel("Documento de Identidad :");
-		lblDni.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblDni.setBounds(400, 61, 137, 14);
-		getContentPane().add(lblDni);
-		
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(301, 385, 109, 23);
+		btnRegistrar.setBounds(501, 154, 109, 23);
 		getContentPane().add(btnRegistrar);
 		
 		cboResultado = new JComboBox <Object>();
-		cboResultado.setModel(new DefaultComboBoxModel<Object>(new String[] {"Fundado", "No fundado"}));
-		cboResultado.setBounds(573, 30, 98, 22);
+		cboResultado.setModel(new DefaultComboBoxModel(new String[] {"FUNDADO", "NO FUNDADO"}));
+		cboResultado.setBounds(561, 27, 98, 22);
 		getContentPane().add(cboResultado);
+		
+		btnBuscarApelacion = new JButton("Buscar");
+		btnBuscarApelacion.addActionListener(this);
+		btnBuscarApelacion.setBounds(106, 27, 89, 23);
+		getContentPane().add(btnBuscarApelacion);
+		
+		txtIdApelacion = new JTextField();
+		txtIdApelacion.setBounds(10, 28, 86, 20);
+		getContentPane().add(txtIdApelacion);
+		txtIdApelacion.setColumns(10);
+		
+		panelGerente = new JPanel();
+		panelGerente.setOpaque(false);
+		panelGerente.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "DATOS DEL PERSONAL A CARGO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelGerente.setBounds(10, 59, 631, 89);
+		getContentPane().add(panelGerente);
+		panelGerente.setLayout(null);
+		
+		lblNombreEncargado = new JLabel("Nombre del gerente :");
+		lblNombreEncargado.setBounds(10, 24, 149, 14);
+		panelGerente.add(lblNombreEncargado);
+		lblNombreEncargado.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		
+		txtNombreEncargado = new JTextField();
+		txtNombreEncargado.setBounds(10, 43, 185, 20);
+		panelGerente.add(txtNombreEncargado);
+		txtNombreEncargado.setColumns(10);
+		
+		txtApellidoEncargado = new JTextField();
+		txtApellidoEncargado.setBounds(205, 43, 198, 20);
+		panelGerente.add(txtApellidoEncargado);
+		txtApellidoEncargado.setColumns(10);
+		
+		lblApellidoEncargado = new JLabel("Apellidos del gerente :");
+		lblApellidoEncargado.setBounds(205, 24, 149, 14);
+		panelGerente.add(lblApellidoEncargado);
+		lblApellidoEncargado.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		
+		txtDni = new JTextField();
+		txtDni.setBounds(413, 43, 137, 20);
+		panelGerente.add(txtDni);
+		txtDni.setColumns(10);
+		
+		lblDni = new JLabel("Documento de Identidad :");
+		lblDni.setBounds(413, 24, 137, 14);
+		panelGerente.add(lblDni);
+		lblDni.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 		
 		propDao= new PropuestaDAO();
 		partDao = new ParticipanteDAO();
@@ -164,14 +182,21 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 	}
 
 	private void arranque() {
-		cargarCboApelacion();
 		limpiar();
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnBuscarApelacion) {
+			actionPerformedBtnBuscarApelacion(e);
+		}
 		if (e.getSource() == btnRegistrar) {
 			actionPerformedBtnRegistrar(e);
 		}
+	}
+	
+	protected void actionPerformedBtnBuscarApelacion(ActionEvent e) {
+		FrmBuscarApelacion buscarApelacion = new FrmBuscarApelacion();
+		buscarApelacion.setVisible(true);
 	}
 	protected void actionPerformedBtnRegistrar(ActionEvent e) {
 		String idPronApelacion = leerPronApelacion();
@@ -276,7 +301,7 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 
 	private String leerIdApelacion() {
 		String res = null;
-		return res = cboApelacion.getSelectedItem().toString();
+		return res = txtIdApelacion.getText();
 	}
 
 	private String leerPronApelacion() {
@@ -296,16 +321,7 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 	}
 
 	//METODOS AADICIONALES
-	private void cargarCboApelacion() {
-		ArrayList <Apelacion> list = apeDao.listarApelacion();
-		
-		cboApelacion.removeAllItems();
-		cboApelacion.addItem("Seleccione...");
-		
-		for (Apelacion ape : list) {
-			cboApelacion.addItem(ape.getCodApelacion());
-		}
-	}
+
 	private void correlativo() {
 		@SuppressWarnings("resource")
 	    Formatter ft = new Formatter();
@@ -323,13 +339,13 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 	}
 	private void limpiar() {
 		correlativo();
+		txtIdApelacion.setEditable(false);
 		dcFecha.setDate(new Date());
 		cboResultado.setSelectedIndex(0);
 		txtNombreEncargado.setText("");
 		txtApellidoEncargado.setText("");
 		txtDni.setText("");
-		cboApelacion.setSelectedIndex(0);
 		txtConclusiones.setText("");
 	}
-	
+
 }

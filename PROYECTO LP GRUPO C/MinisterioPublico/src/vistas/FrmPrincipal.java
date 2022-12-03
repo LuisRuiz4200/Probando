@@ -29,7 +29,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	private JMenu mnReporte;
 	private JMenu mnAyuda;
 	private JMenuItem mniSalir;
-	private JMenuItem mniSolucionApelacion;
+	private JMenuItem mniProyectoPronunciamiento;
 	private JMenuItem mniResultadoPostulacion;
 	private JLabel lblImgFonfo;
 	private JMenuItem mniParticipante;
@@ -119,9 +119,9 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mniActasPropuestas.addActionListener(this);
 		mnTransaccion.add(mniActasPropuestas);
 		
-		mniSolucionApelacion = new JMenuItem("Solucion de Apelacion");
-		mniSolucionApelacion.addActionListener(this);
-		mnTransaccion.add(mniSolucionApelacion);
+		mniProyectoPronunciamiento = new JMenuItem("Proyecto de pronunciamiento (APELACION)");
+		mniProyectoPronunciamiento.addActionListener(this);
+		mnTransaccion.add(mniProyectoPronunciamiento);
 		
 		
 		mniPedido = new JMenuItem ("Pedidos");
@@ -188,7 +188,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		if (e.getSource() == mniResultadoPostulacion) {
 			actionPerformedMniResultadoPostulacion(e);
 		}
-		if(e.getSource() == mniSolucionApelacion) {
+		if(e.getSource() == mniProyectoPronunciamiento) {
 			actionPerformedMniSolucionApelacion(e);
 		}
 		if(e.getSource() == mniSalir) {

@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import mantenimiento.*;
+import utils.Tool;
 import clases.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
@@ -15,27 +16,27 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListener, ActionListener{
-	private JTable tbPedidos;
+public class FrmBuscarApelacion extends JDialog implements MouseListener, KeyListener, ActionListener{
+	private JTable tbApelaciones;
 	private JTextArea txtDescripcion;
 	private JLabel lblDescripcion;
 	private JButton btnSeleccionar;
 	private DefaultTableModel model;
 	private JScrollPane scrollPane;
-	private PedidoDAO pedDao;
+	private ApelacionDAO apelDao;
 	
 	
 	public static void main(String [] args) {
 		
 		FrmBuscarPedido form = new FrmBuscarPedido();
 		form.setVisible(true);
-		
+
 	}
 	
-	public FrmBuscarPedido() {
+	public FrmBuscarApelacion() {
 		
 		
-		setTitle("Buscar pedido");
+		setTitle("Buscar apelacion");
 		setBounds(100,100,579,278);
 		setLocationRelativeTo(this);
 		setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
@@ -43,21 +44,21 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 		this.getContentPane().setLayout(null);
 		
 		model = new DefaultTableModel();
-		model.addColumn("ID PEDIDO");
-		model.addColumn("TIPO");
-		model.addColumn("OBJETO");
+		model.addColumn("ID APELACION");
+		model.addColumn("ID PROPUESTA");
+		model.addColumn("FECHA");
 		model.addColumn("ESTADO");
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 15, 332, 210);
 		getContentPane().add(scrollPane);
 		
-		tbPedidos = new JTable();
-		tbPedidos.addKeyListener(this);
-		tbPedidos.addMouseListener(this);
-		scrollPane.setViewportView(tbPedidos);
+		tbApelaciones = new JTable();
+		tbApelaciones.addKeyListener(this);
+		tbApelaciones.addMouseListener(this);
+		scrollPane.setViewportView(tbApelaciones);
 		
-		tbPedidos.setModel(model);
+		tbApelaciones.setModel(model);
 		
 		txtDescripcion = new JTextArea();
 		txtDescripcion.setLineWrap(true);
@@ -74,7 +75,7 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 		btnSeleccionar.setBounds(400, 19, 122, 23);
 		getContentPane().add(btnSeleccionar);
 		
-		pedDao= new PedidoDAO();
+		apelDao= new ApelacionDAO();
 		
 		arranque();
 		
@@ -91,7 +92,7 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == tbPedidos) {
+		if (e.getSource() == tbApelaciones) {
 			mouseClickedTbPedidos(e);
 		}
 	}
@@ -109,7 +110,7 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 	public void keyPressed(KeyEvent e) {
 	}
 	public void keyReleased(KeyEvent e) {
-		if (e.getSource() == tbPedidos) {
+		if (e.getSource() == tbApelaciones) {
 			keyReleasedTbPedidos(e);
 		}
 	}
@@ -126,28 +127,40 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 	}
 	
 	private void cargarTabla() {
-		ArrayList<Object[]> listPed = pedDao.reportePedido();
+		ArrayList<Apelacion> listPed = apelDao.listarApelacion();
 		
 		model.setRowCount(0);
 		
-		for(Object[] ped : listPed) {
-			model.addRow(ped);
+		for(Apelacion apel : listPed) {
+			
+			if (apel.getEstado().equals("REGISTRADO")) {
+				Object [] x = {
+						apel.getCodApelacion(),
+						apel.getCodPropuesta(),
+						apel.getFecha(),
+						apel.getEstado()
+				};
+				model.addRow(x);
+			}else if(tbApelaciones.getRowCount()==0) {
+				Tool.mensajeError(this, "No hay registro de apelacion pendientes");
+			}
+
 		}
 	}
 	
 	private void cargarDescripcion() {
-		String idPedido = tbPedidos.getValueAt(tbPedidos.getSelectedRow(),0).toString();
+		String idApelacion = tbApelaciones.getValueAt(tbApelaciones.getSelectedRow(),0).toString();
 		
-		Pedido ped = pedDao.buscarXIdPedido(idPedido);
+		Apelacion apel = apelDao.buscarXIdApelacion(idApelacion);
 		
-		txtDescripcion.setText(ped.getDescripcion());
+		txtDescripcion.setText(apel.getDescripcion());
 	}
 	
 	private void exportarDatos() {
 		
-		String idPedido = tbPedidos.getValueAt(tbPedidos.getSelectedRow(),0).toString();
+		String idApelacion = tbApelaciones.getValueAt(tbApelaciones.getSelectedRow(),0).toString();
 		
-		FrmParticipante.txtIdPedido.setText(idPedido);
+		FrmProyectoPronunciamientoApelacion.txtIdApelacion.setText(idApelacion);
 	}
 	
 

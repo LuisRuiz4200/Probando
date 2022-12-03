@@ -40,7 +40,6 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 	private JLabel lblFechaApelacion;
 	private JLabel lblDescripcion;
 	private JLabel lblEstado;
-	private JComboBox <Object> cboPropuesta;
 	private JDateChooser dcFechaApelacion;
 	private JEditorPane txtDescripcion;
 	private JButton btnRegistrar;
@@ -51,12 +50,13 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 	private ApelacionDAO apeDao;
 	private JButton btnBuscar;
 	private JButton btnLimpiar;
-	private JLabel lblCodigo_1;
+	private JLabel lblApelacion;
 	private JPanel panelPedido;
 	private JPanel panelParticipante;
 	private JLabel lblEstadoDePropuesta;
-	private JTextField txtEstado;
-	private JTextField txtEstado1;
+	public static JTextField txtEstadoPropuesta;
+	private JTextField txtEstadoApelacion;
+	public static JTextField txtIdPropuesta;
 
 	/**
 	 * Launch the application.
@@ -108,7 +108,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		
 		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(51, 320, 97, 23);
+		btnRegistrar.setBounds(39, 320, 109, 23);
 		getContentPane().add(btnRegistrar);
 		
 		panelPedido = new JPanel();
@@ -118,10 +118,10 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		panelPedido.setBounds(10, 154, 284, 147);
 		contentPane.add(panelPedido);
 		
-		lblCodigo_1 = new JLabel("ID Apelacion:");
-		lblCodigo_1.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblCodigo_1.setBounds(10, 21, 83, 14);
-		panelPedido.add(lblCodigo_1);
+		lblApelacion = new JLabel("ID Apelacion:");
+		lblApelacion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblApelacion.setBounds(10, 21, 83, 14);
+		panelPedido.add(lblApelacion);
 		
 		txtIdApelacion = new JTextField();
 		txtIdApelacion.setBounds(10, 46, 123, 20);
@@ -132,64 +132,64 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		lblEstado.setBounds(151, 21, 123, 14);
 		panelPedido.add(lblEstado);
 			
-			lblFechaApelacion = new JLabel("Fecha de la Apelación:");
-			lblFechaApelacion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-			lblFechaApelacion.setBounds(10, 77, 142, 14);
-			panelPedido.add(lblFechaApelacion);
-			
-			dcFechaApelacion = new JDateChooser();
-			dcFechaApelacion.setBounds(10, 102, 123, 20);
-			panelPedido.add(dcFechaApelacion);
-			
-			txtEstado1 = new JTextField();
-			txtEstado1.setEditable(false);
-			txtEstado1.setText("REGISTRADO");
-			txtEstado1.setBounds(151, 46, 113, 20);
-			panelPedido.add(txtEstado1);
-			txtEstado1.setColumns(10);
-			
-			panelParticipante = new JPanel();
-			panelParticipante.setLayout(null);
-			panelParticipante.setOpaque(false);
-			panelParticipante.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panelParticipante.setBackground(SystemColor.menu);
-			panelParticipante.setBounds(10, 11, 284, 132);
-			contentPane.add(panelParticipante);
-			
-			lblPropuesta = new JLabel("ID Propuesta:");
-			lblPropuesta.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-			lblPropuesta.setBounds(10, 26, 140, 14);
-			panelParticipante.add(lblPropuesta);
-			
-			cboPropuesta = new JComboBox<Object>();
-			cboPropuesta.setBounds(10, 43, 123, 22);
-			panelParticipante.add(cboPropuesta);
-			
-			btnBuscar = new JButton("Buscar \r\nPropuesta");
-			btnBuscar.addActionListener(this);
-			btnBuscar.setBounds(143, 26, 123, 36);
-			panelParticipante.add(btnBuscar);
-			
-			lblEstadoDePropuesta = new JLabel("Estado de Propuesta:");
-			lblEstadoDePropuesta.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-			lblEstadoDePropuesta.setBounds(10, 76, 123, 14);
-			panelParticipante.add(lblEstadoDePropuesta);
-			
-			txtEstado = new JTextField();
-			txtEstado.setEditable(false);
-			txtEstado.setColumns(10);
-			txtEstado.setBounds(10, 99, 106, 22);
-			panelParticipante.add(txtEstado);
-			
-			btnLimpiar = new JButton("LIMPIAR");
-			btnLimpiar.setBounds(180, 320, 89, 23);
-			contentPane.add(btnLimpiar);
-			btnLimpiar.addActionListener(this);
+		lblFechaApelacion = new JLabel("Fecha de la Apelación:");
+		lblFechaApelacion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblFechaApelacion.setBounds(10, 77, 142, 14);
+		panelPedido.add(lblFechaApelacion);
+		
+		dcFechaApelacion = new JDateChooser();
+		dcFechaApelacion.setBounds(10, 102, 123, 20);
+		panelPedido.add(dcFechaApelacion);
+		
+		txtEstadoApelacion = new JTextField();
+		txtEstadoApelacion.setEditable(false);
+		txtEstadoApelacion.setText("REGISTRADO");
+		txtEstadoApelacion.setBounds(151, 46, 113, 20);
+		panelPedido.add(txtEstadoApelacion);
+		txtEstadoApelacion.setColumns(10);
+		
+		panelParticipante = new JPanel();
+		panelParticipante.setLayout(null);
+		panelParticipante.setOpaque(false);
+		panelParticipante.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelParticipante.setBackground(SystemColor.menu);
+		panelParticipante.setBounds(10, 11, 284, 132);
+		contentPane.add(panelParticipante);
+		
+		lblPropuesta = new JLabel("ID Propuesta:");
+		lblPropuesta.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblPropuesta.setBounds(10, 26, 140, 14);
+		panelParticipante.add(lblPropuesta);
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(this);
+		btnBuscar.setBounds(143, 26, 123, 36);
+		panelParticipante.add(btnBuscar);
+		
+		lblEstadoDePropuesta = new JLabel("Estado de Propuesta:");
+		lblEstadoDePropuesta.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
+		lblEstadoDePropuesta.setBounds(10, 76, 123, 14);
+		panelParticipante.add(lblEstadoDePropuesta);
+		
+		txtEstadoPropuesta = new JTextField();
+		txtEstadoPropuesta.setEditable(false);
+		txtEstadoPropuesta.setColumns(10);
+		txtEstadoPropuesta.setBounds(10, 99, 106, 22);
+		panelParticipante.add(txtEstadoPropuesta);
+		
+		txtIdPropuesta = new JTextField();
+		txtIdPropuesta.setBounds(10, 42, 106, 20);
+		panelParticipante.add(txtIdPropuesta);
+		txtIdPropuesta.setColumns(10);
+		
+		btnLimpiar = new JButton("LIMPIAR");
+		btnLimpiar.setBounds(158, 320, 111, 23);
+		contentPane.add(btnLimpiar);
+		btnLimpiar.addActionListener(this);	
 		
 		propDao = new PropuestaDAO();
 		apeDao = new ApelacionDAO();
 		
-		cargarCboPropuesta();
 		correlativo();
 		limpiar();
 	}
@@ -259,7 +259,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 
 	private String leerEstado() {
 	    String res=null;
-		res = txtEstado1.getText().trim();
+		res = txtEstadoApelacion.getText().trim();
 		
 		return res;
 	}
@@ -282,39 +282,19 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 	
 	private String leerIdPropuesta() {
 		String res = null;
-		res = cboPropuesta.getSelectedItem().toString();
+		res = txtIdPropuesta.getText().toString();
 		
 		return res;
 	}
 	
 	//METODOS ADICIONALES
 	
-	private void cargarCboPropuesta() {
-		ArrayList<Propuesta> list = propDao.listarPropuestas();
-		
-		cboPropuesta.removeAllItems();
-		cboPropuesta.addItem("SELECCIONE...");
-		
-		boolean bandera = false;
-		
-		for (Propuesta ped : list) {
-			if (ped.getEstado().equals("OBSERVADO")) {
-				cboPropuesta.addItem(ped.getCodPropuesta());
-				bandera = true;
-			}
-		}
-		
-		if (bandera == false) {
-			Tool.mensajeError(this, "No hay propuestas en estado de OBSERVADO");
-		}
-
-     }
 
 
 	private void limpiar() {
+		txtIdPropuesta.setEditable(false);
 		txtDescripcion.setText("");
 		dcFechaApelacion.setDate(new Date());
-		cboPropuesta.setSelectedIndex(0);
 	
     }
     private void correlativo() {
@@ -334,25 +314,10 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
           }
     }
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
-		String codigo;
-		// 1 obtener el codigo ingresado
-		codigo = getCodigoPropuesta();
-		// Validar
-				if (codigo == null) {
-					return;
-				} else {
-					// llamar al proceso
-					Propuesta prop = propDao.buscarXIdPropuesta(codigo);
-					// Validar el resultado del proceso
-					if (prop == null) {
-						Tool.mensajeError(this, "Propuesta no existe");
-					} else {
-						txtEstado.setText(prop.getEstado());						
-					}
-				}
+		FrmBuscarPropuesta buscarPropuesta = new FrmBuscarPropuesta();
+		buscarPropuesta.setVisible(true);
+		
 	}
 
-	private String getCodigoPropuesta() {
-		return cboPropuesta.getSelectedItem().toString();
-	}
+	
 }
