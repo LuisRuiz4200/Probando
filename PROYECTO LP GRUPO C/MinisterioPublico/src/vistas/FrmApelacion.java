@@ -240,6 +240,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 			}else {
 				Tool.mensajeExito(this, "Registro exitoso");
 				correlativo();
+				limpiar();
 			}
 		}
 	}
