@@ -194,7 +194,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		btnNuevo = new JButton("");
 		btnNuevo.setIcon(new ImageIcon(FrmPedido.class.getResource("/imagenes/iconos_24x24/limpiar.png")));
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(333, 33, 35, 23);
+		btnNuevo.setBounds(10, 184, 49, 33);
 		contentPane.add(btnNuevo);
 		
 		txtEstado = new JTextField();
