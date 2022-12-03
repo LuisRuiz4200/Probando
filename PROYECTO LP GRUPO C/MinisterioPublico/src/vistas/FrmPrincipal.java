@@ -119,10 +119,12 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mnTransaccion.add(mniResultadoPostulacion);
 		
 		mniActasPropuestas = new JMenuItem("Actas de Propuesta");
+		mniActasPropuestas.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/consulta (1).png")));
 		mniActasPropuestas.addActionListener(this);
 		mnTransaccion.add(mniActasPropuestas);
 		
 		mniProyectoPronunciamiento = new JMenuItem("Proyecto de pronunciamiento (APELACION)");
+		mniProyectoPronunciamiento.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/ayudando.png")));
 		mniProyectoPronunciamiento.addActionListener(this);
 		mnTransaccion.add(mniProyectoPronunciamiento);
 		
@@ -174,6 +176,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mnReporte.add(mniReportePropuesta);
 		
 		mniQuienesSomos = new JMenuItem("\u00BFQuienes somos?");
+		mniQuienesSomos.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/5172568_add_contact_user_icon (1).png")));
 		mniQuienesSomos.addActionListener(this);
 		mnAyuda.add(mniQuienesSomos);
 		
