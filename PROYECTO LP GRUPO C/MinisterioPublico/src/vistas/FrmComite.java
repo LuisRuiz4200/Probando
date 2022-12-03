@@ -574,9 +574,10 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		
 	}
 	protected void actionPerformedBtnBuscarPedido(ActionEvent e) {
-		FrmPrincipal principal = new FrmPrincipal();
-		
-		FrmBuscarPedido2 buscarPedido = new FrmBuscarPedido2();
+		FrmBuscarPedido buscarPedido = new FrmBuscarPedido();
+		FrmBuscarPedido.indice =2;
 		buscarPedido.setVisible(true);
 	}
+	
+	
 }

@@ -23,7 +23,7 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 	private DefaultTableModel model;
 	private JScrollPane scrollPane;
 	private PedidoDAO pedDao;
-	
+	public static int indice;
 	
 	public static void main(String [] args) {
 		
@@ -145,9 +145,15 @@ public class FrmBuscarPedido extends JDialog implements MouseListener, KeyListen
 	
 	private void exportarDatos() {
 		
-		String idPedido = tbPedidos.getValueAt(tbPedidos.getSelectedRow(),0).toString();
-		
-		FrmParticipante.txtIdPedido.setText(idPedido);
+		if (indice == 1)//PARTICIPANTE
+			{
+			String idPedido = tbPedidos.getValueAt(tbPedidos.getSelectedRow(),0).toString();
+			FrmParticipante.txtIdPedido.setText(idPedido);
+		}else if (indice == 2)//COMITE 
+			{
+			String idPedido = tbPedidos.getValueAt(tbPedidos.getSelectedRow(),0).toString();
+			FrmComite.txtPedido.setText(idPedido);
+		}
 	}
 	
 

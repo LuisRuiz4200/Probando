@@ -318,10 +318,6 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 					correlativo();
 					cargarTabla();
 				}
-			
-			
-
-			
 		}
 		
 	}
@@ -369,6 +365,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	protected void actionPerformedBtnBuscarPedido(ActionEvent e) {
 		
 		FrmBuscarPedido buscarPedido = new FrmBuscarPedido();
+		FrmBuscarPedido.indice=1;
 		buscarPedido.setVisible(true);
 	}
 	
