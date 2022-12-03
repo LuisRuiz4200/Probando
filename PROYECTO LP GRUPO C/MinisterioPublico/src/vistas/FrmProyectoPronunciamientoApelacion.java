@@ -31,6 +31,7 @@ import utils.Tool;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.ImageIcon;
 
 
 @SuppressWarnings("serial")
@@ -68,7 +69,7 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 	public FrmProyectoPronunciamientoApelacion () {
 		
 		setTitle("Proyecto de Pronunciamiento de Apelacion");
-		setBounds(100,100,731,418);
+		setBounds(100,100,715,361);
 		
 		setClosable(true);
 		setMaximizable(true);
@@ -79,45 +80,45 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		
 		lblCodigo = new JLabel("ID Pronunciamiento :");
 		lblCodigo.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblCodigo.setBounds(254, 12, 116, 14);
+		lblCodigo.setBounds(246, 12, 116, 14);
 		getContentPane().add(lblCodigo);
 		
 		txtPronunciamiento = new JTextField();
 		txtPronunciamiento.setColumns(10);
-		txtPronunciamiento.setBounds(254, 28, 98, 20);
+		txtPronunciamiento.setBounds(246, 28, 98, 20);
 		getContentPane().add(txtPronunciamiento);
 		
 		lblApelacion = new JLabel("ID Apelacion :");
 		lblApelacion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblApelacion.setBounds(10, 11, 107, 14);
+		lblApelacion.setBounds(23, 12, 107, 14);
 		getContentPane().add(lblApelacion);
 		
 		dcFecha = new JDateChooser();
-		dcFecha.setBounds(400, 28, 137, 20);
+		dcFecha.setBounds(389, 28, 137, 20);
 		getContentPane().add(dcFecha);
 		
 		lblFecha = new JLabel(" Fecha :");
 		lblFecha.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblFecha.setBounds(400, 11, 46, 14);
+		lblFecha.setBounds(389, 12, 46, 14);
 		getContentPane().add(lblFecha);
 		
 		txtConclusiones = new JEditorPane();
-		txtConclusiones.setBounds(10, 181, 695, 196);
+		txtConclusiones.setBounds(10, 160, 674, 130);
 		getContentPane().add(txtConclusiones);
 		
 		lblConclusion = new JLabel("Conclusiones :");
 		lblConclusion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblConclusion.setBounds(10, 159, 98, 14);
+		lblConclusion.setBounds(10, 142, 98, 14);
 		getContentPane().add(lblConclusion);
 		
 		lblResultado = new JLabel("Resultado :");
 		lblResultado.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblResultado.setBounds(573, 11, 98, 14);
+		lblResultado.setBounds(561, 12, 98, 14);
 		getContentPane().add(lblResultado);
 		
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(501, 154, 109, 23);
+		btnRegistrar.setBounds(302, 301, 109, 23);
 		getContentPane().add(btnRegistrar);
 		
 		cboResultado = new JComboBox <Object>();
@@ -125,20 +126,21 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		cboResultado.setBounds(561, 27, 98, 22);
 		getContentPane().add(cboResultado);
 		
-		btnBuscarApelacion = new JButton("Buscar");
+		btnBuscarApelacion = new JButton("");
+		btnBuscarApelacion.setIcon(new ImageIcon(FrmProyectoPronunciamientoApelacion.class.getResource("/imagenes/iconos_24x24/lupa.png")));
 		btnBuscarApelacion.addActionListener(this);
-		btnBuscarApelacion.setBounds(106, 27, 89, 23);
+		btnBuscarApelacion.setBounds(144, 11, 46, 37);
 		getContentPane().add(btnBuscarApelacion);
 		
 		txtIdApelacion = new JTextField();
-		txtIdApelacion.setBounds(10, 28, 86, 20);
+		txtIdApelacion.setBounds(23, 28, 102, 20);
 		getContentPane().add(txtIdApelacion);
 		txtIdApelacion.setColumns(10);
 		
 		panelGerente = new JPanel();
 		panelGerente.setOpaque(false);
 		panelGerente.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "DATOS DEL PERSONAL A CARGO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelGerente.setBounds(10, 59, 631, 89);
+		panelGerente.setBounds(10, 59, 674, 81);
 		getContentPane().add(panelGerente);
 		panelGerente.setLayout(null);
 		
@@ -153,22 +155,22 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		txtNombreEncargado.setColumns(10);
 		
 		txtApellidoEncargado = new JTextField();
-		txtApellidoEncargado.setBounds(205, 43, 198, 20);
+		txtApellidoEncargado.setBounds(235, 43, 198, 20);
 		panelGerente.add(txtApellidoEncargado);
 		txtApellidoEncargado.setColumns(10);
 		
 		lblApellidoEncargado = new JLabel("Apellidos del gerente :");
-		lblApellidoEncargado.setBounds(205, 24, 149, 14);
+		lblApellidoEncargado.setBounds(235, 24, 149, 14);
 		panelGerente.add(lblApellidoEncargado);
 		lblApellidoEncargado.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 		
 		txtDni = new JTextField();
-		txtDni.setBounds(413, 43, 137, 20);
+		txtDni.setBounds(497, 43, 137, 20);
 		panelGerente.add(txtDni);
 		txtDni.setColumns(10);
 		
 		lblDni = new JLabel("Documento de Identidad :");
-		lblDni.setBounds(413, 24, 137, 14);
+		lblDni.setBounds(497, 24, 137, 14);
 		panelGerente.add(lblDni);
 		lblDni.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
 		
