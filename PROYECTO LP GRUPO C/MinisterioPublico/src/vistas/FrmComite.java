@@ -27,6 +27,7 @@ import mantenimiento.ComiteDAO;
 import mantenimiento.PedidoDAO;
 import utils.Tool;
 import Validaciones.Reguex;
+import javax.swing.border.TitledBorder;
 @SuppressWarnings("serial")
 public class FrmComite extends JInternalFrame implements ActionListener, MouseListener {
 
@@ -47,7 +48,6 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	private PedidoDAO pedDao;
 	private JTextField txtNombre;
 	private JTextField txtApellido;
-	private JComboBox<Object> cboPedido;
 	private JTextField txtDni;
 	private JTextField txtFuncion;
 	private JLabel lblDependencia;
@@ -57,6 +57,9 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	private JButton btnEliminar;
 	private JButton btnNuevo;
 	private JButton btnBuscar;
+	private JPanel panelComite;
+	private JButton btnNewButton;
+	static JTextField txtPedido;
 	
 	
 	public static void main(String[] args) {
@@ -88,7 +91,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		setIconifiable(true);
 		
 		txtIdMiembro = new JTextField();
-		txtIdMiembro.setBounds(294, 10, 110, 20);
+		txtIdMiembro.setBounds(174, 51, 110, 20);
 		contentPane.add(txtIdMiembro);
 		txtIdMiembro.setColumns(10);
 		
@@ -99,47 +102,37 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		
 		lblIdMiembro = new JLabel("ID Miembro :");
 		lblIdMiembro.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblIdMiembro.setBounds(217, 14, 75, 14);
+		lblIdMiembro.setBounds(174, 30, 75, 14);
 		contentPane.add(lblIdMiembro);
 		
 		lblNomMiembro = new JLabel("Nombres del Miembro:");
 		lblNomMiembro.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblNomMiembro.setBounds(20, 55, 124, 14);
+		lblNomMiembro.setBounds(174, 82, 124, 14);
 		contentPane.add(lblNomMiembro);
 		
 		lblApellido = new JLabel("Apellidos del Miembro:");
 		lblApellido.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblApellido.setBounds(20, 104, 124, 14);
+		lblApellido.setBounds(174, 129, 124, 14);
 		contentPane.add(lblApellido);
 		
 		lblFuncion = new JLabel("Funcion/Cargo:");
 		lblFuncion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblFuncion.setBounds(217, 101, 86, 20);
+		lblFuncion.setBounds(414, 27, 86, 20);
 		contentPane.add(lblFuncion);
 		
 		lblDni = new JLabel("Documento de Identidad : ");
 		lblDni.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblDni.setBounds(217, 55, 147, 14);
+		lblDni.setBounds(414, 129, 147, 14);
 		contentPane.add(lblDni);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.addMouseListener(this);
-		scrollPane.setBounds(10, 168, 727, 237);
+		scrollPane.setBounds(10, 193, 727, 212);
 		contentPane.add(scrollPane);
 		
 		tbComite = new JTable();
 		tbComite.addMouseListener(this);
 		scrollPane.setViewportView(tbComite);
-		
-		btnGuardar = new JButton("GUARDAR");
-		btnGuardar.addActionListener(this);
-		btnGuardar.setBounds(597, 28, 100, 23);
-		contentPane.add(btnGuardar);
-		
-		btnModificar = new JButton("MODIFICAR");
-		btnModificar.addActionListener(this);
-		btnModificar.setBounds(597, 72, 100, 23);
-		contentPane.add(btnModificar);
 		
 		// crear columnas de la tabla
 	    // Instanciar un objeto para la estructura de la tabla
@@ -155,52 +148,75 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(20, 73, 147, 20);
+		txtNombre.setBounds(174, 100, 147, 20);
 		contentPane.add(txtNombre);
 		
 		txtApellido = new JTextField();
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(20, 125, 147, 20);
+		txtApellido.setBounds(174, 143, 147, 20);
 		contentPane.add(txtApellido);
 		
-		cboPedido = new JComboBox<Object>();
-		cboPedido.setBounds(85, 9, 117, 22);
-		contentPane.add(cboPedido);
-		
 		txtDni = new JTextField();
-		txtDni.setBounds(217, 73, 137, 20);
+		txtDni.setBounds(414, 143, 137, 20);
 		contentPane.add(txtDni);
 		txtDni.setColumns(10);
 		
 		txtFuncion = new JTextField();
-		txtFuncion.setBounds(217, 125, 137, 20);
+		txtFuncion.setBounds(414, 51, 137, 20);
 		contentPane.add(txtFuncion);
 		txtFuncion.setColumns(10);
 		
 		lblDependencia = new JLabel("Dependencia:");
 		lblDependencia.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblDependencia.setBounds(404, 52, 86, 20);
+		lblDependencia.setBounds(414, 79, 86, 20);
 		contentPane.add(lblDependencia);
 		
 		txtDependencia = new JTextField();
 		txtDependencia.setColumns(10);
-		txtDependencia.setBounds(404, 73, 117, 20);
+		txtDependencia.setBounds(414, 100, 137, 20);
 		contentPane.add(txtDependencia);
-		
-		btnEliminar = new JButton("ELIMINAR");
-		btnEliminar.addActionListener(this);
-		btnEliminar.setBounds(597, 110, 100, 23);
-		contentPane.add(btnEliminar);
 		
 		btnNuevo = new JButton("LIMPIAR");
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(416, 122, 89, 23);
+		btnNuevo.setBounds(20, 124, 89, 23);
 		contentPane.add(btnNuevo);
 		
 		btnBuscar = new JButton("BUSCAR");
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(435, 9, 86, 23);
+		btnBuscar.setBounds(304, 50, 75, 23);
 		contentPane.add(btnBuscar);
+		
+		panelComite = new JPanel();
+		panelComite.setBorder(new TitledBorder(null, "COMITE ESPECIAL PERMANENTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelComite.setBounds(152, 11, 585, 169);
+		contentPane.add(panelComite);
+		panelComite.setLayout(null);
+		
+		btnGuardar = new JButton("REGISTRAR");
+		btnGuardar.setBounds(453, 36, 100, 23);
+		panelComite.add(btnGuardar);
+		
+		btnModificar = new JButton("MODIFICAR");
+		btnModificar.setBounds(453, 78, 100, 23);
+		panelComite.add(btnModificar);
+		
+		btnEliminar = new JButton("ELIMINAR");
+		btnEliminar.setBounds(453, 122, 100, 23);
+		panelComite.add(btnEliminar);
+		
+		btnNewButton = new JButton("BUSCAR");
+		btnNewButton.addActionListener(this);
+		btnNewButton.setBounds(20, 62, 89, 23);
+		contentPane.add(btnNewButton);
+		
+		txtPedido = new JTextField();
+		txtPedido.setEditable(false);
+		txtPedido.setBounds(20, 31, 102, 20);
+		contentPane.add(txtPedido);
+		txtPedido.setColumns(10);
+		btnEliminar.addActionListener(this);
+		btnModificar.addActionListener(this);
+		btnGuardar.addActionListener(this);
 		
 		pedDao = new PedidoDAO();
 		comiDao = new ComiteDAO();
@@ -209,13 +225,16 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	}
 
 	private void arranque() {
-		cargarCboPedido();
+
 		correlativo();
 		cargarTabla();
 		limpiar();
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton) {
+			actionPerformedBtnNewButton(e);
+		}
 		if (e.getSource() == btnBuscar) {
 			actionPerformedBtnBuscar(e);
 		}
@@ -327,7 +346,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		}else {
 			
 			for (Comite com : list ) {
-				cboPedido.setSelectedItem(com.getCodPedido());
+				txtPedido.setText(com.getCodPedido());
 				txtIdMiembro.setText(com.getCodMiembro());
 				txtNombre.setText(com.getNombMiembro());
 				txtApellido.setText(com.getApeMiembro());
@@ -458,9 +477,12 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 	private String leerIdPedido() {
         String res = null;
 		
-		res = cboPedido.getSelectedItem().toString();
+        if (txtPedido.getText().trim().length()==0) {
+			Tool.mensajeError(this,"Eliga el ID del algún pedido. Presione la opcion buscar !");
+		}
+		res = txtPedido.getText();
 		
-		return res ;
+		return res;
 	}
 	
 	//METODOS ADICIONALES 
@@ -486,11 +508,8 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		}
 	}
 
-	private void cargarCboPedido() {
+	/*private void cargarCboPedido() {
         ArrayList<Pedido> list = pedDao.listarPedido();
-		
-		cboPedido.removeAllItems();
-		cboPedido.addItem("SELECCIONE...");
 		
 		for (Pedido ped : list) {
 			
@@ -498,7 +517,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 			
 		}
 		
-	}
+	}*/
 	
 	private void cargarDatos() {
 		
@@ -512,7 +531,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		String funcion = tbComite.getValueAt(indice, 5).toString();
 		String dependencia = tbComite.getValueAt(indice, 6).toString();
 		
-		cboPedido.setSelectedItem(idPedido);
+		txtPedido.setText(idPedido);
 		txtIdMiembro.setText(idMiembro);
 		txtNombre.setText(nombMiembro);
 		txtApellido.setText(apeMiembro);
@@ -549,9 +568,13 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		txtDni.setText("");
 		txtFuncion.setText("");
 		txtDependencia.setText("");
-		cboPedido.setSelectedIndex(0);
 	
 		
 	}
-
+	protected void actionPerformedBtnNewButton(ActionEvent e) {
+		FrmPrincipal principal = new FrmPrincipal();
+		
+		FrmBuscarPedido2 buscarPedido = new FrmBuscarPedido2(principal,true);
+		buscarPedido.setVisible(true);
+	}
 }
