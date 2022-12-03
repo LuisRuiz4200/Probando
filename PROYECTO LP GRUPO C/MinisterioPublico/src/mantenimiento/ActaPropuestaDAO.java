@@ -246,33 +246,69 @@ public class ActaPropuestaDAO implements ActaPropuestaInterfacesDAO {
 		int res = 0;
 		Connection con = null;
 		PreparedStatement pstm = null;
+		PreparedStatement pstm2 = null;
+		String estado_prop = null;
+
+		switch (aprop.getTipoActa()) {
+		case "Observaciones":
+			estado_prop = "OBSERVADO";
+			break;
+		case "Resultados":
+			estado_prop = "NO ADMITIDA";
+			break;
+		default:
+			break;
+		}
 
 		try {
-			// paso 1 : Establecer la conexiï¿½n con la BD
+			// Establecer la conexión con la BD
 			con = MySQLConexion8.getConexion();
+			con.setAutoCommit(false);
 
-			// paso 2: Definir la instruccion SQL-- ACTUALIZAR
+			// Definir la instruccion SQL-- ACTUALIZAR
 			String sql = "update tb_actapropuesta set fecha_actaProp = ?, descripcion_actaProp = ?, tipo_actaProp = ?  where id_actaProp = ?";
 
-			// paso 3 : preparar la instruccion --> obtener los comandos SQL
+			// preparar la instruccion --> obtener los comandos SQL
 			pstm = con.prepareStatement(sql);
 
-			// paso 4: obtener los parametros
+			// obtener los parametros
 			pstm.setString(1, aprop.getFecha());
 			pstm.setString(2, aprop.getDesActaPropuesta());
 			pstm.setString(3, aprop.getTipoActa());
 			pstm.setString(4, aprop.getIdActaPropuesta());
 
-			// paso 5: ejecucion de la instruccion
+			// ejecucion de la instruccion
 			res = pstm.executeUpdate();
 
+			String sql2 = "UPDATE tb_propuesta SET estado_prop = ? WHERE  id_prop = ?";
+			pstm2 = con.prepareStatement(sql2);
+			pstm2.setString(1, estado_prop);
+			pstm2.setString(2, aprop.getIdPropuesta());
+
+			res = pstm2.executeUpdate();
+
+			// confirmar
+			con.commit();
+			
+			System.out.println(estado_prop);
+			System.out.println(aprop.getIdPropuesta());
+			System.out.println(res);
+
 		} catch (Exception e) {
-			System.out.println(">>>> Error en la instrucción de actualizar " + e.getMessage());
+			System.out.println(">>>> Error en la transacción de actualizar " + e.getMessage());
+			res = 0;
+			// restaura la bd antes de ejecutar la transacción
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				System.out.println(">>>> Error al restaurar " + e.getMessage());
+			}
 		} finally {
 			try {
-
 				if (pstm != null)
 					pstm.close();
+				if (pstm2 != null)
+					pstm2.close();
 				if (con != null)
 					con.close();
 

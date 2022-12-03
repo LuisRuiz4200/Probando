@@ -387,22 +387,23 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 
 	private void actualizarActa() {
 		// variables
-		String idActa, fecha, desc, tipo;
+		String idActa, fecha, desc, tipo, codProp;
 		// entradas
 		idActa = getCodActa();
+		codProp = getCodigoPropuesta();
 		fecha = getFechaActa();
 		desc = getDescActa();
 		tipo = getTipoActa();
 
 		// validar
-		if (idActa == null || fecha == null || desc == null || tipo == null) {
+		if (idActa == null || fecha == null || desc == null || tipo == null || codProp == null) {
 			return;
 		} else {
 			// Crear un objeto
 			ActaPropuesta aprop = new ActaPropuesta();
 			// setear --> asignar los valores obtenidos de la GUI a los atributos privados
 			aprop.setIdActaPropuesta(idActa);
-			;
+			aprop.setIdPropuesta(codProp);
 			aprop.setFecha(fecha);
 			aprop.setDesActaPropuesta(desc);
 			aprop.setTipoActa(tipo);
@@ -413,7 +414,7 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 			if (res == 0) {
 				Tool.mensajeError(this, "Error en la actualización");
 			} else {
-				Tool.mensajeExito(this, "Usuario actualizado");
+				Tool.mensajeExito(this, "Acta actualizada");
 			}
 		}
 	}
