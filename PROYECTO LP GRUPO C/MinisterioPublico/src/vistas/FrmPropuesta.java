@@ -34,6 +34,7 @@ import mantenimiento.PedidoDAO;
 import mantenimiento.PropuestaDAO;
 import utils.Tool;
 import javax.swing.JScrollPane;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class FrmPropuesta extends JInternalFrame implements ActionListener, ItemListener {
@@ -107,15 +108,15 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		setIconifiable(true);
 
 		lblPropuestaTecnica = new JLabel("Propuesta Tecnica:");
-		lblPropuestaTecnica.setBounds(10, 214, 125, 14);
+		lblPropuestaTecnica.setBounds(10, 171, 125, 14);
 		contentPane.add(lblPropuestaTecnica);
 
 		lblPropuestaEcono = new JLabel("Propuesta Economica:");
-		lblPropuestaEcono.setBounds(361, 214, 128, 14);
+		lblPropuestaEcono.setBounds(358, 171, 128, 14);
 		contentPane.add(lblPropuestaEcono);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 241, 338, 189);
+		scrollPane.setBounds(10, 196, 338, 171);
 		contentPane.add(scrollPane);
 
 		txtPropTecnica = new JTextArea();
@@ -124,7 +125,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtPropTecnica.setBorder(new EmptyBorder(8,8,8,8));
 		
 		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(358, 241, 351, 189);
+		scrollPane_1.setBounds(358, 196, 351, 171);
 		contentPane.add(scrollPane_1);
 
 		txtPropEconomica = new JTextArea();
@@ -230,17 +231,19 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		lblEstado_1.setBounds(272, 13, 67, 14);
 		panelPropuesta.add(lblEstado_1);
 
-		btnNuevo = new JButton("LIMPIAR");
+		btnNuevo = new JButton("");
+		btnNuevo.setBackground(Color.LIGHT_GRAY);
+		btnNuevo.setIcon(new ImageIcon(FrmPropuesta.class.getResource("/imagenes/iconos_24x24/limpiar.png")));
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(23, 137, 89, 23);
+		btnNuevo.setBounds(23, 127, 43, 33);
 		contentPane.add(btnNuevo);
 		
 		btnRegistrar = new JButton("REGISTRAR");
-		btnRegistrar.setBounds(388, 171, 101, 23);
+		btnRegistrar.setBounds(232, 389, 101, 23);
 		contentPane.add(btnRegistrar);
 				
 		btnActualizar = new JButton("MODIFICAR");
-		btnActualizar.setBounds(515, 171, 108, 23);
+		btnActualizar.setBounds(373, 389, 108, 23);
 		contentPane.add(btnActualizar);
 		btnActualizar.addActionListener(this);
 		btnRegistrar.addActionListener(this);

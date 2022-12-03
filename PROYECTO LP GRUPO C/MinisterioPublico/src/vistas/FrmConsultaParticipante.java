@@ -31,6 +31,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings({ "serial", "unused" })
 public class FrmConsultaParticipante extends JInternalFrame implements MouseListener, ActionListener {
@@ -88,9 +89,11 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		btnBuscar = new JButton("BUSCAR");
+		btnBuscar = new JButton("");
+		btnBuscar.setBackground(Color.LIGHT_GRAY);
+		btnBuscar.setIcon(new ImageIcon(FrmConsultaParticipante.class.getResource("/imagenes/iconos_24x24/lupa.png")));
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(186, 26, 86, 24);
+		btnBuscar.setBounds(186, 11, 49, 39);
 		contentPane.add(btnBuscar);
 		
 		model = new DefaultTableModel();

@@ -129,9 +129,10 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		contentPane.add(txtNombre);
 		
 		btnNuevo = new JButton("");
+		btnNuevo.setBackground(Color.LIGHT_GRAY);
 		btnNuevo.setIcon(new ImageIcon(FrmComite.class.getResource("/imagenes/iconos_24x24/limpiar.png")));
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(10, 149, 39, 33);
+		btnNuevo.setBounds(10, 100, 43, 33);
 		contentPane.add(btnNuevo);
 		
 		panelComite = new JPanel();
@@ -142,6 +143,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		panelComite.setLayout(null);
 		
 		btnBuscar = new JButton("");
+		btnBuscar.setBackground(Color.LIGHT_GRAY);
 		btnBuscar.setBounds(145, 26, 36, 33);
 		panelComite.add(btnBuscar);
 		btnBuscar.setIcon(new ImageIcon(FrmComite.class.getResource("/imagenes/iconos_24x24/lupa.png")));
@@ -216,6 +218,7 @@ public class FrmComite extends JInternalFrame implements ActionListener, MouseLi
 		contentPane.add(btnModificar);
 		
 		btnBuscarPedido = new JButton("");
+		btnBuscarPedido.setBackground(Color.LIGHT_GRAY);
 		btnBuscarPedido.setBounds(106, 29, 36, 33);
 		contentPane.add(btnBuscarPedido);
 		btnBuscarPedido.setIcon(new ImageIcon(FrmComite.class.getResource("/imagenes/iconos_24x24/lupa.png")));

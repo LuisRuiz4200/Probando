@@ -80,7 +80,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 	 */
 	public FrmApelacion() {
 		setTitle("Apelacion");
-		setBounds(100, 100, 700, 409);
+		setBounds(100, 100, 700, 355);
 		
 		setClosable(true);
 		setMaximizable(true);
@@ -95,11 +95,11 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		
 		lblDescripcion = new JLabel("Descripción:");
 		lblDescripcion.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblDescripcion.setBounds(309, 11, 109, 14);
+		lblDescripcion.setBounds(312, 12, 109, 14);
 		contentPane.add(lblDescripcion);
 		
 		spDescripcion = new JScrollPane();
-		spDescripcion.setBounds(310, 36, 338, 323);
+		spDescripcion.setBounds(310, 26, 338, 247);
 		getContentPane().add(spDescripcion);
 		
 		
@@ -109,14 +109,14 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		
 		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(39, 320, 109, 23);
+		btnRegistrar.setBounds(274, 291, 109, 23);
 		getContentPane().add(btnRegistrar);
 		
 		panelPedido = new JPanel();
 		panelPedido.setLayout(null);
 		panelPedido.setOpaque(false);
 		panelPedido.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "APELACION", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelPedido.setBounds(10, 154, 284, 147);
+		panelPedido.setBounds(10, 145, 284, 132);
 		contentPane.add(panelPedido);
 		
 		lblApelacion = new JLabel("ID Apelacion:");
@@ -150,6 +150,13 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		panelPedido.add(txtEstadoApelacion);
 		txtEstadoApelacion.setColumns(10);
 		
+		btnLimpiar = new JButton("");
+		btnLimpiar.setBackground(Color.LIGHT_GRAY);
+		btnLimpiar.setBounds(182, 90, 46, 33);
+		panelPedido.add(btnLimpiar);
+		btnLimpiar.setIcon(new ImageIcon(FrmApelacion.class.getResource("/imagenes/iconos_24x24/limpiar.png")));
+		btnLimpiar.addActionListener(this);	
+		
 		panelParticipante = new JPanel();
 		panelParticipante.setForeground(Color.BLACK);
 		panelParticipante.setLayout(null);
@@ -169,18 +176,18 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		btnBuscar.setForeground(Color.BLACK);
 		btnBuscar.setIcon(new ImageIcon(FrmApelacion.class.getResource("/imagenes/iconos_24x24/lupa.png")));
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(138, 26, 33, 36);
+		btnBuscar.setBounds(138, 26, 40, 36);
 		panelParticipante.add(btnBuscar);
 		
 		lblEstadoDePropuesta = new JLabel("Estado de Propuesta:");
 		lblEstadoDePropuesta.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblEstadoDePropuesta.setBounds(10, 76, 123, 14);
+		lblEstadoDePropuesta.setBounds(10, 73, 123, 14);
 		panelParticipante.add(lblEstadoDePropuesta);
 		
 		txtEstadoPropuesta = new JTextField();
 		txtEstadoPropuesta.setEditable(false);
 		txtEstadoPropuesta.setColumns(10);
-		txtEstadoPropuesta.setBounds(10, 99, 106, 22);
+		txtEstadoPropuesta.setBounds(10, 88, 106, 22);
 		panelParticipante.add(txtEstadoPropuesta);
 		
 		txtIdPropuesta = new JTextField();
@@ -188,11 +195,6 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		txtIdPropuesta.setBounds(10, 42, 106, 20);
 		panelParticipante.add(txtIdPropuesta);
 		txtIdPropuesta.setColumns(10);
-		
-		btnLimpiar = new JButton("LIMPIAR");
-		btnLimpiar.setBounds(158, 320, 111, 23);
-		contentPane.add(btnLimpiar);
-		btnLimpiar.addActionListener(this);	
 		
 		propDao = new PropuestaDAO();
 		apeDao = new ApelacionDAO();

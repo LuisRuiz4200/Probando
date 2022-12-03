@@ -161,7 +161,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		tbPedidos.addMouseListener(this);
 		scrollPane.setViewportView(tbPedidos);
 		
-		btnGuardar = new JButton("GUARDAR");
+		btnGuardar = new JButton("REGISTRAR");
 		btnGuardar.addActionListener(this);
 		btnGuardar.setBounds(229, 169, 117, 23);
 		contentPane.add(btnGuardar);
@@ -192,9 +192,10 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		contentPane.add(cboObjeto);
 		
 		btnNuevo = new JButton("");
+		btnNuevo.setBackground(Color.LIGHT_GRAY);
 		btnNuevo.setIcon(new ImageIcon(FrmPedido.class.getResource("/imagenes/iconos_24x24/limpiar.png")));
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(10, 184, 49, 33);
+		btnNuevo.setBounds(330, 23, 38, 33);
 		contentPane.add(btnNuevo);
 		
 		txtEstado = new JTextField();
@@ -596,7 +597,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private void limpiar () {
 		txtEntidad.setEditable(false);
 		txtRuc.setEditable(false);
-		txtEntidad.setText("MINISTERIO PÚBLICO");
+		txtEntidad.setText("MINISTERIO Pï¿½BLICO");
 		txtRuc.setText("20131370301");
 		dcFecha.setDate(new Date());
 		txtDescripcion.setText("");

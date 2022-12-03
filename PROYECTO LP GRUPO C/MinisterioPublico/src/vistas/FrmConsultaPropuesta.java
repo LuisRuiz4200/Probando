@@ -30,6 +30,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings({ "serial", "unused" })
 public class FrmConsultaPropuesta extends JInternalFrame implements ActionListener, KeyListener, MouseListener {
@@ -73,27 +74,29 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 	 * Create the frame.
 	 */
 	public FrmConsultaPropuesta() {
+		setIconifiable(true);
 		setTitle("Consulta de propuestas");
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 744, 409);
+		setBounds(100, 100, 744, 375);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setClosable(true);
 		setMaximizable(true);
-		setIconifiable(true);
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("");
+		btnBuscar.setBackground(Color.LIGHT_GRAY);
+		btnBuscar.setIcon(new ImageIcon(FrmConsultaPropuesta.class.getResource("/imagenes/iconos_24x24/lupa.png")));
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(299, 24, 89, 31);
+		btnBuscar.setBounds(297, 11, 50, 39);
 		contentPane.add(btnBuscar);
 
 		lblNumeroPedido = new JLabel("Numero de Pedido:");
-		lblNumeroPedido.setBounds(10, 32, 138, 14);
+		lblNumeroPedido.setBounds(12, 32, 119, 14);
 		contentPane.add(lblNumeroPedido);
 
 		cboPedido = new JComboBox<Object>();
@@ -101,7 +104,7 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		contentPane.add(cboPedido);
 
 		spTablaPropuestas = new JScrollPane();
-		spTablaPropuestas.setBounds(10, 81, 446, 287);
+		spTablaPropuestas.setBounds(10, 61, 446, 273);
 		contentPane.add(spTablaPropuestas);
 
 		tblPropuestas = new JTable();
@@ -121,7 +124,7 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		tblPropuestas.setModel(model);
 		
 		spPropTecnica = new JScrollPane();
-		spPropTecnica.setBounds(466, 88, 252, 128);
+		spPropTecnica.setBounds(466, 61, 252, 128);
 		contentPane.add(spPropTecnica);
 		
 		txtPropTecnica = new JTextArea();
@@ -131,7 +134,7 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		txtPropTecnica.setBorder(new EmptyBorder(5,5,5,5));
 		
 		spPropEconomica = new JScrollPane();
-		spPropEconomica.setBounds(466, 240, 252, 128);
+		spPropEconomica.setBounds(466, 206, 252, 128);
 		contentPane.add(spPropEconomica);
 		
 		txtPropEconomica = new JTextArea();
@@ -141,11 +144,11 @@ public class FrmConsultaPropuesta extends JInternalFrame implements ActionListen
 		txtPropEconomica.setBorder(new EmptyBorder(5,5,5,5));
 		
 		lblPropEconomica = new JLabel("Propuesta economica");
-		lblPropEconomica.setBounds(466, 227, 172, 14);
+		lblPropEconomica.setBounds(466, 192, 172, 14);
 		contentPane.add(lblPropEconomica);
 		
 		lblPropTecnica = new JLabel("Propuesta tecnica");
-		lblPropTecnica.setBounds(466, 73, 172, 14);
+		lblPropTecnica.setBounds(466, 42, 172, 22);
 		contentPane.add(lblPropTecnica);
 
 		arranque();
