@@ -31,6 +31,7 @@ import mantenimiento.ApelacionDAO;
 import mantenimiento.PropuestaDAO;
 import utils.Tool;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class FrmApelacion extends JInternalFrame implements ActionListener {
@@ -86,7 +87,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		setIconifiable(true);
 		
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(192, 192, 192));
+		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -124,6 +125,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		panelPedido.add(lblApelacion);
 		
 		txtIdApelacion = new JTextField();
+		txtIdApelacion.setEditable(false);
 		txtIdApelacion.setBounds(10, 46, 123, 20);
 		panelPedido.add(txtIdApelacion);
 		
@@ -149,10 +151,11 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		txtEstadoApelacion.setColumns(10);
 		
 		panelParticipante = new JPanel();
+		panelParticipante.setForeground(Color.BLACK);
 		panelParticipante.setLayout(null);
 		panelParticipante.setOpaque(false);
 		panelParticipante.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PROPUESTA", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelParticipante.setBackground(SystemColor.menu);
+		panelParticipante.setBackground(Color.BLACK);
 		panelParticipante.setBounds(10, 11, 284, 132);
 		contentPane.add(panelParticipante);
 		
@@ -161,9 +164,12 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		lblPropuesta.setBounds(10, 26, 140, 14);
 		panelParticipante.add(lblPropuesta);
 		
-		btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("");
+		btnBuscar.setBackground(Color.LIGHT_GRAY);
+		btnBuscar.setForeground(Color.BLACK);
+		btnBuscar.setIcon(new ImageIcon(FrmApelacion.class.getResource("/imagenes/iconos_24x24/lupa.png")));
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(143, 26, 123, 36);
+		btnBuscar.setBounds(138, 26, 33, 36);
 		panelParticipante.add(btnBuscar);
 		
 		lblEstadoDePropuesta = new JLabel("Estado de Propuesta:");
@@ -178,6 +184,7 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		panelParticipante.add(txtEstadoPropuesta);
 		
 		txtIdPropuesta = new JTextField();
+		txtIdPropuesta.setEditable(false);
 		txtIdPropuesta.setBounds(10, 42, 106, 20);
 		panelParticipante.add(txtIdPropuesta);
 		txtIdPropuesta.setColumns(10);
@@ -190,10 +197,16 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 		propDao = new PropuestaDAO();
 		apeDao = new ApelacionDAO();
 		
-		correlativo();
-		limpiar();
+		
+		arranque();
 	}
 	
+	private void arranque() {
+		correlativo();
+		limpiar();
+		
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnBuscar) {
 			actionPerformedBtnBuscar(e);
@@ -292,9 +305,11 @@ public class FrmApelacion extends JInternalFrame implements ActionListener {
 
 
 	private void limpiar() {
-		txtIdPropuesta.setEditable(false);
+		txtIdPropuesta.setText("");
+		txtEstadoPropuesta.setText("");
 		txtDescripcion.setText("");
 		dcFechaApelacion.setDate(new Date());
+		
 	
     }
     private void correlativo() {
