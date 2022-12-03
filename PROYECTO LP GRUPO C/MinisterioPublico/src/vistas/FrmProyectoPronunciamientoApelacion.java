@@ -346,6 +346,7 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		txtApellidoEncargado.setText("");
 		txtDni.setText("");
 		txtConclusiones.setText("");
+		txtIdApelacion.setText("");
 	}
 
 }
