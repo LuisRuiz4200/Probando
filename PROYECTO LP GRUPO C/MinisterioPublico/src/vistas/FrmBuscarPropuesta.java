@@ -22,7 +22,8 @@ public class FrmBuscarPropuesta extends JDialog implements MouseListener, KeyLis
 	private DefaultTableModel model;
 	private JScrollPane scrollPane;
 	private PropuestaDAO propDao;
-	
+	private ApelacionDAO apelDao;
+	public static int indice ;
 	
 	public static void main(String [] args) {
 		
@@ -65,6 +66,7 @@ public class FrmBuscarPropuesta extends JDialog implements MouseListener, KeyLis
 		getContentPane().add(btnSeleccionar);
 		
 		propDao= new PropuestaDAO();
+		apelDao = new ApelacionDAO();
 		
 		arranque();
 		
@@ -116,26 +118,44 @@ public class FrmBuscarPropuesta extends JDialog implements MouseListener, KeyLis
 	}
 	
 	private void cargarTabla() {
-		ArrayList<Propuesta> listPed = propDao.listarPropuestas();
+		ArrayList<Propuesta> listProp = propDao.listarPropuestas();
+		ArrayList<Apelacion> listApel = apelDao.listarApelacion();
+		int bandera = 0; 
 		
 		model.setRowCount(0);
 		
-		for(Propuesta prop : listPed) {
+		for(Propuesta prop : listProp) {
 			
-			if(prop.getEstado().matches("[O][B][S].+")) {
-				Object [] x = {
-						prop.getCodPedido(),
-						prop.getCodPropuesta(),
-						prop.getCodParticipante(),
-						prop.getFecha(),
-						prop.getEstado()
-				};
-				
-				model.addRow(x);
-			}else if (tbPropuestas.getRowCount()==-1) {
-				Tool.mensajeError(this, "No hay propuestas pendientes para presentar apelacion");
+			int existe = 0;
+			
+			for (Apelacion apel : listApel) {
+				if (prop.getCodPropuesta().equals(apel.getCodPropuesta())) {
+					existe = 2;
+				}
+			}
+			
+			
+			if (existe !=2) {
+				if(prop.getEstado().matches("[O][B][S].+")) {
+					Object [] x = {
+							prop.getCodPedido(),
+							prop.getCodPropuesta(),
+							prop.getCodParticipante(),
+							prop.getFecha(),
+							prop.getEstado()
+					};
+					
+					model.addRow(x);
+					bandera = 1;
+				}
 			}
 
+		}
+		
+		
+		if (bandera == 0) {
+			Tool.mensajeError(this, "No hay propuestas pendientes para presentar apelacion");
+			btnSeleccionar.setEnabled(false);
 		}
 	}
 	
