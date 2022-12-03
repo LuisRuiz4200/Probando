@@ -34,6 +34,7 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings({ "serial", "unused" })
 public class FrmConsultaApelacion extends JInternalFrame implements MouseListener, ActionListener {
@@ -91,18 +92,20 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		btnConsultar = new JButton("Consultar");
+		btnConsultar = new JButton("");
+		btnConsultar.setBackground(Color.LIGHT_GRAY);
+		btnConsultar.setIcon(new ImageIcon(FrmConsultaApelacion.class.getResource("/imagenes/iconos_24x24/lupa.png")));
 		btnConsultar.addActionListener(this);
-		btnConsultar.setBounds(294, 12, 89, 22);
+		btnConsultar.setBounds(288, 11, 57, 36);
 		contentPane.add(btnConsultar);
 		
 		lblIdParticipante = new JLabel("ID Apelacion :");
 		lblIdParticipante.setFont(new Font("Bahnschrift", Font.PLAIN, 13));
-		lblIdParticipante.setBounds(10, 11, 97, 26);
+		lblIdParticipante.setBounds(21, 21, 104, 26);
 		contentPane.add(lblIdParticipante);
 		
 		cboApelacion = new JComboBox<Object>();
-		cboApelacion.setBounds(117, 12, 138, 22);
+		cboApelacion.setBounds(135, 22, 138, 22);
 		contentPane.add(cboApelacion);
 		
 		scrollPane_2 = new JScrollPane();
