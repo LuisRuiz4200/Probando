@@ -41,7 +41,6 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 	private JLabel lblCircunstancia;
 	private JEditorPane txtDocumento;
 	private JButton btnRegistrar;
-	private JButton btnModificar;
 	private JLabel lblEstado;
 
 	private JPanel panelPropuesta;
@@ -88,13 +87,8 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 
 		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(171, 292, 115, 23);
+		btnRegistrar.setBounds(252, 294, 115, 23);
 		getContentPane().add(btnRegistrar);
-
-		btnModificar = new JButton("MODIFICAR");
-		btnModificar.addActionListener(this);
-		btnModificar.setBounds(348, 292, 115, 23);
-		getContentPane().add(btnModificar);
 
 		panelPropuesta = new JPanel();
 		panelPropuesta.setOpaque(false);
@@ -308,9 +302,6 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnModificar) {
-			actionPerformedBtnModificar(e);
-		}
 		if (e.getSource() == btnRegistrar) {
 			actionPerformedBtnRegistrar(e);
 		}
@@ -371,57 +362,9 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 				Tool.mensajeError(this, "Error en el registro");
 			} else {
 				Tool.mensajeExito(this, "Propuesta registrada");
-				txtEstadoActa.setText(estado);
-//				if (aprop.getTipoActa().equals("Observaciones")) {
-//					prop = gProp.buscarXIdPropuesta(aprop.getIdPropuesta());
-//					prop.setEstado("OBSERVADO");
-//					gProp.actualizarPropuesta(prop);
-//				}else if (aprop.getTipoActa().equals("Resultados")) {
-//					prop = gProp.buscarXIdPropuesta(aprop.getIdPropuesta());
-//					prop.setEstado("NO ADMITIDA");
-//					gProp.actualizarPropuesta(prop);
-//				}
-				
+				txtEstadoActa.setText(estado);	
 			}
 		}
 		limpiar();
-	}
-
-	protected void actionPerformedBtnModificar(ActionEvent e) {
-		actualizarActa();
-	}
-
-	private void actualizarActa() {
-		// variables
-		String idActa, fecha, desc, tipo, codProp;
-		// entradas
-		idActa = getCodActa();
-		codProp = getCodigoPropuesta();
-		fecha = getFechaActa();
-		desc = getDescActa();
-		tipo = getTipoActa();
-
-		// validar
-		if (idActa == null || fecha == null || desc == null || tipo == null || codProp == null) {
-			return;
-		} else {
-			// Crear un objeto
-			ActaPropuesta aprop = new ActaPropuesta();
-			// setear --> asignar los valores obtenidos de la GUI a los atributos privados
-			aprop.setIdActaPropuesta(idActa);
-			aprop.setIdPropuesta(codProp);
-			aprop.setFecha(fecha);
-			aprop.setDesActaPropuesta(desc);
-			aprop.setTipoActa(tipo);
-
-			// LLamar al proceso de actualizar
-			int res = gAProp.actualizarPropuesta(aprop);
-			// validar el resultado del proceso de actualizar
-			if (res == 0) {
-				Tool.mensajeError(this, "Error en la actualización");
-			} else {
-				Tool.mensajeExito(this, "Acta actualizada");
-			}
-		}
 	}
 }
