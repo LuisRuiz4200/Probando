@@ -43,6 +43,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class FrmPedido extends JInternalFrame implements ActionListener, MouseListener {
@@ -116,42 +118,43 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		
 		txtIdPedido = new JTextField();
 		txtIdPedido.setEditable(false);
-		txtIdPedido.setBounds(339, 33, 122, 20);
+		txtIdPedido.setBounds(187, 33, 122, 20);
 		contentPane.add(txtIdPedido);
 		txtIdPedido.setColumns(10);
 		
 		lblNroPedido = new JLabel("ID Pedido :");
-		lblNroPedido.setBounds(339, 14, 147, 14);
+		lblNroPedido.setBounds(187, 14, 147, 14);
 		contentPane.add(lblNroPedido);
 		
 		lblTipo = new JLabel("Tipo de Contratacion :");
-		lblTipo.setBounds(20, 141, 147, 14);
+		lblTipo.setBounds(187, 109, 147, 14);
 		contentPane.add(lblTipo);
 		
 		lblObjeto = new JLabel("Objeto de Contratacion :");
-		lblObjeto.setBounds(20, 92, 147, 14);
+		lblObjeto.setBounds(187, 56, 147, 14);
 		contentPane.add(lblObjeto);
 		
 		cboTipo = new JComboBox<Object>();
-		cboTipo.setBounds(20, 158, 220, 22);
+		cboTipo.setModel(new DefaultComboBoxModel(new String[] {"SELECCIONE..."}));
+		cboTipo.setBounds(187, 129, 181, 22);
 		contentPane.add(cboTipo);
 		
 		txtDescripcion = new JTextArea();
-		txtDescripcion.setBounds(458, 81, 279, 88);
+		txtDescripcion.setBounds(390, 78, 326, 73);
 		txtDescripcion.setLineWrap(true);
 		txtDescripcion.setBorder(new EmptyBorder(5,5,5,5));
 		contentPane.add(txtDescripcion);
 		
-		lblDescripcion = new JLabel("Descripcion de \r\nRequrimiento:");
-		lblDescripcion.setBounds(458, 64, 175, 20);
+		lblDescripcion = new JLabel("Descripcion de \r\nRequerimiento:");
+		lblDescripcion.setBounds(390, 53, 175, 20);
 		contentPane.add(lblDescripcion);
 		
 		lblFecha = new JLabel("Fecha Inicio : ");
-		lblFecha.setBounds(177, 92, 89, 14);
+		lblFecha.setBounds(390, 14, 89, 14);
 		contentPane.add(lblFecha);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 217, 727, 229);
+		scrollPane.setBounds(10, 228, 727, 218);
 		contentPane.add(scrollPane);
 		
 		tbPedidos = new JTable();
@@ -160,16 +163,16 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		
 		btnGuardar = new JButton("GUARDAR");
 		btnGuardar.addActionListener(this);
-		btnGuardar.setBounds(494, 183, 117, 23);
+		btnGuardar.setBounds(229, 169, 117, 23);
 		contentPane.add(btnGuardar);
 		
 		btnModificar = new JButton("MODIFICAR");
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(621, 183, 108, 23);
+		btnModificar.setBounds(390, 169, 108, 23);
 		contentPane.add(btnModificar);
 		
 		dcFecha = new JDateChooser();
-		dcFecha.setBounds(177, 108, 108, 20);
+		dcFecha.setBounds(390, 33, 108, 20);
 		contentPane.add(dcFecha);
 		
 		model = new DefaultTableModel();
@@ -184,55 +187,57 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		tbPedidos.setModel(model);
 		
 		cboObjeto = new JComboBox<Object>();
-		cboObjeto.setBounds(20, 108, 122, 22);
+		cboObjeto.setModel(new DefaultComboBoxModel(new String[] {"SELECCIONE..."}));
+		cboObjeto.setBounds(187, 76, 122, 22);
 		contentPane.add(cboObjeto);
 		
-		btnNuevo = new JButton("LIMPIAR");
+		btnNuevo = new JButton("");
+		btnNuevo.setIcon(new ImageIcon(FrmPedido.class.getResource("/imagenes/iconos_24x24/limpiar.png")));
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(352, 109, 89, 23);
+		btnNuevo.setBounds(333, 33, 35, 23);
 		contentPane.add(btnNuevo);
 		
 		txtEstado = new JTextField();
 		txtEstado.setEditable(false);
 		txtEstado.setColumns(10);
-		txtEstado.setBounds(610, 33, 106, 20);
+		txtEstado.setBounds(552, 33, 106, 20);
 		contentPane.add(txtEstado);
 		
 		lblEstado = new JLabel("Estado :");
-		lblEstado.setBounds(610, 14, 67, 14);
+		lblEstado.setBounds(552, 14, 67, 14);
 		contentPane.add(lblEstado);
 		
 		lblNewLabel = new JLabel("TABLA DE PEDIDOS");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblNewLabel.setBounds(20, 186, 727, 20);
+		lblNewLabel.setBounds(10, 203, 727, 20);
 		contentPane.add(lblNewLabel);
 		
 		panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "ENTIDAD", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 11, 319, 70);
+		panel.setBounds(10, 11, 167, 112);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		txtRuc = new JTextField();
-		txtRuc.setBounds(167, 39, 117, 20);
+		txtRuc.setBounds(10, 81, 117, 20);
 		panel.add(txtRuc);
 		txtRuc.setText("");
 		txtRuc.setColumns(10);
 		
-		txtEntidad = new JTextField();
-		txtEntidad.setBounds(10, 39, 147, 20);
-		panel.add(txtEntidad);
-		txtEntidad.setColumns(10);
-		
 		lblEntidad = new JLabel("Entidad Solicitante :");
-		lblEntidad.setBounds(10, 22, 147, 14);
+		lblEntidad.setBounds(10, 23, 147, 14);
 		panel.add(lblEntidad);
 		
 		lblRuc = new JLabel("RUC :");
-		lblRuc.setBounds(167, 20, 147, 14);
+		lblRuc.setBounds(10, 69, 147, 14);
 		panel.add(lblRuc);
+		
+		txtEntidad = new JTextField();
+		txtEntidad.setBounds(10, 38, 147, 20);
+		panel.add(txtEntidad);
+		txtEntidad.setColumns(10);
 		
 		tipPedDao = new TipoPedidoDAO();
 		objPedDao = new ObjetoPedidoDAO();
