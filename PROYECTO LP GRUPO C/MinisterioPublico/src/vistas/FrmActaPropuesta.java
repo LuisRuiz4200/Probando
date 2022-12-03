@@ -180,7 +180,8 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		panelPropuesta_1.add(lblTipo);
 
 		cboTipoActa = new JComboBox<Object>();
-		cboTipoActa.setModel(new DefaultComboBoxModel<Object>(new String[] { "Seleccione...", "Resultados", "Observaciones" }));
+		cboTipoActa.setModel(
+				new DefaultComboBoxModel<Object>(new String[] { "Seleccione...", "Resultados", "Observaciones" }));
 		cboTipoActa.setBounds(154, 81, 124, 22);
 		panelPropuesta_1.add(cboTipoActa);
 
@@ -366,19 +367,20 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 				Tool.mensajeError(this, "Error en el registro");
 			} else {
 				Tool.mensajeExito(this, "Propuesta registrada");
-				txtEstadoActa.setText("REGISTRADO");
-				if (aprop.getTipoActa().equals("Observaciones")) {
-					prop = gProp.buscarXIdPropuesta(aprop.getIdPropuesta());
-					prop.setEstado("OBSERVADO");
-					gProp.actualizarPropuesta(prop);
-				}else if (aprop.getTipoActa().equals("Resultados")) {
-					prop = gProp.buscarXIdPropuesta(aprop.getIdPropuesta());
-					prop.setEstado("NO ADMITIDA");
-					gProp.actualizarPropuesta(prop);
-				}
+				txtEstadoActa.setText(estado);
+//				if (aprop.getTipoActa().equals("Observaciones")) {
+//					prop = gProp.buscarXIdPropuesta(aprop.getIdPropuesta());
+//					prop.setEstado("OBSERVADO");
+//					gProp.actualizarPropuesta(prop);
+//				}else if (aprop.getTipoActa().equals("Resultados")) {
+//					prop = gProp.buscarXIdPropuesta(aprop.getIdPropuesta());
+//					prop.setEstado("NO ADMITIDA");
+//					gProp.actualizarPropuesta(prop);
+//				}
 			}
 		}
 	}
+
 	protected void actionPerformedBtnModificar(ActionEvent e) {
 		actualizarActa();
 	}
@@ -399,7 +401,8 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 			// Crear un objeto
 			ActaPropuesta aprop = new ActaPropuesta();
 			// setear --> asignar los valores obtenidos de la GUI a los atributos privados
-			aprop.setIdActaPropuesta(idActa);;
+			aprop.setIdActaPropuesta(idActa);
+			;
 			aprop.setFecha(fecha);
 			aprop.setDesActaPropuesta(desc);
 			aprop.setTipoActa(tipo);

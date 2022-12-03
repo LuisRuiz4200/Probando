@@ -168,36 +168,69 @@ public class ActaPropuestaDAO implements ActaPropuestaInterfacesDAO {
 		// declaraion de variables
 		int res = 0;
 		Connection con = null;
-		PreparedStatement pstm = null;
+		PreparedStatement pstm1 = null; // Registra actapropuesta
+		PreparedStatement pstm2 = null; // Actualiza Propuesta
+		String estado_prop = null;
+
+		switch (aprop.getTipoActa()) {
+		case "Observaciones":
+			estado_prop = "OBSERVADO";
+			break;
+		case "Resultados":
+			estado_prop = "NO ADMITIDA";
+			break;
+		default:
+			break;
+		}
 
 		try {
-			// paso 1 : Establecer la conexión con la BD
+			// Establecer la conexión con la BD
 			con = MySQLConexion8.getConexion();
+			con.setAutoCommit(false);
 
-			// paso 2: Definir la instruccion SQL-- REGISTRO
-			String sql = "insert into tb_actapropuesta values (?,?,?,?,?,?)";
+			// Definir la instruccion SQL1-- REGISTRO
+			String sql = "INSERT INTO tb_actapropuesta VALUES (?,?,?,?,?,?)";
 
-			// paso 3 : preparar la instruccion --> obtener los comandos SQL
-			pstm = con.prepareStatement(sql);
+			// preparar la instruccion --> obtener los comandos SQL
+			pstm1 = con.prepareStatement(sql);
 
-			// paso 4: obtener los parametros
-			pstm.setString(1, aprop.getIdActaPropuesta());
-			pstm.setString(2, aprop.getIdPropuesta());
-			pstm.setString(3, aprop.getFecha());
-			pstm.setString(4, aprop.getDesActaPropuesta());
-			pstm.setString(5, aprop.getTipoActa());
-			pstm.setString(6, aprop.getEstadoActa());
+			// obtener los parametros
+			pstm1.setString(1, aprop.getIdActaPropuesta());
+			pstm1.setString(2, aprop.getIdPropuesta());
+			pstm1.setString(3, aprop.getFecha());
+			pstm1.setString(4, aprop.getDesActaPropuesta());
+			pstm1.setString(5, aprop.getTipoActa());
+			pstm1.setString(6, aprop.getEstadoActa());
 
-			// paso 5: ejecucion de la instruccion
-			res = pstm.executeUpdate();
+			res = pstm1.executeUpdate();
+
+			// actualiza el estado de la propuesta según el resultado del acta
+			String sql2 = "UPDATE tb_propuesta SET estado_prop = ? WHERE  id_prop = ?";
+			pstm2 = con.prepareStatement(sql2);
+			pstm2.setString(1, estado_prop);
+			pstm2.setString(2, aprop.getIdPropuesta());
+
+			res = pstm2.executeUpdate();
+
+			// confirmar
+			con.commit();
 
 		} catch (Exception e) {
-			System.out.println(">>>> Error en la instrucción de registro " + e.getMessage());
+			System.out.println(">>>> Error en la transacción de registro " + e.getMessage());
+			res = 0;
+			// restaura la bd antes de ejecutar la transacción
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				System.out.println(">>>> Error al restaurar " + e.getMessage());
+			}
 		} finally {
 			try {
 
-				if (pstm != null)
-					pstm.close();
+				if (pstm1 != null)
+					pstm1.close();
+				if (pstm2 != null)
+					pstm2.close();
 				if (con != null)
 					con.close();
 
