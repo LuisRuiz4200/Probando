@@ -47,9 +47,8 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	private JMenuItem mniConsultaPropuesta;
 	private JMenuItem mniReportePropuesta;
 	private JMenuItem mniUsuario;
-	private JMenuItem mntmConsultaApelacion;
-	private JLabel lblHora;
 	private JMenuItem mniConsultaApelacion;
+	private JLabel lblHora;
 	
 	
 	public static void main (String [] args) {
