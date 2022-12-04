@@ -17,6 +17,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import utils.HiloReloj;
+
+import java.awt.Font;
+
 @SuppressWarnings("serial")
 public class FrmPrincipal extends JFrame implements ActionListener  {
 
@@ -44,6 +48,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	private JMenuItem mniReportePropuesta;
 	private JMenuItem mniUsuario;
 	private JMenuItem mniConsultaApelacion;
+	private JLabel lblHora;
 	
 	
 	public static void main (String [] args) {
@@ -70,6 +75,12 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		escritorio = new JDesktopPane();
 		escritorio.setBackground(Color.gray);
 		getContentPane().add(escritorio, BorderLayout.CENTER);
+		
+		lblHora = new JLabel("hh:mm:ss");
+		lblHora.setForeground(Color.WHITE);
+		lblHora.setFont(new Font("Tw Cen MT", Font.BOLD, 16));
+		lblHora.setBounds(862, 11, 100, 32);
+		escritorio.add(lblHora);
 		
 		lblImgFonfo = new JLabel("");
 		lblImgFonfo.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/banner5.jpg")));
@@ -181,8 +192,15 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mnAyuda.add(mniQuienesSomos);
 		
 		permisos();
+		//MOSTRAR HORA
+		mostrarHora();
 		
 	}
+	private void mostrarHora() {
+		HiloReloj h = new HiloReloj(lblHora);
+		h.start();
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == mniConsultaApelacion) {
 			actionPerformedMntmConsultaApelacion(e);
