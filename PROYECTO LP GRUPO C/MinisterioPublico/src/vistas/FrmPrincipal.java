@@ -39,11 +39,11 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	private JMenuItem mniConsultaParticipante;
 	private JMenuItem mniQuienesSomos;
 	private JMenuItem mniActasPropuestas;
-	private JMenuItem mntmComite;
-	private JMenuItem mniConsultaPropusta;
+	private JMenuItem mniComite;
+	private JMenuItem mniConsultaPropuesta;
 	private JMenuItem mniReportePropuesta;
 	private JMenuItem mniUsuario;
-	private JMenuItem mntmConsultaApelacion;
+	private JMenuItem mniConsultaApelacion;
 	
 	
 	public static void main (String [] args) {
@@ -138,10 +138,10 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mniParticipante.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/participantes.png")));
 		mniParticipante.addActionListener(this);
 		
-		mntmComite = new JMenuItem("Comite de Seleccion");
-		mntmComite.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/comite.png")));
-		mntmComite.addActionListener(this);
-		mnMantenimiento.add(mntmComite);
+		mniComite = new JMenuItem("Comite de Seleccion");
+		mniComite.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/comite.png")));
+		mniComite.addActionListener(this);
+		mnMantenimiento.add(mniComite);
 		mnMantenimiento.add(mniParticipante);
 		
 		mniPropuesta = new JMenuItem("Propuestas");
@@ -160,15 +160,15 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mniConsultaParticipante.addActionListener(this);
 		mnConsulta.add(mniConsultaParticipante);
 		
-		mniConsultaPropusta = new JMenuItem("Consulta de propuestas");
-		mniConsultaPropusta.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/consultaProp.png")));
-		mniConsultaPropusta.addActionListener(this);
-		mnConsulta.add(mniConsultaPropusta);
+		mniConsultaPropuesta = new JMenuItem("Consulta de propuestas");
+		mniConsultaPropuesta.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/consultaProp.png")));
+		mniConsultaPropuesta.addActionListener(this);
+		mnConsulta.add(mniConsultaPropuesta);
 		
-		mntmConsultaApelacion = new JMenuItem("Consulta de apelaciones");
-		mntmConsultaApelacion.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/consultaApel.png")));
-		mntmConsultaApelacion.addActionListener(this);
-		mnConsulta.add(mntmConsultaApelacion);
+		mniConsultaApelacion = new JMenuItem("Consulta de apelaciones");
+		mniConsultaApelacion.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/consultaApel.png")));
+		mniConsultaApelacion.addActionListener(this);
+		mnConsulta.add(mniConsultaApelacion);
 		
 		mniReportePropuesta = new JMenuItem("Reporte de Propuestas");
 		mniReportePropuesta.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/imagenes/iconos_24x24/reporte-de-negocios.png")));
@@ -180,9 +180,11 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		mniQuienesSomos.addActionListener(this);
 		mnAyuda.add(mniQuienesSomos);
 		
+		permisos();
+		
 	}
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == mntmConsultaApelacion) {
+		if (e.getSource() == mniConsultaApelacion) {
 			actionPerformedMntmConsultaApelacion(e);
 		}
 		if (e.getSource() == mniUsuario) {
@@ -191,10 +193,10 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		if (e.getSource() == mniReportePropuesta) {
 			actionPerformedMniReportePropuesta(e);
 		}
-		if (e.getSource() == mniConsultaPropusta) {
+		if (e.getSource() == mniConsultaPropuesta) {
 			actionPerformedMniConsultaPropusta(e);
 		}
-		if (e.getSource() == mntmComite) {
+		if (e.getSource() == mniComite) {
 			actionPerformedMntmComite(e);
 		}
 		if (e.getSource() == mniActasPropuestas) {
@@ -352,6 +354,58 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 		reporContra.setVisible(true);
 		escritorio.add(reporContra).setLocation(0,0);
 		reporContra.toFront();
+	}
+	
+	//METODOS ADICIONALES
+	
+	private void permisos() {
+		
+		mostrarOpciones(false);
+		
+		switch(FrmLogin.user.getTipoUsuario()) {
+		
+		case 1://ADMINITRADOR
+			mostrarOpciones(true);
+			break;
+		case 2://MIEMBRO DEL CEP
+			mniPropuesta.setEnabled(true);
+			mniConsultaPropuesta.setEnabled(true);
+			mniResultadoPostulacion.setEnabled(true);
+			mniActasPropuestas.setEnabled(true);
+			break;
+		case 3://ASISTENTE DE LOGISTICA
+			mniPedido.setEnabled(true);
+			mniComite.setEnabled(true);
+			mniPedido.setEnabled(true);
+			mniConsultaParticipante.setEnabled(true);
+			mniApelacion.setEnabled(true);
+			break;
+		case 4://ASESOR JURIDICO
+			mniConsultaApelacion.setEnabled(true);
+			mniProyectoPronunciamiento.setEnabled(true);
+			break;
+		
+		}
+	}
+	
+	private void mostrarOpciones(Boolean x) {
+		//MANTENIMIENTO
+		mniUsuario.setEnabled(x);
+		mniPedido.setEnabled(x);
+		mniComite.setEnabled(x);
+		mniParticipante.setEnabled(x);
+		mniPropuesta.setEnabled(x);
+		mniApelacion.setEnabled(x);
+		//CONSULTA
+		mniConsultaParticipante.setEnabled(x);
+		mniConsultaPropuesta.setEnabled(x);
+		mniConsultaApelacion.setEnabled(x);
+		//TRANSACCION
+		mniResultadoPostulacion.setEnabled(x);
+		mniActasPropuestas.setEnabled(x);
+		mniProyectoPronunciamiento.setEnabled(x);
+		//REPORTE
+		mniReportePropuesta.setEnabled(x);
 	}
 
 }

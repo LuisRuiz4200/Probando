@@ -196,15 +196,11 @@ select * from tb_apelacion;
 
 select *  from tb_evaluacionpropuesta;
 
-
 select  * from tb_proyectopronunciamientoapelacion;
-
-select * from tb_participante group by codigo_parti ;
 
 select * from tb_usuario;
 
 select * from tb_actapropuesta	;
 
-/*select ped.* from tb_pedido ped
-inner join  tb_participante parti on ped.id_ped = parti.id_ped
-where ped.id_ped = parti.id_ped group by id_ped;*/
+select * from tb_tipouser;
+
