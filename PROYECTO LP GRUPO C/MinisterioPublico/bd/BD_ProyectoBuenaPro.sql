@@ -95,7 +95,7 @@ create table tb_propuesta (
 
 id_ped char(10) not null,
 id_prop char(10) not null,
-codigo_parti char (10) not null,
+codigo_parti char (10) not null unique,
 fecha_prop date,
 desTecnica_prop varchar (500),
 desEconomica_prop varchar (500),
@@ -106,6 +106,8 @@ foreign key (id_ped) references tb_pedido (id_ped),
 foreign key (codigo_parti) references tb_participante (codigo_parti),
 index (id_prop)
 );
+
+
 
 create table tb_apelacion (
 
@@ -196,15 +198,14 @@ select * from tb_apelacion;
 
 select *  from tb_evaluacionpropuesta;
 
-
 select  * from tb_proyectopronunciamientoapelacion;
-
-select * from tb_participante group by codigo_parti ;
 
 select * from tb_usuario;
 
 select * from tb_actapropuesta	;
 
-/*select ped.* from tb_pedido ped
-inner join  tb_participante parti on ped.id_ped = parti.id_ped
-where ped.id_ped = parti.id_ped group by id_ped;*/
+select * from tb_tipouser;
+
+
+
+

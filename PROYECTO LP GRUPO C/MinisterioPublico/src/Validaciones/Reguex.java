@@ -6,7 +6,7 @@ public class Reguex {
 	
 	public static String NOMBRE_USUARIO = ".{3,25}";
 	public static String APELLIDO_USUARIO = ".{3,25}";
-	public static String USER_USUARIO = "[A-Za-z0-9]{4,8}";
+	public static String USER_USUARIO = "[A-Za-z0-9]{4,15}";
 	public static String CLAVE_USUARIO = "[A-Za-z]{4,8}";
 	
 	//ENTIDAD PEDIDO

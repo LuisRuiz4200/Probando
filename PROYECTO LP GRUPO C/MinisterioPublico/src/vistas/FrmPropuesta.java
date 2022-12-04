@@ -114,7 +114,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		lblPropuestaEcono = new JLabel("Propuesta Economica:");
 		lblPropuestaEcono.setBounds(358, 171, 128, 14);
 		contentPane.add(lblPropuestaEcono);
-		
+
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 196, 338, 171);
 		contentPane.add(scrollPane);
@@ -122,8 +122,8 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtPropTecnica = new JTextArea();
 		scrollPane.setViewportView(txtPropTecnica);
 		txtPropTecnica.setLineWrap(true);
-		txtPropTecnica.setBorder(new EmptyBorder(8,8,8,8));
-		
+		txtPropTecnica.setBorder(new EmptyBorder(8, 8, 8, 8));
+
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(358, 196, 351, 171);
 		contentPane.add(scrollPane_1);
@@ -131,7 +131,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtPropEconomica = new JTextArea();
 		scrollPane_1.setViewportView(txtPropEconomica);
 		txtPropEconomica.setLineWrap(true);
-		txtPropEconomica.setBorder(new EmptyBorder(8,8,8,8));
+		txtPropEconomica.setBorder(new EmptyBorder(8, 8, 8, 8));
 
 		panelParticipante = new JPanel();
 		panelParticipante.setLayout(null);
@@ -166,14 +166,16 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		lblIdPedido = new JLabel("ID. Participante :");
 		lblIdPedido.setBounds(10, 21, 116, 14);
 		panelParticipante.add(lblIdPedido);
-		
+
 		cboParticipante = new JComboBox<Object>();
 		cboParticipante.addItemListener(this);
 		cboParticipante.setBounds(11, 35, 115, 22);
 		panelParticipante.add(cboParticipante);
 
 		panelPedido = new JPanel();
-		panelPedido.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PEDIDO", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelPedido.setBorder(new TitledBorder(
+				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "PEDIDO",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelPedido.setOpaque(false);
 		panelPedido.setBounds(329, 82, 386, 78);
 		contentPane.add(panelPedido);
@@ -191,7 +193,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		lblObjetoPedido = new JLabel("Objeto de pedido :");
 		lblObjetoPedido.setBounds(10, 46, 119, 14);
 		panelPedido.add(lblObjetoPedido);
-		
+
 		txtIdPedido = new JTextField();
 		txtIdPedido.setBounds(124, 18, 115, 20);
 		panelPedido.add(txtIdPedido);
@@ -237,11 +239,11 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		btnNuevo.addActionListener(this);
 		btnNuevo.setBounds(23, 127, 43, 33);
 		contentPane.add(btnNuevo);
-		
+
 		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.setBounds(232, 389, 101, 23);
 		contentPane.add(btnRegistrar);
-				
+
 		btnActualizar = new JButton("MODIFICAR");
 		btnActualizar.setBounds(373, 389, 108, 23);
 		contentPane.add(btnActualizar);
@@ -283,11 +285,11 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		}
 	}
 
-
-
 	private void cargarcboParticipantes() {
 		// 1. Obtener el resultado del proceso -- listar
 		ArrayList<Participante> list = gPart.listarParticipante();
+		// 2 Limpiar el cbo
+		cboParticipante.removeAllItems();
 		if (list.size() == 0) {
 			// Tool.mensajeError(null, "Lista vac�a");
 		} else {
@@ -300,15 +302,14 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	}
 
 	private void buscarPedido() {
-		
+
 		Participante p = gPart.buscarXIdParticipante(getCodigoParticipante());
-		
 
 		if (p != null) {
 			txtIdPedido.setText(p.getCodPedido());
 			ArrayList<Object[]> listPed = gPed.reportePedido();
-			
-			for (Object[] ped:listPed) {
+
+			for (Object[] ped : listPed) {
 				if (ped[0].equals(p.getCodPedido())) {
 					txtObjetoPedido.setText(ped[2].toString());
 				}
@@ -334,15 +335,15 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 	}
 
 	private String getCodigoPedido() {
-		
+
 		String res = null;
-		
-		if (txtIdPedido.getText().trim().length()==0) {
-			Tool.mensajeError(this,"PedidoVacio !");
-		}else {
+
+		if (txtIdPedido.getText().trim().length() == 0) {
+			Tool.mensajeError(this, "PedidoVacio !");
+		} else {
 			res = txtIdPedido.getText().trim();
 		}
-		
+
 		return res;
 	}
 
@@ -374,7 +375,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		if (codigo == null || codigo == "Seleccione...") {
 			txtPropuesta.setText("");
 			txtEstado.setText("REGISTRADO");
-			dcFechaProp.setDate( new Date());
+			dcFechaProp.setDate(new Date());
 			txtPropTecnica.setText("");
 			txtPropEconomica.setText("");
 			correlativo();
@@ -387,7 +388,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 				Tool.mensajeError(this, "Participante no cuenta con propuesta");
 				txtPropuesta.setText("");
 				txtEstado.setText("REGISTRADO");
-				dcFechaProp.setDate( new Date());
+				dcFechaProp.setDate(new Date());
 				txtPropTecnica.setText("");
 				txtPropEconomica.setText("");
 				correlativo();
@@ -479,7 +480,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 				Tool.mensajeError(this, "Error en el registro");
 			} else {
 				Tool.mensajeExito(this, "Propuesta registrada");
-				correlativo();
+				limpiar();
 			}
 		}
 	}
@@ -514,7 +515,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 		txtIdPedido.setEditable(false);
 		txtIdPedido.setText("");
 		cargarcboParticipantes();
-	
+
 		correlativo();
 	}
 
@@ -527,11 +528,14 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 			txtEntidadParti.setText("");
 			txtRucParti.setText("");
 		}
-		
+
 	}
+
 	protected void itemStateChangedCboParticipante(ItemEvent e) {
-		buscarDatosParticipante();
-		buscarPropuesta();
-		buscarPedido();
+		if (e.getStateChange() == ItemEvent.SELECTED) {
+			buscarDatosParticipante();
+			buscarPropuesta();
+			buscarPedido();
+		}
 	}
 }

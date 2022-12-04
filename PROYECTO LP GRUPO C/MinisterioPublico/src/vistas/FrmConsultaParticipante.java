@@ -290,7 +290,8 @@ public class FrmConsultaParticipante extends JInternalFrame implements MouseList
 
 			Tool.imprimir(txtPedido,"ID PEDIDO		: " +  ped.getCodigo());
 			Tool.imprimir(txtPedido,"ESTADO		: " + ped.getEstado());
-			Tool.imprimir(txtPedido,"DESCRIPCION		: " +  ped.getDescripcion() );
+			Tool.imprimir(txtPedido,"=========================================");
+			Tool.imprimir(txtPedido,ped.getDescripcion() );
 		}
 		
 	}
