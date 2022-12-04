@@ -171,7 +171,16 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 		}
 	}
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
-		consultaApelacion();
+		
+		txtCuadro1.setText("");
+		txtCuadro2.setText("");
+		txtCuadro3.setText("");
+		
+		if (cboApelacion.getSelectedIndex()==0) {
+			Tool.mensajeError(this, "Eliga una ID de apelacion en la lista");
+		}else {
+			consultaApelacion();
+		}
 	}
 	
 	
@@ -189,7 +198,7 @@ public class FrmConsultaApelacion extends JInternalFrame implements MouseListene
 	
 	private void cargarCboApelacion() {
 				
-ArrayList<Apelacion> list = apelDao.listarApelacion();
+		ArrayList<Apelacion> list = apelDao.listarApelacion();
 		
 		cboApelacion.removeAllItems();
 		cboApelacion.addItem("SELECCIONE...");
@@ -224,7 +233,6 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 
 	
 	private void cargarPedido(Pedido ped) {
-	     txtCuadro3.setText("");
 		
 		if(ped == null) {
 			return;
@@ -240,8 +248,6 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 	}
 
 	private void cargarParticipante(Participante part) {
-		
-		//txtCuadro1.setText("");
 		
 		if (part == null){
 			return;
@@ -259,8 +265,6 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 	
 	private void cargarApelacion(Apelacion apel) {
 		
-		txtCuadro1.setText("");
-		txtCuadro2.setText("");
 		if (apel == null) {
 			return;
 		} else {
@@ -277,7 +281,7 @@ ArrayList<Apelacion> list = apelDao.listarApelacion();
 	}
 
 	private void cargarPropuesta(Propuesta prop) {
-		//txtCuadro1.setText("");
+		
 		if (prop == null) {
 			return;
 		}else {

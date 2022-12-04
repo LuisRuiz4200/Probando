@@ -17,12 +17,14 @@ public class FrmAyuda extends JDialog{
 	
 	
 	
-	public static void main (String[]args) {
+	/*public static void main (String[]args) {
 		FrmAyuda ayuda = new FrmAyuda();
 		ayuda.setVisible(true);
-	}
+	}*/
 	
-	public FrmAyuda () {
+	public FrmAyuda (JFrame parent, boolean modal) {
+		
+		super(parent,modal);
 		
 		setTitle("Ayuda");
 		setBounds(100,100,500,300);

@@ -369,12 +369,12 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		String res=null;
 		
 		if (txtIdPedido.getText().trim().length()==0) {
-			Tool.mensajeError(this, "Campo del id pedido esta vacï¿½o !");
+			Tool.mensajeError(this, "Campo del id pedido esta vacio !");
 			txtIdPedido.requestFocus();
 		}else if (txtIdPedido.getText().trim().matches(Reguex.ID_PEDIDO)) {
 			res = txtIdPedido.getText().trim();
 		}else {
-			Tool.mensajeError(this,"ID pedido invï¿½lido. Ejemp (PD002)");
+			Tool.mensajeError(this,"ID pedido invalido. Ejemp (PD002)");
 			txtIdPedido.requestFocus();
 		}
 		
@@ -385,12 +385,12 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		String res=null;
 		
 		if (txtEntidad.getText().trim().length()==0) {
-			Tool.mensajeError(this, "Campo entidad esta vacï¿½o !");
+			Tool.mensajeError(this, "Campo entidad esta vacio !");
 			txtEntidad.requestFocus();
 		}else if (txtEntidad.getText().trim().matches(Reguex.ENTIDAD_PEDIDO)) {
 			res = txtEntidad.getText().trim();
 		}else {
-			Tool.mensajeError(this, "Entidad invï¿½lida. Cantidad de caracteres (3 y 20)");
+			Tool.mensajeError(this, "Entidad invalida. Cantidad de caracteres (3 y 20)");
 			txtEntidad.requestFocus();
 		}
 		
@@ -403,12 +403,12 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		String res=null;
 		
 		if (txtRuc.getText().trim().length()==0) {
-			Tool.mensajeError(this,"Campo del RUC estï¿½ vacï¿½o !");
+			Tool.mensajeError(this,"Campo del RUC esta vacio !");
 			txtRuc.requestFocus();
 		}else if (txtRuc.getText().trim().matches(Reguex.RUC_PEDIDO)) {
 			res= txtRuc.getText();
 		}else {
-			Tool.mensajeError(this,"Ruc invï¿½lido. Ejemp (XXXXXXXXXXX, 11 digitos)");
+			Tool.mensajeError(this,"Ruc invïalido. Ejemp (XXXXXXXXXXX, 11 digitos)");
 			txtRuc.requestFocus();
 		}
 		
@@ -432,7 +432,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		int res=-1;
 		
 		if (cboObjeto.getSelectedIndex()==0) {
-			Tool.mensajeError(this,"Elige un objeto de contrataciï¿½n");
+			Tool.mensajeError(this,"Elige un objeto de contratacion");
 		}else {
 			res = cboObjeto.getSelectedIndex();
 		}
@@ -457,7 +457,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		String res=null;
 		
 		if (dcFecha.getDate()==null) {
-			Tool.mensajeError(this, "El campo fecha estï¿½ vacï¿½o !");
+			Tool.mensajeError(this, "El campo fecha esta vacio !");
 			dcFecha.requestFocus();
 		}else {
 			res = Tool.sdf.format(dcFecha.getDate()).toString();
@@ -470,7 +470,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 		String res=null;
 		
 		if (txtEstado.getText().trim().length()==0) {
-			Tool.mensajeError(this,"El campo estado estï¿½ vacï¿½o !");
+			Tool.mensajeError(this,"El campo estado esta vacïo !");
 			txtEstado.requestFocus();
 		}else {
 			res = txtEstado.getText().toString();
@@ -597,7 +597,7 @@ public class FrmPedido extends JInternalFrame implements ActionListener, MouseLi
 	private void limpiar () {
 		txtEntidad.setEditable(false);
 		txtRuc.setEditable(false);
-		txtEntidad.setText("MINISTERIO Pï¿½BLICO");
+		txtEntidad.setText("MINISTERIO PUBLICO");
 		txtRuc.setText("20131370301");
 		dcFecha.setDate(new Date());
 		txtDescripcion.setText("");

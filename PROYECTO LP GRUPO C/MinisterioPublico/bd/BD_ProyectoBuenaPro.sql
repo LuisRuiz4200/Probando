@@ -95,7 +95,7 @@ create table tb_propuesta (
 
 id_ped char(10) not null,
 id_prop char(10) not null,
-codigo_parti char (10) not null,
+codigo_parti char (10) not null unique,
 fecha_prop date,
 desTecnica_prop varchar (500),
 desEconomica_prop varchar (500),
@@ -106,6 +106,8 @@ foreign key (id_ped) references tb_pedido (id_ped),
 foreign key (codigo_parti) references tb_participante (codigo_parti),
 index (id_prop)
 );
+
+
 
 create table tb_apelacion (
 
@@ -203,4 +205,7 @@ select * from tb_usuario;
 select * from tb_actapropuesta	;
 
 select * from tb_tipouser;
+
+
+
 

@@ -342,7 +342,8 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	//AYUDA 
 	
 	protected void actionPerformedMniQuienesSomos(ActionEvent e) {
-		FrmAyuda ayuda= new FrmAyuda();
+		FrmAyuda ayuda= new FrmAyuda(this,true);
+		ayuda.setLocationRelativeTo(this);
 		ayuda.setVisible(true);
 		ayuda.setLocationRelativeTo(this);
 	}
@@ -360,20 +361,19 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 	
 	private void permisos() {
 		
-		mostrarOpciones(false);
-		
 		switch(FrmLogin.user.getTipoUsuario()) {
 		
 		case 1://ADMINITRADOR
-			mostrarOpciones(true);
 			break;
 		case 2://MIEMBRO DEL CEP
+			mostrarOpciones(false);
 			mniPropuesta.setEnabled(true);
 			mniConsultaPropuesta.setEnabled(true);
 			mniResultadoPostulacion.setEnabled(true);
 			mniActasPropuestas.setEnabled(true);
 			break;
 		case 3://ASISTENTE DE LOGISTICA
+			mostrarOpciones(false);
 			mniPedido.setEnabled(true);
 			mniComite.setEnabled(true);
 			mniPedido.setEnabled(true);
@@ -381,6 +381,7 @@ public class FrmPrincipal extends JFrame implements ActionListener  {
 			mniApelacion.setEnabled(true);
 			break;
 		case 4://ASESOR JURIDICO
+			mostrarOpciones(false);
 			mniConsultaApelacion.setEnabled(true);
 			mniProyectoPronunciamiento.setEnabled(true);
 			break;

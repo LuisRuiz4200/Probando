@@ -361,7 +361,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		}else if (txtUsuario.getText().trim().matches(Reguex.USER_USUARIO)) {
 			res = txtUsuario.getText();
 		}else {
-			Tool.mensajeError(this, "User incorrecto. Letras y numeros de 4 a 8 caracteres");
+			Tool.mensajeError(this, "User incorrecto. Letras y numeros de 4 a 15 caracteres");
 		}
 		
 		return res;

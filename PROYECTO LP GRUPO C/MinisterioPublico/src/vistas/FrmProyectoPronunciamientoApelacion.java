@@ -112,7 +112,7 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		
 		lblResultado = new JLabel("Resultado :");
 		lblResultado.setFont(new Font("Bahnschrift", Font.PLAIN, 12));
-		lblResultado.setBounds(573, 11, 98, 14);
+		lblResultado.setBounds(562, 12, 98, 14);
 		getContentPane().add(lblResultado);
 		
 		btnRegistrar = new JButton("Registrar");
@@ -122,7 +122,7 @@ public class FrmProyectoPronunciamientoApelacion extends JInternalFrame implemen
 		
 		cboResultado = new JComboBox <Object>();
 		cboResultado.setModel(new DefaultComboBoxModel(new String[] {"FUNDADO", "NO FUNDADO"}));
-		cboResultado.setBounds(561, 27, 98, 22);
+		cboResultado.setBounds(561, 27, 110, 22);
 		getContentPane().add(cboResultado);
 		
 		btnBuscarApelacion = new JButton("Buscar");

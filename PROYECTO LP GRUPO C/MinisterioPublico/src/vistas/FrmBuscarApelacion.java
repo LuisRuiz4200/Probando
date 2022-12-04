@@ -141,7 +141,7 @@ public class FrmBuscarApelacion extends JDialog implements MouseListener, KeyLis
 						apel.getEstado()
 				};
 				model.addRow(x);
-			}else if(tbApelaciones.getRowCount()==0) {
+			}else if(tbApelaciones.getRowCount()==-1) {
 				Tool.mensajeError(this, "No hay registro de apelacion pendientes");
 				btnSeleccionar.setEnabled(false);
 			}

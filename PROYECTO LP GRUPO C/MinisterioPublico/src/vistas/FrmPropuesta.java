@@ -480,7 +480,7 @@ public class FrmPropuesta extends JInternalFrame implements ActionListener, Item
 				Tool.mensajeError(this, "Error en el registro");
 			} else {
 				Tool.mensajeExito(this, "Propuesta registrada");
-				correlativo();
+				limpiar();
 			}
 		}
 	}

@@ -82,12 +82,12 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		getContentPane().add(lblCircunstancia);
 
 		txtDocumento = new JEditorPane();
-		txtDocumento.setBounds(17, 161, 591, 120);
+		txtDocumento.setBounds(17, 161, 591, 156);
 		getContentPane().add(txtDocumento);
 
 		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(252, 294, 115, 23);
+		btnRegistrar.setBounds(447, 132, 115, 23);
 		getContentPane().add(btnRegistrar);
 
 		panelPropuesta = new JPanel();
@@ -250,8 +250,6 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		txtIdPedido.setText("");
 		txtEstadoProp.setText("");
 		dcFechaProp.setText("");
-		cboIdPropuesta.setSelectedIndex(-1);
-
 		limpiarActa();
 	}
 
@@ -260,7 +258,7 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 		txtEstadoActa.setText("REGISTRADO");
 		txtDocumento.setText("");
 		dcFechaActa.setDate(new Date());
-		cboTipoActa.setSelectedIndex(-1);
+		cboTipoActa.setSelectedIndex(0);
 	}
 
 	private String getCodActa() {
@@ -362,7 +360,7 @@ public class FrmActaPropuesta extends JInternalFrame implements ItemListener, Ac
 				Tool.mensajeError(this, "Error en el registro");
 			} else {
 				Tool.mensajeExito(this, "Propuesta registrada");
-				txtEstadoActa.setText(estado);	
+				cargarcboPropuesta();
 			}
 		}
 		limpiar();
